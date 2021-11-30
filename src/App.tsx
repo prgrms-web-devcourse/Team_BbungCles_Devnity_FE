@@ -1,10 +1,12 @@
+import styled from "@emotion/styled";
+
+const Test = styled.div`
+  color: white;
+  display: flex;
+`;
+
 const App = () => {
-  return (
-    <>
-      <div>화폐 포맷팅</div>
-      <input type="text" placeholder="화폐 숫자를 넣어주세요" />
-    </>
-  );
+  return <Test>App</Test>;
 };
 
 export default App;
