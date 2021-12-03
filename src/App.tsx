@@ -1,12 +1,12 @@
-import styled from "@emotion/styled";
-
-const Test = styled.div`
-  color: white;
-  display: flex;
-`;
+import { ThemeProvider } from "@emotion/react";
+import theme from "./assets/theme";
 
 const App = () => {
-  return <Test>App</Test>;
+  return (
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+  );
 };
 
 export default App;
