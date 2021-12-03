@@ -1,10 +1,11 @@
 import { ThemeProvider } from "@emotion/react";
 import theme from "./assets/theme";
+import Router from "./routes/Router";
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <App />
+      <Router />
     </ThemeProvider>
   );
 };

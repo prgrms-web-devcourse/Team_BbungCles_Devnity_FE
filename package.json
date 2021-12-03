@@ -9,7 +9,7 @@
     "build": "webpack build --mode=production",
     "build:report": "webpack build --mode=production && webpack-bundle-analyzer --port 9090 dist/bundleStats.json",
     "check": "tsc --noEmit",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx src && stylelint src",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx src",
     "stylelint:fix": "stylelint --fix src",
     "test": "jest",
@@ -76,6 +76,7 @@
     "dotenv": "^10.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-kakao-maps-sdk": "^1.0.4"
+    "react-kakao-maps-sdk": "^1.0.4",
+    "react-router-dom": "^5.3.0"
   }
 }
