@@ -1,12 +1,4 @@
-interface Colors {
-  [key: string]: string;
-}
-
-export interface ITheme {
-  colors: Colors;
-}
-
-export default {
+const theme = {
   colors: {
     primary: "#ffb266",
     fontColor: "#4d5256",
@@ -38,4 +30,8 @@ export default {
     yellow: "#ffff66",
     ultramarine: "#6667ff",
   },
-} as ITheme;
+} as const;
+
+export default theme;
+
+export type ITheme = typeof theme;
