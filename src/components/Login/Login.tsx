@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
-import { LoginContainer, LoginForm } from "./styles";
+import { FormikProps } from "formik";
+import { LoginContainer, LoginForm, ErrorMessage } from "./styles";
+import { FormValues } from "./types";
 
-const LoginPresenter = () => {
+interface IProps {
+  formik: FormikProps<FormValues>;
+}
+
+const Login = ({ formik }: IProps) => {
   return (
     <LoginContainer>
       <p>
@@ -9,9 +15,27 @@ const LoginPresenter = () => {
       </p>
       <h1>Devnity</h1>
 
-      <LoginForm>
-        <input type="text" placeholder="이메일" />
-        <input type="password" placeholder="비밀번호" />
+      <LoginForm onSubmit={formik.handleSubmit} autoComplete="off">
+        <input
+          name="email"
+          type="email"
+          placeholder="이메일"
+          onChange={formik.handleChange}
+          value={formik.values.email}
+        />
+        {formik.errors.email ? (
+          <ErrorMessage>{formik.errors.email}</ErrorMessage>
+        ) : null}
+        <input
+          name="password"
+          type="password"
+          placeholder="비밀번호"
+          onChange={formik.handleChange}
+          value={formik.values.password}
+        />
+        {formik.errors.password ? (
+          <ErrorMessage>{formik.errors.password}</ErrorMessage>
+        ) : null}
 
         <Link to="/findpassword">비밀번호를 잊으셨나요?</Link>
 
@@ -21,4 +45,4 @@ const LoginPresenter = () => {
   );
 };
 
-export default LoginPresenter;
+export default Login;
