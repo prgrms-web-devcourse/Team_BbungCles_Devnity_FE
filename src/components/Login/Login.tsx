@@ -21,9 +21,10 @@ const Login = ({ formik }: IProps) => {
           type="email"
           placeholder="이메일"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.email}
         />
-        {formik.errors.email ? (
+        {formik.touched.email && formik.errors.email ? (
           <ErrorMessage>{formik.errors.email}</ErrorMessage>
         ) : null}
         <input
@@ -31,9 +32,10 @@ const Login = ({ formik }: IProps) => {
           type="password"
           placeholder="비밀번호"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.password}
         />
-        {formik.errors.password ? (
+        {formik.touched.password && formik.errors.password ? (
           <ErrorMessage>{formik.errors.password}</ErrorMessage>
         ) : null}
 
