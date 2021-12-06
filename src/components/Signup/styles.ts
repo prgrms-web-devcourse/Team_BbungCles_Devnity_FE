@@ -10,3 +10,7 @@ export const SignupForm = styled.form`
 export const HiddenParagraph = styled.p`
   display: none;
 `;
+
+export const ErrorMessage = styled.p`
+  color: ${({ theme }) => theme.colors?.scarlet};
+`;

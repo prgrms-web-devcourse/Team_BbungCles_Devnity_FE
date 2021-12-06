@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Signup from "./Signup";
+import SignupContainer from "./SignupContainer";
 
 beforeEach(() => {
-  render(<Signup />, { wrapper: MemoryRouter });
+  render(<SignupContainer />, { wrapper: MemoryRouter });
 });
 
 describe("회원가입 페이지", () => {
