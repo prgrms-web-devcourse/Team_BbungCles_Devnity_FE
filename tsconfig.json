@@ -8,10 +8,7 @@
     "sourceMap": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "types": [
-      "kakao.maps.d.ts",
-      "jest",
-      "@testing-library/jest-dom"
-    ],
+    "types": ["kakao.maps.d.ts", "jest", "@testing-library/jest-dom"],
+    "lib": ["ES2015", "DOM"]
   }
 }
