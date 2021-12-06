@@ -13,7 +13,7 @@
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx src",
     "stylelint:fix": "stylelint --fix src",
     "test": "jest",
-    "test:watchAll": "jest --watchAll --verbose"
+    "test:watch": "jest --watchAll --verbose"
   },
   "keywords": [],
   "author": "",
