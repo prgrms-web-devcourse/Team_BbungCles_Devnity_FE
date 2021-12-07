@@ -30,8 +30,8 @@ const theme = {
     yellow: "#ffff66",
     ultramarine: "#6667ff",
   },
-} as const;
+};
 
 export default theme;
 
-export type ITheme = typeof theme;
+export type ThemeType = typeof theme;
