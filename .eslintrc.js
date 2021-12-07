@@ -9,6 +9,7 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
   ],
   globals: {
     context: "readonly",
@@ -87,5 +88,6 @@ module.exports = {
     "react/require-default-props": "off",
     "no-nested-ternary": "off",
     "import/prefer-default-export": "off",
+    "@typescript-eslint/no-empty-interface": "off",
   },
 };

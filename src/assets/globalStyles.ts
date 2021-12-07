@@ -21,6 +21,10 @@ const globalStyles = css`
   li {
     list-style: none;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export default globalStyles;
