@@ -1,3 +1,5 @@
+import { tagName } from "../constants";
+
 const theme = {
   colors: {
     primary: "#ffb266",
@@ -29,6 +31,29 @@ const theme = {
     scarlet: "#ff6667",
     yellow: "#ffff66",
     ultramarine: "#6667ff",
+    [tagName.ROLE]: {
+      STUDENT: "#ffff66",
+      MANAGER: "#66b3ff",
+      MENTOR: "#66ffb2",
+    },
+    [tagName.MBTI]: {
+      ENFP: "#e4d1ce",
+      INFP: "#f6fbe5",
+      ENTP: "#dbe9ec",
+      INTP: "#f5eaec",
+      ESFJ: "#d4efc3",
+      ISFJ: "#e6f9dd",
+      ESTJ: "#f7f4dd",
+      ISTJ: "#fce5fc",
+      ENFJ: "#eee0ec",
+      INFJ: "#ced1f3",
+      ESTP: "#dceadd",
+      ISTP: "#e0e1fd",
+      ESFP: "#cec6ed",
+      ISFP: "#d5ece9",
+      ENTJ: "#fac7d3",
+      INTJ: "#f5e1fa",
+    },
   },
 };
 

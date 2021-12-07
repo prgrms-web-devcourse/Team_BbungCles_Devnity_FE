@@ -13,7 +13,7 @@ const Sidebar = ({ onLinkClick }: Props) => {
       event.preventDefault();
       onLinkClick(link);
     },
-    []
+    [onLinkClick]
   );
 
   return (
@@ -26,7 +26,7 @@ const Sidebar = ({ onLinkClick }: Props) => {
           imageUrl="https://source.unsplash.com/100x100"
           onClick={handleClick("/")}
         />
-        <LogoText>Devnity</LogoText>
+        <LogoText onClick={handleClick("/")}>Devnity</LogoText>
       </Header>
       <MenuWrapper>
         <ul>

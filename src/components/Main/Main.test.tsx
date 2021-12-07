@@ -1,6 +1,8 @@
+import { ThemeProvider } from "@emotion/react";
 import { render, screen } from "@testing-library/react";
 
 import { MemoryRouter } from "react-router-dom";
+import theme from "../../assets/theme";
 
 import Main from "./Main";
 
@@ -8,7 +10,9 @@ describe("Main", () => {
   function renderMain() {
     return render(
       <MemoryRouter>
-        <Main />
+        <ThemeProvider theme={theme}>
+          <Main />
+        </ThemeProvider>
       </MemoryRouter>
     );
   }

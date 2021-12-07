@@ -1,0 +1,20 @@
+import { BiComment } from "react-icons/bi";
+import Button from "../base/Button";
+
+interface Props {
+  onClick: (event: React.MouseEvent) => void;
+}
+
+const CommentButton = ({ onClick }: Props) => {
+  const icon = (
+    <BiComment style={{ verticalAlign: "text-top" }} data-testid="filled" />
+  );
+
+  return (
+    <Button name="comment" onClick={onClick}>
+      {icon}
+    </Button>
+  );
+};
+
+export default CommentButton;

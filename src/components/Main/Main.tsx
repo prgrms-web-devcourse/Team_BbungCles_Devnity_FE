@@ -1,19 +1,16 @@
-import randomUserInfo, { userInfoType } from "../../../fixtures/userInfo";
+import randomUserInfo from "../../../fixtures/userInfo";
 import Logo from "../Logo/Logo";
+import UserCard from "../UserCard/UserCard";
 import {
   Contents,
   GatherListSummary,
   Header,
-  MainWrapper,
+  Container,
   MapgakcoAndGatherListWrapper,
   MapgakcoSummary,
   SelfIntroduce,
   Title,
 } from "./styles";
-
-interface Props {
-  userInfo: userInfoType;
-}
 
 const UserProfileImage = () => {
   return (
@@ -23,10 +20,6 @@ const UserProfileImage = () => {
       imageUrl="https://source.unsplash.com/100x100?1"
     />
   );
-};
-
-const UserCardItem = ({ userInfo }: Props) => {
-  return <li>{JSON.stringify(userInfo)}</li>;
 };
 
 const Mapgakco = () => {
@@ -39,10 +32,10 @@ const GatherList = () => {
 
 const Main = () => {
   // TODO: 모킹 데이터이므로 API 연동이 완료되면 API 데이터로 교체한다.
-  const userInfos = Array.from({ length: 3 }, () => randomUserInfo());
+  const userInfos = Array.from({ length: 10 }, () => randomUserInfo());
 
   return (
-    <MainWrapper>
+    <Container>
       <Header>
         헤더
         <UserProfileImage />
@@ -52,7 +45,9 @@ const Main = () => {
           <Title>자기소개</Title>
           <ul>
             {userInfos.map((userInfo) => (
-              <UserCardItem key={userInfo.user.userId} userInfo={userInfo} />
+              <li key={userInfo.user.userId}>
+                <UserCard userInfo={userInfo} />
+              </li>
             ))}
           </ul>
         </SelfIntroduce>
@@ -67,7 +62,7 @@ const Main = () => {
           </GatherListSummary>
         </MapgakcoAndGatherListWrapper>
       </Contents>
-    </MainWrapper>
+    </Container>
   );
 };
 

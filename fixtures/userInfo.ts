@@ -1,8 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as faker from "faker";
-
-const courses = ["프론트", "백엔드", "인공지능"];
-const roles = ["수강생", "매니저", "멘토"];
+import { course, role } from "../src/constants/index";
 
 const random = (array) => {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -23,10 +21,10 @@ const userInfo = {
   user: {
     userId: faker.datatype.uuid(),
     email: faker.internet.email(),
-    name: faker.name.findName(),
-    course: random(courses),
+    name: faker.name.firstName(),
+    course: random(Object.keys(course)),
     generation: faker.datatype.number(),
-    role: random(roles),
+    role: random(Object.keys(role)),
     createdAt: faker.datatype.datetime(),
     updatedAt: faker.datatype.datetime(),
   },
@@ -45,6 +43,7 @@ const userInfo = {
 
     likeCount: faker.datatype.number(),
     isLike: faker.datatype.boolean(),
+    commentCount: faker.datatype.number(),
   },
 };
 
@@ -52,10 +51,10 @@ const randomUserInfo = () => ({
   user: {
     userId: faker.datatype.uuid(),
     email: faker.internet.email(),
-    name: faker.name.findName(),
-    course: random(courses),
+    name: faker.name.firstName(),
+    course: random(Object.keys(course)),
     generation: faker.datatype.number(),
-    role: random(roles),
+    role: random(Object.keys(role)),
     createdAt: faker.datatype.datetime(),
     updatedAt: faker.datatype.datetime(),
   },
@@ -74,6 +73,7 @@ const randomUserInfo = () => ({
 
     likeCount: faker.datatype.number(),
     isLike: faker.datatype.boolean(),
+    commentCount: faker.datatype.number(),
   },
 });
 

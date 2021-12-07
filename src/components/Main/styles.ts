@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 
-export const MainWrapper = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid;
   height: 100%;
+  background-color: ${({ theme }) => theme.colors.gray200};
 `;
 
 export const Header = styled.header`
@@ -20,13 +20,24 @@ export const Contents = styled.section`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  width: 100%;
 `;
 
 export const SelfIntroduce = styled.div`
   margin-bottom: 40px;
-  border: 1px solid;
-  // TODO: 유저 카드 아이템(UserCardItem)이 완성되면 삭제한다.
-  word-break: break-all;
+  width: 100%;
+
+  ul {
+    display: flex;
+    padding: 10px 10px;
+    gap: 20px;
+    width: 100%;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 
 export const Title = styled.div`
@@ -43,12 +54,10 @@ export const MapgakcoSummary = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  border: 1px solid;
 `;
 
 export const GatherListSummary = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  border: 1px solid;
 `;
