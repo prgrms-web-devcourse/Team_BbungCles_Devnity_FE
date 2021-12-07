@@ -1,10 +1,27 @@
 import { useFormik, FormikProps } from "formik";
-import * as Yup from "yup";
+import { useMutation } from "react-query";
+import { useHistory } from "react-router-dom";
 import { FormValues } from "./types";
 import Signup from "./Signup";
-import { signup } from "../../utils/constants";
+
+import { requestSignup } from "../../utils/apis/signup";
+import { signupValidator } from "../../utils/yups/signup";
 
 const SignupContainer = () => {
+  const history = useHistory();
+  const mutation = useMutation((values: FormValues) => requestSignup(values), {
+    onSuccess: () => {
+      // TODO: 성공했을 경우 '회원가입이 완료되었습니다.' 문구를 Toast로 띄워 사용자에게 알려준다. Toast가 완성될 경우 alert는 지운다.
+      // eslint-disable-next-line no-alert
+      alert("회원가입이 완료되었습니다.");
+      history.push("/");
+    },
+    onError: (error) => {
+      // TODO: 에러가 발생할 경우 Toast를 띄워 사용자에게 알려준다. Toast가 완성될 경우 alert는 지운다.
+      // eslint-disable-next-line no-alert
+      alert(error);
+    },
+  });
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
     initialValues: {
       name: "",
@@ -15,29 +32,14 @@ const SignupContainer = () => {
       generation: "",
       role: "",
     },
-    validationSchema: Yup.object({
-      name: Yup.string().required(signup.message.NAME_REQUIRED_VALIDATION),
-      email: Yup.string()
-        .email(signup.message.EMAIL_FORMAT_VALIDATION)
-        .required(signup.message.EMAIL_REQUIRED_VALIDATION),
-      password: Yup.string().required(
-        signup.message.PASSWORD_REQUIRED_VALIDATION
-      ),
-      confirmPassword: Yup.string()
-        .oneOf(
-          [Yup.ref("password"), null],
-          signup.message.INCORRECT_PASSWORD_VALIDATION
-        )
-        .required(signup.message.CONFIRM_PASSWORD_REQUIRED_VALIDATION),
-      course: Yup.string().required(signup.message.COURSE_REQUIRED_VALIDATION),
-      generation: Yup.number().required(
-        signup.message.GENERATION_REQUIRED_VALIDATION
-      ),
-      role: Yup.string().required(signup.message.ROLE_REQUIRED_VALIDATION),
-    }),
-    onSubmit: (values) => {
+    validationSchema: signupValidator,
+    onSubmit: (values, { setSubmitting }) => {
+      setSubmitting(true);
       // TODO: 추후 API 호출 로직 작성필요
       console.log(values);
+      // requestSignup(values);
+      mutation.mutate(values);
+      setSubmitting(false);
     },
   });
 
