@@ -2,6 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import MainPage from "../pages/MainPage";
 import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
+import MyProfilePage from "../pages/MyProfilePage";
 
 const Router = () => {
   return (
@@ -10,7 +11,7 @@ const Router = () => {
       <Route path="/signup" exact component={SignupPage} />
       <Route path="/login" exact component={LoginPage} />
       <Route path="/admin" exact component={MainPage} />
-      <Route path="/myprofile" exact component={MainPage} />
+      <Route path="/myprofile" exact component={MyProfilePage} />
       <Route path="/userlist" exact component={MainPage} />
       <Route path="/userlist/:id" exact component={MainPage} />
       <Route path="/mygatherlist" exact component={MainPage} />
