@@ -43,10 +43,6 @@ interface IProps {
   formik: FormikProps<FormValues>;
 }
 
-interface Test {
-  [key: string]: boolean;
-}
-
 const Signup = ({ formik }: IProps) => {
   const errorCondition = useMemo(
     () => ({
