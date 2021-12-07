@@ -1,14 +1,19 @@
 import { ThemeProvider } from "@emotion/react";
+import { QueryClientProvider, QueryClient } from "react-query";
 import theme from "./assets/theme";
 import Router from "./routes/Router";
 import DefaultTemplate from "./template/DefaultTemplate";
 
 const App = () => {
+  const queryClient = new QueryClient();
+
   return (
     <ThemeProvider theme={theme}>
-      <DefaultTemplate>
-        <Router />
-      </DefaultTemplate>
+      <QueryClientProvider client={queryClient}>
+        <DefaultTemplate>
+          <Router />
+        </DefaultTemplate>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };

@@ -1,9 +1,15 @@
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import SignupContainer from "./SignupContainer";
 
+const queryClient = new QueryClient();
+
 beforeEach(() => {
-  render(<SignupContainer />, { wrapper: MemoryRouter });
+  render(
+    <QueryClientProvider client={queryClient}>
+      <SignupContainer />
+    </QueryClientProvider>
+  );
 });
 
 describe("회원가입 페이지", () => {
