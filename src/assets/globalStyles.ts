@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 const globalStyles = css`
   * {
     box-sizing: border-box;
+    font-family: "Spoqa Han Sans Neo", "Spoqa Han Sans JP", sans-serif !important;
   }
 
   html,
