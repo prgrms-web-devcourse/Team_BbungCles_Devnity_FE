@@ -8,5 +8,9 @@ const axiosInstance = axios.create();
 axiosInstance.defaults.baseURL = "http://3.37.54.135:8888/api/";
 axiosInstance.defaults.responseType = "json";
 axiosInstance.defaults.headers.common.Authorization = `Bearer `;
+axiosInstance.interceptors.response.use(
+  (res) => res,
+  (res) => Promise.reject(res)
+);
 
 export default axiosInstance;
