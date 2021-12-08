@@ -1,14 +1,10 @@
 import styled from "@emotion/styled";
 import theme from "../../assets/theme";
 
-export const CommentContainer = styled.div`
+export const Container = styled.div`
   padding: 10px 0;
   display: flex;
   flex-direction: column;
-`;
-
-export const CommentWrapper = styled.div`
-  position: relative;
 `;
 
 export const Label = styled.label`
@@ -47,14 +43,16 @@ export const TextArea = styled.textarea`
   }
 `;
 
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 export const SubmitButton = styled.button`
-  position: absolute;
-  display: block;
   width: 100px;
   height: 40px;
   background: ${theme.colors.orange400};
   border-radius: 4px;
-  right: 0px;
   border: none;
 
   &:hover {

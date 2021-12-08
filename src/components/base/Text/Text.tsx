@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import theme from "../../assets/theme";
+import theme from "../../../assets/theme";
 
 interface Props {
   children: React.ReactNode;

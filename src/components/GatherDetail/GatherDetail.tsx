@@ -1,5 +1,5 @@
 import { Props } from "./types";
-import Text from "../Text/Text";
+import Text from "../base/Text/Text";
 import CommentForm from "../CommentForm/CommentForm";
 import Comment from "../Comment/Comment";
 import ProfileBox from "../ProfileBox/ProfileBox";
@@ -138,8 +138,8 @@ const GatherDetail = ({
         authorCourse="BE"
         authorGeneration={1}
         isAuthor={isAuthor}
-        onDelete={handleCommentDelete}
-        onEdit={handleCommentEdit}
+        handleCommentDelete={handleCommentDelete}
+        handleCommentEdit={handleCommentEdit}
       />
     </Container>
   );

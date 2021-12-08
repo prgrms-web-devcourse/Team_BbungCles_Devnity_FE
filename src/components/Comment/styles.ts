@@ -9,7 +9,7 @@ export const Container = styled.li`
   }
 `;
 
-export const AuthorWrapper = styled.div`
+export const AuthorContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;

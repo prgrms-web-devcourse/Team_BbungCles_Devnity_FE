@@ -1,6 +1,6 @@
 import ProfileBox from "../ProfileBox/ProfileBox";
-import Text from "../Text/Text";
-import { Container, AuthorWrapper, DateStyle } from "./styles";
+import Text from "../base/Text/Text";
+import { Container, AuthorContainer, DateStyle } from "./styles";
 
 interface Props {
   commentId: number;
@@ -12,8 +12,8 @@ interface Props {
   authorGeneration: number;
   isAuthor: boolean;
   children?: Array<any>;
-  onDelete: (arg: number) => void;
-  onEdit: (arg: number) => void;
+  handleCommentDelete: (arg: number) => void;
+  handleCommentEdit: (arg: number) => void;
 }
 
 const Comment = ({
@@ -26,11 +26,11 @@ const Comment = ({
   authorGeneration,
   isAuthor,
   children,
-  onDelete,
-  onEdit,
+  handleCommentDelete,
+  handleCommentEdit,
 }: Props) => (
   <Container>
-    <AuthorWrapper>
+    <AuthorContainer>
       <ProfileBox
         src={authorProfile}
         name={authorUsername}
@@ -43,7 +43,7 @@ const Comment = ({
           <button
             type="button"
             onClick={() => {
-              onDelete(commentId);
+              handleCommentDelete(commentId);
             }}
           >
             수정
@@ -51,7 +51,7 @@ const Comment = ({
           <button
             type="button"
             onClick={() => {
-              onEdit(commentId);
+              handleCommentEdit(commentId);
             }}
           >
             삭제
@@ -60,7 +60,7 @@ const Comment = ({
       ) : (
         <Text style={DateStyle}>{createdAt}</Text>
       )}
-    </AuthorWrapper>
+    </AuthorContainer>
     <Text>{commentText}</Text>
   </Container>
 );

@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
 import {
-  CommentContainer,
-  CommentWrapper,
+  Container,
   Label,
   TextArea,
+  ButtonWrapper,
   SubmitButton,
 } from "./styles";
 
@@ -30,13 +30,13 @@ const CommentForm = ({ onSubmit }: Props) => {
   );
 
   return (
-    <CommentContainer>
-      <CommentWrapper>
-        <Label>댓글</Label>
-        <TextArea value={textValue} onChange={handleInputChange} />
+    <Container>
+      <Label>댓글</Label>
+      <TextArea value={textValue} onChange={handleInputChange} />
+      <ButtonWrapper>
         <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
-      </CommentWrapper>
-    </CommentContainer>
+      </ButtonWrapper>
+    </Container>
   );
 };
 
