@@ -13,6 +13,8 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 40px 20px;
   margin: 0 auto;
+  overflow-y: auto;
+  height: 100%;
 `;
 
 export const Category = styled.div`
