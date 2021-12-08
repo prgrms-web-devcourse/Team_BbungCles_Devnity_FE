@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import theme from "../../assets/theme";
-import Text from "../Text/Text";
+import Text from "../base/Text/Text";
 
 interface Props {
   src: string;
