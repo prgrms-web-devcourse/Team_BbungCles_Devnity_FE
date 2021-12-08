@@ -42,6 +42,7 @@ export const SignupForm = styled.form`
   flex-direction: column;
   gap: 20px 0;
   width: 100%;
+  height: 100%;
 `;
 
 // TODO: 이 부분도 공통으로 만들어야 함

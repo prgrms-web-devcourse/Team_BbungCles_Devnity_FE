@@ -42,6 +42,7 @@ export const LoginForm = styled.form`
   flex-direction: column;
   gap: 20px 0;
   width: 100%;
+  height: 100%;
 `;
 
 export const ErrorMessage = styled.p`
