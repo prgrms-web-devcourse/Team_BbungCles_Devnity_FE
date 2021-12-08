@@ -22,7 +22,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint"],
+  plugins: ["react", "react-hooks", "@typescript-eslint"],
   settings: {
     "import/resolver": {
       node: {
@@ -89,5 +89,12 @@ module.exports = {
     "no-nested-ternary": "off",
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-empty-interface": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        assert: "either",
+      },
+    ],
   },
 };
