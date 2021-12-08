@@ -1,10 +1,11 @@
 import { FormikProps } from "formik";
 import { useMemo } from "react";
-import { signup } from "../../utils/constants";
+import signup from "../../utils/constants/signup";
 import { FormValues } from "./types";
 import {
   ErrorMessage,
   HiddenParagraph,
+  HiddenLabel,
   SignupFormContainer,
   SignupForm,
   FormContainer,
@@ -84,6 +85,9 @@ const Signup = ({ formik }: IProps) => {
           <Title>회원가입</Title>
 
           <SignupForm onSubmit={formik.handleSubmit}>
+            <HiddenLabel htmlFor="name" style={{ display: "none" }}>
+              {signup.text.NAME}
+            </HiddenLabel>
             <Input
               type="text"
               name="name"
@@ -96,6 +100,9 @@ const Signup = ({ formik }: IProps) => {
               <ErrorMessage>{formik.errors.name}</ErrorMessage>
             ) : null}
 
+            <HiddenLabel htmlFor="email" style={{ display: "none" }}>
+              {signup.text.EMAIL}
+            </HiddenLabel>
             <Input
               type="text"
               name="email"
@@ -108,6 +115,9 @@ const Signup = ({ formik }: IProps) => {
               <ErrorMessage>{formik.errors.email}</ErrorMessage>
             ) : null}
 
+            <HiddenLabel htmlFor="password" style={{ display: "none" }}>
+              {signup.text.PASSWORD}
+            </HiddenLabel>
             <Input
               type="password"
               name="password"
@@ -120,6 +130,9 @@ const Signup = ({ formik }: IProps) => {
               <ErrorMessage>{formik.errors.password}</ErrorMessage>
             ) : null}
 
+            <HiddenLabel htmlFor="confirmPassword" style={{ display: "none" }}>
+              {signup.text.CONFIRM_PASSWORD}
+            </HiddenLabel>
             <Input
               type="password"
               name="confirmPassword"

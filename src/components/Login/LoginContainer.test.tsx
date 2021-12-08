@@ -6,7 +6,7 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import { login } from "../../utils/constants";
+import login from "../../utils/constants/login";
 import LoginContainer from "./LoginContainer";
 
 beforeEach(() => {

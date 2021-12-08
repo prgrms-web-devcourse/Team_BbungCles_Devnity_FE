@@ -1,4 +1,10 @@
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
+
+// TODO: 이 부분도 공통으로 분리해도 될듯
+const displayNone = () => css`
+  display: none;
+`;
 
 export const Container = styled.div`
   width: 100vw;
@@ -35,9 +41,10 @@ export const SignupForm = styled.form`
   display: inline-flex;
   flex-direction: column;
   gap: 20px 0;
-  flex-grow: 1;
+  width: 100%;
 `;
 
+// TODO: 이 부분도 공통으로 만들어야 함
 export const Title = styled.h1`
   align-self: center;
   font-size: 36px;
@@ -45,8 +52,12 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.colors?.gray800};
 `;
 
+export const HiddenLabel = styled.label`
+  ${displayNone}
+`;
+
 export const HiddenParagraph = styled.p`
-  display: none;
+  ${displayNone}
 `;
 
 export const ErrorMessage = styled.p`

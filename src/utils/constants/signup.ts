@@ -1,12 +1,10 @@
-export const login = {
-  message: {
-    EMAIL_FORMAT_VALIDATION: "올바른 형태의 이메일을 입력해 주세요",
-    EMAIL_REQUIRED_VALIDATION: "이메일을 입력해 주세요",
-    PASSWORD_REQUIRED_VALIDATION: "비밀번호를 입력해 주세요",
-  },
-} as const;
+interface Constant {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
 
-export const signup = {
+export default {
   message: {
     EMAIL_FORMAT_VALIDATION: "올바른 형태의 이메일을 입력해 주세요",
     EMAIL_REQUIRED_VALIDATION: "이메일을 입력해 주세요",
@@ -18,6 +16,8 @@ export const signup = {
     GENERATION_REQUIRED_VALIDATION: "기수를 선택해 주세요",
     ROLE_REQUIRED_VALIDATION: "역할을 선택해 주세요",
     COURSE_AND_GENERATION_REQUIRED_VALIDATION: "코스, 기수를 선택해 주세요",
+    COMPLETED_SIGNUP: "회원가입이 완료되었습니다.",
+    UNKNOWN_ERROR: "알 수 없는 에러입니다.",
   },
 
   text: {
@@ -36,4 +36,4 @@ export const signup = {
     ROLE: "역할 선택",
     GENERATION: "기수 선택",
   },
-} as const;
+} as Constant;

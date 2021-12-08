@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { signup } from "../constants";
+import signup from "../constants/signup";
 
 export const signupValidator = Yup.object({
   name: Yup.string().required(signup.message.NAME_REQUIRED_VALIDATION),
