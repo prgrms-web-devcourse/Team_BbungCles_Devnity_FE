@@ -3,7 +3,6 @@ import { login } from "../../constants";
 import { getLocalStorageItem } from "../functions";
 
 const axiosInstance = axios.create();
-const token = getLocalStorageItem(login.localStorageKey.TOKEN, "");
 
 // TODO : 최종 배포 전에 .env 에서 관리할 수 있도록
 // dev - http://3.37.54.135:8888/api/
@@ -12,7 +11,9 @@ axiosInstance.defaults.baseURL = "http://3.37.54.135:8888/api/";
 axiosInstance.defaults.responseType = "json";
 axiosInstance.interceptors.request.use(
   (config) => {
+    const token = getLocalStorageItem(login.localStorageKey.TOKEN, "");
     const newConfig = config;
+
     newConfig.headers.Authorization = `Bearer ${token}`;
 
     return newConfig;
