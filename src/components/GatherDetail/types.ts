@@ -1,3 +1,12 @@
+interface SimpleUserInfo {
+  userId: string;
+  name: string;
+  course: string;
+  generation: number;
+  profileImgUrl: string;
+  role: string;
+}
+
 export interface Props {
   gatherData: {
     gatherId: number;
@@ -13,7 +22,7 @@ export interface Props {
     period: number;
     applicantLimit: number;
     applicantCount: number;
-    applicants: Array<any>;
+    applicants: Array<SimpleUserInfo>;
     content: string;
     comments?: [
       {
@@ -40,14 +49,7 @@ export interface Props {
             createdAt: string;
             updatedAt: string;
 
-            simpleUserInfo: {
-              userId: string;
-              name: string;
-              course: string;
-              generation: number;
-              profileImgUrl: string;
-              role: string;
-            };
+            simpleUserInfo: SimpleUserInfo;
           }
         ];
       }

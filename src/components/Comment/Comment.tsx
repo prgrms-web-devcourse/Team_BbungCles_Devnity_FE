@@ -2,6 +2,16 @@ import ProfileBox from "../ProfileBox/ProfileBox";
 import Text from "../base/Text";
 import { Container, AuthorContainer, DateText } from "./styles";
 
+interface Comment {
+  commentId: number;
+  createdAt: string;
+  commentText: string;
+  authorUsername: string;
+  authorProfile: string;
+  authorCourse: string;
+  authorGeneration: number;
+  isAuthor: boolean;
+}
 interface Props {
   commentId: number;
   createdAt: string;
@@ -11,7 +21,7 @@ interface Props {
   authorCourse: string;
   authorGeneration: number;
   isAuthor: boolean;
-  children?: Array<any>;
+  children?: Array<Comment>;
   handleCommentDelete: (arg: number) => void;
   handleCommentEdit: (arg: number) => void;
 }
@@ -25,6 +35,8 @@ const Comment = ({
   authorCourse,
   authorGeneration,
   isAuthor,
+  // TODO : 대댓글 기능 구현해야 한다.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   children,
   handleCommentDelete,
   handleCommentEdit,

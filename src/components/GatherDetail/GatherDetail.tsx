@@ -47,11 +47,11 @@ const GatherDetail = ({
   return (
     <Container>
       <Category>
-        <Text fontSize="12px" color={theme.colors.white}>
+        <Text size={12} color={theme.colors.white}>
           {category}
         </Text>
       </Category>
-      <Text fontSize="24px" style={{ fontWeight: "bold" }}>
+      <Text size={24} strong>
         {title}
       </Text>
       <UserContainer>
@@ -67,23 +67,21 @@ const GatherDetail = ({
       </UserContainer>
       <DetailContainer>
         <TextContainer>
-          <Text fontSize="18px">모집 기간</Text>
-          <Text>
-            {createdDate}~{deadLine}
-          </Text>
+          <Text size={18}>모집 기간</Text>
+          <Text>{`${createdDate}~${deadLine}`}</Text>
         </TextContainer>
         <TextContainer>
-          <Text fontSize="18px">모집 인원</Text>
-          <Text>{applicantLimit}명</Text>
+          <Text size={18}>모집 인원</Text>
+          <Text>{`${applicantLimit}명`}</Text>
         </TextContainer>
         <TextContainer>
-          <Text fontSize="18px">신청 인원</Text>
-          <Text>{applicantCount}명</Text>
+          <Text size={18}>신청 인원</Text>
+          <Text>{`${applicantCount}명`}</Text>
           {applicants?.map((applicant) => {
             return (
               <ProfileBox
                 key={applicant.name}
-                src={applicant.profile}
+                src={applicant.profileImgUrl}
                 alt="프로필"
                 name={applicant.name}
                 course={applicant.course}
@@ -93,7 +91,7 @@ const GatherDetail = ({
           })}
         </TextContainer>
         <TextContainer>
-          <Text fontSize="18px">상세 내용</Text>
+          <Text size={18}>상세 내용</Text>
           <Text>{content}</Text>
         </TextContainer>
         <ButtonContainer>

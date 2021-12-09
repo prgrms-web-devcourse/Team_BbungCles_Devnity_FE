@@ -1,3 +1,5 @@
+// TODO: API 연동 후 콘솔창은 지울 예정이다.
+/* eslint-disable no-console */
 import GatherDetail from "./GatherDetail";
 
 const dummy = {
@@ -16,22 +18,28 @@ const dummy = {
   applicantCount: 3,
   applicants: [
     {
+      userId: "123",
       name: "뿡순이",
       course: "FE",
       generation: 1,
-      profile: "https://picsum.photos/200/400",
+      profileImgUrl: "https://picsum.photos/200/400",
+      role: "STUDENT",
     },
     {
+      userId: "123",
       name: "뿡돌이",
       course: "BE",
       generation: 2,
-      profile: "https://picsum.photos/200/400",
+      profileImgUrl: "https://picsum.photos/200/400",
+      role: "STUDENT",
     },
     {
+      userId: "123",
       name: "뿡뿡이",
       course: "FE",
       generation: 1,
-      profile: "https://picsum.photos/200/400",
+      profileImgUrl: "https://picsum.photos/200/400",
+      role: "STUDENT",
     },
   ],
   place: "강남역",

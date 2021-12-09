@@ -1,12 +1,5 @@
 import styled from "@emotion/styled";
 
-interface Props {
-  strong?: boolean;
-  color?: string;
-  fontSize?: string;
-  style?: React.CSSProperties;
-}
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;

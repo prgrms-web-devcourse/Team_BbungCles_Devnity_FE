@@ -14,19 +14,15 @@ interface Props {
 const CommentForm = ({ onSubmit }: Props) => {
   const [textValue, setTextValue] = useState("");
 
-  const handleInputChange = useCallback(
-    (value) => setTextValue(value),
-    [textValue]
-  );
+  const handleInputChange = useCallback((value) => setTextValue(value), []);
 
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      const sendValue = textValue;
+      onSubmit(textValue);
       setTextValue("");
-      onSubmit(sendValue);
     },
-    [textValue]
+    [onSubmit, textValue]
   );
 
   return (
