@@ -11,9 +11,7 @@ import { useLocalStorage } from "../../hooks";
 
 const LoginContainer = () => {
   const history = useHistory();
-  // TODO: 훅에서 2개의 객체를 리턴하지만 하나만 필요할 경우 어떻게 처리할지 팀원들과 고민
-  // eslint-disable-next-line
-  const [token, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
+  const [, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
   const { mutate } = useMutation<MutationData, MutationError, unknown, unknown>(
     (values: FormValues) => requestLogin(values),
     {
