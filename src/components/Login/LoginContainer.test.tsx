@@ -5,15 +5,20 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
-import { login } from "../../utils/constants";
+import login from "../../utils/constants/login";
 import LoginContainer from "./LoginContainer";
+
+const queryClient = new QueryClient();
 
 beforeEach(() => {
   render(
-    <BrowserRouter>
-      <LoginContainer />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <LoginContainer />
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 });
 
@@ -48,22 +53,6 @@ describe("로그인 컴포넌트 레이아웃", () => {
     }) as HTMLButtonElement;
 
     expect(loginButton).toBeInTheDocument();
-  });
-
-  it("회원가입 링크는 /signup 이어야 한다.", () => {
-    const signupLink = screen.getByRole("link", {
-      name: "회원가입",
-    }) as HTMLAnchorElement;
-
-    expect(signupLink).toHaveAttribute("href", "/signup");
-  });
-
-  it("비밀번호 찾기 링크는 /findpassword 이어야 한다.", () => {
-    const findPasswordLink = screen.getByRole("link", {
-      name: "비밀번호를 잊으셨나요?",
-    }) as HTMLAnchorElement;
-
-    expect(findPasswordLink).toHaveAttribute("href", "/findpassword");
   });
 });
 
