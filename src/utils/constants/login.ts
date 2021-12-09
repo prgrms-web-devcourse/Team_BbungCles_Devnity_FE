@@ -1,9 +1,3 @@
-interface Constant {
-  [key: string]: {
-    [key: string]: string;
-  };
-}
-
 export default {
   message: {
     EMAIL_FORMAT_VALIDATION: "올바른 형태의 이메일을 입력해 주세요",
@@ -17,4 +11,4 @@ export default {
     PASSWORD: "비밀번호",
     LOGIN: "로그인",
   },
-} as Constant;
+} as const;
