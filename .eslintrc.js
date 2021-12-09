@@ -4,6 +4,15 @@ module.exports = {
     es2021: true,
     jest: true,
   },
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 12,
+    sourceType: "module",
+  },
+  plugins: ["react", "react-hooks", "@typescript-eslint"],
   extends: [
     "airbnb",
     "plugin:react/recommended",
@@ -14,15 +23,6 @@ module.exports = {
   globals: {
     context: "readonly",
   },
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 12,
-    sourceType: "module",
-  },
-  plugins: ["react", "react-hooks", "@typescript-eslint"],
   settings: {
     "import/resolver": {
       node: {
@@ -31,7 +31,6 @@ module.exports = {
     },
   },
   rules: {
-    // indent: ["error", 2],
     "no-trailing-spaces": "error",
     curly: "error",
     "brace-style": "error",
@@ -44,7 +43,6 @@ module.exports = {
     "keyword-spacing": ["error", { before: true, after: true }],
     "comma-spacing": ["error", { before: false, after: true }],
     "comma-style": ["error", "last"],
-    // "comma-dangle": ["error", "always-multiline"],
     "space-in-parens": ["error", "never"],
     "block-spacing": "error",
     "array-bracket-spacing": ["error", "never"],
@@ -72,6 +70,9 @@ module.exports = {
         tsx: "never",
       },
     ],
+    "no-nested-ternary": "off",
+    "no-unused-expressions": ["error", { allowShortCircuit: true }],
+    "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [
       2,
       {
@@ -86,9 +87,6 @@ module.exports = {
       },
     ],
     "react/require-default-props": "off",
-    "no-nested-ternary": "off",
-    "import/prefer-default-export": "off",
-    "@typescript-eslint/no-empty-interface": "off",
     "react-hooks/exhaustive-deps": "warn",
     "jsx-a11y/label-has-associated-control": [
       "error",
@@ -96,6 +94,25 @@ module.exports = {
         assert: "either",
       },
     ],
-    "no-unused-expressions": ["error", { allowShortCircuit: true }],
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      // Allow camelCase variables (23.2), PascalCase variables (23.8), and UPPER_CASE variables (23.10)
+      {
+        selector: "variable",
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+      },
+      // Allow camelCase functions (23.2), and PascalCase functions (23.8)
+      {
+        selector: "function",
+        format: ["camelCase", "PascalCase"],
+      },
+      // Airbnb recommends PascalCase for classes (23.3), and although Airbnb does not make TypeScript recommendations, we are assuming this rule would similarly apply to anything "type like", including interfaces, type aliases, and enums
+      {
+        selector: "typeLike",
+        format: ["PascalCase"],
+      },
+    ],
   },
 };

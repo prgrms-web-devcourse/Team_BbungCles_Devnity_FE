@@ -1,4 +1,4 @@
-export default {
+const mbti = {
   ENFP: "ENFP",
   INFP: "INFP",
   ENTP: "ENTP",
@@ -16,3 +16,6 @@ export default {
   ENTJ: "ENTJ",
   INTJ: "INTJ",
 };
+
+export default mbti;
+export type MbtiKeyType = keyof typeof mbti;

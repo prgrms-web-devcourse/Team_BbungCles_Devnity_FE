@@ -18,10 +18,10 @@ interface Props {
   style?: Style;
 }
 
-let observer = null;
+let observer: IntersectionObserver = null;
 const LOAD_IMG_EVENT_TYPE = "loadImage";
 
-const onIntersection = (entries, io) => {
+const onIntersection: IntersectionObserverCallback = (entries, io) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       io.unobserve(entry.target);
@@ -44,7 +44,7 @@ const Image = ({
   ...props
 }: Props) => {
   const [loaded, setLoaded] = useState(false);
-  const imgRef = useRef(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const imageStyle = {
     display: block ? "block" : undefined,
