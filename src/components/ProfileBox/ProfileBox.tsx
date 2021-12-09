@@ -47,10 +47,10 @@ const ProfileBox = ({
   return (
     <ProfileBoxWrapper>
       <Image src={src} alt={alt} size={size} />
-      <Text fontSize={fontSize}>{name}</Text>
+      <Text size={fontSize}>{name}</Text>
       <InfoWrapper>
-        <Text fontSize={fontSize} color="white">
-          {course} / {generation}기
+        <Text size={fontSize} color={theme.colors.white}>
+          {`${course} / ${generation}기`}
         </Text>
       </InfoWrapper>
     </ProfileBoxWrapper>
