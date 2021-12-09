@@ -2,18 +2,21 @@ import { useFormik, FormikProps } from "formik";
 import { useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
 import { FormValues } from "./types";
-import { requestLogin } from "../../utils/apis/login";
+import { requestLogin } from "../../utils/apis";
 import { loginValidator } from "../../utils/yups/login";
 import { MutationData, MutationError } from "../../types/commonTypes";
-import login from "../../utils/constants/login";
+import { login } from "../../constants";
 import Login from "./Login";
+import { useLocalStorage } from "../../hooks";
 
 const LoginContainer = () => {
   const history = useHistory();
+  const [, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
   const { mutate } = useMutation<MutationData, MutationError, unknown, unknown>(
     (values: FormValues) => requestLogin(values),
     {
-      onSuccess: () => {
+      onSuccess: ({ data }) => {
+        setToken(data.data.token);
         history.push("/");
       },
       onError: ({ response }) => {

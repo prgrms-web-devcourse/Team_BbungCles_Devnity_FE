@@ -7,7 +7,7 @@ import {
 } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
-import login from "../../utils/constants/login";
+import { login } from "../../constants";
 import LoginContainer from "./LoginContainer";
 
 const queryClient = new QueryClient();

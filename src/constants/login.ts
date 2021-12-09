@@ -11,4 +11,8 @@ export default {
     PASSWORD: "비밀번호",
     LOGIN: "로그인",
   },
-} as const;
+
+  localStorageKey: {
+    TOKEN: "jwtToken",
+  },
+};

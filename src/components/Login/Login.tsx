@@ -1,6 +1,6 @@
 import { FormikProps } from "formik";
 import { useMemo } from "react";
-import login from "../../utils/constants/login";
+import { login } from "../../constants";
 import {
   Container,
   LoginForm,

@@ -1,9 +1,10 @@
 export interface MutationData {
   data: {
-    data: string;
+    data: {
+      [key: string]: string;
+    };
     statusCode: number;
   };
-  status: number;
 }
 export interface MutationError {
   response: {

@@ -3,9 +3,9 @@ import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
 import { FormValues } from "./types";
 import { MutationData, MutationError } from "../../types/commonTypes";
-import { requestSignup } from "../../utils/apis/signup";
+import { requestSignup } from "../../utils/apis";
 import { signupValidator } from "../../utils/yups/signup";
-import signup from "../../utils/constants/signup";
+import { signup } from "../../constants";
 import Signup from "./Signup";
 
 const SignupContainer = () => {
