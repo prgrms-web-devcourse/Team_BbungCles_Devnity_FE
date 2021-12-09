@@ -1,6 +1,6 @@
 import { FormikProps } from "formik";
 import { useMemo } from "react";
-import signup from "../../utils/constants/signup";
+import { signup } from "../../constants";
 import { FormValues } from "./types";
 import {
   ErrorMessage,

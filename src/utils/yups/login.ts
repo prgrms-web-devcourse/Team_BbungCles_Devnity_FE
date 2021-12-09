@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import login from "../constants/login";
+import { login } from "../../constants";
 
 export const loginValidator = Yup.object({
   email: Yup.string()

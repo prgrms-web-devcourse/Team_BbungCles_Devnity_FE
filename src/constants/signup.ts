@@ -30,4 +30,4 @@ export default {
     ROLE: "역할 선택",
     GENERATION: "기수 선택",
   },
-} as const;
+};
