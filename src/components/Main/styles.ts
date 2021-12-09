@@ -8,11 +8,15 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.header`
-  height: 45px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 0 20px;
+  padding: 12px;
+`;
+
+export const UserDropdownContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Contents = styled.section`

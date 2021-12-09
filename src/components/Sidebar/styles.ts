@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 export const SidebarWrapper = styled.nav`
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   width: 240px;
@@ -10,15 +11,11 @@ export const SidebarWrapper = styled.nav`
 export const Header = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 20px 40px;
-  margin: 20px 0;
+  justify-content: center;
+  padding: 12px;
 `;
 
-export const LogoText = styled.h1`
-  font-size: 32px;
-  font-weight: bold;
-  vertical-align: middle;
+export const TextWrapper = styled.div`
   cursor: pointer;
 `;
 

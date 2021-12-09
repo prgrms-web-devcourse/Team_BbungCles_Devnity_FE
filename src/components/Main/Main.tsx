@@ -1,8 +1,8 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 import randomUserInfo from "../../../fixtures/userInfo";
-import Logo from "../Logo/Logo";
 import UserCard from "../UserCard/UserCard";
+import UserImageAndDropdownContainer from "../UserImageAndDropdown/UserImageAndDropdownContainer";
 import {
   Contents,
   GatherListSummary,
@@ -13,16 +13,6 @@ import {
   SelfIntroduce,
   Title,
 } from "./styles";
-
-const UserProfileImage = () => {
-  return (
-    <Logo
-      width={32}
-      borderRadius="50%"
-      imageUrl="https://source.unsplash.com/100x100?1"
-    />
-  );
-};
 
 const Mapgakco = () => {
   return (
@@ -48,8 +38,7 @@ const Main = () => {
   return (
     <Container>
       <Header>
-        헤더
-        <UserProfileImage />
+        <UserImageAndDropdownContainer imageUrl="http://placeimg.com/640/480" />
       </Header>
       <Contents>
         <SelfIntroduce>

@@ -4,13 +4,11 @@ import userEvent from "@testing-library/user-event";
 
 import { MemoryRouter } from "react-router-dom";
 
+import { Unknown } from "../../types/commonTypes";
+
 import SidebarContainer from "./SidebarContainer";
 
 const mockPush = jest.fn();
-
-interface Unknown {
-  unknown: unknown;
-}
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual<Unknown>("react-router-dom"),
