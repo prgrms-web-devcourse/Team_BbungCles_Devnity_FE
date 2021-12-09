@@ -8,7 +8,10 @@
     "sourceMap": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "types": ["kakao.maps.d.ts", "jest", "@testing-library/jest-dom", "jest-plugin-context"],
-    "lib": ["ES2015", "DOM"]
+    "lib": ["ES2015", "DOM"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
   }
 }

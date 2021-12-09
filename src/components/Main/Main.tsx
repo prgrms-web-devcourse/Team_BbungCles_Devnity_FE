@@ -1,3 +1,5 @@
+import { Map, MapMarker } from "react-kakao-maps-sdk";
+
 import randomUserInfo from "../../../fixtures/userInfo";
 import Logo from "../Logo/Logo";
 import UserCard from "../UserCard/UserCard";
@@ -23,7 +25,16 @@ const UserProfileImage = () => {
 };
 
 const Mapgakco = () => {
-  return <div>맵</div>;
+  return (
+    <Map
+      center={{ lat: 33.5563, lng: 126.79581 }}
+      style={{ width: "100%", height: "360px" }}
+    >
+      <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}>
+        <div style={{ color: "#000" }}>Hello World!</div>
+      </MapMarker>
+    </Map>
+  );
 };
 
 const GatherList = () => {

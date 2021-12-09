@@ -11,12 +11,12 @@ import Text from "../base/Text";
 import Image from "../base/Image";
 import Tag from "../Tag/Tag";
 import LikeButtonAndText from "../LikeButtonAndText/LikeButtonAndText";
-import { userInfoType } from "../../../fixtures/userInfo";
+import { UserInfo } from "../../../fixtures/userInfo";
 import CommentButtonAndText from "../CommentButtonAndText/CommentButtonAndText";
 import { tagName } from "../../constants";
 
 interface Props {
-  userInfo: userInfoType;
+  userInfo: UserInfo;
   onClick?: (event: React.MouseEvent) => void;
 }
 

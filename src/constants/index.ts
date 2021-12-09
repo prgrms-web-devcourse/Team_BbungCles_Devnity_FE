@@ -1,6 +1,6 @@
-export { default as course } from "./course";
-export { default as role } from "./role";
-export { default as mbti } from "./mbti";
+export { default as course, CourseKeyType } from "./course";
+export { default as role, RoleKeyType } from "./role";
+export { default as mbti, MbtiKeyType } from "./mbti";
 export {
   tagName,
   tagMap,
