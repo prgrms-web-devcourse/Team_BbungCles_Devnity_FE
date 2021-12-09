@@ -1,6 +1,6 @@
 import { ReactChild } from "react";
 import SidebarContainer from "../components/Sidebar/SidebarContainer";
-import { PageWrapper, Wrapper } from "./styles";
+import { PageWrapper, Container } from "./styles";
 
 interface Props {
   children: ReactChild;
@@ -11,10 +11,10 @@ const DefaultTemplate = ({ children }: Props) => {
   const isShowSidebar = true;
 
   return (
-    <Wrapper>
+    <Container>
       {isShowSidebar && <SidebarContainer />}
       <PageWrapper>{children}</PageWrapper>
-    </Wrapper>
+    </Container>
   );
 };
 

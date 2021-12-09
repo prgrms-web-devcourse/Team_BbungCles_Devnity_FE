@@ -96,5 +96,6 @@ module.exports = {
         assert: "either",
       },
     ],
+    "no-unused-expressions": ["error", { allowShortCircuit: true }],
   },
 };

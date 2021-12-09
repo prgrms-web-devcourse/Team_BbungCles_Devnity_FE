@@ -1531,7 +1531,7 @@
 
 "@types/jest-plugin-context@^2.9.4":
   version "2.9.4"
-  resolved "https://registry.npmjs.org/@types/jest-plugin-context/-/jest-plugin-context-2.9.4.tgz"
+  resolved "https://registry.yarnpkg.com/@types/jest-plugin-context/-/jest-plugin-context-2.9.4.tgz#8a57782f73d02fbf7a5506b53b09b60be9bea89b"
   integrity sha512-Pbp3vkz4yJy0NWmGS/HQO6V5uafXBS1BawsTzCvCyaDXcMUtKIaixl5d0xJLtCR6EmR6XYkXZ1+prZH2GuJifA==
   dependencies:
     "@types/jest" "*"
@@ -6488,6 +6488,11 @@ react-fast-compare@^2.0.1:
   version "2.0.4"
   resolved "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
+
+react-icons@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.3.1.tgz#2fa92aebbbc71f43d2db2ed1aed07361124e91ca"
+  integrity sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==
 
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
