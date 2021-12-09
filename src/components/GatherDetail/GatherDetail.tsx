@@ -1,5 +1,5 @@
 import { Props } from "./types";
-import Text from "../base/Text/Text";
+import Text from "../base/Text";
 import CommentForm from "../CommentForm/CommentForm";
 import Comment from "../Comment/Comment";
 import ProfileBox from "../ProfileBox/ProfileBox";
@@ -11,6 +11,7 @@ import {
   TextContainer,
   ButtonContainer,
 } from "./styles";
+import theme from "../../assets/theme";
 
 const GatherDetail = ({
   gatherData,
@@ -36,7 +37,6 @@ const GatherDetail = ({
     applicantLimit,
     applicantCount,
     applicants,
-    place,
     content,
   } = gatherData;
 
@@ -47,7 +47,7 @@ const GatherDetail = ({
   return (
     <Container>
       <Category>
-        <Text fontSize="12px" color="white">
+        <Text fontSize="12px" color={theme.colors.white}>
           {category}
         </Text>
       </Category>
@@ -62,8 +62,8 @@ const GatherDetail = ({
           course={hostCourse}
           generation={hostGeneration}
         />
-        <Text color="#8C8D96">{createdDate}</Text>
-        <Text color="#8C8D96">{view}</Text>
+        <Text>{createdDate}</Text>
+        <Text>{view}</Text>
       </UserContainer>
       <DetailContainer>
         <TextContainer>
@@ -91,10 +91,6 @@ const GatherDetail = ({
               />
             );
           })}
-        </TextContainer>
-        <TextContainer>
-          <Text fontSize="18px">장소</Text>
-          <Text>{place}</Text>
         </TextContainer>
         <TextContainer>
           <Text fontSize="18px">상세 내용</Text>

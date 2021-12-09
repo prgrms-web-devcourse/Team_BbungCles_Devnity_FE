@@ -14,7 +14,6 @@ export interface Props {
     applicantLimit: number;
     applicantCount: number;
     applicants: Array<any>;
-    place: string;
     content: string;
     comments?: [
       {

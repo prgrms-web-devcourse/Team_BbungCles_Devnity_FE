@@ -31,8 +31,8 @@ const CommentForm = ({ onSubmit }: Props) => {
 
   return (
     <Container>
-      <Label>댓글</Label>
-      <TextArea value={textValue} onChange={handleInputChange} />
+      <Label htmlFor="comment">댓글</Label>
+      <TextArea id="comment" value={textValue} onChange={handleInputChange} />
       <ButtonWrapper>
         <SubmitButton onClick={handleSubmit}>등록</SubmitButton>
       </ButtonWrapper>

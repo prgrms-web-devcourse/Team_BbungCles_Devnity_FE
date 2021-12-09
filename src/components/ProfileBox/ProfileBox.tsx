@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import theme from "../../assets/theme";
-import Text from "../base/Text/Text";
+import Text from "../base/Text";
 
 interface Props {
   src: string;
@@ -17,10 +17,10 @@ type ProfileBoxType = Pick<Props, "size">;
 export const ProfileBoxWrapper = styled.div`
   display: inline-flex;
   align-items: center;
+  gap: 5px;
 `;
 
 export const Image = styled.img<ProfileBoxType>`
-  margin-right: 6px;
   width: ${(props) => props.size || "26px"};
   height: ${(props) => props.size || "26px"};
   border-radius: 50%;
@@ -29,11 +29,10 @@ export const Image = styled.img<ProfileBoxType>`
 export const InfoWrapper = styled.div`
   background-color: ${theme.colors.orange300};
   border-radius: 10px;
-  line-height: 15px;
-  text-align: center;
-  vertical-align: middle;
   padding: 8px;
-  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ProfileBox = ({

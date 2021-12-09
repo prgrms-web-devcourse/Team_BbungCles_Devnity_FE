@@ -1,6 +1,6 @@
 import ProfileBox from "../ProfileBox/ProfileBox";
-import Text from "../base/Text/Text";
-import { Container, AuthorContainer, DateStyle } from "./styles";
+import Text from "../base/Text";
+import { Container, AuthorContainer, DateText } from "./styles";
 
 interface Props {
   commentId: number;
@@ -39,7 +39,7 @@ const Comment = ({
       />
       {isAuthor ? (
         <div>
-          <Text style={DateStyle}>{createdAt}</Text>
+          <DateText>{createdAt}</DateText>
           <button
             type="button"
             onClick={() => {
@@ -58,7 +58,7 @@ const Comment = ({
           </button>
         </div>
       ) : (
-        <Text style={DateStyle}>{createdAt}</Text>
+        <DateText>{createdAt}</DateText>
       )}
     </AuthorContainer>
     <Text>{commentText}</Text>

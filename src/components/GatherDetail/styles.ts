@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import theme from "../../assets/theme";
 
 interface Props {
   strong?: boolean;
@@ -21,7 +20,7 @@ export const Category = styled.div`
   width: 60px;
   height: 30px;
   line-height: 30px;
-  background-color: ${theme.colors.scarlet};
+  background-color: ${({ theme }) => theme.colors.scarlet};
   border-radius: 7px;
   text-align: center;
   vertical-align: middle;
@@ -58,8 +57,7 @@ export const ButtonContainer = styled.div`
   button {
     font-size: 18px;
     border: none;
-    background-color: ${theme.colors.skyblue};
-    width: 100px;
+    background-color: ${({ theme }) => theme.colors.skyblue};
     border-radius: 4px;
     padding: 5px 3px;
   }

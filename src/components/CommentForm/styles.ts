@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import theme from "../../assets/theme";
 
 export const Container = styled.div`
   padding: 10px 0;
@@ -12,7 +11,7 @@ export const Label = styled.label`
   margin-bottom: 4px;
   font-weight: bold;
   font-size: 24px;
-  color: ${theme.colors.fontColor};
+  color: ${({ theme }) => theme.colors.fontColor};
   padding: 5px 0;
 `;
 
@@ -26,16 +25,12 @@ export const TextArea = styled.textarea`
   resize: none;
 
   &:focus {
-    border-color: red;
-  }
-
-  &:hover {
-    background-color: #f9f9f9;
+    border-color: ${({ theme }) => theme.colors.orange100};
   }
 
   &::placeholder {
-    color: #b2b3b9;
-    font-size: 16px;
+    color: ${({ theme }) => theme.colors.fontColor};
+    font-size: 14px;
   }
 
   &:disabled {
@@ -51,12 +46,12 @@ export const ButtonWrapper = styled.div`
 export const SubmitButton = styled.button`
   width: 100px;
   height: 40px;
-  background: ${theme.colors.orange400};
+  background: ${({ theme }) => theme.colors.orange400};
   border-radius: 4px;
   border: none;
 
   &:hover {
-    background: ${theme.colors.orange500};
+    background: ${({ theme }) => theme.colors.orange500};
   }
 
   &:disabled {

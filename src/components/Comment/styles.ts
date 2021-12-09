@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
+import Text from "../base/Text";
 
 export const Container = styled.li`
   margin-top: 20px;
@@ -27,3 +28,8 @@ export const DateStyle: CSSProperties = {
   color: "#8c8d96",
   paddingRight: "10px",
 };
+
+export const DateText = styled(Text)`
+  color: #8c8d96;
+  padding-right: 10px;
+`;
