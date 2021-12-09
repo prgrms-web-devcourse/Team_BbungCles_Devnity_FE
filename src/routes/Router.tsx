@@ -3,6 +3,7 @@ import MainPage from "../pages/MainPage";
 import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import MyProfilePage from "../pages/MyProfilePage";
+import GatherDetailPage from "../pages/GatherDetailPage";
 
 const Router = () => {
   return (
@@ -16,7 +17,7 @@ const Router = () => {
       <Route path="/userlist/:id" exact component={MainPage} />
       <Route path="/mygatherlist" exact component={MainPage} />
       <Route path="/gatherlist" exact component={MainPage} />
-      <Route path="/gatherlist/:id" exact component={MainPage} />
+      <Route path="/gatherlist/:id" exact component={GatherDetailPage} />
       <Route path="/mapgakcolist" exact component={MainPage} />
       <Route path="/mapgakcolist/:id" exact component={MainPage} />
       <Route path="/usersmap" exact component={MainPage} />
