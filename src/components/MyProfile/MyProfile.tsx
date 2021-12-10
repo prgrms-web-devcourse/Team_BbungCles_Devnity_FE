@@ -1,4 +1,5 @@
 import { useCallback, useRef } from "react";
+import { common, myProfile } from "../../constants";
 import {
   Container,
   HiddenInput,
@@ -8,7 +9,7 @@ import {
   Select,
   RowContainer,
   ColumnContainer,
-  // Textarea,
+  Textarea,
   Button,
 } from "./styles";
 import { IProps } from "./types";
@@ -48,7 +49,7 @@ const mbtis: string[] = [
   "ESFP",
 ];
 
-const MyProfile = ({ formik, image, handleImageChange }: IProps) => {
+const MyProfile = ({ formik, handleImageChange }: IProps) => {
   const inputRef = useRef<HTMLInputElement>();
   const handleImageClick = useCallback(() => {
     inputRef.current.click();
@@ -57,7 +58,9 @@ const MyProfile = ({ formik, image, handleImageChange }: IProps) => {
   return (
     <Container>
       <ProfileImage
-        src={image || "https://source.unsplash.com/random"}
+        src={
+          formik.values.profileImgUrl || "https://source.unsplash.com/random"
+        }
         alt="profile"
         onClick={handleImageClick}
       />
@@ -65,36 +68,50 @@ const MyProfile = ({ formik, image, handleImageChange }: IProps) => {
         <HiddenInput
           ref={inputRef}
           type="file"
-          name="profileImgUrl"
           accept="image/*"
           onChange={handleImageChange}
         />
+
+        <HiddenInput
+          type="text"
+          name="profileImgUrl"
+          value={formik.values.profileImgUrl || ""}
+          onChange={formik.handleChange}
+        />
+
         <RowContainer>
           <ColumnContainer>
-            <label htmlFor="name">이름</label>
+            <label htmlFor="name">{common.text.NAME}</label>
             <Input
               type="text"
               name="name"
               onChange={formik.handleChange}
               value={formik.values.name}
+              disabled
             />
           </ColumnContainer>
 
           <ColumnContainer>
-            <label htmlFor="email">이메일</label>
+            <label htmlFor="email">{common.text.EMAIL}</label>
             <Input
               type="text"
               name="email"
               onChange={formik.handleChange}
               value={formik.values.email}
+              disabled
             />
           </ColumnContainer>
         </RowContainer>
 
         <RowContainer>
           <ColumnContainer>
-            <label htmlFor="generation">기수</label>
-            <Select name="generation">
+            <label htmlFor="generation">{common.text.GENERATION}</label>
+            <Select
+              name="generation"
+              value={formik.values.generation}
+              onChange={formik.handleChange}
+              disabled
+            >
               {generations.map(({ value, label }) => (
                 <option key={value} value={value}>
                   {label}
@@ -104,8 +121,13 @@ const MyProfile = ({ formik, image, handleImageChange }: IProps) => {
           </ColumnContainer>
 
           <ColumnContainer>
-            <label htmlFor="course">코스</label>
-            <Select name="course">
+            <label htmlFor="course">{common.text.COURSE}</label>
+            <Select
+              name="course"
+              value={formik.values.course}
+              onChange={formik.handleChange}
+              disabled
+            >
               {courses.map(({ value, label }) => (
                 <option key={value} value={value}>
                   {label}
@@ -115,9 +137,13 @@ const MyProfile = ({ formik, image, handleImageChange }: IProps) => {
           </ColumnContainer>
         </RowContainer>
 
-        <label htmlFor="mbti">MBTI</label>
-        <Select name="mbti">
-          <option value="">MBTI를 선택해주세요</option>
+        <label htmlFor="mbti">{common.text.MBTI}</label>
+        <Select
+          name="mbti"
+          value={formik.values.mbti}
+          onChange={formik.handleChange}
+        >
+          <option value="">{myProfile.selectDefaultLabel.MBTI}</option>
           {mbtis.map((mbti) => (
             <option key={mbti} value={mbti}>
               {mbti}
@@ -125,7 +151,7 @@ const MyProfile = ({ formik, image, handleImageChange }: IProps) => {
           ))}
         </Select>
 
-        <label htmlFor="githubUrl">깃허브</label>
+        <label htmlFor="githubUrl">{common.text.GITHUB}</label>
         <Input
           type="text"
           name="githubUrl"
@@ -133,7 +159,7 @@ const MyProfile = ({ formik, image, handleImageChange }: IProps) => {
           value={formik.values.githubUrl || ""}
         />
 
-        <label htmlFor="blogUrl">블로그</label>
+        <label htmlFor="blogUrl">{common.text.BLOG}</label>
         <Input
           type="text"
           name="blogUrl"
@@ -141,7 +167,7 @@ const MyProfile = ({ formik, image, handleImageChange }: IProps) => {
           value={formik.values.blogUrl || ""}
         />
 
-        <label htmlFor="summary">한줄 소개</label>
+        <label htmlFor="summary">{common.text.SUMMARY}</label>
         <Input
           type="text"
           name="summary"
@@ -149,17 +175,16 @@ const MyProfile = ({ formik, image, handleImageChange }: IProps) => {
           value={formik.values.summary || ""}
         />
         {/* TODO: reset.css 처리 및 포커스에 따라 textarea, ReactMarkdown을 구분하여 보여줘도 될듯, 이 부분은 팀원들과 같이 협의 후 진행 */}
-        {/* TODO: 마크가 description 컬럼 추가하면 주석 해제 해야 함 */}
-        {/* <label htmlFor="description">자기소개</label>
+        <label htmlFor="description">{common.text.DESCRIPTION}</label>
         <Textarea
           name="description"
           onChange={formik.handleChange}
-          value={formik.values.description || ''}
-        /> */}
+          value={formik.values.description || ""}
+        />
 
         <div>내 위치 지도 API 영역</div>
 
-        <Button type="submit">수정</Button>
+        <Button type="submit">{common.buttonName.MODIFY}</Button>
       </MyProfileForm>
     </Container>
   );

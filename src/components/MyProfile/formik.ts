@@ -1,0 +1,16 @@
+export const initialValues = {
+  name: "",
+  email: "",
+  course: "",
+  generation: null,
+  role: "",
+  profileImgUrl: "",
+  mbti: "",
+  blogUrl: "",
+  githubUrl: "",
+  summary: "",
+  latitude: null,
+  longitude: null,
+  introductionId: null,
+  description: "",
+};

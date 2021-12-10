@@ -8,7 +8,7 @@ export interface MutationData {
 }
 export interface MutationError {
   response: {
-    status: string;
+    status: number;
     data: {
       message: string;
     };

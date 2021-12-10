@@ -15,8 +15,8 @@ export interface FormValues {
   summary: string;
   latitude: number | null;
   longitude: number | null;
-  // TODO: 마크가 description추가 하면 다시 주석 해제 해야 함
-  // description: string;
+  introductionId: number;
+  description?: string | null;
 }
 
 interface UserData {
@@ -31,6 +31,7 @@ interface UserData {
     mbti: string;
     profileImgUrl: string;
     summary: string;
+    description?: string | null;
   };
 
   user: {
@@ -53,7 +54,7 @@ export interface QueryData {
 
 export interface QueryError {
   response: {
-    status: string;
+    status: number;
     data: {
       message: string | null;
     };
@@ -61,7 +62,7 @@ export interface QueryError {
 }
 
 export interface IProps {
-  image: string;
+  image?: string;
   formik: FormikProps<FormValues>;
   handleImageChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
