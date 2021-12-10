@@ -10,7 +10,7 @@ export default [
     path: routes.USERSMAP,
   },
   {
-    name: "모집게시판",
+    name: "모집 게시판",
     path: routes.GATHERLIST,
   },
   {
