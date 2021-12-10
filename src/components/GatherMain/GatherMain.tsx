@@ -28,7 +28,7 @@ export interface GatherData {
 interface Props {
   selectedCategory?: string;
   gatherData: Array<GatherData>;
-  handleSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void; // () => void; // (event: React.FormEvent<HTMLFormElement>) => void; // (form: { name: string; description: string }) => void;
+  handleSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
   handleWrite: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
