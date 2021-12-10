@@ -6,6 +6,7 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 
 import theme from "../../assets/theme";
+import { routes } from "../../constants";
 
 import { Unknown } from "../../types/commonTypes";
 
@@ -57,13 +58,13 @@ describe("UserImageAndDropdownContainer", () => {
   it("드랍다운 메뉴에서 프로필을 클릭하면, 자기소개 상세 조회 페이지로 이동한다", () => {
     userEvent.click(screen.getByText("프로필"));
 
-    expect(mockPush).toBeCalledWith("/myprofile");
+    expect(mockPush).toBeCalledWith(routes.MYPROFILE);
   });
 
   it("드랍다운 메뉴에서 내 모임 관리를 클릭하면, 내 모임 관리 페이지로 이동한다", () => {
     userEvent.click(screen.getByText("내 모임 관리"));
 
-    expect(mockPush).toBeCalledWith("/mygatherlist");
+    expect(mockPush).toBeCalledWith(routes.MYGATHERLIST);
   });
 
   it("드랍다운 메뉴에서 로그아웃을 클릭하면, 로그아웃이 되며 로그인 페이지로 이동한다", () => {

@@ -8,6 +8,8 @@ import { Unknown } from "../../types/commonTypes";
 
 import SidebarContainer from "./SidebarContainer";
 
+import menuRoutes from "./menuRoutes";
+
 const mockPush = jest.fn();
 
 jest.mock("react-router-dom", () => ({
@@ -55,37 +57,6 @@ describe("SidebarContainer", () => {
 
     expect(mockPush).toBeCalledWith("/");
   });
-
-  const menuRoutes = [
-    {
-      name: "데둥이 소개",
-      path: "/userlist",
-    },
-    {
-      name: "데둥여지도",
-      path: "/usersmap",
-    },
-    {
-      name: "모집게시판",
-      path: "/gatherlist",
-    },
-    {
-      name: "스터디",
-      path: "/gatherlist?category=study",
-    },
-    {
-      name: "동아리",
-      path: "/gatherlist?category=club",
-    },
-    {
-      name: "프로젝트",
-      path: "/gatherlist?category=project",
-    },
-    {
-      name: "맵각코",
-      path: "/mapgakcolist",
-    },
-  ];
 
   menuRoutes.forEach(({ name, path }) => {
     it(`사용자는 ${name} 클릭하면, ${name}(으)로 이동한다`, () => {

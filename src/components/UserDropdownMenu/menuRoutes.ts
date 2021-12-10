@@ -1,11 +1,13 @@
+import { routes } from "../../constants";
+
 export default [
   {
     name: "프로필",
-    path: "/myprofile",
+    path: routes.MYPROFILE,
   },
   {
     name: "내 모임 관리",
-    path: "/mygatherlist",
+    path: routes.MYGATHERLIST,
   },
   {
     name: "로그아웃",

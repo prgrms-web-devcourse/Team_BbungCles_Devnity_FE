@@ -1,0 +1,18 @@
+export default {
+  MAIN: "/",
+  SIGNUP: "/signup",
+  LOGIN: "/login",
+  ADMIN: "/admin",
+  MYPROFILE: "/myprofile",
+  USERLIST: "/userlist",
+  USERLIST_ID: "/userlist/:id",
+  MYGATHERLIST: "/mygatherlist",
+  GATHERLIST: "/gatherlist",
+  GATHERLIST_STUDY: "/gatherlist/study",
+  GATHERLIST_PROJECT: "/gatherlist/project",
+  GATHERLIST_CLUB: "/gatherlist/club",
+  GATHERLIST_ID: "/gatherlist/:id",
+  MAPGAKCOLIST: "/mapgakcolist",
+  MAPGAKCOLIST_ID: "/mapgakcolist/:id",
+  USERSMAP: "/usersmap",
+};

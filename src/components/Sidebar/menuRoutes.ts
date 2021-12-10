@@ -1,30 +1,32 @@
+import { routes } from "../../constants";
+
 export default [
   {
     name: "데둥이 소개",
-    path: "/userlist",
+    path: routes.USERLIST,
   },
   {
     name: "데둥여지도",
-    path: "/usersmap",
+    path: routes.USERSMAP,
   },
   {
     name: "모집게시판",
-    path: "/gatherlist",
+    path: routes.GATHERLIST,
   },
   {
     name: "스터디",
-    path: "/gatherlist?category=study",
+    path: routes.GATHERLIST_STUDY,
   },
   {
     name: "동아리",
-    path: "/gatherlist?category=club",
+    path: routes.GATHERLIST_CLUB,
   },
   {
     name: "프로젝트",
-    path: "/gatherlist?category=project",
+    path: routes.GATHERLIST_PROJECT,
   },
   {
     name: "맵각코",
-    path: "/mapgakcolist",
+    path: routes.MAPGAKCOLIST,
   },
 ];
