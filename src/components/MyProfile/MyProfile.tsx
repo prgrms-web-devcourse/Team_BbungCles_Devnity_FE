@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import {
   Container,
   HiddenInput,
@@ -8,7 +8,7 @@ import {
   Select,
   RowContainer,
   ColumnContainer,
-  Textarea,
+  // Textarea,
   Button,
 } from "./styles";
 import { IProps } from "./types";
@@ -48,28 +48,11 @@ const mbtis: string[] = [
   "ESFP",
 ];
 
-const MyProfile = ({ formik }: IProps) => {
-  const [image, setImage] = useState<string>("");
+const MyProfile = ({ formik, image, handleImageChange }: IProps) => {
   const inputRef = useRef<HTMLInputElement>();
-
   const handleImageClick = useCallback(() => {
     inputRef.current.click();
   }, []);
-
-  const handleImageChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        const result = reader.result as string;
-        setImage(result);
-        formik.setFieldValue("profileImgUrl", result);
-      };
-      reader.readAsDataURL(file);
-    },
-    [formik]
-  );
 
   return (
     <Container>
@@ -147,7 +130,7 @@ const MyProfile = ({ formik }: IProps) => {
           type="text"
           name="githubUrl"
           onChange={formik.handleChange}
-          value={formik.values.githubUrl}
+          value={formik.values.githubUrl || ""}
         />
 
         <label htmlFor="blogUrl">블로그</label>
@@ -155,7 +138,7 @@ const MyProfile = ({ formik }: IProps) => {
           type="text"
           name="blogUrl"
           onChange={formik.handleChange}
-          value={formik.values.blogUrl}
+          value={formik.values.blogUrl || ""}
         />
 
         <label htmlFor="summary">한줄 소개</label>
@@ -163,15 +146,16 @@ const MyProfile = ({ formik }: IProps) => {
           type="text"
           name="summary"
           onChange={formik.handleChange}
-          value={formik.values.summary}
+          value={formik.values.summary || ""}
         />
         {/* TODO: reset.css 처리 및 포커스에 따라 textarea, ReactMarkdown을 구분하여 보여줘도 될듯, 이 부분은 팀원들과 같이 협의 후 진행 */}
-        <label htmlFor="description">자기소개</label>
+        {/* TODO: 마크가 description 컬럼 추가하면 주석 해제 해야 함 */}
+        {/* <label htmlFor="description">자기소개</label>
         <Textarea
           name="description"
           onChange={formik.handleChange}
-          value={formik.values.description}
-        />
+          value={formik.values.description || ''}
+        /> */}
 
         <div>내 위치 지도 API 영역</div>
 

@@ -1,7 +1,7 @@
 export interface MutationData {
   data: {
     data: {
-      [key: string]: string;
+      [key: string]: string | null;
     };
     statusCode: number;
   };
