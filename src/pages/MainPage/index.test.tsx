@@ -21,9 +21,9 @@ describe("MainPage", () => {
     renderMainPage();
   });
 
-  it("메인을 보면, `자기소개`, `맵각코 요약`, `모집게시판`의 내용을 볼 수 있다.", () => {
+  it("메인을 보면, `자기소개`, `맵각코 요약`, `모집 게시판`의 내용을 볼 수 있다.", () => {
     expect(screen.queryByText("자기소개")).toBeInTheDocument();
     expect(screen.queryByText("맵각코 요약")).toBeInTheDocument();
-    expect(screen.queryByText("모집게시판")).toBeInTheDocument();
+    expect(screen.queryByText("모집 게시판")).toBeInTheDocument();
   });
 });
