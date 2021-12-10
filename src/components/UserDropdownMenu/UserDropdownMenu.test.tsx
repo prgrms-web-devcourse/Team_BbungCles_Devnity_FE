@@ -2,6 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import theme from "../../assets/theme";
+import { routes } from "../../constants";
 
 import UserDropdownMenu from "./UserDropdownMenu";
 
@@ -41,7 +42,7 @@ describe("UserDropdownMenu", () => {
 
     userEvent.click(screen.getByText("프로필"));
 
-    expect(handleClick).toBeCalledWith("/myprofile");
+    expect(handleClick).toBeCalledWith(routes.MYPROFILE);
   });
 
   it("드랍다운 메뉴에서 내 모임 관리를 클릭하면, 내 모임 관리 페이지로 이동한다", () => {
@@ -49,7 +50,7 @@ describe("UserDropdownMenu", () => {
 
     userEvent.click(screen.getByText("내 모임 관리"));
 
-    expect(handleClick).toBeCalledWith("/mygatherlist");
+    expect(handleClick).toBeCalledWith(routes.MYGATHERLIST);
   });
 
   it("드랍다운 메뉴에서 로그아웃을 클릭하면, 로그아웃이 되며 로그인 페이지로 이동한다", () => {

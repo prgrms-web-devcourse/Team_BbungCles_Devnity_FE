@@ -4,23 +4,27 @@ import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import MyProfilePage from "../pages/MyProfilePage";
 import GatherDetailPage from "../pages/GatherDetailPage";
+import { routes } from "../constants";
 
 const Router = () => {
   return (
     <Switch>
-      <Route path="/" exact component={MainPage} />
-      <Route path="/signup" exact component={SignupPage} />
-      <Route path="/login" exact component={LoginPage} />
-      <Route path="/admin" exact component={MainPage} />
-      <Route path="/myprofile" exact component={MyProfilePage} />
-      <Route path="/userlist" exact component={MainPage} />
-      <Route path="/userlist/:id" exact component={MainPage} />
-      <Route path="/mygatherlist" exact component={MainPage} />
-      <Route path="/gatherlist" exact component={MainPage} />
-      <Route path="/gatherlist/:id" exact component={GatherDetailPage} />
-      <Route path="/mapgakcolist" exact component={MainPage} />
-      <Route path="/mapgakcolist/:id" exact component={MainPage} />
-      <Route path="/usersmap" exact component={MainPage} />
+      <Route path={routes.MAIN} exact component={MainPage} />
+      <Route path={routes.SIGNUP} exact component={SignupPage} />
+      <Route path={routes.LOGIN} exact component={LoginPage} />
+      <Route path={routes.ADMIN} exact component={MainPage} />
+      <Route path={routes.MYPROFILE} exact component={MyProfilePage} />
+      <Route path={routes.USERLIST} exact component={MainPage} />
+      <Route path={routes.USERLIST_ID} exact component={MainPage} />
+      <Route path={routes.MYGATHERLIST} exact component={MainPage} />
+      <Route path={routes.GATHERLIST} exact component={MainPage} />
+      <Route path={routes.GATHERLIST_STUDY} exact component={MainPage} />
+      <Route path={routes.GATHERLIST_CLUB} exact component={MainPage} />
+      <Route path={routes.GATHERLIST_PROJECT} exact component={MainPage} />
+      <Route path={routes.GATHERLIST_ID} exact component={GatherDetailPage} />
+      <Route path={routes.MAPGAKCOLIST} exact component={MainPage} />
+      <Route path={routes.MAPGAKCOLIST_ID} exact component={MainPage} />
+      <Route path={routes.USERSMAP} exact component={MainPage} />
       {/*
       TODO: 백엔드와 스크럼에서 Role 사용 관련 이야기가 완료되면 바뀔수도 있음
       지금은 대략적인 사용방법의 예시를 명시했습니다.
