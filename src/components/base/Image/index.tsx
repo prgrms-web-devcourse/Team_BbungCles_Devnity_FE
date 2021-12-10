@@ -52,6 +52,7 @@ const Image = ({
     height,
     borderRadius,
     objectFit: mode,
+    verticalAlign: "middle",
   };
 
   useEffect(() => {

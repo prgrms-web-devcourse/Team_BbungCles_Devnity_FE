@@ -14,3 +14,7 @@ export interface MutationError {
     };
   };
 }
+
+export interface Unknown {
+  unknown: unknown;
+}

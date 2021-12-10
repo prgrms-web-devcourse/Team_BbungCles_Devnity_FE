@@ -1,7 +1,8 @@
 import { useCallback } from "react";
-import { Header, LogoText, MenuWrapper, SidebarWrapper } from "./styles";
+import { Header, MenuWrapper, SidebarWrapper, TextWrapper } from "./styles";
 import Logo from "../Logo/Logo";
 import menuRoutes from "./menuRoutes";
+import Text from "../base/Text";
 
 interface Props {
   onLinkClick: (link: string) => void;
@@ -26,7 +27,11 @@ const Sidebar = ({ onLinkClick }: Props) => {
           imageUrl="https://source.unsplash.com/100x100"
           onClick={handleClick("/")}
         />
-        <LogoText onClick={handleClick("/")}>Devnity</LogoText>
+        <TextWrapper onClick={handleClick("/")}>
+          <Text size={32} strong>
+            Devnity
+          </Text>
+        </TextWrapper>
       </Header>
       <MenuWrapper>
         <ul>

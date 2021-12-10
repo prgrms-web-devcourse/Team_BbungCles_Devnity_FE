@@ -45,7 +45,9 @@ describe("UserCard", () => {
         return;
       }
 
-      expect(screen.queryByText(value, { exact: false })).toBeInTheDocument();
+      const regex = new RegExp(value.toString());
+
+      expect(screen.queryByText(regex)).toBeInTheDocument();
     });
   });
 
