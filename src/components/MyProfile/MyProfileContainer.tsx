@@ -11,6 +11,7 @@ import {
   requestPutMyProfile,
 } from "../../utils/apis/myProfile";
 import { initialValues } from "./formik";
+import { MutationData, MutationError } from "../../types/commonTypes";
 
 const MyProfileContainer = () => {
   const [, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
@@ -53,50 +54,54 @@ const MyProfileContainer = () => {
     }
   );
   // 프로필 이미지 수정 API
-  const profileImageMutation = useMutation(
-    (imageFile: File) => requestProfileImage(imageFile),
-    {
-      onSuccess: ({ data }) => {
-        if (data.statusCode === errorCode.OK) {
-          formik.setFieldValue("profileImgUrl", data.data.imageUrl);
-        }
-      },
-      onError: ({ response }) => {
-        const errorMessage = response
-          ? response.data.message
-          : login.message.UNKNOWN_ERROR;
+  const profileImageMutation = useMutation<
+    MutationData,
+    MutationError,
+    unknown,
+    unknown
+  >((imageFile: File) => requestProfileImage(imageFile), {
+    onSuccess: ({ data }) => {
+      if (data.statusCode === errorCode.OK) {
+        formik.setFieldValue("profileImgUrl", data.data.imageUrl);
+      }
+    },
+    onError: ({ response }) => {
+      const errorMessage = response
+        ? response.data.message
+        : login.message.UNKNOWN_ERROR;
 
-        // TODO: 에러가 발생할 경우 Toast를 띄워 사용자에게 알려준다. Toast가 완성될 경우 alert는 지운다.
-        // eslint-disable-next-line no-alert
-        alert(errorMessage);
-      },
-    }
-  );
+      // TODO: 에러가 발생할 경우 Toast를 띄워 사용자에게 알려준다. Toast가 완성될 경우 alert는 지운다.
+      // eslint-disable-next-line no-alert
+      alert(errorMessage);
+    },
+  });
   // 내 프로필 수정 API
-  const profileInformationMutation = useMutation(
-    (values: FormValues) => requestPutMyProfile(values),
-    {
-      onSuccess: ({ data }) => {
-        if (data.statusCode === errorCode.OK) {
-          // TODO: toast가 완성될 경우 alert는 지운다.
-          // eslint-disable-next-line no-alert
-          alert("변경이 완료되었습니다.");
-        }
-      },
-      onError: ({ response }) => {
-        const errorMessage = response
-          ? response.data.message
-          : login.message.UNKNOWN_ERROR;
-
-        if (response.status === errorCode.UNAUTHORIZED) {
-          setToken("");
-        }
-        // TODO: 에러가 발생할 경우 Toast를 띄워 사용자에게 알려준다. Toast가 완성될 경우 alert는 지운다.
+  const profileInformationMutation = useMutation<
+    MutationData,
+    MutationError,
+    unknown,
+    unknown
+  >((values: FormValues) => requestPutMyProfile(values), {
+    onSuccess: ({ data }) => {
+      if (data.statusCode === errorCode.OK) {
+        // TODO: toast가 완성될 경우 alert는 지운다.
         // eslint-disable-next-line no-alert
-        alert(errorMessage);
-      },
-    }
-  );
+        alert("변경이 완료되었습니다.");
+      }
+    },
+    onError: ({ response }) => {
+      const errorMessage = response
+        ? response.data.message
+        : login.message.UNKNOWN_ERROR;
+
+      if (response.status === errorCode.UNAUTHORIZED) {
+        setToken("");
+      }
+      // TODO: 에러가 발생할 경우 Toast를 띄워 사용자에게 알려준다. Toast가 완성될 경우 alert는 지운다.
+      // eslint-disable-next-line no-alert
+      alert(errorMessage);
+    },
+  });
 
   const handleImageChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
