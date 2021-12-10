@@ -62,7 +62,6 @@ export interface QueryError {
 }
 
 export interface IProps {
-  image?: string;
   formik: FormikProps<FormValues>;
   handleImageChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }

@@ -26,8 +26,8 @@ const courses: SelectOption[] = [
   { value: "AI", label: "인공지능" },
 ];
 const generations: SelectOption[] = [
-  { value: "1", label: "1기" },
-  { value: "2", label: "2기" },
+  { value: 1, label: "1기" },
+  { value: 2, label: "2기" },
 ];
 
 const mbtis: string[] = [
@@ -108,7 +108,7 @@ const MyProfile = ({ formik, handleImageChange }: IProps) => {
             <label htmlFor="generation">{common.text.GENERATION}</label>
             <Select
               name="generation"
-              value={formik.values.generation}
+              value={formik.values.generation || ""}
               onChange={formik.handleChange}
               disabled
             >
@@ -124,7 +124,7 @@ const MyProfile = ({ formik, handleImageChange }: IProps) => {
             <label htmlFor="course">{common.text.COURSE}</label>
             <Select
               name="course"
-              value={formik.values.course}
+              value={formik.values.course || ""}
               onChange={formik.handleChange}
               disabled
             >
@@ -140,7 +140,7 @@ const MyProfile = ({ formik, handleImageChange }: IProps) => {
         <label htmlFor="mbti">{common.text.MBTI}</label>
         <Select
           name="mbti"
-          value={formik.values.mbti}
+          value={formik.values.mbti || ""}
           onChange={formik.handleChange}
         >
           <option value="">{myProfile.selectDefaultLabel.MBTI}</option>
