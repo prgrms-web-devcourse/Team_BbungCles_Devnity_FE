@@ -1,6 +1,7 @@
 import { FormikProps } from "formik";
 import { useMemo } from "react";
 import { login } from "../../constants";
+import Button from "../base/Button";
 import {
   Container,
   LoginForm,
@@ -10,7 +11,7 @@ import {
   ImageWrapper,
   FormContainer,
   Input,
-  Button,
+  ButtonWrapper,
   HiddenLabel,
 } from "./styles";
 import { FormValues } from "./types";
@@ -70,8 +71,17 @@ const Login = ({ formik }: IProps) => {
             {errorCondition.password ? (
               <ErrorMessage>{formik.errors.password}</ErrorMessage>
             ) : null}
-
-            <Button type="submit">{login.text.LOGIN}</Button>
+            <ButtonWrapper>
+              <Button
+                type="submit"
+                backgroundColor="primary"
+                color="gray800"
+                boxShadow="primary"
+                size="md"
+              >
+                {login.text.LOGIN}
+              </Button>
+            </ButtonWrapper>
           </LoginForm>
         </FormContainer>
       </LoginFormContainer>

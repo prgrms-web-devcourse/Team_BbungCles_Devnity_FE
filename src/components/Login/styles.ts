@@ -76,6 +76,10 @@ export const Input = styled.input`
   }
 `;
 
+export const ButtonWrapper = styled.div`
+  margin-top: auto;
+`;
+
 export const Button = styled.button`
   width: 100%;
   margin-top: auto;
