@@ -13,3 +13,4 @@ export { default as signup } from "./signup";
 export { default as login } from "./login";
 export { default as errorCode } from "./errorCode";
 export { default as routes } from "./routes";
+export { default as categoryName } from "./categoryName";
