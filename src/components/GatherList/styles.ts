@@ -47,11 +47,11 @@ export const ItemDetail = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 2;
-  gap: 6px;
+  gap: 8px;
   padding-left: 3px;
 `;
 
 export const InfoWrapper = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 12px;
 `;

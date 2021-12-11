@@ -1,8 +1,8 @@
 import Text from "../base/Text";
 import ProfileBox from "../ProfileBox/ProfileBox";
-import PeriodText from "../PeriodText/PeriodText";
-import ApplicantCountText from "../ApplicantCountText/ApplicantCountText";
-import ViewText from "../ViewText/ViewText";
+import PeriodText from "../PeriodText";
+import ApplicantCountText from "../ApplicantCountText";
+import ViewText from "../ViewText";
 import theme from "../../assets/theme";
 import { GatherData } from "../GatherMain/GatherMain";
 import {
@@ -41,7 +41,7 @@ const GatherList = ({ selectedCategory, gatherData }: Props) => {
     <>
       {gather?.map((item) => (
         <GatherLink to={`/gatherList/${item.gatherId}`} key={item.gatherId}>
-          <ItemContainer key={item.gatherId}>
+          <ItemContainer>
             <Category>{categoryName[item.category]}</Category>
             <ItemDetail>
               <Text>{item.title}</Text>
@@ -79,7 +79,7 @@ const GatherList = ({ selectedCategory, gatherData }: Props) => {
       ))}
       {finishGather?.map((item) => (
         <GatherLink to={`/gatherList/${item.gatherId}`} key={item.gatherId}>
-          <FinishItemContainer key={item.gatherId}>
+          <FinishItemContainer>
             <Finish>모집 마감</Finish>
             <Category>{categoryName[item.category]}</Category>
             <ItemDetail>

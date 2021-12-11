@@ -13,7 +13,7 @@ interface Props {
 
 const Container = styled.div`
   display: flex;
-  gap: 3px;
+  gap: 4px;
   align-items: center;
 `;
 

@@ -12,13 +12,13 @@ interface Props {
 
 const Container = styled.div`
   display: flex;
-  gap: 3px;
+  gap: 4px;
   align-items: center;
 `;
 
 const ViewText = ({
   view,
-  iconSize = 13,
+  iconSize = 12,
   iconColor,
   fontSize,
   fontColor,

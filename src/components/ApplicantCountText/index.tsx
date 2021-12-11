@@ -13,14 +13,14 @@ interface Props {
 
 const Container = styled.div`
   display: flex;
-  gap: 3px;
+  gap: 4px;
   align-items: center;
 `;
 
 const ApplicantCountText = ({
   applicantCount,
   applicantLimit,
-  iconSize = 13,
+  iconSize = 14,
   iconColor,
   fontSize,
   fontColor,
