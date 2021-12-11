@@ -20,7 +20,7 @@ const Container = styled.div`
 const ApplicantCountText = ({
   applicantCount,
   applicantLimit,
-  iconSize = 14,
+  iconSize = 12,
   iconColor,
   fontSize,
   fontColor,
