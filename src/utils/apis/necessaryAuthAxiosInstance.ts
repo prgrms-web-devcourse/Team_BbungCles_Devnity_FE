@@ -14,7 +14,7 @@ axiosInstance.interceptors.request.use(
     const token = getLocalStorageItem(login.localStorageKey.TOKEN, "");
     const newConfig = config;
 
-    newConfig.headers.Authorization = `Bearer ${token}`;
+    newConfig.headers.Authorization = `${token}`;
 
     return newConfig;
   },
@@ -22,7 +22,7 @@ axiosInstance.interceptors.request.use(
 );
 axiosInstance.interceptors.response.use(
   (res) => res,
-  (res) => Promise.reject(res)
+  (error) => Promise.reject(error)
 );
 
 export default axiosInstance;

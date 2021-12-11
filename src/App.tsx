@@ -5,7 +5,13 @@ import Router from "./routes/Router";
 import DefaultTemplate from "./template/DefaultTemplate";
 
 const App = () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
 
   return (
     <ThemeProvider theme={theme}>

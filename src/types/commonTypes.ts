@@ -1,14 +1,14 @@
 export interface MutationData {
   data: {
     data: {
-      [key: string]: string;
+      [key: string]: string | null;
     };
     statusCode: number;
   };
 }
 export interface MutationError {
   response: {
-    status: string;
+    status: number;
     data: {
       message: string;
     };
