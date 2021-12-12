@@ -1,10 +1,9 @@
-name: Node.js CI
+name: On pull request CI
 
-on: [push, pull_request]
+on: pull_request
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
