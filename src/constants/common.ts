@@ -17,4 +17,6 @@ export default {
   buttonName: {
     MODIFY: "수정",
   },
+
+  defaultPosition: { lat: 37.4921180264813, lng: 127.0300023501 },
 };

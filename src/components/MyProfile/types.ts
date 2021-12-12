@@ -1,6 +1,6 @@
 import { FormikProps } from "formik";
 import { ChangeEvent } from "react";
-// import { QueryData } from "../../types/commonTypes";
+import { Position } from "../../types/commonTypes";
 
 export interface FormValues {
   name: string;
@@ -64,4 +64,10 @@ export interface QueryError {
 export interface IProps {
   formik: FormikProps<FormValues>;
   handleImageChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleMapClick: (
+    target: kakao.maps.Map,
+    mouseEvent: kakao.maps.event.MouseEvent
+  ) => void;
+  position: Position | null;
+  centerPosition: Position | null;
 }
