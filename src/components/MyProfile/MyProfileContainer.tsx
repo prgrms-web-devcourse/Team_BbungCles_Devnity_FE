@@ -1,9 +1,10 @@
-import { ChangeEvent, useCallback } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { FormikProps, useFormik } from "formik";
 import { requestGetMyProfile } from "../../utils/apis";
 import MyProfile from "./MyProfile";
 import { FormValues, QueryData, QueryError } from "./types";
+import { Position, MutationData, MutationError } from "../../types/commonTypes";
 import { errorCode, login } from "../../constants";
 import { useLocalStorage } from "../../hooks";
 import {
@@ -11,17 +12,26 @@ import {
   requestPutMyProfile,
 } from "../../utils/apis/myProfile";
 import { initialValues } from "./formik";
-import { MutationData, MutationError } from "../../types/commonTypes";
 
 const MyProfileContainer = () => {
   const [, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
+  const [mapCenterPosition, setMapCenterPosition] = useState<Position | null>(
+    null
+  );
+  const [userClickPosition, setUserClickPosition] = useState<Position | null>(
+    null
+  );
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
     initialValues,
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(true);
       // TODO: eslintno-use-before-define lint -> profileInformationMutation 는 아래 선언되어 있는데, profileInformationMutation 에서 formik을 바라보고 있음
       // eslint-disable-next-line
-      profileInformationMutation.mutate(values);
+      profileInformationMutation.mutate({
+        ...values,
+        latitude: userClickPosition.lat,
+        longitude: userClickPosition.lng,
+      });
       setSubmitting(false);
     },
   });
@@ -32,6 +42,14 @@ const MyProfileContainer = () => {
     {
       onSuccess: ({ data }) => {
         formik.setValues({ ...data.data.user, ...data.data.introduction });
+        setUserClickPosition({
+          lat: data.data.introduction.latitude,
+          lng: data.data.introduction.longitude,
+        });
+        setMapCenterPosition({
+          lat: data.data.introduction.latitude,
+          lng: data.data.introduction.longitude,
+        });
       },
       onError: ({ response }) => {
         const errorMessage = response
@@ -53,6 +71,7 @@ const MyProfileContainer = () => {
       retry: false,
     }
   );
+
   // 프로필 이미지 수정 API
   const profileImageMutation = useMutation<
     MutationData,
@@ -75,7 +94,7 @@ const MyProfileContainer = () => {
       alert(errorMessage);
     },
   });
-  // 내 프로필 수정 API
+
   const profileInformationMutation = useMutation<
     MutationData,
     MutationError,
@@ -112,7 +131,22 @@ const MyProfileContainer = () => {
     [profileImageMutation]
   );
 
-  return <MyProfile formik={formik} handleImageChange={handleImageChange} />;
+  const handleMapClick = useCallback((target, mouseEvent) => {
+    setUserClickPosition({
+      lat: mouseEvent.latLng.getLat(),
+      lng: mouseEvent.latLng.getLng(),
+    });
+  }, []);
+
+  return (
+    <MyProfile
+      formik={formik}
+      handleImageChange={handleImageChange}
+      handleMapClick={handleMapClick}
+      userClickPosition={userClickPosition}
+      mapCenterPosition={mapCenterPosition}
+    />
+  );
 };
 
 export default MyProfileContainer;

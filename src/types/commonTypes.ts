@@ -18,3 +18,8 @@ export interface MutationError {
 export interface Unknown {
   unknown: unknown;
 }
+
+export interface Position {
+  lat: number;
+  lng: number;
+}

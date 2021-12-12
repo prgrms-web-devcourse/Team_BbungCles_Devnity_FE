@@ -1,4 +1,5 @@
 import { useCallback, useRef } from "react";
+import { MapMarker } from "react-kakao-maps-sdk";
 import { common, myProfile } from "../../constants";
 import {
   Container,
@@ -11,6 +12,8 @@ import {
   ColumnContainer,
   Textarea,
   Button,
+  MapWrapper,
+  StyledMap,
 } from "./styles";
 import { IProps } from "./types";
 
@@ -49,7 +52,13 @@ const mbtis: string[] = [
   "ESFP",
 ];
 
-const MyProfile = ({ formik, handleImageChange }: IProps) => {
+const MyProfile = ({
+  formik,
+  handleImageChange,
+  handleMapClick,
+  userClickPosition,
+  mapCenterPosition,
+}: IProps) => {
   const inputRef = useRef<HTMLInputElement>();
   const handleImageClick = useCallback(() => {
     inputRef.current.click();
@@ -182,7 +191,25 @@ const MyProfile = ({ formik, handleImageChange }: IProps) => {
           value={formik.values.description || ""}
         />
 
-        <div>내 위치 지도 API 영역</div>
+        <MapWrapper>
+          <StyledMap
+            center={
+              mapCenterPosition
+                ? { lat: mapCenterPosition.lat, lng: mapCenterPosition.lng }
+                : { ...common.defaultPosition }
+            }
+            onClick={handleMapClick}
+          >
+            {userClickPosition && (
+              <MapMarker
+                position={{
+                  lat: userClickPosition.lat,
+                  lng: userClickPosition.lng,
+                }}
+              />
+            )}
+          </StyledMap>
+        </MapWrapper>
 
         <Button type="submit">{common.buttonName.MODIFY}</Button>
       </MyProfileForm>

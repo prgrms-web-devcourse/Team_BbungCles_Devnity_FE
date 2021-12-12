@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Map } from "react-kakao-maps-sdk";
 
 export const Container = styled.div`
   display: flex;
@@ -121,4 +122,17 @@ export const Textarea = styled.textarea`
   &:focus {
     outline: none;
   }
+`;
+
+export const MapWrapper = styled.div`
+  width: 100%;
+  height: 560px;
+  border-radius: 10px;
+  /* TODO: 이전에 작업했던 Theme.ts 머지되면 변경할 예정 */
+  box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
+`;
+
+export const StyledMap = styled(Map)`
+  width: 100%;
+  height: 100%;
 `;
