@@ -1,12 +1,12 @@
 import { useCallback, useRef } from "react";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { common, myProfile } from "../../constants";
+import Input from "../base/Input";
 import {
   Container,
   HiddenInput,
   MyProfileForm,
   ProfileImage,
-  Input,
   Select,
   RowContainer,
   ColumnContainer,
@@ -81,8 +81,8 @@ const MyProfile = ({
           onChange={handleImageChange}
         />
 
-        <HiddenInput
-          type="text"
+        <input
+          type="hidden"
           name="profileImgUrl"
           value={formik.values.profileImgUrl || ""}
           onChange={formik.handleChange}

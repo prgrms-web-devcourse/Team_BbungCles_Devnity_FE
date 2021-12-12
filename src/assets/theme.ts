@@ -55,8 +55,13 @@ const theme = {
       INTJ: "#f5e1fa",
     },
   },
+  boxShadows: {
+    primary: `0 2px 5px 1px #363a3c25`,
+  },
 };
 
 export default theme;
 
+export type ColorType = keyof typeof theme.colors;
+export type ShadowType = keyof typeof theme.boxShadows;
 export type ThemeType = typeof theme;
