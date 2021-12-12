@@ -51,12 +51,14 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "faker": "^5.5.3",
     "html-webpack-plugin": "^5.5.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^27.3.1",
     "jest-plugin-context": "^2.9.0",
     "mini-css-extract-plugin": "^2.4.5",
     "postcss": "^8.4.4",
     "postcss-loader": "^6.2.1",
     "prettier": "^2.4.1",
+    "sass": "^1.44.0",
     "sass-loader": "^12.3.0",
     "style-loader": "^3.3.1",
     "stylelint": "^14.1.0",
@@ -89,5 +91,10 @@
     "react-router-dom": "^5.3.0",
     "recoil": "^0.5.2",
     "yup": "^0.32.11"
+  },
+  "engines": {
+    "node": ">= 16",
+    "npm": "please-use-yarn",
+    "yarn": ">= 1.22"
   }
 }

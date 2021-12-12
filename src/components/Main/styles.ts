@@ -14,26 +14,29 @@ export const Header = styled.header`
   padding: 12px;
 `;
 
-export const UserDropdownContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const Contents = styled.section`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  gap: 20px;
   overflow-y: auto;
   width: 100%;
 `;
 
 export const SelfIntroduce = styled.div`
-  margin-bottom: 40px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  > span {
+    padding-left: 10px;
+    padding-top: 4px;
+  }
 
   ul {
     display: flex;
-    padding: 10px 10px;
+    padding: 10px;
     gap: 20px;
     width: 100%;
     overflow-x: auto;
@@ -44,24 +47,33 @@ export const SelfIntroduce = styled.div`
   }
 `;
 
-export const Title = styled.div`
-  font-size: 24px;
-`;
-
 export const MapgakcoAndGatherListWrapper = styled.div`
   flex-grow: 1;
   display: flex;
   justify-content: center;
+  align-items: stretch;
+  gap: 20px;
+  padding: 10px;
 `;
 
 export const MapgakcoSummary = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  gap: 2px;
+`;
+
+export const MapgakcoContainerWrapper = styled.div`
+  flex-grow: 1;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  outline: 1px solid rgba(255, 255, 255, 0.18);
+  overflow: hidden;
 `;
 
 export const GatherListSummary = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  gap: 2px;
 `;

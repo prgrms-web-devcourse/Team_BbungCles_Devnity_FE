@@ -41,7 +41,7 @@ export const Section = styled.section`
 
 export const TagWrapper = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 6px;
 `;
 
 export const SummaryWrapper = styled.div``;
