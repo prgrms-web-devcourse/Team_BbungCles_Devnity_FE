@@ -1,9 +1,19 @@
 import { useCallback } from "react";
-import { Header, MenuWrapper, SidebarWrapper, TextWrapper } from "./styles";
+import Lottie from "react-lottie";
+import animationData from "../../assets/lotties/christmas-dog.json";
+import {
+  Container,
+  Header,
+  TextWrapper,
+  Nav,
+  LottieWrapper,
+  Footer,
+} from "./styles";
 import Logo from "../Logo/Logo";
 import Text from "../base/Text";
 import menuRoutes from "./menuRoutes";
 import { routes } from "../../constants";
+import SidebarIcon from "./SidebarIcon";
 
 interface Props {
   onLinkClick: (link: string) => void;
@@ -11,7 +21,7 @@ interface Props {
 
 const Sidebar = ({ onLinkClick }: Props) => {
   const handleClick = useCallback(
-    (link) => (event: React.MouseEvent) => {
+    (link) => (event: React.MouseEvent | React.KeyboardEvent) => {
       event.preventDefault();
       onLinkClick(link);
     },
@@ -19,37 +29,57 @@ const Sidebar = ({ onLinkClick }: Props) => {
   );
 
   return (
-    <SidebarWrapper>
+    <Container>
       <Header>
         <Logo
-          width={32}
-          height={32}
+          width={36}
+          height={36}
           borderRadius="4px"
           imageUrl="https://source.unsplash.com/100x100"
           onClick={handleClick(routes.MAIN)}
         />
         <TextWrapper onClick={handleClick(routes.MAIN)}>
-          <Text size={32} strong>
+          <Text size={24} strong>
             Devnity
           </Text>
         </TextWrapper>
       </Header>
-      <MenuWrapper>
+      <Nav>
         <ul>
           {menuRoutes.map(({ name, path }, index) => {
             const key = `${index}${name}`;
 
             return (
-              <li key={key}>
-                <a href={path} onClick={handleClick(path)}>
-                  {name}
-                </a>
+              <li
+                key={key}
+                onClick={handleClick(path)}
+                onKeyPress={handleClick(path)}
+                role="presentation"
+              >
+                <div>
+                  <SidebarIcon name={name} />
+                  <Text>{name}</Text>
+                </div>
               </li>
             );
           })}
         </ul>
-      </MenuWrapper>
-    </SidebarWrapper>
+      </Nav>
+      <Footer>
+        <LottieWrapper>
+          <Lottie
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData,
+              rendererSettings: {
+                preserveAspectRatio: "xMidYMid slice",
+              },
+            }}
+          />
+        </LottieWrapper>
+      </Footer>
+    </Container>
   );
 };
 

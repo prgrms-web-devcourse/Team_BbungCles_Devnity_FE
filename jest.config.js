@@ -4,6 +4,7 @@ module.exports = {
   setupFilesAfterEnv: [
     "@testing-library/jest-dom/extend-expect",
     "jest-plugin-context/setup",
+    "jest-canvas-mock",
   ],
   testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/dist/"],
   moduleNameMapper: {

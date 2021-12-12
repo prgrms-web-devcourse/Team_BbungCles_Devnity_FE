@@ -3,9 +3,14 @@ import userEvent from "@testing-library/user-event";
 
 import { MemoryRouter } from "react-router-dom";
 
+import { ThemeProvider } from "@emotion/react";
 import Sidebar from "./Sidebar";
 
 import menuRoutes from "./menuRoutes";
+import theme from "../../assets/theme";
+
+jest.mock("react-lottie");
+jest.requireActual("react-lottie");
 
 describe("Sidebar", () => {
   const handleLinkClick = jest.fn();
@@ -15,7 +20,9 @@ describe("Sidebar", () => {
 
     render(
       <MemoryRouter>
-        <Sidebar onLinkClick={handleLinkClick} />
+        <ThemeProvider theme={theme}>
+          <Sidebar onLinkClick={handleLinkClick} />
+        </ThemeProvider>
       </MemoryRouter>
     );
   });

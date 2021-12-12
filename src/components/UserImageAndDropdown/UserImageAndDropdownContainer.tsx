@@ -18,7 +18,7 @@ const UserImageAndDropdownContainer = ({ imageUrl }: Props) => {
 
   const handleLinkClick = useCallback(
     (link) => {
-      // TODO: 라우팅 경로도 상수로 관리하는 게 나을 것 같다. 팀원들과 논의 후에 결정한다.
+      // TODO: 현재 /logout은 라우팅 목록에 존재하지 않는다. /logout이 라우팅으로 처리되면 상수화한다.
       if (link === "/logout") {
         setToken("");
         history.push(routes.LOGIN);
