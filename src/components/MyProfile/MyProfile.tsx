@@ -56,8 +56,8 @@ const MyProfile = ({
   formik,
   handleImageChange,
   handleMapClick,
-  position,
-  centerPosition,
+  userClickPosition,
+  mapCenterPosition,
 }: IProps) => {
   const inputRef = useRef<HTMLInputElement>();
   const handleImageClick = useCallback(() => {
@@ -194,14 +194,19 @@ const MyProfile = ({
         <MapWrapper>
           <StyledMap
             center={
-              centerPosition
-                ? { lat: centerPosition.lat, lng: centerPosition.lng }
+              mapCenterPosition
+                ? { lat: mapCenterPosition.lat, lng: mapCenterPosition.lng }
                 : { ...common.defaultPosition }
             }
             onClick={handleMapClick}
           >
-            {position && (
-              <MapMarker position={{ lat: position.lat, lng: position.lng }} />
+            {userClickPosition && (
+              <MapMarker
+                position={{
+                  lat: userClickPosition.lat,
+                  lng: userClickPosition.lng,
+                }}
+              />
             )}
           </StyledMap>
         </MapWrapper>

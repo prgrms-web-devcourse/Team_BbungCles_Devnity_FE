@@ -15,8 +15,12 @@ import { initialValues } from "./formik";
 
 const MyProfileContainer = () => {
   const [, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
-  const [centerPosition, setCenterPosition] = useState<Position | null>(null);
-  const [position, setPosition] = useState<Position | null>(null);
+  const [mapCenterPosition, setMapCenterPosition] = useState<Position | null>(
+    null
+  );
+  const [userClickPosition, setUserClickPosition] = useState<Position | null>(
+    null
+  );
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
     initialValues,
     onSubmit: (values, { setSubmitting }) => {
@@ -25,8 +29,8 @@ const MyProfileContainer = () => {
       // eslint-disable-next-line
       profileInformationMutation.mutate({
         ...values,
-        latitude: position.lat,
-        longitude: position.lng,
+        latitude: userClickPosition.lat,
+        longitude: userClickPosition.lng,
       });
       setSubmitting(false);
     },
@@ -38,11 +42,11 @@ const MyProfileContainer = () => {
     {
       onSuccess: ({ data }) => {
         formik.setValues({ ...data.data.user, ...data.data.introduction });
-        setPosition({
+        setUserClickPosition({
           lat: data.data.introduction.latitude,
           lng: data.data.introduction.longitude,
         });
-        setCenterPosition({
+        setMapCenterPosition({
           lat: data.data.introduction.latitude,
           lng: data.data.introduction.longitude,
         });
@@ -128,7 +132,7 @@ const MyProfileContainer = () => {
   );
 
   const handleMapClick = useCallback((target, mouseEvent) => {
-    setPosition({
+    setUserClickPosition({
       lat: mouseEvent.latLng.getLat(),
       lng: mouseEvent.latLng.getLng(),
     });
@@ -139,8 +143,8 @@ const MyProfileContainer = () => {
       formik={formik}
       handleImageChange={handleImageChange}
       handleMapClick={handleMapClick}
-      position={position}
-      centerPosition={centerPosition}
+      userClickPosition={userClickPosition}
+      mapCenterPosition={mapCenterPosition}
     />
   );
 };

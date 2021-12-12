@@ -68,6 +68,6 @@ export interface IProps {
     target: kakao.maps.Map,
     mouseEvent: kakao.maps.event.MouseEvent
   ) => void;
-  position: Position | null;
-  centerPosition: Position | null;
+  userClickPosition: Position | null;
+  mapCenterPosition: Position | null;
 }
