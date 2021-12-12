@@ -14,6 +14,7 @@ import LikeButtonAndText from "../LikeButtonAndText/LikeButtonAndText";
 import { UserInfo } from "../../../fixtures/userInfo";
 import CommentButtonAndText from "../CommentButtonAndText/CommentButtonAndText";
 import { tagName } from "../../constants";
+import ProfileBox from "../ProfileBox/ProfileBox";
 
 interface Props {
   userInfo: UserInfo;
@@ -21,8 +22,6 @@ interface Props {
 }
 
 const UserCard = ({ userInfo, onClick }: Props) => {
-  const userNamePlate = `${userInfo.user.name} (${userInfo.user.course} - ${userInfo.user.generation})`;
-
   return (
     <Container onClick={onClick}>
       <Header>
@@ -37,9 +36,11 @@ const UserCard = ({ userInfo, onClick }: Props) => {
         </ImageWrapper>
       </Header>
       <Section>
-        <Text size={16} ellipsisLineClamp={1}>
-          {userNamePlate}
-        </Text>
+        <ProfileBox
+          name={userInfo.user.name}
+          course={userInfo.user.course}
+          generation={userInfo.user.generation}
+        />
         <TagWrapper>
           <Tag size={14} name={tagName.ROLE} value={userInfo.user.role} />
           <Tag

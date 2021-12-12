@@ -61,7 +61,7 @@ const randomUserInfo = (): UserInfo => ({
     email: faker.internet.email(),
     name: faker.name.firstName(),
     course: random<CourseKeyType>(Object.keys(course) as CourseKeyType[]),
-    generation: faker.datatype.number(),
+    generation: Math.floor(Math.random() * 100),
     role: random<RoleKeyType>(Object.keys(role) as RoleKeyType[]),
     createdAt: faker.datatype.datetime(),
     updatedAt: faker.datatype.datetime(),

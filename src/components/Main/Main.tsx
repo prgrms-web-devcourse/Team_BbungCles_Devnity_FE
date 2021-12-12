@@ -1,6 +1,8 @@
+import { gathers } from "../../../fixtures/gather";
 import { center } from "../../../fixtures/map";
 import randomUserInfo from "../../../fixtures/userInfo";
 import Text from "../base/Text";
+import GatherList from "../GatherList/GatherList";
 import Mapgakco from "../Mapgakco/Mapgakco";
 import UserCard from "../UserCard/UserCard";
 import UserImageAndDropdownContainer from "../UserImageAndDropdown/UserImageAndDropdownContainer";
@@ -14,10 +16,6 @@ import {
   SelfIntroduce,
   MapgakcoContainerWrapper,
 } from "./styles";
-
-const GatherList = () => {
-  return <div>모집 목록</div>;
-};
 
 const Main = () => {
   // TODO: 모킹 데이터이므로 API 연동이 완료되면 API 데이터로 교체한다.
@@ -61,7 +59,7 @@ const Main = () => {
             <Text strong size={18}>
               모집 게시판
             </Text>
-            <GatherList />
+            <GatherList gatherData={gathers} />
           </GatherListSummary>
         </MapgakcoAndGatherListWrapper>
       </Contents>
