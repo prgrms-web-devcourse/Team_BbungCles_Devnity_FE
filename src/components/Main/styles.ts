@@ -60,7 +60,7 @@ export const MapgakcoSummary = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 `;
 
 export const MapgakcoContainerWrapper = styled.div`
@@ -75,5 +75,6 @@ export const GatherListSummary = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
+  max-width: calc(100% / 1.9);
 `;

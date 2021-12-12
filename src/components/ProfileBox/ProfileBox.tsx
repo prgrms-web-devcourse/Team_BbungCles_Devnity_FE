@@ -3,7 +3,7 @@ import theme from "../../assets/theme";
 import Text from "../base/Text";
 
 interface Props {
-  src: string;
+  src?: string;
   alt?: string;
   size?: string;
   fontSize?: string;
@@ -46,7 +46,7 @@ const ProfileBox = ({
 }: Props) => {
   return (
     <ProfileBoxWrapper>
-      <Image src={src} alt={alt} size={size} />
+      {src && <Image src={src} alt={alt} size={size} />}
       <Text size={fontSize}>{name}</Text>
       <InfoWrapper>
         <Text size={fontSize} color={theme.colors.white}>
