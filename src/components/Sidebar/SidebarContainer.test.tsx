@@ -4,11 +4,13 @@ import userEvent from "@testing-library/user-event";
 
 import { MemoryRouter } from "react-router-dom";
 
+import { ThemeProvider } from "@emotion/react";
 import { Unknown } from "../../types/commonTypes";
 
 import SidebarContainer from "./SidebarContainer";
 
 import menuRoutes from "./menuRoutes";
+import theme from "../../assets/theme";
 
 const mockPush = jest.fn();
 
@@ -25,7 +27,9 @@ describe("SidebarContainer", () => {
 
     render(
       <MemoryRouter>
-        <SidebarContainer />
+        <ThemeProvider theme={theme}>
+          <SidebarContainer />
+        </ThemeProvider>
       </MemoryRouter>
     );
   });

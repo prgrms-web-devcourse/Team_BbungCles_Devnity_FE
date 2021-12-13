@@ -25,7 +25,7 @@ describe("UserCard", () => {
   const elements = [
     { name: "이름", value: userInfo.user.name },
     { name: "코스", value: userInfo.user.course },
-    { name: "기수", value: userInfo.user.generation },
+    { name: "기수", value: `${userInfo.user.generation}기` },
     { name: "역할", value: tagMap.role[userInfo.user.role] },
     { name: "MBTI", value: tagMap.mbti[userInfo.introduction.mbti] },
     { name: "한줄소개", value: userInfo.introduction.summary },

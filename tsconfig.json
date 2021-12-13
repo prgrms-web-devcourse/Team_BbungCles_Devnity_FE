@@ -7,6 +7,7 @@
     "allowJs": true,
     "sourceMap": true,
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "lib": ["ES2015", "DOM"],
     "typeRoots": [
