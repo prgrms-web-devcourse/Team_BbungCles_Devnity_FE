@@ -1,7 +1,7 @@
 import { ComponentType } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { login } from "../../constants";
-import { useLocalStorage } from "../../hooks";
+import { useRecoilValue } from "recoil";
+import { authState } from "../../atoms/auth";
 
 interface IProps {
   path: string;
@@ -19,13 +19,13 @@ const PrivateRoute = ({
   fallbackPath,
   ...rest
 }: IProps) => {
-  const [token] = useLocalStorage(login.localStorageKey.TOKEN, null);
+  const auth = useRecoilValue(authState);
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        token ? <Component {...props} /> : <Redirect to={fallbackPath} />
+        auth ? <Component {...props} /> : <Redirect to={fallbackPath} />
       }
     />
   );
