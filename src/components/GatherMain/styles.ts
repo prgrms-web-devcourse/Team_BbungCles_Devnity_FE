@@ -25,7 +25,7 @@ export const HiddenLabel = styled.label`
   display: none;
 `;
 
-export const Input = styled.input`
+export const AInput = styled.input`
   width: 100%;
   height: 100%;
   padding: 12px;

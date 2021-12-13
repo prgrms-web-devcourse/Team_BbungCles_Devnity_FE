@@ -1,6 +1,7 @@
+import { useState } from "react";
 import GatherMain from "./GatherMain";
 
-const dummy = [
+export const dummy = [
   {
     status: "GATHERING",
     gatherId: 1,
@@ -53,15 +54,48 @@ export interface IProps {
 }
 
 const GatherContainer = ({ selectedCategory }: IProps) => {
+  const [values, setValues] = useState({
+    applicantCount: 0,
+    deadLine: "",
+    category: "",
+    title: "",
+    content: "",
+  });
+  const [modalVisible, setModalVisible] = useState(false);
+
   // TODO: 검색 API를 호출하도록 연동해야한다.
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
-  const handleWrite = (e) => {
-    // TODO: 등록 모달 창이 뜨도록 구현해야한다.
-    // eslint-disable-next-line no-console
-    console.log("글쓰기 버튼 클릭", e);
+  const handleWrite = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(!modalVisible);
+
+    // Api 요청
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
+  const handleCategory = ({ selected, name }) => {
+    if (selected) {
+      setValues({ ...values, category: name });
+    } else {
+      setValues({
+        ...values,
+        category: "",
+      });
+    }
+    console.log(values);
   };
 
   return (
@@ -70,6 +104,11 @@ const GatherContainer = ({ selectedCategory }: IProps) => {
       handleSubmit={handleSubmit}
       selectedCategory={selectedCategory}
       handleWrite={handleWrite}
+      modalVisible={modalVisible}
+      handleModalClose={handleModalClose}
+      values={values}
+      handleChange={handleChange}
+      handleCategory={handleCategory}
     />
   );
 };
