@@ -41,15 +41,23 @@ const MyProfileContainer = () => {
     () => requestGetMyProfile(),
     {
       onSuccess: ({ data }) => {
-        formik.setValues({ ...data.data.user, ...data.data.introduction });
-        setUserClickPosition({
-          lat: data.data.introduction.latitude,
-          lng: data.data.introduction.longitude,
-        });
-        setMapCenterPosition({
-          lat: data.data.introduction.latitude,
-          lng: data.data.introduction.longitude,
-        });
+        if (data?.statusCode === errorCode.OK) {
+          formik.setValues({ ...data.data.user, ...data.data.introduction });
+          setUserClickPosition({
+            lat: data.data.introduction.latitude,
+            lng: data.data.introduction.longitude,
+          });
+
+          if (
+            data.data.introduction.latitude &&
+            data.data.introduction.longitude
+          ) {
+            setMapCenterPosition({
+              lat: data.data.introduction.latitude,
+              lng: data.data.introduction.longitude,
+            });
+          }
+        }
       },
       onError: ({ response }) => {
         const errorMessage = response
