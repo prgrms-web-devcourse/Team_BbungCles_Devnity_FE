@@ -1,0 +1,1 @@
+export { globalMyProfile } from "./user";

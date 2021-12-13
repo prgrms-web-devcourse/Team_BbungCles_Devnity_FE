@@ -4,6 +4,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { MemoryRouter } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 
 import theme from "../../assets/theme";
 import { routes } from "../../constants";
@@ -26,11 +27,13 @@ describe("UserImageAndDropdownContainer", () => {
     jest.clearAllMocks();
 
     render(
-      <MemoryRouter>
-        <ThemeProvider theme={theme}>
-          <UserImageAndDropdownContainer imageUrl="" />
-        </ThemeProvider>
-      </MemoryRouter>
+      <RecoilRoot>
+        <MemoryRouter>
+          <ThemeProvider theme={theme}>
+            <UserImageAndDropdownContainer imageUrl="" />
+          </ThemeProvider>
+        </MemoryRouter>
+      </RecoilRoot>
     );
   });
 

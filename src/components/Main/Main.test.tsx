@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { MemoryRouter } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 import theme from "../../assets/theme";
 
 import Main from "./Main";
@@ -10,11 +11,13 @@ import Main from "./Main";
 describe("Main", () => {
   function renderMain() {
     return render(
-      <MemoryRouter>
-        <ThemeProvider theme={theme}>
-          <Main />
-        </ThemeProvider>
-      </MemoryRouter>
+      <RecoilRoot>
+        <MemoryRouter>
+          <ThemeProvider theme={theme}>
+            <Main />
+          </ThemeProvider>
+        </MemoryRouter>
+      </RecoilRoot>
     );
   }
 

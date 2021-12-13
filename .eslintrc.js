@@ -87,7 +87,12 @@ module.exports = {
       },
     ],
     "react/require-default-props": "off",
-    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        additionalHooks: "useRecoilCallback",
+      },
+    ],
     "jsx-a11y/label-has-associated-control": [
       "error",
       {
