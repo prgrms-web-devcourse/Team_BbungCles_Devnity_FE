@@ -1,7 +1,6 @@
 import React from "react";
 import GatherList from "../GatherList/GatherList";
 import Modal from "../base/Modal";
-import Input from "../base/Input";
 import {
   Container,
   SearchAndWriteContainer,
@@ -11,7 +10,7 @@ import {
   SearchButton,
   WriteButton,
 } from "./styles";
-import Button from "../base/Button";
+import GatherRegisterFormContainer from "../GatherRegisterForm/GatherRegistorFormContainer";
 
 export interface GatherData {
   status: string;
@@ -30,35 +29,20 @@ export interface GatherData {
   content?: string;
 }
 
-type WriteProps = Pick<
-  GatherData,
-  "category" | "title" | "content" | "applicantCount" | "deadLine"
->;
-
 interface Props {
   selectedCategory?: string;
   gatherData: Array<GatherData>;
   modalVisible: boolean;
-  values: WriteProps;
   handleSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  handleWrite: () => void;
-  handleModalClose: () => void;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCategory: (category: string) => void;
-  test: string;
+  handleVisibleModal: (isModalVisible: boolean) => void;
 }
 
-const Gather = ({
+const GatherMain = ({
   selectedCategory,
   gatherData,
   modalVisible,
-  values,
   handleSubmit,
-  handleWrite,
-  handleModalClose,
-  handleChange,
-  handleCategory,
-  test,
+  handleVisibleModal,
 }: Props) => {
   return (
     <Container>
@@ -72,63 +56,21 @@ const Gather = ({
           />
         </SearchForm>
         <SearchButton onClick={handleSubmit}>검색</SearchButton>
-        <WriteButton type="submit" onClick={handleWrite}>
+        <WriteButton type="submit" onClick={() => handleVisibleModal(true)}>
           글쓰기
         </WriteButton>
       </SearchAndWriteContainer>
-      <Modal visible={modalVisible} onClose={handleWrite}>
-        <>
-          <label htmlFor="category">카테고리</label>
-          <button
-            type="button"
-            onClick={() => handleCategory("study")}
-            style={{
-              backgroundColor: values.category === "study" ? "yellow" : "red",
-            }}
-          >
-            스터디
-          </button>
-          <button
-            type="button"
-            onClick={() => handleCategory("project")}
-            style={{
-              backgroundColor: values.category === "project" ? "yellow" : "red",
-            }}
-          >
-            프로젝트
-          </button>
-          <button
-            type="button"
-            onClick={() => handleCategory("club")}
-            style={{
-              backgroundColor: values.category === "club" ? "yellow" : "red",
-            }}
-          >
-            동아리
-          </button>
-          <label htmlFor="title">제목</label>
-          <Input
-            type="text"
-            name="title"
-            onChange={handleChange}
-            value={test}
-          />
-
-          {/* <label htmlFor="applicantCount">모집 인원</label>
-          <Input type="text" name="applicantCount" onChange={handleChange} />
-          <label htmlFor="deadLine">마감 날짜</label>
-          <Input type="text" name="deadLine" onChange={handleChange} />
-          <label htmlFor="content">내용</label>
-          <Input type="text" name="content" onChange={handleChange} /> */}
-          <Button onClick={handleModalClose}>등록</Button>
-        </>
+      <Modal visible={modalVisible} onClose={() => handleVisibleModal(false)}>
+        <GatherRegisterFormContainer
+          onModalClose={() => handleVisibleModal(false)}
+        />
       </Modal>
       <GatherList selectedCategory={selectedCategory} gatherData={gatherData} />
     </Container>
   );
 };
 
-export default Gather;
+export default GatherMain;
 
 /*
           <Input

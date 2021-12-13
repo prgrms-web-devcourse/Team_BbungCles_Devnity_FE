@@ -54,51 +54,15 @@ export interface IProps {
 }
 
 const GatherContainer = ({ selectedCategory }: IProps) => {
-  const [values, setValues] = useState({
-    applicantCount: 0,
-    deadLine: "",
-    category: "",
-    title: "",
-    content: "",
-  });
   const [modalVisible, setModalVisible] = useState(false);
-
-  const [test, setTest] = useState("");
 
   // TODO: 검색 API를 호출하도록 연동해야한다.
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
-  const handleWrite = () => {
-    setModalVisible(!modalVisible);
-  };
-
-  const handleModalClose = () => {
-    setModalVisible(!modalVisible);
-    console.log(values);
-    // Api 요청
-    setValues({
-      applicantCount: 0,
-      deadLine: "",
-      category: "",
-      title: "",
-      content: "",
-    });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    setTest(value);
-    // setValues({
-    //   ...values,
-    //   [title]: value,
-    // });
-  };
-
-  const handleCategory = (category) => {
-    setValues({ ...values, category });
+  const handleVisibleModal = (isModalVisible: boolean) => {
+    setModalVisible(isModalVisible);
   };
 
   return (
@@ -106,13 +70,8 @@ const GatherContainer = ({ selectedCategory }: IProps) => {
       gatherData={dummy}
       handleSubmit={handleSubmit}
       selectedCategory={selectedCategory}
-      handleWrite={handleWrite}
       modalVisible={modalVisible}
-      handleModalClose={handleModalClose}
-      values={values}
-      handleChange={handleChange}
-      handleCategory={handleCategory}
-      test={test}
+      handleVisibleModal={handleVisibleModal}
     />
   );
 };
