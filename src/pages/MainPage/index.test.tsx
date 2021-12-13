@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { render, screen } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
@@ -8,15 +9,25 @@ import theme from "../../assets/theme";
 import MainPage from "./index";
 
 describe("MainPage", () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
+
   function renderMainPage() {
     return render(
-      <RecoilRoot>
-        <MemoryRouter>
-          <ThemeProvider theme={theme}>
-            <MainPage />
-          </ThemeProvider>
-        </MemoryRouter>
-      </RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <RecoilRoot>
+          <MemoryRouter>
+            <ThemeProvider theme={theme}>
+              <MainPage />
+            </ThemeProvider>
+          </MemoryRouter>
+        </RecoilRoot>
+      </QueryClientProvider>
     );
   }
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { gathers } from "../../../fixtures/gather";
 import { center } from "../../../fixtures/map";
-import randomUserInfo from "../../../fixtures/userInfo";
+import randomUserInfo, { UserInfo } from "../../../fixtures/userInfo";
 import theme from "../../assets/theme";
 import Button from "../base/Button";
 import Text from "../base/Text";
@@ -26,11 +26,15 @@ import {
 export const FILTER_MAPGAKCO = "show_mapgakco";
 export const FILTER_GATHERLIST = "show_gatherlist";
 
-const Main = () => {
+interface Props {
+  usersSuggest: UserInfo[];
+}
+
+const Main = ({ usersSuggest }: Props) => {
   const [filter, setFilter] = useState(FILTER_MAPGAKCO);
 
   // TODO: 모킹 데이터이므로 API 연동이 완료되면 API 데이터로 교체한다.
-  const userInfos = Array.from({ length: 10 }, () => randomUserInfo());
+  // const userInfos = Array.from({ length: 10 }, () => randomUserInfo());
 
   const currentUser = randomUserInfo();
 
@@ -47,7 +51,7 @@ const Main = () => {
             자기소개
           </Text>
           <ul>
-            {userInfos.map((userInfo) => (
+            {usersSuggest?.map((userInfo) => (
               <li key={userInfo.user.userId}>
                 <UserCard userInfo={userInfo} />
               </li>

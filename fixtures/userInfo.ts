@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import * as faker from "faker";
+import * as faker from "faker/locale/ko";
 import {
   course,
   role,
@@ -61,7 +61,10 @@ const randomUserInfo = (): UserInfo => ({
     email: faker.internet.email(),
     name: faker.name.firstName(),
     course: random<CourseKeyType>(Object.keys(course) as CourseKeyType[]),
-    generation: Math.floor(Math.random() * 100),
+    generation: faker.datatype.number({
+      min: 0,
+      max: 12,
+    }),
     role: random<RoleKeyType>(Object.keys(role) as RoleKeyType[]),
     createdAt: faker.datatype.datetime(),
     updatedAt: faker.datatype.datetime(),
@@ -69,19 +72,25 @@ const randomUserInfo = (): UserInfo => ({
 
   introduction: {
     introductionId: faker.datatype.uuid(),
-    profileImgUrl: faker.image.imageUrl(),
+    profileImgUrl: `https://picsum.photos/400/300?${Math.random()}`,
     mbti: mbti() as MbtiKeyType,
     blogUrl: faker.internet.url(),
     githubUrl: faker.internet.url(),
     summary: faker.lorem.sentence(),
-    latitude: faker.address.latitude(),
-    longitude: faker.address.longitude(),
+    latitude: faker.address.latitude(131.87222222, 124.19583333),
+    longitude: faker.address.longitude(43.00972222, 33.11111111),
     createdAt: faker.datatype.datetime(),
     updatedAt: faker.datatype.datetime(),
 
-    likeCount: faker.datatype.number(),
+    likeCount: faker.datatype.number({
+      min: 0,
+      max: 128,
+    }),
     isLike: faker.datatype.boolean(),
-    commentCount: faker.datatype.number(),
+    commentCount: faker.datatype.number({
+      min: 0,
+      max: 128,
+    }),
   },
 });
 

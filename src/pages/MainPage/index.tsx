@@ -1,7 +1,7 @@
-import Main from "../../components/Main/Main";
+import MainContainer from "../../components/Main/MainContainer";
 
 const MainPage = () => {
-  return <Main />;
+  return <MainContainer />;
 };
 
 export default MainPage;

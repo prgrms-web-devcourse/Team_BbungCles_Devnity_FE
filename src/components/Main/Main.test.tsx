@@ -4,17 +4,20 @@ import userEvent from "@testing-library/user-event";
 
 import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import randomUserInfo from "../../../fixtures/userInfo";
 import theme from "../../assets/theme";
 
 import Main from "./Main";
 
 describe("Main", () => {
+  const usersSuggest = Array.from({ length: 1 }, () => randomUserInfo());
+
   function renderMain() {
     return render(
       <RecoilRoot>
         <MemoryRouter>
           <ThemeProvider theme={theme}>
-            <Main />
+            <Main usersSuggest={usersSuggest} />
           </ThemeProvider>
         </MemoryRouter>
       </RecoilRoot>
