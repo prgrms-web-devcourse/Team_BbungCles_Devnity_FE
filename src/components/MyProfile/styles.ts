@@ -42,8 +42,7 @@ export const Button = styled.button`
   border-radius: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   color: ${({ theme }) => theme.colors?.gray800};
-  // TODO : box-shadow 부분을 theme으로 빼도 좋을 것 같음
-  box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
 `;
 
 export const HiddenInput = styled.input`
@@ -58,7 +57,7 @@ export const Input = styled.input`
   background: ${({ theme }) => theme.colors?.white};
   border-radius: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
 
   &:focus {
     outline: none;
@@ -81,7 +80,7 @@ export const Select = styled.select`
   background: ${({ theme }) => theme.colors?.white};
   border-radius: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
   -o-appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -116,7 +115,7 @@ export const Textarea = styled.textarea`
   background: ${({ theme }) => theme.colors?.white};
   border-radius: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
   resize: none;
 
   &:focus {
@@ -128,11 +127,18 @@ export const MapWrapper = styled.div`
   width: 100%;
   height: 560px;
   border-radius: 10px;
-  /* TODO: 이전에 작업했던 Theme.ts 머지되면 변경할 예정 */
-  box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
 `;
 
 export const StyledMap = styled(Map)`
   width: 100%;
   height: 100%;
+`;
+
+export const MarkdownEditorWrapper = styled.div`
+  width: 100%;
+  height: 360px;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
 `;
