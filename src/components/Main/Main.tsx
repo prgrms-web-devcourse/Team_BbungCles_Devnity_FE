@@ -34,8 +34,6 @@ const Main = () => {
 
   const currentUser = randomUserInfo();
 
-  console.log({ filter });
-
   return (
     <Container>
       <Header>

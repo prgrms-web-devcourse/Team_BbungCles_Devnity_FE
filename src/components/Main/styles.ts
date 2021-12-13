@@ -60,6 +60,7 @@ export const MapgakcoAndGatherListContainer = styled.div`
   align-items: stretch;
   gap: 20px;
   padding: 10px;
+  overflow-y: hidden;
 `;
 
 export const TextOuterContainer = styled.div`
@@ -94,6 +95,20 @@ export const SubContents = styled.div`
   flex-grow: 1;
   display: flex;
   gap: 10px;
+
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.colors.gray200};
+    border-radius: 30px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.gray400};
+    border-radius: 30px;
+  }
 `;
 
 export const MapgakcoWrapper = styled.div<{ filter: string }>`
