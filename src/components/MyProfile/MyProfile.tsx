@@ -10,12 +10,13 @@ import {
   Select,
   RowContainer,
   ColumnContainer,
-  Textarea,
   Button,
   MapWrapper,
   StyledMap,
+  MarkdownEditorWrapper,
 } from "./styles";
 import { IProps } from "./types";
+import MarkdownEditor from "../base/MarkdownEditor";
 
 interface SelectOption {
   value: string | number;
@@ -183,13 +184,21 @@ const MyProfile = ({
           onChange={formik.handleChange}
           value={formik.values.summary || ""}
         />
-        {/* TODO: reset.css 처리 및 포커스에 따라 textarea, ReactMarkdown을 구분하여 보여줘도 될듯, 이 부분은 팀원들과 같이 협의 후 진행 */}
+
         <label htmlFor="description">{common.text.DESCRIPTION}</label>
-        <Textarea
+        <input
+          type="hidden"
           name="description"
-          onChange={formik.handleChange}
           value={formik.values.description || ""}
         />
+        <MarkdownEditorWrapper>
+          <MarkdownEditor
+            setEditorText={(value: string) =>
+              formik.setFieldValue("description", value)
+            }
+            value={formik.values.description || ""}
+          />
+        </MarkdownEditorWrapper>
 
         <MapWrapper>
           <StyledMap

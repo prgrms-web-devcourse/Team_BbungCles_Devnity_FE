@@ -49,12 +49,13 @@ module.exports = (webpackEnv) => {
         new MiniCssExtractPlugin({
           filename: "[name].css",
         }),
-      new BundleAnalyzerPlugin({
-        analyzerMode: "static",
-        openAnalyzer: false,
-        generateStatsFile: true,
-        statsFilename: "bundleStats.json",
-      }),
+      isEnvProduction &&
+        new BundleAnalyzerPlugin({
+          analyzerMode: "static",
+          openAnalyzer: false,
+          generateStatsFile: true,
+          statsFilename: "bundleStats.json",
+        }),
     ].filter(Boolean),
     module: {
       rules: [
