@@ -19,7 +19,7 @@ export interface FormValues {
   description?: string | null;
 }
 
-interface UserData {
+export interface UserData {
   introduction: {
     blogUrl: string;
     githubUrl: string;
@@ -50,6 +50,7 @@ export interface QueryData {
     data: UserData;
     statusCode: number;
   };
+  status: number;
 }
 
 export interface QueryError {

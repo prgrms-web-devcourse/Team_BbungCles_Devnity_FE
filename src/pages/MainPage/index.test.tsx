@@ -2,6 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import { render, screen } from "@testing-library/react";
 
 import { MemoryRouter } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 import theme from "../../assets/theme";
 
 import MainPage from "./index";
@@ -9,11 +10,13 @@ import MainPage from "./index";
 describe("MainPage", () => {
   function renderMainPage() {
     return render(
-      <MemoryRouter>
-        <ThemeProvider theme={theme}>
-          <MainPage />
-        </ThemeProvider>
-      </MemoryRouter>
+      <RecoilRoot>
+        <MemoryRouter>
+          <ThemeProvider theme={theme}>
+            <MainPage />
+          </ThemeProvider>
+        </MemoryRouter>
+      </RecoilRoot>
     );
   }
 
