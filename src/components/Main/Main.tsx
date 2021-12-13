@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Map } from "react-kakao-maps-sdk";
 import { gathers } from "../../../fixtures/gather";
 import { center } from "../../../fixtures/map";
 import randomUserInfo, { UserInfo } from "../../../fixtures/userInfo";
@@ -6,7 +7,6 @@ import theme from "../../assets/theme";
 import Button from "../base/Button";
 import Text from "../base/Text";
 import GatherList from "../GatherList/GatherList";
-import Mapgakco from "../Mapgakco/Mapgakco";
 import UserCard from "../UserCard/UserCard";
 import UserImageAndDropdownContainer from "../UserImageAndDropdown/UserImageAndDropdownContainer";
 import {
@@ -99,10 +99,17 @@ const Main = ({ usersSuggest }: Props) => {
           </TextOuterContainer>
           <SubContents>
             <MapgakcoWrapper filter={filter}>
-              <Mapgakco
+              <Map
+                center={{
+                  lat: center.latitude,
+                  lng: center.longitude,
+                }}
+                style={{ width: "100%", height: "100%" }}
+              />
+              {/* <Mapgakco
                 center={center}
                 userImageUrl={currentUser.introduction.profileImgUrl}
-              />
+              /> */}
             </MapgakcoWrapper>
             <GatherListWrapper filter={filter}>
               <GatherList gatherData={gathers} />
