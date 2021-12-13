@@ -18,7 +18,7 @@ export interface CustomStyles {
 export interface IProps {
   type: "text" | "email" | "password" | "checkbox" | "radio" | "hidden";
   name: string;
-  value: string | number | readonly string[];
+  value?: string | number | readonly string[];
   checked?: boolean;
   disabled?: boolean;
   required?: boolean;

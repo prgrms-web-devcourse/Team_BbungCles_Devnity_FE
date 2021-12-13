@@ -63,6 +63,8 @@ const GatherContainer = ({ selectedCategory }: IProps) => {
   });
   const [modalVisible, setModalVisible] = useState(false);
 
+  const [test, setTest] = useState("");
+
   // TODO: 검색 API를 호출하도록 연동해야한다.
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -74,28 +76,29 @@ const GatherContainer = ({ selectedCategory }: IProps) => {
 
   const handleModalClose = () => {
     setModalVisible(!modalVisible);
-
+    console.log(values);
     // Api 요청
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
     setValues({
-      ...values,
-      [name]: value,
+      applicantCount: 0,
+      deadLine: "",
+      category: "",
+      title: "",
+      content: "",
     });
   };
 
-  const handleCategory = ({ selected, name }) => {
-    if (selected) {
-      setValues({ ...values, category: name });
-    } else {
-      setValues({
-        ...values,
-        category: "",
-      });
-    }
-    console.log(values);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    setTest(value);
+    // setValues({
+    //   ...values,
+    //   [title]: value,
+    // });
+  };
+
+  const handleCategory = (category) => {
+    setValues({ ...values, category });
   };
 
   return (
@@ -109,6 +112,7 @@ const GatherContainer = ({ selectedCategory }: IProps) => {
       values={values}
       handleChange={handleChange}
       handleCategory={handleCategory}
+      test={test}
     />
   );
 };

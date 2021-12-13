@@ -12,7 +12,6 @@ import {
   WriteButton,
 } from "./styles";
 import Button from "../base/Button";
-import CategoryButtons from "../CategoryButtons";
 
 export interface GatherData {
   status: string;
@@ -45,7 +44,8 @@ interface Props {
   handleWrite: () => void;
   handleModalClose: () => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCategory: ({ selected: boolean, name: string }) => void;
+  handleCategory: (category: string) => void;
+  test: string;
 }
 
 const Gather = ({
@@ -58,6 +58,7 @@ const Gather = ({
   handleModalClose,
   handleChange,
   handleCategory,
+  test,
 }: Props) => {
   return (
     <Container>
@@ -78,37 +79,47 @@ const Gather = ({
       <Modal visible={modalVisible} onClose={handleWrite}>
         <>
           <label htmlFor="category">카테고리</label>
-          <CategoryButtons
-            categoryList={["스터디", "동아리", "프로젝트"]}
-            onToggle={handleCategory}
-          />
+          <button
+            type="button"
+            onClick={() => handleCategory("study")}
+            style={{
+              backgroundColor: values.category === "study" ? "yellow" : "red",
+            }}
+          >
+            스터디
+          </button>
+          <button
+            type="button"
+            onClick={() => handleCategory("project")}
+            style={{
+              backgroundColor: values.category === "project" ? "yellow" : "red",
+            }}
+          >
+            프로젝트
+          </button>
+          <button
+            type="button"
+            onClick={() => handleCategory("club")}
+            style={{
+              backgroundColor: values.category === "club" ? "yellow" : "red",
+            }}
+          >
+            동아리
+          </button>
           <label htmlFor="title">제목</label>
           <Input
             type="text"
             name="title"
-            value={values.title}
             onChange={handleChange}
+            value={test}
           />
-          <label htmlFor="applicantCount">모집 인원</label>
-          <Input
-            type="text"
-            name="applicantCount"
-            value={values.applicantCount}
-          />
+
+          {/* <label htmlFor="applicantCount">모집 인원</label>
+          <Input type="text" name="applicantCount" onChange={handleChange} />
           <label htmlFor="deadLine">마감 날짜</label>
-          <Input
-            type="text"
-            name="deadLine"
-            value={values.deadLine}
-            onChange={handleChange}
-          />
+          <Input type="text" name="deadLine" onChange={handleChange} />
           <label htmlFor="content">내용</label>
-          <Input
-            type="text"
-            name="content"
-            value={values.content}
-            onChange={handleChange}
-          />
+          <Input type="text" name="content" onChange={handleChange} /> */}
           <Button onClick={handleModalClose}>등록</Button>
         </>
       </Modal>
