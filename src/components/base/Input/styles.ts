@@ -25,7 +25,15 @@ export const StyledInput = styled.input<IProps>`
 `;
 
 export const CustomStyledInput = styled(StyledInput)<IProps>`
-  width: ${({ customStyle }) => customStyle.width};
+  width: ${({ customStyle }) =>
+    typeof customStyle.width === "number"
+      ? `${customStyle.width}px`
+      : customStyle.width};
+  height: ${({ customStyle }) =>
+    typeof customStyle.height === "number"
+      ? `${customStyle.height}px`
+      : customStyle.height};
+  // ${({ customStyle }) => customStyle.height};
   color: ${({ customStyle, theme }) => theme.colors[customStyle.color]};
   padding: ${({ customStyle }) => customStyle.padding};
   border: ${({ customStyle }) => customStyle.border};

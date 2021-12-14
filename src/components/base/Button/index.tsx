@@ -6,11 +6,17 @@ interface Props {
   children?: ReactChild;
   text?: string;
   onClick: (event: React.MouseEvent) => void;
+  style?: React.CSSProperties;
 }
 
-const Button = ({ name = "", children, text = "", onClick }: Props) => {
+const Button = ({ name = "", children, text = "", onClick, style }: Props) => {
   return (
-    <StyledButton type="button" aria-label={name} onClick={onClick}>
+    <StyledButton
+      type="button"
+      aria-label={name}
+      onClick={onClick}
+      style={style}
+    >
       {children ?? text}
     </StyledButton>
   );

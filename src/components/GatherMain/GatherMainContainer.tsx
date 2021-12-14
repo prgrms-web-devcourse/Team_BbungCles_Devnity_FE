@@ -1,6 +1,7 @@
+import { useState } from "react";
 import GatherMain from "./GatherMain";
 
-const dummy = [
+export const dummy = [
   {
     status: "GATHERING",
     gatherId: 1,
@@ -53,23 +54,18 @@ export interface IProps {
 }
 
 const GatherContainer = ({ selectedCategory }: IProps) => {
-  // TODO: 검색 API를 호출하도록 연동해야한다.
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const handleWrite = (e) => {
-    // TODO: 등록 모달 창이 뜨도록 구현해야한다.
-    // eslint-disable-next-line no-console
-    console.log("글쓰기 버튼 클릭", e);
+  const handleVisibleModal = (isModalVisible: boolean) => {
+    setModalVisible(isModalVisible);
   };
 
   return (
     <GatherMain
       gatherData={dummy}
-      handleSubmit={handleSubmit}
       selectedCategory={selectedCategory}
-      handleWrite={handleWrite}
+      modalVisible={modalVisible}
+      handleVisibleModal={handleVisibleModal}
     />
   );
 };

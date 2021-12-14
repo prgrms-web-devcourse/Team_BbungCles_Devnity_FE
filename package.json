@@ -98,7 +98,7 @@
     "yup": "^0.32.11"
   },
   "engines": {
-    "node": ">= 16",
+    "node": ">= 14",
     "npm": "please-use-yarn",
     "yarn": ">= 1.22"
   }

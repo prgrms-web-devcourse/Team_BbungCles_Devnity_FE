@@ -1,13 +1,8 @@
 import GatherList from "../GatherList/GatherList";
-import {
-  Container,
-  SearchAndWriteContainer,
-  SearchForm,
-  HiddenLabel,
-  Input,
-  SearchButton,
-  WriteButton,
-} from "./styles";
+import Modal from "../base/Modal";
+import GatherRegisterFormContainer from "../GatherRegisterForm/GatherRegistorFormContainer";
+import SearchForm from "../SearchForm";
+import { Container, SearchAndWriteContainer, WriteButton } from "./styles";
 
 export interface GatherData {
   status: string;
@@ -23,40 +18,38 @@ export interface GatherData {
   course: string;
   generation: number;
   profileImgUrl: string;
+  content?: string;
 }
 
 interface Props {
   selectedCategory?: string;
   gatherData: Array<GatherData>;
-  handleSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  handleWrite: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  modalVisible: boolean;
+  handleVisibleModal: (isModalVisible: boolean) => void;
 }
 
-const Gather = ({
+const GatherMain = ({
   selectedCategory,
   gatherData,
-  handleSubmit,
-  handleWrite,
+  modalVisible,
+  handleVisibleModal,
 }: Props) => {
   return (
     <Container>
       <SearchAndWriteContainer>
-        <SearchForm>
-          <HiddenLabel htmlFor="search" />
-          <Input
-            type="text"
-            name="search"
-            placeholder="제목으로 검색해보세요."
-          />
-        </SearchForm>
-        <SearchButton onClick={handleSubmit}>검색</SearchButton>
-        <WriteButton type="submit" onClick={handleWrite}>
+        <SearchForm />
+        <WriteButton type="submit" onClick={() => handleVisibleModal(true)}>
           글쓰기
         </WriteButton>
       </SearchAndWriteContainer>
+      <Modal visible={modalVisible} onClose={() => handleVisibleModal(false)}>
+        <GatherRegisterFormContainer
+          onModalClose={() => handleVisibleModal(false)}
+        />
+      </Modal>
       <GatherList selectedCategory={selectedCategory} gatherData={gatherData} />
     </Container>
   );
 };
 
-export default Gather;
+export default GatherMain;
