@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { MediaQueriesBreakpoints } from "../../assets/media";
+import { mediaQueriesBreakpoints } from "../../assets/media";
 
 export const Container = styled.div`
   display: flex;
@@ -14,19 +14,19 @@ export const UserContainer = styled.div`
   display: grid;
   gap: 32px;
 
-  ${MediaQueriesBreakpoints.mobile} {
+  ${mediaQueriesBreakpoints.mobile} {
     grid-template-columns: repeat(1, 1fr);
   }
 
-  ${MediaQueriesBreakpoints.tablet} {
+  ${mediaQueriesBreakpoints.tablet} {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  ${MediaQueriesBreakpoints.desktop} {
+  ${mediaQueriesBreakpoints.desktop} {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  ${MediaQueriesBreakpoints.largeDesktop} {
+  ${mediaQueriesBreakpoints.largeDesktop} {
     grid-template-columns: repeat(6, 1fr);
   }
 
