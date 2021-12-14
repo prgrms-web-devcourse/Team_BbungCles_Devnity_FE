@@ -30,7 +30,7 @@ export const UserContainer = styled.div`
     grid-template-columns: repeat(6, 1fr);
   }
 
-  grid-auto-rows: 350px;
+  grid-auto-rows: 360px;
   justify-content: center;
   align-items: center;
 `;

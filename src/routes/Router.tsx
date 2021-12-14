@@ -21,13 +21,13 @@ const Router = () => {
       <Route path={routes.ADMIN} exact component={MainPage} />
       <PrivateRoute
         path={routes.MYPROFILE}
-        fallbackPath="/login"
+        fallbackPath={routes.LOGIN}
         exact
         component={MyProfilePage}
       />
       <PrivateRoute
         path={routes.USERLIST}
-        fallbackPath="/login"
+        fallbackPath={routes.LOGIN}
         exact
         component={UserListPage}
       />
