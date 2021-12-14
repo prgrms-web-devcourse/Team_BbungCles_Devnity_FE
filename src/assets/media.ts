@@ -5,7 +5,7 @@ export const breakpoints = {
   minDesktop: "@media screen and (min-width: 1230px)",
 };
 
-export const MediaQueriesBreakpoints = {
+export const mediaQueriesBreakpoints = {
   mobile: "@media screen and (min-width: 576px)",
   tablet: "@media screen and (min-width: 768px)",
   desktop: "@media screen and (min-width: 992px)",
