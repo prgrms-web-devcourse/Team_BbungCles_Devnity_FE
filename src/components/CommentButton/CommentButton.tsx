@@ -6,9 +6,7 @@ interface Props {
 }
 
 const CommentButton = ({ onClick }: Props) => {
-  const icon = (
-    <BiComment style={{ verticalAlign: "text-top" }} data-testid="filled" />
-  );
+  const icon = <BiComment data-testid="filled" />;
 
   return (
     <Button name="comment" onClick={onClick}>

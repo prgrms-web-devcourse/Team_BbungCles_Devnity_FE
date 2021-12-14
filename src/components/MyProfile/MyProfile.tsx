@@ -47,7 +47,7 @@ const mbtis: string[] = [
   "ENTP",
   "ESTJ",
   "ESFJ",
-  "ENFA",
+  "ENFJ",
   "ENFP",
   "ESTP",
   "ESFP",
