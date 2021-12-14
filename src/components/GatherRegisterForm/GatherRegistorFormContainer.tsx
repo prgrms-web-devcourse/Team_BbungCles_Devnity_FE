@@ -38,7 +38,7 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
   );
 
   const handleContent = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       const { value } = e.target;
       setContent(value);
     },
@@ -56,7 +56,6 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
 
   const handleSubmit = () => {
     // TODO: 모집 등록 API 연동 추가해야 한다.
-
     closeAndValueInitialize();
   };
 

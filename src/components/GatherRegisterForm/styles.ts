@@ -36,6 +36,19 @@ export const CategoryWrapper = styled.div`
   gap: 16px;
 `;
 
+export const Textarea = styled.textarea`
+  height: 150px;
+  padding: 16px;
+  resize: none;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 5px 1px ${theme.colors?.gray800}25;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;

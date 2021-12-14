@@ -8,6 +8,7 @@ import {
   ClickedStyle,
   NormalStyle,
   ButtonWrapper,
+  Textarea,
 } from "./styles";
 
 interface Props {
@@ -22,7 +23,7 @@ interface Props {
   onApplicantChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCategoryChange: (selectedCategory: string) => void;
   onDeadline: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onContent: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onContent: (e: React.ChangeEvent<HTMLTextAreaElement>) => void; // (e: React.ChangeEvent<HTMLInputElement>) => void;
   onModalClose: () => void;
   onSubmit: () => void;
 }
@@ -91,11 +92,11 @@ const GatherRegisterForm = ({
       </ItemContainer>
       <ItemContainer>
         <label htmlFor="content">내용</label>
-        <Input
-          type="text"
+        <Textarea
+          id="content"
           name="content"
-          onChange={onContent}
           value={values.content}
+          onChange={onContent}
         />
       </ItemContainer>
       <ButtonWrapper>
@@ -130,3 +131,11 @@ const GatherRegisterForm = ({
 };
 
 export default GatherRegisterForm;
+/*
+        <Input
+          type="text"
+          name="content"
+          onChange={onContent}
+          value={values.content}
+        />
+*/
