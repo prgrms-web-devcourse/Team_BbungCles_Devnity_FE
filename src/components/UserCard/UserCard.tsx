@@ -11,10 +11,10 @@ import Text from "../base/Text";
 import Image from "../base/Image";
 import Tag from "../Tag/Tag";
 import LikeButtonAndText from "../LikeButtonAndText/LikeButtonAndText";
-import { UserInfo } from "../../../fixtures/userInfo";
 import CommentButtonAndText from "../CommentButtonAndText/CommentButtonAndText";
 import { tagName } from "../../constants";
 import ProfileBox from "../ProfileBox/ProfileBox";
+import { UserInfo } from "../../types/userInfo";
 
 interface Props {
   userInfo: UserInfo;

@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Map } from "react-kakao-maps-sdk";
-import { gathers } from "../../../fixtures/gather";
 import { center } from "../../../fixtures/map";
-import { UserInfo } from "../../../fixtures/userInfo";
 import theme from "../../assets/theme";
 import { common } from "../../constants";
+import { Gather } from "../../types/Gather";
+import { UserInfo } from "../../types/userInfo";
 import Button from "../base/Button";
 import Text from "../base/Text";
 import GatherList from "../GatherList/GatherList";
+import Mapgakco from "../Mapgakco/Mapgakco";
 import UserCard from "../UserCard/UserCard";
 import UserImageAndDropdownContainer from "../UserImageAndDropdown/UserImageAndDropdownContainer";
 import {
@@ -29,10 +29,11 @@ export const FILTER_GATHERLIST = "show_gatherlist";
 
 interface Props {
   currentUser: UserInfo;
-  usersSuggest: UserInfo[];
+  userSuggestions: UserInfo[];
+  gatherSuggestions: Gather[];
 }
 
-const Main = ({ currentUser, usersSuggest }: Props) => {
+const Main = ({ currentUser, userSuggestions, gatherSuggestions }: Props) => {
   const [filter, setFilter] = useState(FILTER_MAPGAKCO);
 
   return (
@@ -51,7 +52,7 @@ const Main = ({ currentUser, usersSuggest }: Props) => {
             자기소개
           </Text>
           <ul>
-            {usersSuggest?.map((userInfo) => (
+            {userSuggestions?.map((userInfo) => (
               <li key={userInfo.user.userId}>
                 <UserCard userInfo={userInfo} />
               </li>
@@ -99,22 +100,23 @@ const Main = ({ currentUser, usersSuggest }: Props) => {
           </TextOuterContainer>
           <SubContents>
             <MapgakcoWrapper filter={filter}>
-              <Map
+              {/* <Map
                 center={{
                   lat: center.latitude,
                   lng: center.longitude,
                 }}
                 style={{ width: "100%", height: "100%" }}
-              />
-              {/* TODO: 지도 컨트롤 같은 요소가 중복되어 렌더링되는 현상이 해결되면 Mapgakco 컴포넌트를 사용한다.
-               <Mapgakco
-                center={center}
-                userImageUrl={currentUser?.introduction.profileImgUrl ||
-            common.placeHolderImageSrc}
               /> */}
+              <Mapgakco
+                center={center}
+                userImageUrl={
+                  currentUser?.introduction.profileImgUrl ||
+                  common.placeHolderImageSrc
+                }
+              />
             </MapgakcoWrapper>
             <GatherListWrapper filter={filter}>
-              <GatherList gatherData={gathers} />
+              <GatherList gatherData={gatherSuggestions} />
             </GatherListWrapper>
           </SubContents>
         </MapgakcoAndGatherListContainer>

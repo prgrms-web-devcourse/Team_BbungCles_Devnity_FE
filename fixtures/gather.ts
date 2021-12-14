@@ -1,4 +1,6 @@
-export const gathers = [
+import { Gather } from "../src/types/Gather";
+
+export const gathers: Gather[] = [
   {
     status: "GATHERING",
     gatherId: 1,

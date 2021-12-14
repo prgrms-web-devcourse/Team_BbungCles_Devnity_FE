@@ -1,1 +1,0 @@
-export { requestGetUsersSuggest } from "./main";

@@ -7,6 +7,7 @@ import {
   MbtiKeyType,
   RoleKeyType,
 } from "../src/constants/index";
+import { UserInfo } from "../src/types/userInfo";
 
 const random = <Type>(array: Type[]): Type => {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -22,38 +23,6 @@ const mbti = () => {
     random(["J", "P"])
   );
 };
-
-interface User {
-  userId: string;
-  email: string;
-  name: string;
-  course: CourseKeyType;
-  role: RoleKeyType;
-  generation: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface Introduction {
-  introductionId: string;
-  profileImgUrl: string;
-  mbti: MbtiKeyType;
-  blogUrl: string;
-  githubUrl: string;
-  summary: string;
-  latitude: string | number;
-  longitude: string | number;
-  createdAt: Date;
-  updatedAt: Date;
-
-  likeCount: number;
-  isLike: boolean;
-  commentCount: number;
-}
-export interface UserInfo {
-  user: User;
-  introduction: Introduction;
-}
 
 const randomUserInfo = (): UserInfo => ({
   user: {

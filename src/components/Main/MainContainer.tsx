@@ -1,13 +1,21 @@
 import { useRecoilValue } from "recoil";
 import { currentUserState } from "../../atoms/user";
-import useUsersSuggest from "../../hooks/useUsersSuggest";
+import useGatherSuggestions from "../../hooks/useGatherSuggestions";
+import useUserSuggestions from "../../hooks/useUserSuggetions";
 import Main from "./Main";
 
 const MainContainer = () => {
   const currentUser = useRecoilValue(currentUserState);
-  const { data: usersSuggest } = useUsersSuggest();
+  const { data: userSuggestions } = useUserSuggestions();
+  const { data: gatherSuggestions } = useGatherSuggestions();
 
-  return <Main currentUser={currentUser} usersSuggest={usersSuggest} />;
+  return (
+    <Main
+      currentUser={currentUser}
+      userSuggestions={userSuggestions}
+      gatherSuggestions={gatherSuggestions}
+    />
+  );
 };
 
 export default MainContainer;

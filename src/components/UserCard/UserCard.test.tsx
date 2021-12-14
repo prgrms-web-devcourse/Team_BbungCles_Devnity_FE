@@ -47,7 +47,8 @@ describe("UserCard", () => {
 
       const regex = new RegExp(value.toString());
 
-      expect(screen.queryByText(regex)).toBeInTheDocument();
+      // TODO: value와 일치하는 값이 여러 요소에 있을 수 있으므로 첫번째 값만 일치해도 통과하도록 만든다. 추후 각 요소에 test-id나 다른 attribute를 부여하는 방식 또는 더 나은 아이디어를 도입한다.
+      expect(screen.queryAllByText(regex)[0]).toBeInTheDocument();
     });
   });
 
