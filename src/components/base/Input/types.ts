@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FocusEvent, FormEvent } from "react";
 import { ColorType, ShadowType } from "../../../assets/theme";
 
 export interface CustomStyles {
@@ -27,4 +27,5 @@ export interface IProps {
   autoComplete?: string;
   customStyle?: CustomStyles;
   onChange?: (event: FormEvent<HTMLInputElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
 }

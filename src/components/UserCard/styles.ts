@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 10px;
   width: 220px;
+  padding-bottom: 8px;
   cursor: pointer;
   transition: background-color 0.2s ease;
   overflow-x: hidden;

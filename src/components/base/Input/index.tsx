@@ -13,6 +13,7 @@ const Input = ({
   autoComplete,
   customStyle,
   onChange,
+  onBlur,
 }: IProps) => {
   return customStyle ? (
     <CustomStyledInput
@@ -26,6 +27,7 @@ const Input = ({
       placeholder={placeholder}
       autoComplete={autoComplete}
       onChange={onChange}
+      onBlur={onBlur}
       customStyle={customStyle}
     />
   ) : (
@@ -39,6 +41,7 @@ const Input = ({
       readOnly={readOnly}
       placeholder={placeholder}
       autoComplete={autoComplete}
+      onBlur={onBlur}
       onChange={onChange}
     />
   );

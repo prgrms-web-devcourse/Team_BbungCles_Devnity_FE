@@ -1,7 +1,7 @@
 import { ComponentType } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { login } from "../../constants";
-import { getLocalStorageItem } from "../../utils/functions";
+import { useLocalStorage } from "../../hooks";
 
 interface IProps {
   path: string;
@@ -19,13 +19,13 @@ const PrivateRoute = ({
   fallbackPath,
   ...rest
 }: IProps) => {
-  const isLogin = getLocalStorageItem(login.localStorageKey.TOKEN, null);
+  const [token] = useLocalStorage(login.localStorageKey.TOKEN, null);
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        isLogin ? <Component {...props} /> : <Redirect to={fallbackPath} />
+        token ? <Component {...props} /> : <Redirect to={fallbackPath} />
       }
     />
   );
