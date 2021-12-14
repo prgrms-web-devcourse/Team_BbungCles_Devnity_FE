@@ -44,9 +44,11 @@ const Modal = ({
       <ModalContainer style={{ ...containerStyle }}>
         <ContentContainer>
           <ButtonWrapper>
-            <Button onClick={onClose} style={{ display: "none" }}>
-              ❌
-            </Button>
+            {onClose && (
+              <Button onClick={onClose} style={{ display: "none" }}>
+                ❌
+              </Button>
+            )}
           </ButtonWrapper>
           {children}
         </ContentContainer>
