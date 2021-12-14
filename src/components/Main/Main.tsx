@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import { gathers } from "../../../fixtures/gather";
 import { center } from "../../../fixtures/map";
-import randomUserInfo, { UserInfo } from "../../../fixtures/userInfo";
+import { UserInfo } from "../../../fixtures/userInfo";
 import theme from "../../assets/theme";
+import defaultValue from "../../constants/defaultValue";
 import Button from "../base/Button";
 import Text from "../base/Text";
 import GatherList from "../GatherList/GatherList";
@@ -27,22 +28,20 @@ export const FILTER_MAPGAKCO = "show_mapgakco";
 export const FILTER_GATHERLIST = "show_gatherlist";
 
 interface Props {
+  currentUser: UserInfo;
   usersSuggest: UserInfo[];
 }
 
-const Main = ({ usersSuggest }: Props) => {
+const Main = ({ currentUser, usersSuggest }: Props) => {
   const [filter, setFilter] = useState(FILTER_MAPGAKCO);
-
-  // TODO: 모킹 데이터이므로 API 연동이 완료되면 API 데이터로 교체한다.
-  // const userInfos = Array.from({ length: 10 }, () => randomUserInfo());
-
-  const currentUser = randomUserInfo();
 
   return (
     <Container>
       <Header>
         <UserImageAndDropdownContainer
-          imageUrl={currentUser.introduction.profileImgUrl}
+          imageUrl={
+            currentUser?.introduction.profileImgUrl || defaultValue.imageUrl
+          }
         />
       </Header>
       <Contents>
@@ -106,9 +105,10 @@ const Main = ({ usersSuggest }: Props) => {
                 }}
                 style={{ width: "100%", height: "100%" }}
               />
-              {/* <Mapgakco
+              {/* TODO: 지도 컨트롤 같은 요소가 중복되어 렌더링되는 현상이 해결되면 Mapgakco 컴포넌트를 사용한다.
+               <Mapgakco
                 center={center}
-                userImageUrl={currentUser.introduction.profileImgUrl}
+                userImageUrl={currentUser?.introduction.profileImgUrl}
               /> */}
             </MapgakcoWrapper>
             <GatherListWrapper filter={filter}>

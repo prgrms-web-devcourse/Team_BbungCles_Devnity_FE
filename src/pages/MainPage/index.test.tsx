@@ -1,12 +1,15 @@
-import { ThemeProvider } from "@emotion/react";
-import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
-
-import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import { MemoryRouter } from "react-router-dom";
+import { ThemeProvider } from "@emotion/react";
+
+import { render, screen } from "@testing-library/react";
+
 import theme from "../../assets/theme";
 
 import MainPage from "./index";
+import { currentUserState } from "../../atoms/user";
+import randomUserInfo from "../../../fixtures/userInfo";
 
 describe("MainPage", () => {
   const queryClient = new QueryClient({
@@ -20,7 +23,11 @@ describe("MainPage", () => {
   function renderMainPage() {
     return render(
       <QueryClientProvider client={queryClient}>
-        <RecoilRoot>
+        <RecoilRoot
+          initializeState={(snap) =>
+            snap.set(currentUserState, randomUserInfo())
+          }
+        >
           <MemoryRouter>
             <ThemeProvider theme={theme}>
               <MainPage />

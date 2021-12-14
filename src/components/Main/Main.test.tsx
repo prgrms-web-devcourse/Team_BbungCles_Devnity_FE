@@ -10,6 +10,7 @@ import theme from "../../assets/theme";
 import Main from "./Main";
 
 describe("Main", () => {
+  const currentUser = randomUserInfo();
   const usersSuggest = Array.from({ length: 1 }, () => randomUserInfo());
 
   function renderMain() {
@@ -17,7 +18,7 @@ describe("Main", () => {
       <RecoilRoot>
         <MemoryRouter>
           <ThemeProvider theme={theme}>
-            <Main usersSuggest={usersSuggest} />
+            <Main currentUser={currentUser} usersSuggest={usersSuggest} />
           </ThemeProvider>
         </MemoryRouter>
       </RecoilRoot>

@@ -16,3 +16,4 @@ export { default as routes } from "./routes";
 export { default as myProfile } from "./myProfile";
 export { default as common } from "./common";
 export { default as categoryName } from "./categoryName";
+export { default as defaultValue } from "./defaultValue";
