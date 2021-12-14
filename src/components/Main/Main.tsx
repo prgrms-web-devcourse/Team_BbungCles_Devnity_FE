@@ -4,7 +4,7 @@ import { gathers } from "../../../fixtures/gather";
 import { center } from "../../../fixtures/map";
 import { UserInfo } from "../../../fixtures/userInfo";
 import theme from "../../assets/theme";
-import defaultValue from "../../constants/defaultValue";
+import { common } from "../../constants";
 import Button from "../base/Button";
 import Text from "../base/Text";
 import GatherList from "../GatherList/GatherList";
@@ -40,7 +40,8 @@ const Main = ({ currentUser, usersSuggest }: Props) => {
       <Header>
         <UserImageAndDropdownContainer
           imageUrl={
-            currentUser?.introduction.profileImgUrl || defaultValue.imageUrl
+            currentUser?.introduction.profileImgUrl ||
+            common.placeHolderImageSrc
           }
         />
       </Header>
@@ -108,7 +109,8 @@ const Main = ({ currentUser, usersSuggest }: Props) => {
               {/* TODO: 지도 컨트롤 같은 요소가 중복되어 렌더링되는 현상이 해결되면 Mapgakco 컴포넌트를 사용한다.
                <Mapgakco
                 center={center}
-                userImageUrl={currentUser?.introduction.profileImgUrl}
+                userImageUrl={currentUser?.introduction.profileImgUrl ||
+            common.placeHolderImageSrc}
               /> */}
             </MapgakcoWrapper>
             <GatherListWrapper filter={filter}>

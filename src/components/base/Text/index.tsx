@@ -49,7 +49,9 @@ const Text = ({
       WebkitLineClamp: ellipsisLineClamp,
       lineClamp: ellipsisLineClamp,
       WebkitBoxOrient: "vertical",
-      whiteSpace: "normal",
+      // TODO: 한글 폰트가 텍스트를 감싸는 컴포넌트보다 위로 삐져나오는 현상이 있어서 Ellipsis 스타일에 white space를 nowrap으로 변경한다.
+      // whiteSpacfge: "normal"
+      whiteSpace: "nowrap",
       overflowWrap: "break-word",
     } as const);
 

@@ -34,6 +34,8 @@ export const SelfIntroduce = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2px;
+  // TODO: 자기소개 이미지 로딩 전후로 높이가 흔들리지 않도록 추가한다. 추후 스켈레톤 UI가 완성될 경우 제거한다.
+  height: 300px;
 
   > span {
     padding-left: 10px;
