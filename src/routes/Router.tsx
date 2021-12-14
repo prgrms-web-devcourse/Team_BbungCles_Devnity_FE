@@ -32,7 +32,7 @@ const Router = () => {
         component={UserListPage}
       />
       <Route path={routes.USERLIST_ID} exact component={MainPage} />
-      <Route path={routes.MYGATHERLIST} exact component={MyGatherPage} />
+      <Route path={routes.MYGATHERLIST} exact component={MainPage} />
       <Route path={routes.GATHERLIST} exact component={GatherPage} />
       <Route path={routes.GATHERLIST_STUDY} exact component={GatherStudyPage} />
       <Route path={routes.GATHERLIST_CLUB} exact component={GatherClubPage} />

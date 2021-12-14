@@ -26,6 +26,7 @@ export const StyledInput = styled.input<IProps>`
 
 export const CustomStyledInput = styled(StyledInput)<IProps>`
   width: ${({ customStyle }) => customStyle.width};
+  height: ${({ customStyle }) => customStyle.height};
   color: ${({ customStyle, theme }) => theme.colors[customStyle.color]};
   padding: ${({ customStyle }) => customStyle.padding};
   border: ${({ customStyle }) => customStyle.border};

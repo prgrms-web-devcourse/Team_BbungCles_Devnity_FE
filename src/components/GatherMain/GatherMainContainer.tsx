@@ -56,11 +56,6 @@ export interface IProps {
 const GatherContainer = ({ selectedCategory }: IProps) => {
   const [modalVisible, setModalVisible] = useState(false);
 
-  // TODO: 검색 API를 호출하도록 연동해야한다.
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
   const handleVisibleModal = (isModalVisible: boolean) => {
     setModalVisible(isModalVisible);
   };
@@ -68,7 +63,6 @@ const GatherContainer = ({ selectedCategory }: IProps) => {
   return (
     <GatherMain
       gatherData={dummy}
-      handleSubmit={handleSubmit}
       selectedCategory={selectedCategory}
       modalVisible={modalVisible}
       handleVisibleModal={handleVisibleModal}
