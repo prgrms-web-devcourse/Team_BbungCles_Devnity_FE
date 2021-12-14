@@ -1,8 +1,10 @@
 $border-width: 3px;
 $marker-size: 40px;
-$marker-color: #d22b05; // royalblue #d22b05
+$marker-color: #d22b05;
+$marker--blue-color: royalblue;
+$marker--green-color: lightgreen;
 
-.marker {
+.marker, .marker--blue, .marker--green {
   position: relative;
   width: $marker-size;
   height: $marker-size;
@@ -12,6 +14,8 @@ $marker-color: #d22b05; // royalblue #d22b05
   justify-content: center;
   align-items: center;
   transform: translateY(-54%);
+  user-select: none;
+  pointer-events: none;
 
   &::before {
     content: "";
@@ -23,6 +27,33 @@ $marker-color: #d22b05; // royalblue #d22b05
     background-color: $marker-color;
     border-radius: 50% 50% 0 50%;
     transform: rotate(45deg);
+    z-index: 9;
+  }
+
+  &--green::before {
+    content: "";
+    position: absolute;
+    width: $marker-size;
+    height: $marker-size;
+    border: $border-width solid $marker--green-color;
+    box-sizing: border-box;
+    background-color: $marker--green-color;
+    border-radius: 50% 50% 0 50%;
+    transform: rotate(45deg);
+    z-index: 9;
+  }
+
+  &--blue::before {
+    content: "";
+    position: absolute;
+    width: $marker-size;
+    height: $marker-size;
+    border: $border-width solid $marker--blue-color;
+    box-sizing: border-box;
+    background-color: $marker--blue-color;
+    border-radius: 50% 50% 0 50%;
+    transform: rotate(45deg);
+    z-index: 9;
   }
 
   &__image {
@@ -31,5 +62,35 @@ $marker-color: #d22b05; // royalblue #d22b05
     border-radius: 50%;
     object-fit: cover;
     z-index: 9;
+    pointer-events: none;
+  }
+
+  &__text {
+    opacity: 1;
+    visibility: visible;
+    // TODO: hover를 할 때 보여주는 게 나은지 팀원들과 논의한다. hover를 할 때 보여주는 게 낫다면 주석을 해제한다.
+    // opacity: 0;
+    // visibility: hidden;
+    transition: 0.2s ease-out;
+
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    padding: 6px 6px 4px 60%;
+    box-shadow: 0 2px 5px 1px #363a3c25;
+    background-color: white;
+    font-size: 14px;
+    border-radius: 16px;
+    max-width: 120px;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    overflow: hidden;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  &:hover .marker__text {
+    visibility: visible;
+    opacity: 1;
   }
 }

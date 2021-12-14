@@ -2,7 +2,7 @@ import { useState } from "react";
 import { center } from "../../../fixtures/map";
 import theme from "../../assets/theme";
 import { common } from "../../constants";
-import { Gather } from "../../types/Gather";
+import { Gather } from "../../types/gather";
 import { UserInfo } from "../../types/userInfo";
 import Button from "../base/Button";
 import Text from "../base/Text";
