@@ -15,11 +15,13 @@ export default {
     DESCRIPTION: "자기 소개",
     SEARCH: "검색",
     WRITE: "작성",
+    SET_MY_LOCATION: "내 위치 설정",
   },
 
   message: {
     ENTER_SEARCH_TERM: "검색어를 입력해 주세요",
     ENTER_COMMENT: "댓글을 입력해 주세요",
+    UNKNOWN_ERROR: "알수없는 오류입니다. 다시 시도해주세요.",
   },
 
   buttonName: {

@@ -29,8 +29,10 @@ import {
 import MarkdownEditor from "../base/MarkdownEditor";
 import Comment from "./Comment";
 import { UserDetailProps } from "./types";
+import useMutationUserDetailComment from "../../hooks/useMutationUserDetailComment";
 
 const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
+  const { mutate } = useMutationUserDetailComment();
   const { handleChange, handleSubmit, handleBlur, values } = useFormik<{
     content: string;
   }>({
@@ -38,9 +40,11 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
     validationSchema: Yup.string().required(""),
     onSubmit: (formValues, { setSubmitting }) => {
       setSubmitting(true);
-      // TODO: 백엔드 API 개발되면 붙여야 함
-      // eslint-disable-next-line
-      console.log(formValues);
+      mutate({
+        introductionId: userInfo.introduction.introductionId,
+        parentId: null,
+        content: formValues.content,
+      });
       setSubmitting(false);
     },
   });
@@ -73,9 +77,11 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
         {`${common.roleMap[userInfo.user.role] || ""}`}
       </UserTag>
 
-      <MbtiTag fontSize={16} mbti="ISFJ">
-        {userInfo.introduction.mbti}
-      </MbtiTag>
+      {userInfo.introduction.mbti && (
+        <MbtiTag fontSize={16} mbti="ISFJ">
+          {userInfo.introduction.mbti}
+        </MbtiTag>
+      )}
 
       <TextWrapper>
         <Text
@@ -124,15 +130,28 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
         )}
       </BorderContainer>
 
-      <BorderContainer>
-        <MarkdownEditor isViewMode value={userInfo.introduction.summary} />
-      </BorderContainer>
+      {userInfo.introduction.description && (
+        <BorderContainer>
+          <MarkdownEditor
+            editorRef={null}
+            isViewMode
+            value={userInfo.introduction.description}
+          />
+        </BorderContainer>
+      )}
 
       <BorderContainer height={560}>
-        <StyledMap center={{ ...common.defaultPosition }}>
+        <StyledMap
+          center={{
+            lat: userInfo.introduction.latitude || common.defaultPosition.lat,
+            lng: userInfo.introduction.longitude || common.defaultPosition.lng,
+          }}
+        >
           <MapMarker
             position={{
-              ...common.defaultPosition,
+              lat: userInfo.introduction.latitude || common.defaultPosition.lat,
+              lng:
+                userInfo.introduction.longitude || common.defaultPosition.lng,
             }}
           />
         </StyledMap>

@@ -19,7 +19,32 @@ export interface User {
   };
 }
 
+export interface Contents {
+  contents: User[];
+  nextLastId: number;
+}
+
+export interface Filters {
+  name: string | null;
+  course: string | null;
+  generation: string | null;
+  role: string | null;
+  nextLastId: number | null;
+  size: number | null;
+}
+
 export interface IProps {
-  users: User[];
+  users: Contents;
   handleMoveDetailPage?: MouseEventHandler<HTMLDivElement>;
+  setFilters: React.Dispatch<
+    React.SetStateAction<{
+      name: string | null;
+      course: string | null;
+      generation: string | null;
+      role: string | null;
+      nextLastId: number | null;
+      size: number | null;
+    }>
+  >;
+  isLoading: boolean;
 }

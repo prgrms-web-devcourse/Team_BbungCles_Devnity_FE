@@ -1,13 +1,20 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
-import randomUsers from "../../../fixtures/userList";
 import { routes } from "../../constants";
+import useFilteredUserList from "../../hooks/useFilteredUserList";
+import { Filters } from "./types";
 import UserList from "./UserList";
 
 const UserListContainer = () => {
+  const [filters, setFilters] = useState<Filters>({
+    name: null,
+    course: null,
+    generation: null,
+    role: null,
+    nextLastId: null,
+    size: null,
+  });
   const history = useHistory();
-  // TODO: 모킹 데이터이므로 API 연동이 완료되면 API 데이터로 교체한다.
-  const users = Array.from({ length: 10 }, () => randomUsers());
   const handleMoveDetailPage = useCallback(
     (userId) => {
       if (userId) {
@@ -17,7 +24,17 @@ const UserListContainer = () => {
     [history]
   );
 
-  return <UserList users={users} handleMoveDetailPage={handleMoveDetailPage} />;
+  // TODO: 로딩처리 해야 함
+  const { data: users, isLoading } = useFilteredUserList(filters);
+
+  return (
+    <UserList
+      isLoading={isLoading}
+      users={users}
+      handleMoveDetailPage={handleMoveDetailPage}
+      setFilters={setFilters}
+    />
+  );
 };
 
 export default UserListContainer;

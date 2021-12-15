@@ -18,7 +18,12 @@ import {
 } from "./styles";
 import { IProps } from "./types";
 
-const UserList = ({ users, handleMoveDetailPage }: IProps) => {
+const UserList = ({
+  users,
+  handleMoveDetailPage,
+  setFilters,
+  isLoading,
+}: IProps) => {
   const { handleChange, handleSubmit, handleBlur, values } = useFormik<{
     name: string;
     course: string;
@@ -31,7 +36,7 @@ const UserList = ({ users, handleMoveDetailPage }: IProps) => {
       setSubmitting(true);
       // TODO: 백엔드 API 개발되면 붙여야 함
       // eslint-disable-next-line
-      console.log(formValues);
+      setFilters({ ...formValues, nextLastId: users?.nextLastId, size: 5 });
       setSubmitting(false);
     },
   });
@@ -109,22 +114,20 @@ const UserList = ({ users, handleMoveDetailPage }: IProps) => {
         </ButtonWrapper>
       </SearchBarFormContainer>
 
-      <UserContainer>
-        {/* TODO: 검색 결과가 없을 경우 */}
-        {users.map((user) => (
-          // TODO: 이 부분 팀원들과 상의 필요
-          // jsx-a11y/click-events-have-key-events
-          // jsx-a11y/no-noninteractive-element-interactions
-          // eslint-disable-next-line
-          <ProfileCardWrapper
-            key={user.user.userId}
-            onClick={handleClick(user.user.userId)}
-            role="feed"
-          >
-            <ProfileCard user={user} />
-          </ProfileCardWrapper>
-        ))}
-      </UserContainer>
+      {/* TODO: 검색 결과가 없을 경우 */}
+      {!isLoading && (
+        <UserContainer>
+          {users?.contents.map((user) => (
+            <ProfileCardWrapper
+              key={user.user.userId}
+              onClick={handleClick(user.user.userId)}
+              role="feed"
+            >
+              <ProfileCard user={user} />
+            </ProfileCardWrapper>
+          ))}
+        </UserContainer>
+      )}
     </Container>
   );
 };
