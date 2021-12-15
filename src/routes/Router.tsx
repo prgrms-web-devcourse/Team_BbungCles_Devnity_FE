@@ -12,6 +12,7 @@ import GatherStudyPage from "../pages/GatherStudyPage";
 import { PrivateRoute } from "./customRoutes";
 import UserListPage from "../pages/UserListPage";
 import UserDetailPage from "../pages/UserDetailPage";
+import UsersMapPage from "../pages/UsersMapPage";
 
 const Router = () => {
   return (
@@ -55,7 +56,13 @@ const Router = () => {
       <Route path={routes.GATHERLIST_ID} exact component={GatherDetailPage} />
       <Route path={routes.MAPGAKCOLIST} exact component={MainPage} />
       <Route path={routes.MAPGAKCOLIST_ID} exact component={MainPage} />
-      <Route path={routes.USERSMAP} exact component={MainPage} />
+      <PrivateRoute
+        path={routes.USERSMAP}
+        fallbackPath={routes.LOGIN}
+        exact
+        component={UsersMapPage}
+      />
+
       {/*
       TODO: 백엔드와 스크럼에서 Role 사용 관련 이야기가 완료되면 바뀔수도 있음
       지금은 대략적인 사용방법의 예시를 명시했습니다.

@@ -1,24 +1,21 @@
-// 커스텀 가능한 타입
+import { ImageMarkerOverlayOptions } from "../utils/map/overlay";
+
 export interface Position {
-  latitude: number;
-  longitude: number;
+  lat: number;
+  lng: number;
 }
 export interface Marker {
   position: Position;
   title?: string;
 }
 
-// 카카오 맵 API
+export interface ImageMarker {
+  position: Position;
+  imageUrl: string;
+}
 
-// 백엔드 API
-
-export interface Map {
-  title: string;
-  applicantLimit: number;
-  deadline: string;
-  content: string;
-  location: string;
-  latitude: number;
-  longitude: number;
-  meetingDateTime: string;
+export interface ImageMarkerOverlay {
+  position: Position;
+  imageUrl: string;
+  options?: ImageMarkerOverlayOptions;
 }

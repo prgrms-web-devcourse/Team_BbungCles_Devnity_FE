@@ -18,8 +18,8 @@ interface Introduction {
   blogUrl: string;
   githubUrl: string;
   summary: string;
-  latitude: string | number;
-  longitude: string | number;
+  latitude: number;
+  longitude: number;
   createdAt: Date;
   updatedAt: Date;
 
