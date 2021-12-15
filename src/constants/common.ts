@@ -22,6 +22,8 @@ export default {
     ENTER_SEARCH_TERM: "검색어를 입력해 주세요",
     ENTER_COMMENT: "댓글을 입력해 주세요",
     UNKNOWN_ERROR: "알수없는 오류입니다. 다시 시도해주세요.",
+    EXPIRE_OR_SERVER_ERROR:
+      "로그인 유효기간이 만료되었거나 서버 에러 입니다. 로그인 화면으로 돌아갑니다.",
   },
 
   buttonName: {

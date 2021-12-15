@@ -1,22 +1,23 @@
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { common } from "../constants";
 import { MutationData, MutationError } from "../types/commonTypes";
 import { requestUserDetailWriteComment } from "../utils/apis/introductions";
 
-const writeUserDetailComment = async (values) => {
-  const { data } = await requestUserDetailWriteComment(values);
-  return data;
-};
+interface Variables {
+  content: string;
+  introductionId: number;
+  parentId: number | null;
+}
 
-const useMutationUserDetailComment = () =>
-  useMutation<MutationData, MutationError, unknown, unknown>(
+const useMutationUserDetailComment = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<MutationData, MutationError, Variables, unknown>(
     "userDetailWriteComment",
-    (values) => writeUserDetailComment(values),
+    (values) => requestUserDetailWriteComment(values),
     {
-      onSuccess: ({ data }) => {
-        // TODO: 백엔드 API 호출 성공시 지우고 setQuery 해야 함
-        // eslint-disable-next-line
-        console.log(data);
+      onSuccess: () => {
+        queryClient.invalidateQueries("introductions");
       },
       onError: ({ response }) => {
         const errorMessage = response
@@ -29,5 +30,6 @@ const useMutationUserDetailComment = () =>
       },
     }
   );
+};
 
 export default useMutationUserDetailComment;

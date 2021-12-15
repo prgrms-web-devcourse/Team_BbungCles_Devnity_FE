@@ -1,3 +1,4 @@
+import { Editor } from "@toast-ui/react-editor";
 import { FormikProps } from "formik";
 import { ChangeEvent } from "react";
 import { Position } from "../../types/commonTypes";
@@ -71,4 +72,5 @@ export interface IProps {
   ) => void;
   userClickPosition: Position | null;
   mapCenterPosition: Position | null;
+  editorRef: React.MutableRefObject<Editor>;
 }

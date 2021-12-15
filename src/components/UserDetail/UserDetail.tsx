@@ -6,9 +6,10 @@ import { AiFillCaretRight } from "react-icons/ai";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import theme from "../../assets/theme";
-import { common } from "../../constants";
+import { common, routes } from "../../constants";
 import Input from "../base/Input";
 import Text from "../base/Text";
 import LikeButtonAndText from "../LikeButtonAndText/LikeButtonAndText";
@@ -25,22 +26,30 @@ import {
   StyledMap,
   TextWrapper,
   UserTag,
+  HiddenLabel,
 } from "./styles";
 import MarkdownEditor from "../base/MarkdownEditor";
 import Comment from "./Comment";
 import { UserDetailProps } from "./types";
 import useMutationUserDetailComment from "../../hooks/useMutationUserDetailComment";
+import useMutationUserLike from "../../hooks/useMutationUserLike";
 
 const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
-  const { mutate } = useMutationUserDetailComment();
+  const history = useHistory();
+  const { mutate: userDetailCommentMutate, isError: isUserDetailCommentError } =
+    useMutationUserDetailComment();
+  const { mutate: userLikeMutate, isError: isUserLikeMutateError } =
+    useMutationUserLike();
   const { handleChange, handleSubmit, handleBlur, values } = useFormik<{
     content: string;
   }>({
     initialValues: { content: "" },
-    validationSchema: Yup.string().required(""),
+    validationSchema: Yup.object({
+      content: Yup.string().required(),
+    }),
     onSubmit: (formValues, { setSubmitting }) => {
       setSubmitting(true);
-      mutate({
+      userDetailCommentMutate({
         introductionId: userInfo.introduction.introductionId,
         parentId: null,
         content: formValues.content,
@@ -49,14 +58,33 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
     },
   });
 
+  const handleLikeClick = () => {
+    userLikeMutate(userInfo.introduction.introductionId);
+  };
+
+  useEffect(() => {
+    if (isUserLikeMutateError) {
+      history.push(routes.LOGIN);
+    }
+  }, [isUserLikeMutateError, history]);
+
+  useEffect(() => {
+    if (isUserDetailCommentError) {
+      history.push(routes.LOGIN);
+    }
+  }, [isUserDetailCommentError, history]);
+
   // TODO: 로딩처리
-  if (isLoading) {
+  if (isLoading || !userInfo) {
     return null;
   }
 
   return (
     <Container>
-      <ProfileImage src={common.placeHolderImageSrc} alt="profile" />
+      <ProfileImage
+        src={userInfo.introduction.profileImgUrl || common.placeHolderImageSrc}
+        alt="profile"
+      />
 
       <LikeButtonAndText
         isLiked={false}
@@ -64,7 +92,7 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
         textSize={24}
         // TODO: API 완성되면 붙이기
         // eslint-disable-next-line
-        onClick={() => console.log("좋아요")}
+        onClick={handleLikeClick}
       />
 
       <Text size={32} color={theme.colors.gray800} strong>
@@ -111,7 +139,7 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
 
             <Text size={16}>{userInfo.introduction.githubUrl}</Text>
 
-            <BlankLink href="https://github.com/rkdvnfma90" target="_blank">
+            <BlankLink href={userInfo.introduction.githubUrl} target="_blank">
               <AiFillCaretRight size={24} />
             </BlankLink>
           </ContactContainer>
@@ -133,6 +161,7 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
       {userInfo.introduction.description && (
         <BorderContainer>
           <MarkdownEditor
+            editorRef={null}
             isViewMode
             value={userInfo.introduction.description}
           />
@@ -179,6 +208,8 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
         </CommentContainer>
 
         <FormContainer onSubmit={handleSubmit}>
+          <HiddenLabel htmlFor="content">내용</HiddenLabel>
+
           <Input
             type="text"
             name="content"

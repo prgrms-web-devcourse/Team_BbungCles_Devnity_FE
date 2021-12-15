@@ -132,3 +132,7 @@ export const Button = styled.button`
     background-color: ${({ theme }) => theme.colors.orange600};
   }
 `;
+
+export const HiddenLabel = styled.label`
+  display: none;
+`;

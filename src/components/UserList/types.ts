@@ -20,7 +20,7 @@ export interface User {
 }
 
 export interface Contents {
-  contents: User[];
+  values: User[];
   nextLastId: number;
 }
 

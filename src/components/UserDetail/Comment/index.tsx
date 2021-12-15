@@ -40,7 +40,7 @@ const Comment = ({ comment, isChild }: IProps) => {
 
           <ImageWrapper>
             <Image
-              src={comment.simpleUserInfo.profileImgUrl}
+              src={comment.writer.profileImgUrl || common.placeHolderImageSrc}
               width={36}
               height={36}
               alt="프로필"
@@ -53,11 +53,11 @@ const Comment = ({ comment, isChild }: IProps) => {
         <ContentContainer>
           <TextContainer>
             <Text size={20} strong>
-              {comment.simpleUserInfo.name}
+              {comment.writer.name}
             </Text>
             <Text size={16} color={theme.colors.gray500}>
-              {`${common.courseMap[comment.simpleUserInfo.course]} / ${
-                comment.simpleUserInfo.generation
+              {`${common.courseMap[comment.writer.course]} / ${
+                comment.writer.generation
               }기`}
             </Text>
           </TextContainer>
@@ -65,7 +65,7 @@ const Comment = ({ comment, isChild }: IProps) => {
           {comment.content}
         </ContentContainer>
 
-        {myProfile.user.userId === comment.simpleUserInfo.userId && (
+        {myProfile.user.userId === comment.writer.userId && (
           <ButtonContainer>
             <IconButton role="button" onClick={handleModifyClick}>
               <BsFillKeyboardFill size={28} />

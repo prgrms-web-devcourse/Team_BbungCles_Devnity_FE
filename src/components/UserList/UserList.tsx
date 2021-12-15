@@ -117,10 +117,10 @@ const UserList = ({
       {/* TODO: 검색 결과가 없을 경우 */}
       {!isLoading && (
         <UserContainer>
-          {users?.contents.map((user) => (
+          {users?.values.map((user) => (
             <ProfileCardWrapper
               key={user.user.userId}
-              onClick={handleClick(user.user.userId)}
+              onClick={handleClick(user.introduction.introductionId)}
               role="feed"
             >
               <ProfileCard user={user} />

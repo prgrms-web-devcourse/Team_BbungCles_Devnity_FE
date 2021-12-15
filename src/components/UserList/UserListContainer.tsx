@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { routes } from "../../constants";
 import useFilteredUserList from "../../hooks/useFilteredUserList";
@@ -12,7 +12,7 @@ const UserListContainer = () => {
     generation: null,
     role: null,
     nextLastId: null,
-    size: null,
+    size: 5,
   });
   const history = useHistory();
   const handleMoveDetailPage = useCallback(
@@ -25,12 +25,18 @@ const UserListContainer = () => {
   );
 
   // TODO: 로딩처리 해야 함
-  const { data: users, isLoading } = useFilteredUserList(filters);
+  const { data: users, isLoading, isError } = useFilteredUserList(filters);
+
+  useEffect(() => {
+    if (isError) {
+      history.push(routes.LOGIN);
+    }
+  }, [isError, history]);
 
   return (
     <UserList
       isLoading={isLoading}
-      users={users}
+      users={users?.data.data}
       handleMoveDetailPage={handleMoveDetailPage}
       setFilters={setFilters}
     />
