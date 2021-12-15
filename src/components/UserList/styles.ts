@@ -84,3 +84,8 @@ export const ButtonWrapper = styled.div`
   display: flex;
   width: 10%;
 `;
+
+export const ProfileCardWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;

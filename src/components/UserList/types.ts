@@ -1,3 +1,5 @@
+import { MouseEventHandler } from "react";
+
 export interface User {
   user: {
     userId: number;
@@ -19,4 +21,5 @@ export interface User {
 
 export interface IProps {
   users: User[];
+  handleMoveDetailPage?: MouseEventHandler<HTMLDivElement>;
 }

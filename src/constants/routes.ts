@@ -5,7 +5,6 @@ export default {
   ADMIN: "/admin",
   MYPROFILE: "/myprofile",
   USERLIST: "/userlist",
-  USERLIST_ID: "/userlist/:id",
   MYGATHERLIST: "/mygatherlist",
   GATHERLIST: "/gatherlist",
   GATHERLIST_STUDY: "/gatherlist/study",
