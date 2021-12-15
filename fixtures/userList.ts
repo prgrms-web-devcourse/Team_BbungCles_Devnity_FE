@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as faker from "faker";
 import { User } from "../src/components/UserList/types";
 import {

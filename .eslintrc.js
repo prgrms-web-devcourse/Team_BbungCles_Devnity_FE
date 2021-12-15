@@ -57,6 +57,8 @@ module.exports = {
           "**/*.test.jsx",
           "**/*.test.ts",
           "**/*.test.tsx",
+          "__mocks__/*.ts",
+          "fixtures/*.ts",
         ],
       },
     ],

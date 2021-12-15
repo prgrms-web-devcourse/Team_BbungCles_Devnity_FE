@@ -8,7 +8,7 @@ import Button from "../base/Button";
 import Text from "../base/Text";
 import GatherList from "../GatherList/GatherList";
 import Mapgakco from "../Mapgakco/Mapgakco";
-import UserCard from "../UserCard/UserCard";
+import UserCardList from "../UserCardList/UserCardList";
 import UserImageAndDropdownContainer from "../UserImageAndDropdown/UserImageAndDropdownContainer";
 import {
   Contents,
@@ -51,13 +51,7 @@ const Main = ({ currentUser, userSuggestions, gatherSuggestions }: Props) => {
           <Text strong size={18}>
             자기소개
           </Text>
-          <ul>
-            {userSuggestions?.map((userInfo) => (
-              <li key={userInfo.user.userId}>
-                <UserCard userInfo={userInfo} />
-              </li>
-            ))}
-          </ul>
+          <UserCardList userInfos={userSuggestions} />
         </SelfIntroduce>
         <MapgakcoAndGatherListContainer>
           <TextOuterContainer>
@@ -100,13 +94,6 @@ const Main = ({ currentUser, userSuggestions, gatherSuggestions }: Props) => {
           </TextOuterContainer>
           <SubContents>
             <MapgakcoWrapper filter={filter}>
-              {/* <Map
-                center={{
-                  lat: center.latitude,
-                  lng: center.longitude,
-                }}
-                style={{ width: "100%", height: "100%" }}
-              /> */}
               <Mapgakco
                 center={center}
                 userImageUrl={

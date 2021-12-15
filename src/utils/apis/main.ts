@@ -1,10 +1,10 @@
 import { url } from "../../constants";
-import unnecessaryAuthAxiosInstance from "./unnecessaryAuthAxiosInstance";
+import necessaryAuthAxiosInstance from "./necessaryAuthAxiosInstance";
 
 export const requestGetUserSuggestions = () => {
-  return unnecessaryAuthAxiosInstance.get(url.USER_SUGGESTIONS);
+  return necessaryAuthAxiosInstance.get(url.USER_SUGGESTIONS);
 };
 
 export const requestGetGatherSuggestions = () => {
-  return unnecessaryAuthAxiosInstance.get(url.GAHTER_SUGGESTIONS);
+  return necessaryAuthAxiosInstance.get(url.GAHTER_SUGGESTIONS);
 };
