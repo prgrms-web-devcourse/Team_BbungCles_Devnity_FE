@@ -10,6 +10,8 @@ import theme from "../../assets/theme";
 
 import Main from "./Main";
 
+jest.mock("axios");
+
 describe("Main", () => {
   const currentUser = randomUserInfo();
   const userSuggestions = Array.from({ length: 1 }, () => randomUserInfo());
