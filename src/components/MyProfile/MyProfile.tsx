@@ -59,7 +59,6 @@ const MyProfile = ({
   handleMapClick,
   userClickPosition,
   mapCenterPosition,
-  editorRef,
 }: IProps) => {
   const inputRef = useRef<HTMLInputElement>();
   const handleImageClick = useCallback(() => {
@@ -191,15 +190,16 @@ const MyProfile = ({
           onChange={formik.handleChange}
           value={formik.values.description || ""}
         />
-        <MarkdownEditorWrapper>
-          <MarkdownEditor
-            editorRef={editorRef}
-            setEditorText={(value: string) =>
-              formik.setFieldValue("description", value)
-            }
-            value={formik.values.description || ""}
-          />
-        </MarkdownEditorWrapper>
+        {formik.values.description && (
+          <MarkdownEditorWrapper>
+            <MarkdownEditor
+              setEditorText={(value: string) =>
+                formik.setFieldValue("description", value)
+              }
+              value={formik.values.description || ""}
+            />
+          </MarkdownEditorWrapper>
+        )}
 
         <label>{common.text.SET_MY_LOCATION}</label>
         <MapWrapper>

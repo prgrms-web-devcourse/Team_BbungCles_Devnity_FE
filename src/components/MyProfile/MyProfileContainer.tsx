@@ -12,10 +12,8 @@ import {
   requestPutMyProfile,
 } from "../../utils/apis/myProfile";
 import { initialValues } from "./formik";
-import useToastUi from "../../hooks/useToastUi";
 
 const MyProfileContainer = () => {
-  const [editorRef] = useToastUi();
   const [, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
   const [mapCenterPosition, setMapCenterPosition] = useState<Position | null>(
     null
@@ -49,10 +47,6 @@ const MyProfileContainer = () => {
             lat: data.data.introduction.latitude,
             lng: data.data.introduction.longitude,
           });
-
-          editorRef.current
-            ?.getInstance()
-            .setMarkdown(data.data.introduction.description);
 
           if (
             data.data.introduction.latitude &&
@@ -159,7 +153,6 @@ const MyProfileContainer = () => {
       handleMapClick={handleMapClick}
       userClickPosition={userClickPosition}
       mapCenterPosition={mapCenterPosition}
-      editorRef={editorRef}
     />
   );
 };

@@ -2,20 +2,20 @@ import "codemirror/lib/codemirror.css";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor, Viewer } from "@toast-ui/react-editor";
 import { useCallback, Dispatch, SetStateAction } from "react";
+import useToastUi from "../../../hooks/useToastUi";
 
 interface IProps {
   isViewMode?: boolean;
   setEditorText?: Dispatch<SetStateAction<string>>;
   value: string;
-  editorRef: React.MutableRefObject<Editor>;
 }
 
 const MarkdownEditor = ({
   isViewMode = false,
   setEditorText,
   value,
-  editorRef,
 }: IProps) => {
+  const [editorRef] = useToastUi();
   const handleChange = useCallback(() => {
     if (editorRef.current) {
       const innerText = editorRef.current.getInstance().getMarkdown();

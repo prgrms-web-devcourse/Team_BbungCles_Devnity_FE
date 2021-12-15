@@ -133,7 +133,6 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
       {userInfo.introduction.description && (
         <BorderContainer>
           <MarkdownEditor
-            editorRef={null}
             isViewMode
             value={userInfo.introduction.description}
           />
