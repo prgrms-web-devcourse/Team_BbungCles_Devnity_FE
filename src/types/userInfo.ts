@@ -7,8 +7,8 @@ interface User {
   course: CourseKeyType;
   role: RoleKeyType;
   generation: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 interface Introduction {

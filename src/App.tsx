@@ -1,9 +1,9 @@
 import { ThemeProvider } from "@emotion/react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { RecoilRoot } from "recoil";
-import theme from "./assets/theme";
 import Router from "./routes/Router";
 import DefaultTemplate from "./template/DefaultTemplate";
+import theme from "./assets/theme";
 
 const App = () => {
   const queryClient = new QueryClient({

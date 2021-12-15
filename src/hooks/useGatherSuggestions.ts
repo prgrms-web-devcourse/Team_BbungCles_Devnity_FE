@@ -1,9 +1,10 @@
 import { useQuery } from "react-query";
-import { requestGetGatherSuggestions } from "../utils/apis/mocks";
+import { requestGetGatherSuggestions } from "../utils/apis";
 
 const getGatherSuggestions = async () => {
   const { data } = await requestGetGatherSuggestions();
-  return data?.gathers;
+
+  return data?.data?.gathers;
 };
 
 export default function useGatherSuggestions() {
