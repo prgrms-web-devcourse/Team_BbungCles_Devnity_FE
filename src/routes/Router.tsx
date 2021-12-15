@@ -11,6 +11,7 @@ import GatherProjectPage from "../pages/GatherProjectPage";
 import GatherStudyPage from "../pages/GatherStudyPage";
 import { PrivateRoute } from "./customRoutes";
 import UserListPage from "../pages/UserListPage";
+import UserDetailPage from "../pages/UserDetailPage";
 
 const Router = () => {
   return (
@@ -25,18 +26,23 @@ const Router = () => {
       <Route path={routes.LOGIN} exact component={LoginPage} />
       <Route path={routes.ADMIN} exact component={MainPage} />
       <PrivateRoute
+        exact
         path={routes.MYPROFILE}
         fallbackPath={routes.LOGIN}
-        exact
         component={MyProfilePage}
       />
       <PrivateRoute
+        exact
         path={routes.USERLIST}
         fallbackPath={routes.LOGIN}
-        exact
         component={UserListPage}
       />
-      <Route path={routes.USERLIST_ID} exact component={MainPage} />
+      <PrivateRoute
+        exact
+        path={`${routes.USERLIST}/:userId`}
+        fallbackPath={routes.LOGIN}
+        component={UserDetailPage}
+      />
       <Route path={routes.MYGATHERLIST} exact component={MainPage} />
       <Route path={routes.GATHERLIST} exact component={GatherPage} />
       <Route path={routes.GATHERLIST_STUDY} exact component={GatherStudyPage} />

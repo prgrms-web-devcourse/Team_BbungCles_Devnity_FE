@@ -14,10 +14,12 @@ export default {
     SUMMARY: "한줄 소개",
     DESCRIPTION: "자기 소개",
     SEARCH: "검색",
+    WRITE: "작성",
   },
 
   message: {
     ENTER_SEARCH_TERM: "검색어를 입력해 주세요",
+    ENTER_COMMENT: "댓글을 입력해 주세요",
   },
 
   buttonName: {
@@ -28,4 +30,23 @@ export default {
 
   placeHolderImageSrc:
     "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png",
+
+  colorMap: {
+    FE: "primary",
+    BE: "ultramarine",
+    AI: "scarlet",
+  },
+
+  courseMap: {
+    FE: "프론트엔드",
+    BE: "백엔드",
+    AI: "인공지능",
+  },
+
+  roleMap: {
+    STUDENT: "수강생",
+    MENTOR: "멘토",
+    MANAGER: "매니저",
+    ADMIN: "어드민",
+  },
 };

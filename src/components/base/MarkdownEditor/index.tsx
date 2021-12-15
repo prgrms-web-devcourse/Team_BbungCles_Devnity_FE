@@ -6,7 +6,7 @@ import useToastUi from "../../../hooks/useToastUi";
 
 interface IProps {
   isViewMode?: boolean;
-  setEditorText: Dispatch<SetStateAction<string>>;
+  setEditorText?: Dispatch<SetStateAction<string>>;
   value: string;
 }
 

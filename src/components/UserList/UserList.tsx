@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { MouseEvent, useCallback } from "react";
 import * as Yup from "yup";
 import { courses, generations, roles } from "../../../fixtures/selectDatas";
 import { common } from "../../constants";
@@ -13,10 +14,11 @@ import {
   InputWrapper,
   ButtonWrapper,
   Select,
+  ProfileCardWrapper,
 } from "./styles";
 import { IProps } from "./types";
 
-const UserList = ({ users }: IProps) => {
+const UserList = ({ users, handleMoveDetailPage }: IProps) => {
   const { handleChange, handleSubmit, handleBlur, values } = useFormik<{
     name: string;
     course: string;
@@ -24,7 +26,7 @@ const UserList = ({ users }: IProps) => {
     role: string;
   }>({
     initialValues: { name: "", course: "", generation: "", role: "" },
-    validationSchema: Yup.string().required("zz"),
+    validationSchema: Yup.string().required(""),
     onSubmit: (formValues, { setSubmitting }) => {
       setSubmitting(true);
       // TODO: 백엔드 API 개발되면 붙여야 함
@@ -33,6 +35,14 @@ const UserList = ({ users }: IProps) => {
       setSubmitting(false);
     },
   });
+
+  const handleClick = useCallback(
+    (id) => (event: MouseEvent) => {
+      event.preventDefault();
+      handleMoveDetailPage(id);
+    },
+    [handleMoveDetailPage]
+  );
 
   return (
     <Container>
@@ -102,7 +112,17 @@ const UserList = ({ users }: IProps) => {
       <UserContainer>
         {/* TODO: 검색 결과가 없을 경우 */}
         {users.map((user) => (
-          <ProfileCard key={user.user.userId} user={user} />
+          // TODO: 이 부분 팀원들과 상의 필요
+          // jsx-a11y/click-events-have-key-events
+          // jsx-a11y/no-noninteractive-element-interactions
+          // eslint-disable-next-line
+          <ProfileCardWrapper
+            key={user.user.userId}
+            onClick={handleClick(user.user.userId)}
+            role="feed"
+          >
+            <ProfileCard user={user} />
+          </ProfileCardWrapper>
         ))}
       </UserContainer>
     </Container>

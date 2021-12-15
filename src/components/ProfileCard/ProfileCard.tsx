@@ -10,12 +10,6 @@ interface IProps {
   user: User;
 }
 
-const colorMap = {
-  FE: "primary",
-  BE: "ultramarine",
-  AI: "scarlet",
-};
-
 const Container = styled.div`
   display: inline-flex;
   flex-direction: column;
@@ -63,7 +57,8 @@ const DescriptionWrapper = styled.div<{ course: string }>`
   width: 100%;
   height: 100%;
   justify-self: center;
-  background-color: ${({ theme, course }) => theme.colors[colorMap[course]]};
+  background-color: ${({ theme, course }) =>
+    theme.colors[common.colorMap[course]]};
   border-right: 1px solid ${({ theme }) => theme.colors.white};
   overflow: hidden;
 
