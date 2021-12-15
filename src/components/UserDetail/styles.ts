@@ -43,7 +43,7 @@ export const UserTag = styled.div<UserTagProps>`
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
   border-radius: 10px;
   color: ${({ theme, color }) => theme.colors[color] || theme.colors.white};
-  font-size: ${({ fontSize }) => `${fontSize}px` || "12px"};
+  font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : "12px")};
   font-weight: ${(props) => (props.strong ? "bold" : "normal")};
 `;
 
@@ -62,14 +62,13 @@ export const TextWrapper = styled.div`
 export const BorderContainer = styled.div<{ height?: number }>`
   display: flex;
   flex-direction: column;
-  /* border: 1px solid ${({ theme }) => theme.colors.gray500}; */
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
   border-radius: 20px;
   padding: 32px;
   width: 50%;
   min-width: 500px;
   gap: 32px;
-  height: ${(props) => `${props.height}px`};
+  height: ${({ height }) => (height ? `${height}px` : "auto")};
 `;
 
 export const ContactContainer = styled.div`
