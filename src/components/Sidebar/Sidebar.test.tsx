@@ -28,7 +28,7 @@ describe("Sidebar", () => {
   });
 
   it("사용자는 사이드바를 보면, 로고를 볼 수 있다.", () => {
-    expect(screen.queryByAltText("로고")).not.toBeNull();
+    expect(screen.queryAllByAltText("로고")[0]).not.toBeNull();
   });
 
   const menu = [
@@ -48,7 +48,7 @@ describe("Sidebar", () => {
   });
 
   it("사용자는 로고 클릭하면, 메인 페이지로 이동한다.", () => {
-    const logo = screen.getByAltText("로고");
+    const logo = screen.getAllByAltText("로고")[0];
 
     userEvent.click(logo);
 

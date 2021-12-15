@@ -58,7 +58,7 @@ export const MapgakcoAndGatherListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 20px;
+  gap: 10px;
   padding: 10px;
   overflow-y: hidden;
 `;
@@ -85,6 +85,7 @@ export const TextInnerContainerLarge = styled.div`
 export const TextInnerContainerMedium = styled.div`
   display: none;
   gap: 20px;
+  overflow-y: hidden;
 
   ${breakpoints.maxTablet} {
     display: flex;
@@ -95,20 +96,7 @@ export const SubContents = styled.div`
   flex-grow: 1;
   display: flex;
   gap: 10px;
-
-  overflow-y: auto;
-
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: ${({ theme }) => theme.colors.gray200};
-    border-radius: 30px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.gray400};
-    border-radius: 30px;
-  }
+  overflow-y: hidden;
 `;
 
 export const MapgakcoWrapper = styled.div<{ filter: string }>`
@@ -129,6 +117,19 @@ export const GatherListWrapper = styled.div<{ filter: string }>`
   flex-direction: column;
   gap: 12px;
   max-width: calc(100% / 2);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.colors.gray200};
+    border-radius: 30px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.gray400};
+    border-radius: 30px;
+  }
 
   ${breakpoints.maxTablet} {
     display: ${({ filter }) =>
@@ -143,6 +144,20 @@ export const GatherListSummary = styled.div`
   flex-direction: column;
   gap: 12px;
   max-width: calc(100% / 1.9);
+
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.colors.gray200};
+    border-radius: 30px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.gray400};
+    border-radius: 30px;
+  }
 
   ${breakpoints.maxTablet} {
     max-width: none;

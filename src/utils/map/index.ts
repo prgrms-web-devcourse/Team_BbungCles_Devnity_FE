@@ -1,4 +1,4 @@
-import { Position } from "../../types/MapTypes";
+import { Position } from "../../types/mapTypes";
 
 export const addControl = (map: kakao.maps.Map) => {
   const mapTypeControl = new kakao.maps.MapTypeControl();

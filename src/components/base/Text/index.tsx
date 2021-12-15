@@ -56,7 +56,7 @@ const Text = ({
   return (
     <Tag
       className={typeof size === "string" ? `Text--size-${size}` : undefined}
-      style={{ ...props.style, ...fontStyle, ...EllipsisStyle }}
+      style={{ ...fontStyle, ...EllipsisStyle, ...props.style }}
     >
       {mark ? (
         <mark>{children}</mark>

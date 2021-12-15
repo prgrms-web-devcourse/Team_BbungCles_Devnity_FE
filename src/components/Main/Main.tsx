@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { gathers } from "../../../fixtures/gather";
 import { center } from "../../../fixtures/map";
-import randomUserInfo from "../../../fixtures/userInfo";
 import theme from "../../assets/theme";
+import { common } from "../../constants";
+import { Gather } from "../../types/Gather";
+import { UserInfo } from "../../types/userInfo";
 import Button from "../base/Button";
 import Text from "../base/Text";
 import GatherList from "../GatherList/GatherList";
@@ -26,19 +27,23 @@ import {
 export const FILTER_MAPGAKCO = "show_mapgakco";
 export const FILTER_GATHERLIST = "show_gatherlist";
 
-const Main = () => {
+interface Props {
+  currentUser: UserInfo;
+  userSuggestions: UserInfo[];
+  gatherSuggestions: Gather[];
+}
+
+const Main = ({ currentUser, userSuggestions, gatherSuggestions }: Props) => {
   const [filter, setFilter] = useState(FILTER_MAPGAKCO);
-
-  // TODO: 모킹 데이터이므로 API 연동이 완료되면 API 데이터로 교체한다.
-  const userInfos = Array.from({ length: 10 }, () => randomUserInfo());
-
-  const currentUser = randomUserInfo();
 
   return (
     <Container>
       <Header>
         <UserImageAndDropdownContainer
-          imageUrl={currentUser.introduction.profileImgUrl}
+          imageUrl={
+            currentUser?.introduction.profileImgUrl ||
+            common.placeHolderImageSrc
+          }
         />
       </Header>
       <Contents>
@@ -47,7 +52,7 @@ const Main = () => {
             자기소개
           </Text>
           <ul>
-            {userInfos.map((userInfo) => (
+            {userSuggestions?.map((userInfo) => (
               <li key={userInfo.user.userId}>
                 <UserCard userInfo={userInfo} />
               </li>
@@ -95,13 +100,23 @@ const Main = () => {
           </TextOuterContainer>
           <SubContents>
             <MapgakcoWrapper filter={filter}>
+              {/* <Map
+                center={{
+                  lat: center.latitude,
+                  lng: center.longitude,
+                }}
+                style={{ width: "100%", height: "100%" }}
+              /> */}
               <Mapgakco
                 center={center}
-                userImageUrl={currentUser.introduction.profileImgUrl}
+                userImageUrl={
+                  currentUser?.introduction.profileImgUrl ||
+                  common.placeHolderImageSrc
+                }
               />
             </MapgakcoWrapper>
             <GatherListWrapper filter={filter}>
-              <GatherList gatherData={gathers} />
+              <GatherList gatherData={gatherSuggestions} />
             </GatherListWrapper>
           </SubContents>
         </MapgakcoAndGatherListContainer>

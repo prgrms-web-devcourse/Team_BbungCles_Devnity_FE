@@ -1,5 +1,5 @@
 import { markers } from "../../../fixtures/map";
-import { Position } from "../../types/MapTypes";
+import { Position } from "../../types/mapTypes";
 import Mapbox from "../Mapbox/Mapbox";
 
 interface Props {

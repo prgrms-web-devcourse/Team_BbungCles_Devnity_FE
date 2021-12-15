@@ -11,10 +11,10 @@ import Text from "../base/Text";
 import Image from "../base/Image";
 import Tag from "../Tag/Tag";
 import LikeButtonAndText from "../LikeButtonAndText/LikeButtonAndText";
-import { UserInfo } from "../../../fixtures/userInfo";
 import CommentButtonAndText from "../CommentButtonAndText/CommentButtonAndText";
 import { tagName } from "../../constants";
 import ProfileBox from "../ProfileBox/ProfileBox";
+import { UserInfo } from "../../types/userInfo";
 
 interface Props {
   userInfo: UserInfo;
@@ -50,7 +50,11 @@ const UserCard = ({ userInfo, onClick }: Props) => {
           />
         </TagWrapper>
         <SummaryWrapper>
-          <Text size={14} ellipsisLineClamp={1}>
+          <Text
+            size={14}
+            ellipsisLineClamp={1}
+            style={{ whiteSpace: "nowrap" }}
+          >
             {userInfo.introduction.summary}
           </Text>
         </SummaryWrapper>

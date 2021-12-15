@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { Map } from "react-kakao-maps-sdk";
-import { Marker, Position } from "../../types/MapTypes";
+import { Marker, Position } from "../../types/mapTypes";
 import { addControl, addImageOverlayMarker, addMarker } from "../../utils/map";
 
 import "./index.scss";

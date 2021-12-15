@@ -23,19 +23,19 @@ interface Props {
 
 const GatherList = ({ selectedCategory, gatherData }: Props) => {
   const gather = selectedCategory
-    ? gatherData.filter(
+    ? gatherData?.filter(
         (item) =>
           categoryName[item.category] === categoryName[selectedCategory] &&
           item.status === "GATHERING"
       )
-    : gatherData.filter((item) => item.status === "GATHERING");
+    : gatherData?.filter((item) => item.status === "GATHERING");
   const finishGather = selectedCategory
-    ? gatherData.filter(
+    ? gatherData?.filter(
         (item) =>
           categoryName[item.category] === categoryName[selectedCategory] &&
           item.status !== "GATHERING"
       )
-    : gatherData.filter((item) => item.status !== "GATHERING");
+    : gatherData?.filter((item) => item.status !== "GATHERING");
 
   return (
     <>

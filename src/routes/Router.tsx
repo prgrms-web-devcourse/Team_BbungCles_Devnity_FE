@@ -15,7 +15,12 @@ import UserListPage from "../pages/UserListPage";
 const Router = () => {
   return (
     <Switch>
-      <Route path={routes.MAIN} exact component={MainPage} />
+      <PrivateRoute
+        path={routes.MAIN}
+        fallbackPath={routes.LOGIN}
+        exact
+        component={MainPage}
+      />
       <Route path={routes.SIGNUP} exact component={SignupPage} />
       <Route path={routes.LOGIN} exact component={LoginPage} />
       <Route path={routes.ADMIN} exact component={MainPage} />

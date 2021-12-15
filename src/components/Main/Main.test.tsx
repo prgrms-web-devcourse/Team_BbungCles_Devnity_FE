@@ -4,17 +4,27 @@ import userEvent from "@testing-library/user-event";
 
 import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import { gathers } from "../../../fixtures/gather";
+import randomUserInfo from "../../../fixtures/userInfo";
 import theme from "../../assets/theme";
 
 import Main from "./Main";
 
 describe("Main", () => {
+  const currentUser = randomUserInfo();
+  const userSuggestions = Array.from({ length: 1 }, () => randomUserInfo());
+  const gatherSuggestions = gathers;
+
   function renderMain() {
     return render(
       <RecoilRoot>
         <MemoryRouter>
           <ThemeProvider theme={theme}>
-            <Main />
+            <Main
+              currentUser={currentUser}
+              userSuggestions={userSuggestions}
+              gatherSuggestions={gatherSuggestions}
+            />
           </ThemeProvider>
         </MemoryRouter>
       </RecoilRoot>

@@ -1,22 +1,40 @@
+import { QueryClient, QueryClientProvider } from "react-query";
+import { RecoilRoot } from "recoil";
+import { MemoryRouter } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
+
 import { render, screen } from "@testing-library/react";
 
-import { MemoryRouter } from "react-router-dom";
-import { RecoilRoot } from "recoil";
 import theme from "../../assets/theme";
 
 import MainPage from "./index";
+import { currentUserState } from "../../atoms/user";
+import randomUserInfo from "../../../fixtures/userInfo";
 
 describe("MainPage", () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
+
   function renderMainPage() {
     return render(
-      <RecoilRoot>
-        <MemoryRouter>
-          <ThemeProvider theme={theme}>
-            <MainPage />
-          </ThemeProvider>
-        </MemoryRouter>
-      </RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <RecoilRoot
+          initializeState={(snap) =>
+            snap.set(currentUserState, randomUserInfo())
+          }
+        >
+          <MemoryRouter>
+            <ThemeProvider theme={theme}>
+              <MainPage />
+            </ThemeProvider>
+          </MemoryRouter>
+        </RecoilRoot>
+      </QueryClientProvider>
     );
   }
 

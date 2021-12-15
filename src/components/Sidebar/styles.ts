@@ -19,6 +19,10 @@ export const Header = styled.div`
   justify-content: center;
   gap: 10px;
   padding: 12px;
+
+  ${breakpoints.maxTablet} {
+    display: none;
+  }
 `;
 
 export const TextWrapper = styled.div`
@@ -43,6 +47,14 @@ export const Nav = styled.div`
     padding: 16px 0px;
     font-size: 18px;
     cursor: pointer;
+
+    &:first-of-type {
+      display: none;
+
+      ${breakpoints.maxTablet} {
+        display: block;
+      }
+    }
 
     &:hover {
       background-color: ${({ theme }) => theme.colors.gray100};

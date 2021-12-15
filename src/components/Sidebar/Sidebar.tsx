@@ -46,6 +46,17 @@ const Sidebar = ({ onLinkClick }: Props) => {
       </Header>
       <Nav>
         <ul>
+          <li>
+            <div>
+              <Logo
+                width={24}
+                height={24}
+                borderRadius="4px"
+                imageUrl="https://source.unsplash.com/100x100"
+                onClick={handleClick(routes.MAIN)}
+              />
+            </div>
+          </li>
           {menuRoutes.map(({ name, path }, index) => {
             const key = `${index}${name}`;
 
