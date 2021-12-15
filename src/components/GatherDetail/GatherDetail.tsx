@@ -95,10 +95,7 @@ const GatherDetail = ({
           <Text>{content}</Text>
         </TextContainer>
         <ButtonContainer>
-          <button
-            type="button"
-            onClick={() => handleGatherApply(gatherId, userId)}
-          >
+          <button type="button" onClick={() => handleGatherApply(gatherId)}>
             신청
           </button>
           <button

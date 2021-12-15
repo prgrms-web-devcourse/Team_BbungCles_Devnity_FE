@@ -15,5 +15,5 @@ export { default as errorCode } from "./errorCode";
 export { default as routes } from "./routes";
 export { default as myProfile } from "./myProfile";
 export { default as common } from "./common";
-export { default as categoryName } from "./categoryName";
+export { categoryDisplayName, categoryValue } from "./categoryName";
 export { url } from "./api";

@@ -58,7 +58,7 @@ export interface Props {
   handleGatherDelete: (arg: number) => void;
   handleGatherClose: (arg: number) => void;
   handleGatherCancel: (arg1: number, arg2: string) => void;
-  handleGatherApply: (arg1: number, arg2: string) => void;
+  handleGatherApply: (arg1: number) => void;
   handleCommentSubmit: (arg: string) => void;
   handleCommentDelete: (arg: number) => void;
   handleCommentEdit: (arg: number) => void;

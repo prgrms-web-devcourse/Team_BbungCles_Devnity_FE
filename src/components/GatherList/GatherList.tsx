@@ -14,7 +14,7 @@ import {
   FinishItemContainer,
   GatherLink,
 } from "./styles";
-import { categoryName } from "../../constants";
+import { categoryDisplayName } from "../../constants";
 
 interface Props {
   selectedCategory?: string;
@@ -25,15 +25,15 @@ const GatherList = ({ selectedCategory, gatherData }: Props) => {
   const gather = selectedCategory
     ? gatherData?.filter(
         (item) =>
-          categoryName[item.category] === categoryName[selectedCategory] &&
-          item.status === "GATHERING"
+          categoryDisplayName[item.category] ===
+            categoryDisplayName[selectedCategory] && item.status === "GATHERING"
       )
     : gatherData?.filter((item) => item.status === "GATHERING");
   const finishGather = selectedCategory
     ? gatherData?.filter(
         (item) =>
-          categoryName[item.category] === categoryName[selectedCategory] &&
-          item.status !== "GATHERING"
+          categoryDisplayName[item.category] ===
+            categoryDisplayName[selectedCategory] && item.status !== "GATHERING"
       )
     : gatherData?.filter((item) => item.status !== "GATHERING");
 
@@ -42,7 +42,7 @@ const GatherList = ({ selectedCategory, gatherData }: Props) => {
       {gather?.map((item) => (
         <GatherLink to={`/gatherList/${item.gatherId}`} key={item.gatherId}>
           <ItemContainer>
-            <Category>{categoryName[item.category]}</Category>
+            <Category>{categoryDisplayName[item.category]}</Category>
             <ItemDetail>
               <Text>{item.title}</Text>
               <InfoWrapper>
@@ -81,7 +81,7 @@ const GatherList = ({ selectedCategory, gatherData }: Props) => {
         <GatherLink to={`/gatherList/${item.gatherId}`} key={item.gatherId}>
           <FinishItemContainer>
             <Finish>모집 마감</Finish>
-            <Category>{categoryName[item.category]}</Category>
+            <Category>{categoryDisplayName[item.category]}</Category>
             <ItemDetail>
               <Text>{item.title}</Text>
               <InfoWrapper>

@@ -1,5 +1,6 @@
 // TODO: API 연동 후 콘솔창은 지울 예정이다.
 /* eslint-disable no-console */
+import useGatherApply from "../../hooks/useGatherApply";
 import GatherDetail from "./GatherDetail";
 
 const dummy = {
@@ -57,8 +58,9 @@ const GatherDetailContainer = () => {
     console.log("모임 마감", gatherId);
   };
 
-  const handleGatherApply = (gatherId, userId) => {
-    console.log("모임 신청", gatherId, userId);
+  const handleGatherApply = (gatherId) => {
+    useGatherApply(gatherId);
+    console.log("모임 신청", gatherId);
   };
 
   const handleGatherCancel = (gatherId, userId) => {
