@@ -14,6 +14,7 @@ import UserListPage from "../pages/UserListPage";
 import UserDetailPage from "../pages/UserDetailPage";
 import UsersMapPage from "../pages/UsersMapPage";
 import MapgakcoMapPage from "../pages/MapgakcoMapPage";
+import MyGatherPage from "../pages/MyGatherPage";
 
 const Router = () => {
   return (
@@ -45,7 +46,7 @@ const Router = () => {
         fallbackPath={routes.LOGIN}
         component={UserDetailPage}
       />
-      <Route path={routes.MYGATHERLIST} exact component={MainPage} />
+      <Route path={routes.MYGATHERLIST} exact component={MyGatherPage} />
       <Route path={routes.GATHERLIST} exact component={GatherPage} />
       <Route path={routes.GATHERLIST_STUDY} exact component={GatherStudyPage} />
       <Route path={routes.GATHERLIST_CLUB} exact component={GatherClubPage} />

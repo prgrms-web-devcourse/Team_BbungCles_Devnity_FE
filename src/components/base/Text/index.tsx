@@ -16,6 +16,7 @@ interface Props {
   strong?: boolean;
   color?: string;
   ellipsisLineClamp?: number;
+  id?: string;
   style?: Style;
 }
 
@@ -36,7 +37,7 @@ const Text = ({
   const Tag = block ? "div" : paragraph ? "p" : "span";
   const fontStyle = {
     fontWeight: strong ? 700 : undefined,
-    fontSize: typeof size === "number" ? size : undefined,
+    fontSize: typeof size === "number" ? `${size}px` : size,
     textDecoration: underline ? "underline" : undefined,
     color,
   };
