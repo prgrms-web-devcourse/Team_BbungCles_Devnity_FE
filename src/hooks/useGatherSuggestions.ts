@@ -6,6 +6,6 @@ const getGatherSuggestions = async () => {
   return data?.gathers;
 };
 
-export default function useUserSuggestions() {
+export default function useGatherSuggestions() {
   return useQuery("gatherSuggestions", getGatherSuggestions);
 }

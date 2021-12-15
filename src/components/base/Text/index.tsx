@@ -49,16 +49,14 @@ const Text = ({
       WebkitLineClamp: ellipsisLineClamp,
       lineClamp: ellipsisLineClamp,
       WebkitBoxOrient: "vertical",
-      // TODO: 한글 폰트가 텍스트를 감싸는 컴포넌트보다 위로 삐져나오는 현상이 있어서 Ellipsis 스타일에 white space를 nowrap으로 변경한다.
-      // whiteSpacfge: "normal"
-      whiteSpace: "nowrap",
+      whiteSpace: "normal",
       overflowWrap: "break-word",
     } as const);
 
   return (
     <Tag
       className={typeof size === "string" ? `Text--size-${size}` : undefined}
-      style={{ ...props.style, ...fontStyle, ...EllipsisStyle }}
+      style={{ ...fontStyle, ...EllipsisStyle, ...props.style }}
     >
       {mark ? (
         <mark>{children}</mark>

@@ -50,7 +50,11 @@ const UserCard = ({ userInfo, onClick }: Props) => {
           />
         </TagWrapper>
         <SummaryWrapper>
-          <Text size={14} ellipsisLineClamp={1}>
+          <Text
+            size={14}
+            ellipsisLineClamp={1}
+            style={{ whiteSpace: "nowrap" }}
+          >
             {userInfo.introduction.summary}
           </Text>
         </SummaryWrapper>
