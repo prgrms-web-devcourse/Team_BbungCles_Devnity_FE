@@ -7,8 +7,8 @@ import Mapbox from "../Mapbox/Mapbox";
 import {
   ButtonContainer,
   Container,
-  GuideMessage,
-  Header,
+  Guide,
+  MapFloatContainer,
   SearchContainer,
   SearchForm,
 } from "./styles";
@@ -19,7 +19,8 @@ interface Props {
 
 const MapgakcoMap = ({ center }: Props) => {
   const inputStyle = {
-    padding: "8px",
+    fontSize: "16px",
+    padding: "12px",
     borderRadius: "8px",
   };
 
@@ -29,14 +30,21 @@ const MapgakcoMap = ({ center }: Props) => {
     minWidth: "80px",
     display: "flex",
     justifyContent: "center",
+    borderRadius: "8px",
+    boxShadow: theme.boxShadows.primary,
+  };
+
+  const guideTextStyle = {
+    background: theme.colors.white,
+    padding: "8px",
+    borderRadius: "8px",
+    fontSize: "12px",
+    color: "#91979a",
   };
 
   return (
     <Container>
-      <Header>
-        <GuideMessage>
-          <Text>위치를 지정한 후 등록 버튼을 눌러주세요.</Text>
-        </GuideMessage>
+      <MapFloatContainer>
         <SearchContainer>
           <SearchForm>
             <Input
@@ -60,8 +68,17 @@ const MapgakcoMap = ({ center }: Props) => {
             </Button>
           </ButtonContainer>
         </SearchContainer>
-      </Header>
-      <Mapbox center={{ lat: center.lat, lng: center.lng }} hasCenterMarker />
+        <Guide>
+          <Text style={guideTextStyle}>
+            위치를 지정한 후 등록 버튼을 눌러주세요.
+          </Text>
+        </Guide>
+      </MapFloatContainer>
+      <Mapbox
+        center={{ lat: center.lat, lng: center.lng }}
+        hasCenterMarker
+        hasControl={false}
+      />
     </Container>
   );
 };
