@@ -3,3 +3,4 @@ export { requestSignup } from "./signup";
 export { requestGetMyProfile } from "./myProfile";
 export { requestMedia } from "./markdown";
 export { requestGetUserSuggestions, requestGetGatherSuggestions } from "./main";
+export { requestKeywordSearch } from "./search";

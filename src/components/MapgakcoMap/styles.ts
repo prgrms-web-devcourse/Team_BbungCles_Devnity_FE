@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import Button from "../base/Button";
 
 export const Container = styled.div`
   position: relative;
@@ -27,10 +26,11 @@ export const MapFloatContainer = styled.div`
 
 export const Guide = styled.div`
   position: relative;
-  display: flex;
+  display: inline-flex;
   justify-content: flex-end;
   user-select: none;
   cursor: not-allowed;
+  z-index: -1;
 
   &::before {
     content: "";
@@ -51,7 +51,7 @@ export const SearchContainer = styled.div`
   align-items: center;
 `;
 
-export const SearchForm = styled.form`
+export const PlaceSearchFormWrapper = styled.div`
   flex-basis: 300px;
   font-size: 16px;
 `;
@@ -61,7 +61,52 @@ export const ButtonContainer = styled.div`
   gap: 10px;
 `;
 
-export const StyledButton = styled(Button)`
-  outline: 1px solid;
-  padding: 4px 8px;
+//= PlaceSearchFrom
+export const PlaceSearchFromContainer = styled.div`
+  position: relative;
+`;
+
+export const SearchResultForm = styled.form`
+  position: relative;
+  flex-basis: 300px;
+  font-size: 16px;
+`;
+
+export const SearchResultListContainer = styled.div`
+  position: absolute;
+  top: 48px;
+  left: 0;
+  display: flex;
+
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
+
+  ul {
+    flex-grow: 1;
+
+    li {
+      padding: 6px 0px;
+      font-size: 13px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.gray100};
+      }
+
+      &:first-of-type {
+        padding: 10px 0px;
+      }
+
+      div {
+        padding: 2px 10px;
+
+        &:not(:first-of-type) {
+          font-size: 12px;
+          color: ${({ theme }) => theme.colors.gray800};
+        }
+      }
+    }
+  }
 `;

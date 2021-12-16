@@ -11,7 +11,7 @@ const MapgakcoMapContainer = () => {
     lng: currentUser?.introduction?.longitude || common.defaultPosition.lng,
   };
 
-  return <MapgakcoMap center={center} />;
+  return <MapgakcoMap initialCenter={center} />;
 };
 
 export default MapgakcoMapContainer;
