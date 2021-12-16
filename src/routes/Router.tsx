@@ -1,18 +1,19 @@
 import { Route, Switch } from "react-router-dom";
+import { PrivateRoute } from "./customRoutes";
+import { routes } from "../constants";
 import MainPage from "../pages/MainPage";
 import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import MyProfilePage from "../pages/MyProfilePage";
 import GatherDetailPage from "../pages/GatherDetailPage";
-import { routes } from "../constants";
 import GatherPage from "../pages/GatherPage";
 import GatherClubPage from "../pages/GatherClubPage";
 import GatherProjectPage from "../pages/GatherProjectPage";
 import GatherStudyPage from "../pages/GatherStudyPage";
-import { PrivateRoute } from "./customRoutes";
 import UserListPage from "../pages/UserListPage";
 import UserDetailPage from "../pages/UserDetailPage";
 import UsersMapPage from "../pages/UsersMapPage";
+import MapgakcoMapPage from "../pages/MapgakcoMapPage";
 
 const Router = () => {
   return (
@@ -54,7 +55,7 @@ const Router = () => {
         component={GatherProjectPage}
       />
       <Route path={routes.GATHERLIST_ID} exact component={GatherDetailPage} />
-      <Route path={routes.MAPGAKCOLIST} exact component={MainPage} />
+      <Route path={routes.MAPGAKCOLIST} exact component={MapgakcoMapPage} />
       <Route path={routes.MAPGAKCOLIST_ID} exact component={MainPage} />
       <PrivateRoute
         path={routes.USERSMAP}
