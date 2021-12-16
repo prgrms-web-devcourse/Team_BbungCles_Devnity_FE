@@ -59,6 +59,7 @@ const MyProfile = ({
   handleMapClick,
   userClickPosition,
   mapCenterPosition,
+  editorRef,
 }: IProps) => {
   const inputRef = useRef<HTMLInputElement>();
   const handleImageClick = useCallback(() => {
@@ -68,9 +69,7 @@ const MyProfile = ({
   return (
     <Container>
       <ProfileImage
-        src={
-          formik.values.profileImgUrl || "https://source.unsplash.com/random"
-        }
+        src={formik.values.profileImgUrl || common.placeHolderImageSrc}
         alt="profile"
         onClick={handleImageClick}
       />
@@ -189,10 +188,12 @@ const MyProfile = ({
         <input
           type="hidden"
           name="description"
+          onChange={formik.handleChange}
           value={formik.values.description || ""}
         />
         <MarkdownEditorWrapper>
           <MarkdownEditor
+            editorRef={editorRef}
             setEditorText={(value: string) =>
               formik.setFieldValue("description", value)
             }
@@ -200,6 +201,7 @@ const MyProfile = ({
           />
         </MarkdownEditorWrapper>
 
+        <label>{common.text.SET_MY_LOCATION}</label>
         <MapWrapper>
           <StyledMap
             center={

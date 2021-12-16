@@ -3,6 +3,7 @@ import { mbti, role } from "./index";
 export const tagName = {
   ROLE: "role",
   MBTI: "mbti",
+  COURSE: "course",
 } as const;
 
 export const tagMap = {

@@ -1,11 +1,55 @@
 import necessaryAuthAxiosInstance from "./necessaryAuthAxiosInstance";
 
+export const requestGetFilteredUsers = (filters) => {
+  return necessaryAuthAxiosInstance.get("v1/introductions", {
+    params: {
+      name: filters.name ?? null,
+      generation: filters.generation ?? null,
+      course: filters.course ?? null,
+      role: filters.role ?? null,
+      nextLastId: filters.nextLastId ?? null,
+      size: filters.size ?? null,
+    },
+  });
+};
+
 export const requestGetIntroductions = (id) => {
-  // TODO: 백엔드 API 완성되면 mocky 제거
-  // eslint-disable-next-line
-  console.log(id);
-  return necessaryAuthAxiosInstance.get(
-    "https://run.mocky.io/v3/a8e50379-7737-4457-84b2-62d4a55562d4"
+  return necessaryAuthAxiosInstance.get(`v1/introductions/${id}`);
+};
+
+export const requestUserDetailWriteComment = (values) => {
+  return necessaryAuthAxiosInstance.post(
+    `v1/introductions/${values.introductionId}/comments`,
+    {
+      parentId: values.parentId,
+      content: values.content,
+    }
   );
-  // return necessaryAuthAxiosInstance.get(`v1/introductions/${id}`);
+};
+
+export const requestUserLike = (introductionId) => {
+  return necessaryAuthAxiosInstance.post(
+    `v1/introductions/${introductionId}/like`
+  );
+};
+
+export const requestUserDeleteLike = (introductionId) => {
+  return necessaryAuthAxiosInstance.delete(
+    `v1/introductions/${introductionId}/like`
+  );
+};
+
+export const requestUserDeleteComment = (values) => {
+  return necessaryAuthAxiosInstance.delete(
+    `v1/introductions/${values.introductionId}/comments/${values.commentId}`
+  );
+};
+
+export const requestUserModifyComment = (values) => {
+  return necessaryAuthAxiosInstance.patch(
+    `v1/introductions/${values.introductionId}/comments/${values.commentId}`,
+    {
+      content: values.content,
+    }
+  );
 };

@@ -1,23 +1,37 @@
-import { useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import randomUsers from "../../../fixtures/userList";
 import { routes } from "../../constants";
+import useFilteredUserList from "../../hooks/useFilteredUserList";
+import { Filters } from "./types";
 import UserList from "./UserList";
 
 const UserListContainer = () => {
+  const [filters, setFilters] = useState<Filters>({
+    name: null,
+    course: null,
+    generation: null,
+    role: null,
+    nextLastId: null,
+    size: 15, // TODO: 무한스크롤 구현할 때 바꿔야 함
+  });
   const history = useHistory();
-  // TODO: 모킹 데이터이므로 API 연동이 완료되면 API 데이터로 교체한다.
-  const users = Array.from({ length: 10 }, () => randomUsers());
-  const handleMoveDetailPage = useCallback(
-    (userId) => {
-      if (userId) {
-        history.push(`${routes.USERLIST}/${userId}`);
-      }
-    },
-    [history]
-  );
 
-  return <UserList users={users} handleMoveDetailPage={handleMoveDetailPage} />;
+  // TODO: 로딩처리 해야 함
+  const { data: users, isLoading, isError } = useFilteredUserList(filters);
+
+  useEffect(() => {
+    if (isError) {
+      history.push(routes.LOGIN);
+    }
+  }, [isError, history]);
+
+  return (
+    <UserList
+      isLoading={isLoading}
+      users={users?.data.data}
+      setFilters={setFilters}
+    />
+  );
 };
 
 export default UserListContainer;

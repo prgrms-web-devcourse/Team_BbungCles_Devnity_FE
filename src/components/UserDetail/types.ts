@@ -5,7 +5,7 @@ interface ChildrenComment {
   createdAt: string;
   updatedAt: string;
   status: string;
-  simpleUserInfo: {
+  writer: {
     userId: number;
     name: string;
     course: string;
@@ -23,7 +23,7 @@ export interface Comment {
   updatedAt: string;
   status: string;
 
-  simpleUserInfo: {
+  writer: {
     userId: number;
     name: string;
     course: string;
@@ -60,8 +60,10 @@ export interface UserDetailProps {
       createdAt: string;
       updatedAt: string;
       likeCount: number | null;
-      isLike: boolean;
+      description: string | null;
     };
+
+    liked: boolean;
 
     comments: Comment[];
   };
