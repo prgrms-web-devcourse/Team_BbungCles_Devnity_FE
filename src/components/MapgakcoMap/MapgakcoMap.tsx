@@ -61,7 +61,7 @@ const MapgakcoMap = ({ center }: Props) => {
           </ButtonContainer>
         </SearchContainer>
       </Header>
-      <Mapbox center={{ lat: center.lat, lng: center.lng }} />
+      <Mapbox center={{ lat: center.lat, lng: center.lng }} hasCenterMarker />
     </Container>
   );
 };

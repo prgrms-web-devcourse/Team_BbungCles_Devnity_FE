@@ -60,10 +60,16 @@ export const addImageMarkerOverlay = ({
   $image.classList.add("marker__image");
   $text.classList.add("marker__text");
 
-  $image.src = imageUrl;
-  $text.textContent = text;
+  if (imageUrl) {
+    $image.src = imageUrl;
+    $marker.appendChild($image);
+  } else {
+    const $circle = document.createElement("div");
+    $circle.classList.add("marker__image");
+    $marker.appendChild($circle);
+  }
 
-  $marker.appendChild($image);
+  $text.textContent = text;
 
   text && $marker.appendChild($text);
 
