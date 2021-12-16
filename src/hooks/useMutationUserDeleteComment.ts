@@ -2,15 +2,15 @@ import { useMutation, useQueryClient } from "react-query";
 import { useHistory } from "react-router-dom";
 import { common, routes } from "../constants";
 import { MutationData, MutationError } from "../types/commonTypes";
-import { requestUserLike } from "../utils/apis/introductions";
+import { requestUserDeleteComment } from "../utils/apis/introductions";
 
-const useMutationUserLike = () => {
+const useMutationUserDeleteComment = () => {
   const queryClient = useQueryClient();
   const history = useHistory();
 
   return useMutation<MutationData, MutationError, unknown, unknown>(
-    "userLike",
-    (id) => requestUserLike(id),
+    "userDeleteLike",
+    (values) => requestUserDeleteComment(values),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("introductions");
@@ -32,4 +32,4 @@ const useMutationUserLike = () => {
   );
 };
 
-export default useMutationUserLike;
+export default useMutationUserDeleteComment;

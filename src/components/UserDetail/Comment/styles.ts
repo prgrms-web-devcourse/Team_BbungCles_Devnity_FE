@@ -18,6 +18,7 @@ export const Container = styled.div`
 export const CommentContainer = styled.div`
   display: flex;
   align-items: center;
+  padding-right: 16px;
 `;
 
 export const ImageWrapper = styled.div`
@@ -57,4 +58,11 @@ export const TextContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 0 8px;
+`;
+
+export const InputWrapperForm = styled.form`
+  display: flex;
+  width: 100%;
+  padding: 0 16px;
+  margin-bottom: 16px;
 `;

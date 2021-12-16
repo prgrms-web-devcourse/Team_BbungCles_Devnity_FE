@@ -61,8 +61,9 @@ export interface UserDetailProps {
       updatedAt: string;
       likeCount: number | null;
       description: string | null;
-      isLike: boolean;
     };
+
+    liked: boolean;
 
     comments: Comment[];
   };

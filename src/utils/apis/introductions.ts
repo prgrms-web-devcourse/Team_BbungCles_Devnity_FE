@@ -27,6 +27,29 @@ export const requestUserDetailWriteComment = (values) => {
   );
 };
 
-export const requestUserLike = (nextLastId) => {
-  return necessaryAuthAxiosInstance.post(`v1/introductions/${nextLastId}/like`);
+export const requestUserLike = (introductionId) => {
+  return necessaryAuthAxiosInstance.post(
+    `v1/introductions/${introductionId}/like`
+  );
+};
+
+export const requestUserDeleteLike = (introductionId) => {
+  return necessaryAuthAxiosInstance.delete(
+    `v1/introductions/${introductionId}/like`
+  );
+};
+
+export const requestUserDeleteComment = (values) => {
+  return necessaryAuthAxiosInstance.delete(
+    `v1/introductions/${values.introductionId}/comments/${values.commentId}`
+  );
+};
+
+export const requestUserModifyComment = (values) => {
+  return necessaryAuthAxiosInstance.patch(
+    `v1/introductions/${values.introductionId}/comments/${values.commentId}`,
+    {
+      content: values.content,
+    }
+  );
 };

@@ -2,15 +2,21 @@ import { useMutation, useQueryClient } from "react-query";
 import { useHistory } from "react-router-dom";
 import { common, routes } from "../constants";
 import { MutationData, MutationError } from "../types/commonTypes";
-import { requestUserLike } from "../utils/apis/introductions";
+import { requestUserModifyComment } from "../utils/apis/introductions";
 
-const useMutationUserLike = () => {
+interface Variables {
+  content: string;
+  introductionId: number;
+  commentId: number;
+}
+
+const useMutationUserModifyComment = () => {
   const queryClient = useQueryClient();
   const history = useHistory();
 
-  return useMutation<MutationData, MutationError, unknown, unknown>(
-    "userLike",
-    (id) => requestUserLike(id),
+  return useMutation<MutationData, MutationError, Variables, unknown>(
+    "userDetailWriteComment",
+    (values) => requestUserModifyComment(values),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("introductions");
@@ -18,7 +24,7 @@ const useMutationUserLike = () => {
       onError: ({ response }) => {
         const errorMessage = response
           ? response.data.message
-          : common.message.EXPIRE_OR_SERVER_ERROR;
+          : common.message.UNKNOWN_ERROR;
 
         // TODO: 에러처리 토스트
         // eslint-disable-next-line
@@ -32,4 +38,4 @@ const useMutationUserLike = () => {
   );
 };
 
-export default useMutationUserLike;
+export default useMutationUserModifyComment;

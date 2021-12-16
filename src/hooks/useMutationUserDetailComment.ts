@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
-import { common } from "../constants";
+import { useHistory } from "react-router-dom";
+import { common, routes } from "../constants";
 import { MutationData, MutationError } from "../types/commonTypes";
 import { requestUserDetailWriteComment } from "../utils/apis/introductions";
 
@@ -11,6 +12,7 @@ interface Variables {
 
 const useMutationUserDetailComment = () => {
   const queryClient = useQueryClient();
+  const history = useHistory();
 
   return useMutation<MutationData, MutationError, Variables, unknown>(
     "userDetailWriteComment",
@@ -27,6 +29,10 @@ const useMutationUserDetailComment = () => {
         // TODO: 에러처리 토스트
         // eslint-disable-next-line
         alert(errorMessage);
+
+        if (!response) {
+          history.push(routes.LOGIN);
+        }
       },
     }
   );

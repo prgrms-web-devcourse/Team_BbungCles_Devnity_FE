@@ -136,3 +136,7 @@ export const Button = styled.button`
 export const HiddenLabel = styled.label`
   display: none;
 `;
+
+export const IconWrapper = styled.div`
+  height: 24px;
+`;

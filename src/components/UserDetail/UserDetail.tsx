@@ -6,10 +6,9 @@ import { AiFillCaretRight } from "react-icons/ai";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useCallback } from "react";
 import theme from "../../assets/theme";
-import { common, routes } from "../../constants";
+import { common } from "../../constants";
 import Input from "../base/Input";
 import Text from "../base/Text";
 import LikeButtonAndText from "../LikeButtonAndText/LikeButtonAndText";
@@ -27,19 +26,20 @@ import {
   TextWrapper,
   UserTag,
   HiddenLabel,
+  IconWrapper,
 } from "./styles";
 import MarkdownEditor from "../base/MarkdownEditor";
 import Comment from "./Comment";
 import { UserDetailProps } from "./types";
 import useMutationUserDetailComment from "../../hooks/useMutationUserDetailComment";
 import useMutationUserLike from "../../hooks/useMutationUserLike";
+import useMutationUserDeleteLike from "../../hooks/useMutationUserDeleteLike";
 
 const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
-  const history = useHistory();
-  const { mutate: userDetailCommentMutate, isError: isUserDetailCommentError } =
-    useMutationUserDetailComment();
-  const { mutate: userLikeMutate, isError: isUserLikeMutateError } =
-    useMutationUserLike();
+  const { mutate: userDetailCommentMutate } = useMutationUserDetailComment();
+  const { mutate: userLikeMutate } = useMutationUserLike();
+  const { mutate: userDeleteLikeMutate } = useMutationUserDeleteLike();
+
   const { handleChange, handleSubmit, handleBlur, values } = useFormik<{
     content: string;
   }>({
@@ -47,7 +47,7 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
     validationSchema: Yup.object({
       content: Yup.string().required(),
     }),
-    onSubmit: (formValues, { setSubmitting }) => {
+    onSubmit: (formValues, { setSubmitting, resetForm }) => {
       setSubmitting(true);
       userDetailCommentMutate({
         introductionId: userInfo.introduction.introductionId,
@@ -55,24 +55,17 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
         content: formValues.content,
       });
       setSubmitting(false);
+      resetForm();
     },
   });
 
-  const handleLikeClick = () => {
-    userLikeMutate(userInfo.introduction.introductionId);
-  };
-
-  useEffect(() => {
-    if (isUserLikeMutateError) {
-      history.push(routes.LOGIN);
+  const handleLikeClick = useCallback(() => {
+    if (userInfo.liked) {
+      userDeleteLikeMutate(userInfo.introduction.introductionId);
+    } else {
+      userLikeMutate(userInfo.introduction.introductionId);
     }
-  }, [isUserLikeMutateError, history]);
-
-  useEffect(() => {
-    if (isUserDetailCommentError) {
-      history.push(routes.LOGIN);
-    }
-  }, [isUserDetailCommentError, history]);
+  }, [userDeleteLikeMutate, userLikeMutate, userInfo]);
 
   // TODO: 로딩처리
   if (isLoading || !userInfo) {
@@ -87,11 +80,9 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
       />
 
       <LikeButtonAndText
-        isLiked={false}
-        likeCount={0}
+        isLiked={userInfo.liked}
+        likeCount={userInfo.introduction.likeCount}
         textSize={24}
-        // TODO: API 완성되면 붙이기
-        // eslint-disable-next-line
         onClick={handleLikeClick}
       />
 
@@ -186,7 +177,9 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
       </BorderContainer>
 
       <BorderContainer height={560}>
-        <MdModeComment size={24} />
+        <IconWrapper>
+          <MdModeComment size={24} />
+        </IconWrapper>
 
         {userInfo.comments?.length === 0 && (
           <CommentContainer>{`${userInfo.user.name}님에게 제일 먼저 댓글을 달아주세요!`}</CommentContainer>
@@ -195,18 +188,22 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
         <CommentContainer>
           {userInfo.comments?.map((comment) => (
             <React.Fragment key={comment.commentId}>
-              <Comment comment={comment} isChild={false} />
+              <Comment
+                comment={comment}
+                introductionId={userInfo.introduction.introductionId}
+                isChild={false}
+              />
               {comment.children?.map((child) => (
                 <Comment
                   key={`child${child.commentId}`}
                   comment={child}
+                  introductionId={userInfo.introduction.introductionId}
                   isChild
                 />
               ))}
             </React.Fragment>
           ))}
         </CommentContainer>
-
         <FormContainer onSubmit={handleSubmit}>
           <HiddenLabel htmlFor="content">내용</HiddenLabel>
 
