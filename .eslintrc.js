@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
     jest: true,
+    "cypress/globals": true,
   },
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -12,7 +13,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "react-hooks", "@typescript-eslint"],
+  plugins: ["react", "react-hooks", "@typescript-eslint", "cypress"],
   extends: [
     "airbnb",
     "plugin:react/recommended",
