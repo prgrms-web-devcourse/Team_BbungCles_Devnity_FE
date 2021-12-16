@@ -12,7 +12,7 @@ interface Props {
 }
 
 const PlaceSearchForm = ({ onSubmit }: Props) => {
-  const [content, setContent] = useState("소제이");
+  const [content, setContent] = useState("");
 
   const { data: searchResults } = useSearchResults(content);
 
