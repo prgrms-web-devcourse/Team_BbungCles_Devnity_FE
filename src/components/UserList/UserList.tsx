@@ -30,7 +30,7 @@ const UserList = ({ users, setFilters, isLoading }: IProps) => {
       setSubmitting(true);
       // TODO: 백엔드 API 개발되면 붙여야 함
       // eslint-disable-next-line
-      setFilters({ ...formValues, nextLastId: users?.nextLastId, size: 5 });
+      setFilters({ ...formValues, nextLastId: users?.nextLastId, size: 20 });
       setSubmitting(false);
     },
   });

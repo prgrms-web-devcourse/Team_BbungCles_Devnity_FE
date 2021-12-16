@@ -12,7 +12,7 @@ const UserListContainer = () => {
     generation: null,
     role: null,
     nextLastId: null,
-    size: 15, // TODO: 무한스크롤 구현할 때 바꿔야 함
+    size: 20,
   });
   const history = useHistory();
 

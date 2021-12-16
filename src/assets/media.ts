@@ -9,5 +9,6 @@ export const mediaQueriesBreakpoints = {
   mobile: "@media screen and (min-width: 576px)",
   tablet: "@media screen and (min-width: 768px)",
   desktop: "@media screen and (min-width: 992px)",
-  largeDesktop: "@media screen and (min-width: 1200px)",
+  middleDesktop: "@media screen and (min-width: 1200px)",
+  largeDesktop: "@media screen and (min-width: 1600px)",
 };

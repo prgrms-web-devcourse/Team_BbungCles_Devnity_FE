@@ -26,6 +26,10 @@ export const UserContainer = styled.div`
     grid-template-columns: repeat(4, 1fr);
   }
 
+  ${mediaQueriesBreakpoints.middleDesktop} {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
   ${mediaQueriesBreakpoints.largeDesktop} {
     grid-template-columns: repeat(6, 1fr);
   }
