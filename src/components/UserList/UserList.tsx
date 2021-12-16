@@ -1,5 +1,4 @@
 import { useFormik } from "formik";
-import { MouseEvent, useCallback } from "react";
 import * as Yup from "yup";
 import { courses, generations, roles } from "../../../fixtures/selectDatas";
 import { common } from "../../constants";
@@ -18,12 +17,7 @@ import {
 } from "./styles";
 import { IProps } from "./types";
 
-const UserList = ({
-  users,
-  handleMoveDetailPage,
-  setFilters,
-  isLoading,
-}: IProps) => {
+const UserList = ({ users, setFilters, isLoading }: IProps) => {
   const { handleChange, handleSubmit, handleBlur, values } = useFormik<{
     name: string;
     course: string;
@@ -40,14 +34,6 @@ const UserList = ({
       setSubmitting(false);
     },
   });
-
-  const handleClick = useCallback(
-    (id) => (event: MouseEvent) => {
-      event.preventDefault();
-      handleMoveDetailPage(id);
-    },
-    [handleMoveDetailPage]
-  );
 
   return (
     <Container>
@@ -118,11 +104,7 @@ const UserList = ({
       {!isLoading && (
         <UserContainer>
           {users?.values.map((user) => (
-            <ProfileCardWrapper
-              key={user.user.userId}
-              onClick={handleClick(user.introduction.introductionId)}
-              role="feed"
-            >
+            <ProfileCardWrapper key={user.user.userId} role="feed">
               <ProfileCard user={user} />
             </ProfileCardWrapper>
           ))}

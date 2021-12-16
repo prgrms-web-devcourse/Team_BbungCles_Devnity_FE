@@ -54,6 +54,11 @@ const theme = {
       ENTJ: "#fac7d3",
       INTJ: "#f5e1fa",
     },
+    [tagName.COURSE]: {
+      FE: "#ffb266",
+      BE: "#6667ff",
+      AI: "#ff6667",
+    },
   },
   boxShadows: {
     primary: `0 2px 5px 1px #363a3c25`,

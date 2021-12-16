@@ -1,5 +1,3 @@
-import { MouseEventHandler } from "react";
-
 export interface User {
   user: {
     userId: number;
@@ -35,7 +33,6 @@ export interface Filters {
 
 export interface IProps {
   users: Contents;
-  handleMoveDetailPage?: MouseEventHandler<HTMLDivElement>;
   setFilters: React.Dispatch<
     React.SetStateAction<{
       name: string | null;

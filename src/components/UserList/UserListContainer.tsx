@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { routes } from "../../constants";
 import useFilteredUserList from "../../hooks/useFilteredUserList";
@@ -15,14 +15,6 @@ const UserListContainer = () => {
     size: 15, // TODO: 무한스크롤 구현할 때 바꿔야 함
   });
   const history = useHistory();
-  const handleMoveDetailPage = useCallback(
-    (userId) => {
-      if (userId) {
-        history.push(`${routes.USERLIST}/${userId}`);
-      }
-    },
-    [history]
-  );
 
   // TODO: 로딩처리 해야 함
   const { data: users, isLoading, isError } = useFilteredUserList(filters);
@@ -37,7 +29,6 @@ const UserListContainer = () => {
     <UserList
       isLoading={isLoading}
       users={users?.data.data}
-      handleMoveDetailPage={handleMoveDetailPage}
       setFilters={setFilters}
     />
   );
