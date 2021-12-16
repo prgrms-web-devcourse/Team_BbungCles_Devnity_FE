@@ -8,15 +8,19 @@ import { MutationData, MutationError } from "../../types/commonTypes";
 import { login, errorCode } from "../../constants";
 import Login from "./Login";
 import { useLocalStorage } from "../../hooks";
+import { useSetRecoilState } from "recoil";
+import { authState } from "../../atoms/auth";
 
 const LoginContainer = () => {
   const history = useHistory();
+  const setAuthState = useSetRecoilState(authState);
   const [, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
   const { mutate } = useMutation<MutationData, MutationError, unknown, unknown>(
     (values: FormValues) => requestLogin(values),
     {
       onSuccess: ({ data }) => {
         setToken(data.data.token);
+        setAuthState(data.data.token);
         history.push("/");
       },
       onError: ({ response }) => {
