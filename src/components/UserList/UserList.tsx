@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import React from "react";
 import * as Yup from "yup";
 import { courses, generations, roles } from "../../../fixtures/selectDatas";
 import { common } from "../../constants";
@@ -17,7 +18,13 @@ import {
 } from "./styles";
 import { IProps } from "./types";
 
-const UserList = ({ users, setFilters, isLoading }: IProps) => {
+const UserList = ({
+  pages,
+  setFilters,
+  isLoading,
+  fetchNextPage,
+  hasNextPage,
+}: IProps) => {
   const { handleChange, handleSubmit, handleBlur, values } = useFormik<{
     name: string;
     course: string;
@@ -28,12 +35,13 @@ const UserList = ({ users, setFilters, isLoading }: IProps) => {
     validationSchema: Yup.string().required(""),
     onSubmit: (formValues, { setSubmitting }) => {
       setSubmitting(true);
-      // TODO: 백엔드 API 개발되면 붙여야 함
-      // eslint-disable-next-line
-      setFilters({ ...formValues, nextLastId: users?.nextLastId, size: 20 });
+      // nextLastId에 null을 넣은 이유는 무한스크롤 외 일반 조회할 때는 필요없기 때문
+      setFilters({ ...formValues, nextLastId: null, size: 15 });
       setSubmitting(false);
     },
   });
+
+  console.log(fetchNextPage, hasNextPage);
 
   return (
     <Container>
@@ -103,11 +111,22 @@ const UserList = ({ users, setFilters, isLoading }: IProps) => {
       {/* TODO: 검색 결과가 없을 경우 */}
       {!isLoading && (
         <UserContainer>
-          {users?.values.map((user) => (
+          {pages?.pages.map((page, pageIndex) => (
+            // eslint-disable-next-line
+            <React.Fragment key={`${page}/${pageIndex}`}>
+              {page.data.data.values.map((user) => (
+                <ProfileCardWrapper key={user.user.userId} role="feed">
+                  <ProfileCard user={user} />
+                </ProfileCardWrapper>
+              ))}
+            </React.Fragment>
+          ))}
+
+          {/* {pages?.values.map((user) => (
             <ProfileCardWrapper key={user.user.userId} role="feed">
               <ProfileCard user={user} />
             </ProfileCardWrapper>
-          ))}
+          ))} */}
         </UserContainer>
       )}
     </Container>

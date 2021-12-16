@@ -32,7 +32,9 @@ export interface Filters {
 }
 
 export interface IProps {
-  users: Contents;
+  // TODO: infiniteQuery 관련 타입 어떻게 처리 할 지
+  // eslint-disable-next-line
+  pages: any;
   setFilters: React.Dispatch<
     React.SetStateAction<{
       name: string | null;
@@ -44,4 +46,10 @@ export interface IProps {
     }>
   >;
   isLoading: boolean;
+  // TODO: infiniteQuery 관련 타입 어떻게 처리 할 지
+  // eslint-disable-next-line
+  hasNextPage: any;
+  // TODO: infiniteQuery 관련 타입 어떻게 처리 할 지
+  // eslint-disable-next-line
+  fetchNextPage: any;
 }

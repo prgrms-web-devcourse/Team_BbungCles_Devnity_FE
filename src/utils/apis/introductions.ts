@@ -13,6 +13,19 @@ export const requestGetFilteredUsers = (filters) => {
   });
 };
 
+export const requestGetFilteredUsers2 = (filters, pageParam) => {
+  return necessaryAuthAxiosInstance.get("v1/introductions", {
+    params: {
+      name: filters.name ? filters.name : null,
+      generation: filters.generation ? filters.generation : null,
+      course: filters.course ? filters.course : null,
+      role: filters.role ? filters.role : null,
+      lastId: pageParam !== null ? pageParam : null,
+      size: filters.size ? filters.size : null,
+    },
+  });
+};
+
 export const requestGetIntroductions = (id) => {
   return necessaryAuthAxiosInstance.get(`v1/introductions/${id}`);
 };
