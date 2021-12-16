@@ -57,7 +57,7 @@ const UserList = ({
   }, [fetchNextPage, inView, hasNextPage, isLoading]);
 
   return (
-    <Container id="container">
+    <Container>
       <SearchBarFormContainer onSubmit={handleSubmit}>
         <InputWrapper>
           <Select
