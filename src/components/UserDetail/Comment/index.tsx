@@ -151,7 +151,33 @@ const Comment = ({ comment, isChild, introductionId }: IProps) => {
           )}
         </ContentContainer>
 
-        {myProfile.user.userId === comment.writer.userId &&
+        <ButtonContainer>
+          {comment.status !== common.commentStatus.DELETED && (
+            <>
+              {!isChild && (
+                <IconButton role="button" onClick={handleChildCommentClick}>
+                  <FaComments size={24} />
+                </IconButton>
+              )}
+
+              {myProfile.user.userId === comment.writer.userId && (
+                <>
+                  <IconButton role="button" onClick={handleModifyClick}>
+                    <BsFillKeyboardFill size={24} />
+                  </IconButton>
+                  <IconButton
+                    role="button"
+                    onClick={handleDeleteClick(comment.commentId)}
+                  >
+                    <MdDeleteSweep size={24} />
+                  </IconButton>{" "}
+                </>
+              )}
+            </>
+          )}
+        </ButtonContainer>
+
+        {/* {myProfile.user.userId === comment.writer.userId &&
           comment.status !== common.commentStatus.DELETED && (
             <ButtonContainer>
               {!isChild && (
@@ -171,7 +197,10 @@ const Comment = ({ comment, isChild, introductionId }: IProps) => {
                 <MdDeleteSweep size={24} />
               </IconButton>
             </ButtonContainer>
-          )}
+
+
+
+          )} */}
       </CommentContainer>
 
       {isChildCommentClick && (
