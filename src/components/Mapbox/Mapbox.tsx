@@ -30,6 +30,10 @@ interface Props {
   children?: ReactNode;
   // eslint-disable-next-line @typescript-eslint/ban-types
   onCenterChanged?: Function;
+  onClick?: (
+    target: kakao.maps.Map,
+    mouseEvent: kakao.maps.event.MouseEvent
+  ) => void;
 }
 
 const Mapbox = ({
@@ -45,6 +49,7 @@ const Mapbox = ({
   style,
   children,
   onCenterChanged,
+  onClick,
 }: Props) => {
   const memoMap = useRef(null);
 
@@ -115,6 +120,7 @@ const Mapbox = ({
       style={MapStyle}
       onCreate={handleCreate}
       onCenterChanged={handleCenterChanged}
+      onClick={onClick}
     >
       {children}
     </Map>

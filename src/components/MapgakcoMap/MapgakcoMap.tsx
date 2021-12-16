@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import { BsArrowRightCircle, BsEye } from "react-icons/bs";
 import { MapMarker } from "react-kakao-maps-sdk";
 import theme from "../../assets/theme";
+import useMapClick from "../../hooks/useMapClick";
 import { Position } from "../../types/commonTypes";
 import { isEqualPosition } from "../../utils/map";
 import Button from "../base/Button";
@@ -24,6 +25,8 @@ interface Props {
 const MapgakcoMap = ({ initialCenter }: Props) => {
   const memoCenter = useRef(initialCenter);
 
+  const [userClickPosition, click, initializeClick] = useMapClick();
+
   const [center, setCenter] = useState({
     lat: initialCenter.lat,
     lng: initialCenter.lng,
@@ -34,22 +37,27 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
     lng: initialCenter.lng,
   });
 
-  const [target, setTarget] = useState({
+  const [targetPlace, setTargetPlace] = useState({
     y: null,
     x: null,
   });
 
-  const handleKeywordSubmit = useCallback((place) => {
-    setTarget((prev) => ({
-      ...prev,
-      ...place,
-    }));
+  const handleKeywordSubmit = useCallback(
+    (place) => {
+      setTargetPlace((prev) => ({
+        ...prev,
+        ...place,
+      }));
 
-    setCenter({
-      lat: place.y,
-      lng: place.x,
-    });
-  }, []);
+      setCenter({
+        lat: place.y,
+        lng: place.x,
+      });
+
+      initializeClick();
+    },
+    [initializeClick]
+  );
 
   const handleMyPositionClick = useCallback(() => {
     if (isEqualPosition(currentCenter, memoCenter.current)) {
@@ -128,15 +136,23 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
         isPanto
         hasControl={false}
         onCenterChanged={handleCenterChange}
+        onClick={click}
       >
-        {target.x && target.y && (
+        {userClickPosition.lat && userClickPosition.lng ? (
           <MapMarker
             position={{
-              lat: target.y,
-              lng: target.x,
+              lat: userClickPosition.lat,
+              lng: userClickPosition.lng,
             }}
           />
-        )}
+        ) : targetPlace.x && targetPlace.y ? (
+          <MapMarker
+            position={{
+              lat: targetPlace.y,
+              lng: targetPlace.x,
+            }}
+          />
+        ) : null}
       </Mapbox>
     </Container>
   );
