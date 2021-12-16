@@ -17,6 +17,7 @@ import "./index.scss";
 
 interface Props {
   center: Position;
+  hasCenterMarker?: boolean;
   markers?: Marker[];
   imageMarkers?: ImageMarker[];
   imageMarkerOverlays?: ImageMarkerOverlay[];
@@ -28,6 +29,7 @@ interface Props {
 
 const Mapbox = ({
   center,
+  hasCenterMarker = false,
   markers = [],
   imageMarkers = [],
   imageMarkerOverlays = [],
@@ -64,14 +66,16 @@ const Mapbox = ({
         addImageMarkerOverlay({ map, position, imageUrl, options });
       });
 
-      addImageMarkerOverlay({
-        map,
-        position: center,
-        imageUrl: userImageUrl,
-      });
+      hasCenterMarker &&
+        addImageMarkerOverlay({
+          map,
+          position: center,
+          imageUrl: userImageUrl,
+        });
     },
     [
       center,
+      hasCenterMarker,
       hasControl,
       imageMarkerOverlays,
       imageMarkers,

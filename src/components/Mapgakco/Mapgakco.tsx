@@ -9,7 +9,12 @@ interface Props {
 
 const Mapgakco = ({ center, userImageUrl = "" }: Props) => {
   return (
-    <Mapbox center={center} markers={markers} userImageUrl={userImageUrl} />
+    <Mapbox
+      center={center}
+      hasCenterMarker
+      markers={markers}
+      userImageUrl={userImageUrl}
+    />
   );
 };
 
