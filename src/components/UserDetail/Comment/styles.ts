@@ -25,7 +25,6 @@ export const ImageWrapper = styled.div`
   border-radius: 50%;
   overflow: hidden;
   margin-right: 8px;
-  cursor: pointer;
   flex-grow: 0;
 `;
 

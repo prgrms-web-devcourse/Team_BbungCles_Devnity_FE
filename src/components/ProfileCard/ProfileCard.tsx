@@ -54,9 +54,7 @@ const ProfileCard = ({ user }: IProps) => {
         <LikeButtonAndText
           isLiked
           likeCount={user.introduction.likeCount}
-          // TODO: API 연동 필요
-          // eslint-disable-next-line
-          onClick={() => console.log("like!")}
+          onClick={handleClick(user?.introduction.introductionId)}
         />
         <CommentButtonAndText
           commentCount={user.introduction.commentCount}

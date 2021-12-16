@@ -3,12 +3,25 @@ import necessaryAuthAxiosInstance from "./necessaryAuthAxiosInstance";
 export const requestGetFilteredUsers = (filters) => {
   return necessaryAuthAxiosInstance.get("v1/introductions", {
     params: {
-      name: filters.name ?? null,
-      generation: filters.generation ?? null,
-      course: filters.course ?? null,
-      role: filters.role ?? null,
-      nextLastId: filters.nextLastId ?? null,
-      size: filters.size ?? null,
+      name: filters.name ? filters.name : null,
+      generation: filters.generation ? filters.generation : null,
+      course: filters.course ? filters.course : null,
+      role: filters.role ? filters.role : null,
+      lastId: filters.nextLastId ? filters.nextLastId : null,
+      size: filters.size ? filters.size : null,
+    },
+  });
+};
+
+export const requestGetFilteredUsers2 = (filters, pageParam) => {
+  return necessaryAuthAxiosInstance.get("v1/introductions", {
+    params: {
+      name: filters.name ? filters.name : null,
+      generation: filters.generation ? filters.generation : null,
+      course: filters.course ? filters.course : null,
+      role: filters.role ? filters.role : null,
+      lastId: pageParam !== null ? pageParam : null,
+      size: filters.size ? filters.size : null,
     },
   });
 };
