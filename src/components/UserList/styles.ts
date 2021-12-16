@@ -93,3 +93,11 @@ export const ProfileCardWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export const NotFoundResult = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;

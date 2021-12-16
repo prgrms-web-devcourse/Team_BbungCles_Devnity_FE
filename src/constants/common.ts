@@ -19,7 +19,7 @@ export default {
   },
 
   message: {
-    ENTER_SEARCH_TERM: "검색어를 입력해 주세요",
+    ENTER_SEARCH_TERM: "찾을 이름을 입력해 주세요",
     ENTER_COMMENT: "댓글을 입력해 주세요",
     UNKNOWN_ERROR: "알수없는 오류입니다. 다시 시도해주세요.",
     EXPIRE_OR_SERVER_ERROR:
@@ -59,4 +59,6 @@ export default {
     POSTED: "POSTED",
     DELETED: "DELETED",
   },
+
+  userListInfinitePageCount: 19,
 };

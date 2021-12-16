@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { routes } from "../../constants";
+import { common, routes } from "../../constants";
 import useUserInfiniteQuery from "../../hooks/useUserInfiniteQuery";
 import { Filters } from "./types";
 import UserList from "./UserList";
@@ -12,7 +12,7 @@ const UserListContainer = () => {
     generation: null,
     role: null,
     nextLastId: null,
-    size: 15,
+    size: common.userListInfinitePageCount,
   });
   const history = useHistory();
 

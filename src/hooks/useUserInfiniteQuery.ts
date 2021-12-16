@@ -14,6 +14,7 @@ const useMutationUserDeleteComment = (filters) => {
           ? undefined
           : lastPage.data.data.nextLastId;
       },
+      staleTime: 1000 * 10,
     }
   );
 };
