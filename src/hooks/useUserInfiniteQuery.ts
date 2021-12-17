@@ -1,10 +1,10 @@
 import { useInfiniteQuery } from "react-query";
-import { requestGetFilteredUsers2 } from "../utils/apis/introductions";
+import { requestGetFilteredUsers } from "../utils/apis/introductions";
 
 const useMutationUserDeleteComment = (filters) => {
   return useInfiniteQuery(
     ["filteredUsers2", filters],
-    ({ pageParam }) => requestGetFilteredUsers2(filters, pageParam),
+    ({ pageParam }) => requestGetFilteredUsers(filters, pageParam),
     {
       getNextPageParam: (lastPage) => {
         // lastPage.data.data.values는 조회된 결과 값이다.

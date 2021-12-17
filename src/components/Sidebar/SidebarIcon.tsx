@@ -7,6 +7,7 @@ import {
   BsLaptop,
   BsMap,
 } from "react-icons/bs";
+import { GrUserAdmin } from "react-icons/gr";
 
 interface Props {
   name: string;
@@ -21,6 +22,7 @@ const SidebarIcon = ({ name }: Props) => {
     동아리: <BsStar />,
     프로젝트: <BsLaptop />,
     맵각코: <BsMap />,
+    관리자: <GrUserAdmin />,
   };
 
   return Map[name];

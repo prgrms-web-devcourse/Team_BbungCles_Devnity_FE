@@ -48,6 +48,30 @@ export default {
     AI: "인공지능",
   },
 
+  courses: [
+    { value: "FE", label: "프론트엔드" },
+    { value: "BE", label: "백엔드" },
+  ],
+
+  roles: [
+    { value: "STUDENT", label: "수강생" },
+    { value: "MANAGER", label: "매니저" },
+    { value: "MENTOR", label: "멘토" },
+  ],
+
+  generations: [
+    { value: "1", label: "1기" },
+    { value: "2", label: "2기" },
+    { value: "3", label: "3기" },
+    { value: "4", label: "4기" },
+    { value: "5", label: "5기" },
+    { value: "6", label: "6기" },
+    { value: "7", label: "7기" },
+    { value: "8", label: "8기" },
+    { value: "9", label: "9기" },
+    { value: "10", label: "10기" },
+  ],
+
   roleMap: {
     STUDENT: "수강생",
     MENTOR: "멘토",
