@@ -55,7 +55,12 @@ const Router = () => {
         component={GatherProjectPage}
       />
       <Route path={routes.GATHERLIST_ID} exact component={GatherDetailPage} />
-      <Route path={routes.MAPGAKCOLIST} exact component={MapgakcoMapPage} />
+      <PrivateRoute
+        path={routes.MAPGAKCOLIST}
+        fallbackPath={routes.LOGIN}
+        exact
+        component={MapgakcoMapPage}
+      />
       <Route path={routes.MAPGAKCOLIST_ID} exact component={MainPage} />
       <PrivateRoute
         path={routes.USERSMAP}
