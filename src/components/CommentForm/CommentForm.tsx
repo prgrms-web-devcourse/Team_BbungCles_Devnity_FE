@@ -32,7 +32,7 @@ const CommentForm = ({ onSubmit, gatherId, parentId }: Props) => {
       onSubmit({ gatherId, parentId, content: textValue });
       setTextValue("");
     },
-    [textValue]
+    [gatherId, onSubmit, parentId, textValue]
   );
 
   return (
