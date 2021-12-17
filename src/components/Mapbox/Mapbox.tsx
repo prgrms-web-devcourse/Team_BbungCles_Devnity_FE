@@ -11,6 +11,7 @@ import {
   addImageMarker,
   addImageMarkerOverlay,
   addMarkerFromPosition,
+  removeOverlay,
 } from "../../utils/map";
 import { keywordSearch } from "../../utils/map/place";
 
@@ -31,6 +32,7 @@ interface Props {
   children?: ReactNode;
   // eslint-disable-next-line @typescript-eslint/ban-types
   onCenterChanged?: Function;
+  removeImageMarkerOverlays?: boolean;
   onClick?: (
     target: kakao.maps.Map,
     mouseEvent: kakao.maps.event.MouseEvent
@@ -50,9 +52,11 @@ const Mapbox = ({
   style,
   children,
   onCenterChanged,
+  removeImageMarkerOverlays = false,
   onClick,
 }: Props) => {
   const memoMap = useRef(null);
+  const memoImageMarkerOverlays = useRef<kakao.maps.CustomOverlay[]>([]);
 
   const MapStyle = {
     width: "100%",
@@ -76,8 +80,18 @@ const Mapbox = ({
         addImageMarker({ map, position, imageUrl });
       });
 
+      if (removeImageMarkerOverlays) {
+        memoImageMarkerOverlays.current.forEach((overlay) => {
+          removeOverlay(overlay);
+        });
+
+        memoImageMarkerOverlays.current = [];
+      }
+
       imageMarkerOverlays.forEach(({ position, imageUrl, options }) => {
-        addImageMarkerOverlay({ map, position, imageUrl, options });
+        memoImageMarkerOverlays.current.push(
+          addImageMarkerOverlay({ map, position, imageUrl, options })
+        );
       });
 
       hasCenterMarker &&
@@ -87,7 +101,6 @@ const Mapbox = ({
           imageUrl: userImageUrl,
         });
 
-      // keyword search
       keywordSearch(map, keyword);
     },
     [
@@ -98,6 +111,7 @@ const Mapbox = ({
       imageMarkers,
       keyword,
       markers,
+      removeImageMarkerOverlays,
       userImageUrl,
     ]
   );

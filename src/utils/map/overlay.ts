@@ -10,7 +10,7 @@ export const addCustomOverlay = ({
   map,
   position,
   content,
-}: CustomOverlayProps) => {
+}: CustomOverlayProps): kakao.maps.CustomOverlay => {
   const { lat, lng } = position;
 
   const overlayPosition = new kakao.maps.LatLng(lat, lng);
@@ -21,6 +21,8 @@ export const addCustomOverlay = ({
   });
 
   customOverlay.setMap(map);
+
+  return customOverlay;
 };
 
 export interface ImageMarkerOverlayOptions {
@@ -73,5 +75,11 @@ export const addImageMarkerOverlay = ({
 
   text && $marker.appendChild($text);
 
-  addCustomOverlay({ map, position, content: $marker });
+  const customOverlay = addCustomOverlay({ map, position, content: $marker });
+
+  return customOverlay;
+};
+
+export const removeOverlay = (customOverlay: kakao.maps.CustomOverlay) => {
+  customOverlay.setMap(null);
 };

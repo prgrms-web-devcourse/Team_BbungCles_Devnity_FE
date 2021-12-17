@@ -1,5 +1,5 @@
 import { memo, useCallback, useRef, useState } from "react";
-import { BsArrowRightCircle, BsEye } from "react-icons/bs";
+import { BsArrowRightCircle } from "react-icons/bs";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { UserMapInfo } from "../../../fixtures/userMapInfo";
 import theme from "../../assets/theme";
@@ -8,6 +8,7 @@ import { Position } from "../../types/commonTypes";
 import Button from "../base/Button";
 import Text from "../base/Text";
 import Mapbox from "../Mapbox/Mapbox";
+import FilterButton from "./FilterButton";
 import PlaceSearchForm from "./PlaceSearchForm";
 import {
   ButtonContainer,
@@ -37,6 +38,17 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
     y: null,
     x: null,
   });
+
+  const [visibleUsers, setVisibleUsers] = useState(false);
+  const [visibleMapgakcos, setVisibleMapgakcos] = useState(false);
+
+  const handleVisibleUsers = useCallback(() => {
+    setVisibleUsers((prev) => !prev);
+  }, []);
+
+  const handleVisibleMapgakcos = useCallback(() => {
+    setVisibleMapgakcos((prev) => !prev);
+  }, []);
 
   const handleKeywordSubmit = useCallback(
     (place) => {
@@ -87,7 +99,6 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
 
   const buttonStyle = {
     padding: "8px",
-    backgroundColor: theme.colors.white,
     minWidth: "80px",
     display: "flex",
     justifyContent: "center",
@@ -114,13 +125,15 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
             <Button style={buttonStyle} onClick={handleMyPositionClick}>
               <BsArrowRightCircle style={{ marginRight: 4 }} /> 나의 위치
             </Button>
-            <Button style={buttonStyle} onClick={() => ({})}>
-              <BsEye style={{ marginRight: 4 }} /> 데둥이
-            </Button>
-            <Button style={buttonStyle} onClick={() => ({})}>
-              <BsEye style={{ marginRight: 4 }} />
+            <FilterButton filter={visibleUsers} onClick={handleVisibleUsers}>
+              데둥이
+            </FilterButton>
+            <FilterButton
+              filter={visibleMapgakcos}
+              onClick={handleVisibleMapgakcos}
+            >
               모각코
-            </Button>
+            </FilterButton>
             <Button style={buttonStyle} onClick={() => ({})}>
               등록
             </Button>
@@ -136,22 +149,10 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
         center={{ lat: center.lat, lng: center.lng }}
         isPanto
         hasControl={false}
-        imageMarkerOverlays={imageMarkerOverlays}
+        imageMarkerOverlays={visibleUsers ? imageMarkerOverlays : []}
+        removeImageMarkerOverlays={!visibleUsers}
         onClick={click}
       >
-        {/* {userMapInfos.map((userInfo) => (
-          <MapMarker
-            key={`${userInfo.latitude}-${userInfo.longitude}`}
-            position={{
-              lat: userInfo.latitude,
-              lng: userInfo.longitude,
-            }}
-            title={userInfo.name}
-          >
-            <div>{userInfo.name}</div>
-          </MapMarker>
-        ))} */}
-
         {userClickPosition.lat && userClickPosition.lng ? (
           <MapMarker
             position={{
