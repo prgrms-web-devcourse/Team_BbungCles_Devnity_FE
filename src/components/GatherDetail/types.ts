@@ -11,6 +11,15 @@ export interface EditommentProps {
   commentId: number;
   content: string;
 }
+
+export interface EditGatherProps {
+  gatherId: number;
+  title: string;
+  content: string;
+  deadline: string;
+  category: string;
+}
+
 export interface Props {
   gatherData: Gather;
   handleGatherDelete: (arg: number) => void;
@@ -20,4 +29,5 @@ export interface Props {
   handleCommentSubmit: (arg: SubmitProps) => void;
   handleCommentDelete: (arg: DeleteCommentProps) => void;
   handleCommentEdit: (arg: EditommentProps) => void;
+  handleGatherDetailEdit: (arg: EditGatherProps) => void;
 }
