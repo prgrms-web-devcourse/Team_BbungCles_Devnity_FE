@@ -69,7 +69,7 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
   const handleSubmit = () => {
     const value = {
       title,
-      applicantLimit: applicantCount || "",
+      applicantLimit: applicantCount ? parseInt(applicantCount, 10) : "",
       deadline,
       content,
       category,
