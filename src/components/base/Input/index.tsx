@@ -14,6 +14,7 @@ const Input = ({
   customStyle,
   onChange,
   onBlur,
+  maxLength,
 }: IProps) => {
   return customStyle ? (
     <CustomStyledInput
@@ -29,6 +30,7 @@ const Input = ({
       onChange={onChange}
       onBlur={onBlur}
       customStyle={customStyle}
+      maxLength={maxLength}
     />
   ) : (
     <StyledInput
@@ -43,6 +45,7 @@ const Input = ({
       autoComplete={autoComplete}
       onBlur={onBlur}
       onChange={onChange}
+      maxLength={maxLength}
     />
   );
 };

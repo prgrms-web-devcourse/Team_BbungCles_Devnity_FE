@@ -7,19 +7,18 @@ const displayNone = () => css`
 `;
 
 export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
 `;
 
 export const SignupFormContainer = styled.div`
-  position: absolute;
   display: flex;
   width: 70vw;
   height: 85vh;
   border-radius: 20px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   box-shadow: 0 8px 32px 0 ${({ theme }) => `${theme.colors?.gray600}`};
   border-radius: 10px;
 `;
@@ -30,6 +29,7 @@ export const FormContainer = styled.div`
   width: 40%;
   height: 100%;
   padding: 16px;
+  overflow-y: auto;
 `;
 
 export const ImageWrapper = styled.div`
@@ -40,7 +40,7 @@ export const ImageWrapper = styled.div`
 export const SignupForm = styled.form`
   display: inline-flex;
   flex-direction: column;
-  gap: 20px 0;
+  gap: 16px 0;
   width: 100%;
   height: 100%;
 `;

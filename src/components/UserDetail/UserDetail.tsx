@@ -45,7 +45,9 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
   }>({
     initialValues: { content: "" },
     validationSchema: Yup.object({
-      content: Yup.string().required(),
+      content: Yup.string()
+        .required()
+        .max(50, "댓글은 50자이상 작성할 수 없습니다"),
     }),
     onSubmit: (formValues, { setSubmitting, resetForm }) => {
       setSubmitting(true);
@@ -150,7 +152,7 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
       </BorderContainer>
 
       {userInfo.introduction.description && (
-        <BorderContainer>
+        <BorderContainer height={480}>
           <MarkdownEditor
             editorRef={null}
             isViewMode
@@ -214,6 +216,7 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.content}
+            maxLength={common.validation.COMMENT_MAX_LENGTH}
           />
 
           <Button type="submit">

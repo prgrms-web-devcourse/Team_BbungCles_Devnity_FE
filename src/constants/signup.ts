@@ -12,6 +12,7 @@ export default {
     COURSE_AND_GENERATION_REQUIRED_VALIDATION: "코스, 기수를 선택해 주세요",
     COMPLETED_SIGNUP: "회원가입이 완료되었습니다.",
     UNKNOWN_ERROR: "알 수 없는 에러입니다.",
+    ALLOW_KOREAN_ENGLISH: "이름은 한글과 영어만 사용가능 합니다",
   },
 
   text: {
@@ -29,5 +30,14 @@ export default {
     COURSE: "코스 선택",
     ROLE: "역할 선택",
     GENERATION: "기수 선택",
+  },
+
+  validation: {
+    NAME_MIN_LENGTH: 2,
+    NAME_MAX_LENGTH: 20,
+    EMAIL_MIN_LENGTH: 10,
+    EMAIL_MAX_LENGTH: 64,
+    PASSWORD_MIN_LENGTH: 8,
+    PASSWORD_MAX_LENGTH: 20,
   },
 };
