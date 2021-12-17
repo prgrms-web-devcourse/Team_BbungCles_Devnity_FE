@@ -16,6 +16,7 @@ import UsersMapPage from "../pages/UsersMapPage";
 import MapgakcoMapPage from "../pages/MapgakcoMapPage";
 import MyGatherPage from "../pages/MyGatherPage";
 import AdminPage from "../pages/AdminPage";
+import NotFoundPage from "../pages/NotFoundPage";
 
 const Router = () => {
   return (
@@ -79,6 +80,7 @@ const Router = () => {
         exact
         component={UsersMapPage}
       />
+      <Route path="*" component={NotFoundPage} />
 
       {/*
       TODO: 백엔드와 스크럼에서 Role 사용 관련 이야기가 완료되면 바뀔수도 있음
