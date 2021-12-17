@@ -16,7 +16,6 @@ interface Props {
   strong?: boolean;
   color?: string;
   ellipsisLineClamp?: number;
-  id?: string;
   style?: Style;
 }
 
