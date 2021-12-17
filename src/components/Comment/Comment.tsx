@@ -51,7 +51,7 @@ const Comment = ({
             course={author.course}
             generation={author.generation}
           />
-          {myProfile.user.userId === author.userId ? (
+          {myProfile?.user?.userId === author?.userId ? (
             <div>
               <DateText>{createdAt}</DateText>
 
@@ -102,7 +102,7 @@ const Comment = ({
               course={children[0].author.course}
               generation={children[0].author.generation}
             />
-            {myProfile.user.userId === children[0].author.userId ? (
+            {myProfile?.user?.userId === children[0]?.author?.userId ? (
               <div>
                 <DateText>{children[0].createdAt}</DateText>
                 {/* <button
