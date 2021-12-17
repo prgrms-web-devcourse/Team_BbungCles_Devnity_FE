@@ -69,6 +69,7 @@ export const BorderContainer = styled.div<{ height?: number }>`
   min-width: 500px;
   gap: 32px;
   height: ${({ height }) => (height ? `${height}px` : "auto")};
+  overflow-y: auto;
 `;
 
 export const ContactContainer = styled.div`
