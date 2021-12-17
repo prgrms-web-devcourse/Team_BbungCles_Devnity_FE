@@ -1,15 +1,21 @@
+import { Comment } from "./comment";
+import { SimpleUserInfo } from "./simpleUserInfo";
+
 export interface Gather {
-  status: string;
   gatherId: number;
-  category: "CLUB" | "PROJECT" | "STUDY";
+  status: string;
   title: string;
-  createdDate: string;
-  deadLine: string;
+  content?: string;
+  category: string;
+  deadline: string;
+  createdAt: string;
+  modifiedAt?: string;
+  author: SimpleUserInfo;
   applicantLimit: number;
-  applicantCount: number;
   view: number;
-  name: string;
-  course: string;
-  generation: number;
-  profileImgUrl: string;
+  applicantCount: number;
+  commentCount: number;
+  isApplied: boolean;
+  participants?: Array<SimpleUserInfo>;
+  comments?: Array<Comment>;
 }
