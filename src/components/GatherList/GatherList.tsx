@@ -4,7 +4,7 @@ import PeriodText from "../PeriodText";
 import ApplicantCountText from "../ApplicantCountText";
 import ViewText from "../ViewText";
 import theme from "../../assets/theme";
-import { GatherData } from "../GatherMain/GatherMain";
+import { Gather } from "../../types/gather";
 import {
   Category,
   Finish,
@@ -14,41 +14,45 @@ import {
   FinishItemContainer,
   GatherLink,
 } from "./styles";
-import { categoryName } from "../../constants";
+import { categoryDisplayName, routes } from "../../constants";
 
 interface Props {
   selectedCategory?: string;
-  gatherData: Array<GatherData>;
+  gatherData: Array<Gather>;
 }
 
+// TODO: 게시글 없을 때 처리
 const GatherList = ({ selectedCategory, gatherData }: Props) => {
   const gather = selectedCategory
     ? gatherData?.filter(
         (item) =>
-          categoryName[item.category] === categoryName[selectedCategory] &&
-          item.status === "GATHERING"
+          categoryDisplayName[item.category] ===
+            categoryDisplayName[selectedCategory] && item.status === "GATHERING"
       )
     : gatherData?.filter((item) => item.status === "GATHERING");
   const finishGather = selectedCategory
     ? gatherData?.filter(
         (item) =>
-          categoryName[item.category] === categoryName[selectedCategory] &&
-          item.status !== "GATHERING"
+          categoryDisplayName[item.category] ===
+            categoryDisplayName[selectedCategory] && item.status !== "GATHERING"
       )
     : gatherData?.filter((item) => item.status !== "GATHERING");
 
   return (
     <>
       {gather?.map((item) => (
-        <GatherLink to={`/gatherList/${item.gatherId}`} key={item.gatherId}>
+        <GatherLink
+          to={`${routes.GATHERLIST}/${item.gatherId}`}
+          key={item.gatherId}
+        >
           <ItemContainer>
-            <Category>{categoryName[item.category]}</Category>
+            <Category>{categoryDisplayName[item.category]}</Category>
             <ItemDetail>
               <Text>{item.title}</Text>
               <InfoWrapper>
                 <PeriodText
-                  createdDate={item.createdDate}
-                  deadLine={item.deadLine}
+                  createdDate={item.createdAt}
+                  deadLine={item.deadline}
                   iconColor={theme.colors.gray500}
                   fontSize={12}
                   fontColor={theme.colors.gray600}
@@ -69,25 +73,28 @@ const GatherList = ({ selectedCategory, gatherData }: Props) => {
               </InfoWrapper>
             </ItemDetail>
             <ProfileBox
-              src={item.profileImgUrl}
-              name={item.name}
-              course={item.course}
-              generation={item.generation}
+              src={item.author?.profileImgUrl}
+              name={item.author.name}
+              course={item.author.course}
+              generation={item.author.generation}
             />
           </ItemContainer>
         </GatherLink>
       ))}
       {finishGather?.map((item) => (
-        <GatherLink to={`/gatherList/${item.gatherId}`} key={item.gatherId}>
+        <GatherLink
+          to={`${routes.GATHERLIST}/${item.gatherId}`}
+          key={item.gatherId}
+        >
           <FinishItemContainer>
             <Finish>모집 마감</Finish>
-            <Category>{categoryName[item.category]}</Category>
+            <Category>{categoryDisplayName[item.category]}</Category>
             <ItemDetail>
               <Text>{item.title}</Text>
               <InfoWrapper>
                 <PeriodText
-                  createdDate={item.createdDate}
-                  deadLine={item.deadLine}
+                  createdDate={item.createdAt}
+                  deadLine={item.deadline}
                   iconColor={theme.colors.gray500}
                   fontSize={12}
                   fontColor={theme.colors.gray600}
@@ -108,10 +115,10 @@ const GatherList = ({ selectedCategory, gatherData }: Props) => {
               </InfoWrapper>
             </ItemDetail>
             <ProfileBox
-              src={item.profileImgUrl}
-              name={item.name}
-              course={item.course}
-              generation={item.generation}
+              src={item.author?.profileImgUrl}
+              name={item.author.name}
+              course={item.author.course}
+              generation={item.author.generation}
             />
           </FinishItemContainer>
         </GatherLink>

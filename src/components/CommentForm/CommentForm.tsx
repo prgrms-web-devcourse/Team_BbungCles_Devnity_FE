@@ -7,22 +7,32 @@ import {
   SubmitButton,
 } from "./styles";
 
+export interface SubmitProps {
+  gatherId?: number;
+  parentId?: number | null;
+  content: string;
+}
 interface Props {
-  onSubmit: (arg: string) => void;
+  onSubmit: (arg: SubmitProps) => void;
+  gatherId?: number;
+  parentId?: number | null;
 }
 
-const CommentForm = ({ onSubmit }: Props) => {
+const CommentForm = ({ onSubmit, gatherId, parentId }: Props) => {
   const [textValue, setTextValue] = useState("");
 
-  const handleInputChange = useCallback((value) => setTextValue(value), []);
+  const handleInputChange = useCallback((e) => {
+    const { value } = e.target;
+    setTextValue(value);
+  }, []);
 
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      onSubmit(textValue);
+      onSubmit({ gatherId, parentId, content: textValue });
       setTextValue("");
     },
-    [onSubmit, textValue]
+    [gatherId, onSubmit, parentId, textValue]
   );
 
   return (

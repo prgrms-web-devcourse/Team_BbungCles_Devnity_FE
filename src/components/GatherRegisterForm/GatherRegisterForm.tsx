@@ -1,14 +1,17 @@
 import theme from "../../assets/theme";
+import { categoryValue } from "../../constants";
 import Button from "../base/Button";
 import Input from "../base/Input";
 import {
   Container,
   ItemContainer,
   CategoryWrapper,
+  LabelContainer,
   ClickedStyle,
   NormalStyle,
-  ButtonWrapper,
+  ButtonContainer,
   Textarea,
+  ErrorMessage,
 } from "./styles";
 
 interface Props {
@@ -26,6 +29,7 @@ interface Props {
   onContent: (e: React.ChangeEvent<HTMLTextAreaElement>) => void; // (e: React.ChangeEvent<HTMLInputElement>) => void;
   onModalClose: () => void;
   onSubmit: () => void;
+  error: Array<string>;
 }
 
 const GatherRegisterForm = ({
@@ -37,34 +41,57 @@ const GatherRegisterForm = ({
   onContent,
   onModalClose,
   onSubmit,
+  error,
 }: Props) => {
   return (
     <Container>
       <ItemContainer>
-        <label htmlFor="category">카테고리</label>
+        <LabelContainer>
+          <label htmlFor="category">카테고리</label>
+          {error.includes("category") ? (
+            <ErrorMessage>필수 입력 값입니다.</ErrorMessage>
+          ) : undefined}
+        </LabelContainer>
         <CategoryWrapper>
           <Button
-            onClick={() => onCategoryChange("study")}
-            style={values.category === "study" ? ClickedStyle : NormalStyle}
+            onClick={() => onCategoryChange(categoryValue.STUDY)}
+            style={
+              values.category === categoryValue.STUDY
+                ? ClickedStyle
+                : NormalStyle
+            }
           >
             스터디
           </Button>
           <Button
-            onClick={() => onCategoryChange("project")}
-            style={values.category === "project" ? ClickedStyle : NormalStyle}
+            onClick={() => onCategoryChange(categoryValue.PROJECT)}
+            style={
+              values.category === categoryValue.PROJECT
+                ? ClickedStyle
+                : NormalStyle
+            }
           >
             프로젝트
           </Button>
           <Button
-            onClick={() => onCategoryChange("club")}
-            style={values.category === "club" ? ClickedStyle : NormalStyle}
+            onClick={() => onCategoryChange(categoryValue.CLUB)}
+            style={
+              values.category === categoryValue.CLUB
+                ? ClickedStyle
+                : NormalStyle
+            }
           >
             동아리
           </Button>
         </CategoryWrapper>
       </ItemContainer>
       <ItemContainer>
-        <label htmlFor="title">제목</label>
+        <LabelContainer>
+          <label htmlFor="title">제목</label>
+          {error.includes("title") ? (
+            <ErrorMessage>필수 입력 값입니다.</ErrorMessage>
+          ) : undefined}
+        </LabelContainer>
         <Input
           type="text"
           name="title"
@@ -73,7 +100,12 @@ const GatherRegisterForm = ({
         />
       </ItemContainer>
       <ItemContainer>
-        <label htmlFor="applicantCount">모집 인원</label>
+        <LabelContainer>
+          <label htmlFor="applicantCount">모집 인원</label>
+          {error.includes("applicantLimit") ? (
+            <ErrorMessage>필수 입력 값입니다.</ErrorMessage>
+          ) : undefined}
+        </LabelContainer>
         <Input
           type="text"
           name="applicantCount"
@@ -82,7 +114,12 @@ const GatherRegisterForm = ({
         />
       </ItemContainer>
       <ItemContainer>
-        <label htmlFor="deadLine">마감 날짜</label>
+        <LabelContainer>
+          <label htmlFor="deadline">마감 날짜</label>
+          {error.includes("deadline") ? (
+            <ErrorMessage>필수 입력 값입니다.</ErrorMessage>
+          ) : undefined}
+        </LabelContainer>
         <Input
           type="text"
           name="deadline"
@@ -91,7 +128,12 @@ const GatherRegisterForm = ({
         />
       </ItemContainer>
       <ItemContainer>
-        <label htmlFor="content">내용</label>
+        <LabelContainer>
+          <label htmlFor="content">내용</label>
+          {error.includes("content") ? (
+            <ErrorMessage>필수 입력 값입니다.</ErrorMessage>
+          ) : undefined}
+        </LabelContainer>
         <Textarea
           id="content"
           name="content"
@@ -99,7 +141,7 @@ const GatherRegisterForm = ({
           onChange={onContent}
         />
       </ItemContainer>
-      <ButtonWrapper>
+      <ButtonContainer>
         <Button
           onClick={onModalClose}
           style={{
@@ -109,6 +151,7 @@ const GatherRegisterForm = ({
             padding: 10,
             borderRadius: "6px",
             fontWeight: 600,
+            justifyContent: "center",
           }}
         >
           취소
@@ -121,21 +164,14 @@ const GatherRegisterForm = ({
             padding: 10,
             borderRadius: "6px",
             color: theme.colors.white,
+            justifyContent: "center",
           }}
         >
           등록
         </Button>
-      </ButtonWrapper>
+      </ButtonContainer>
     </Container>
   );
 };
 
 export default GatherRegisterForm;
-/*
-        <Input
-          type="text"
-          name="content"
-          onChange={onContent}
-          value={values.content}
-        />
-*/

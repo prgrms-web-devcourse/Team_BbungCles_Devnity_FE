@@ -54,7 +54,11 @@ const Router = () => {
         exact
         component={GatherProjectPage}
       />
-      <Route path={routes.GATHERLIST_ID} exact component={GatherDetailPage} />
+      <Route
+        path={`${routes.GATHERLIST_ID}/:id`}
+        exact
+        component={GatherDetailPage}
+      />
       <PrivateRoute
         path={routes.MAPGAKCOLIST}
         fallbackPath={routes.LOGIN}

@@ -36,6 +36,11 @@ export const CategoryWrapper = styled.div`
   gap: 16px;
 `;
 
+export const LabelContainer = styled.div`
+  display: flex;
+  gap: 5px;
+`;
+
 export const Textarea = styled.textarea`
   height: 150px;
   padding: 16px;
@@ -49,8 +54,14 @@ export const Textarea = styled.textarea`
   }
 `;
 
-export const ButtonWrapper = styled.div`
+export const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 20px;
+`;
+
+export const ErrorMessage = styled.p`
+  padding: 0 16px;
+  color: ${theme.colors?.scarlet};
+  font-size: 14px;
 `;

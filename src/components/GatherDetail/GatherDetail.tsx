@@ -1,8 +1,10 @@
+import { useRecoilValue } from "recoil";
 import { Props } from "./types";
 import Text from "../base/Text";
 import CommentForm from "../CommentForm/CommentForm";
 import Comment from "../Comment/Comment";
 import ProfileBox from "../ProfileBox/ProfileBox";
+import { globalMyProfile } from "../../atoms";
 import {
   Container,
   Category,
@@ -10,8 +12,14 @@ import {
   DetailContainer,
   TextContainer,
   ButtonContainer,
+  CategoryWrapper,
 } from "./styles";
 import theme from "../../assets/theme";
+import {
+  categoryDisplayName,
+  gatherDisplayStatus,
+  gatherStatus,
+} from "../../constants";
 
 const GatherDetail = ({
   gatherData,
@@ -25,50 +33,61 @@ const GatherDetail = ({
 }: Props): JSX.Element => {
   const {
     gatherId,
+    status,
     category,
     title,
-    hostName,
-    hostCourse,
-    hostProfile,
-    hostGeneration,
-    createdDate,
-    deadLine,
+    author,
+    createdAt,
+    // TODO: 수정됐을 경우 수정됨이 보이도록 한다.
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    modifiedAt,
+    deadline,
     view,
     applicantLimit,
     applicantCount,
-    applicants,
+    participants,
     content,
+    commentCount,
+    isApplied,
+    comments,
   } = gatherData;
 
-  // TODO: 로그인한 사용자인지 확인하는 로직 작성 필요
-  const isAuthor = true;
-  const userId = "1e5teg";
+  const myProfile = useRecoilValue(globalMyProfile);
 
   return (
     <Container>
-      <Category>
-        <Text size={12} color={theme.colors.white}>
-          {category}
-        </Text>
-      </Category>
+      <CategoryWrapper>
+        <Category>
+          <Text size={12} color={theme.colors.white}>
+            {categoryDisplayName[category]}
+          </Text>
+        </Category>
+        {status !== gatherStatus.GATHERING ? (
+          <Category>
+            <Text size={12} color={theme.colors.white}>
+              {gatherDisplayStatus[status]}
+            </Text>
+          </Category>
+        ) : undefined}
+      </CategoryWrapper>
       <Text size={24} strong>
         {title}
       </Text>
       <UserContainer>
         <ProfileBox
-          src={hostProfile}
+          src={author?.profileImgUrl}
           alt="프로필"
-          name={hostName}
-          course={hostCourse}
-          generation={hostGeneration}
+          name={author.name}
+          course={author.course}
+          generation={author.generation}
         />
-        <Text>{createdDate}</Text>
+        <Text>{createdAt}</Text>
         <Text>{view}</Text>
       </UserContainer>
       <DetailContainer>
         <TextContainer>
           <Text size={18}>모집 기간</Text>
-          <Text>{`${createdDate}~${deadLine}`}</Text>
+          <Text>{`${createdAt}~${deadline}`}</Text>
         </TextContainer>
         <TextContainer>
           <Text size={18}>모집 인원</Text>
@@ -77,7 +96,7 @@ const GatherDetail = ({
         <TextContainer>
           <Text size={18}>신청 인원</Text>
           <Text>{`${applicantCount}명`}</Text>
-          {applicants?.map((applicant) => {
+          {participants?.map((applicant) => {
             return (
               <ProfileBox
                 key={applicant.name}
@@ -95,19 +114,16 @@ const GatherDetail = ({
           <Text>{content}</Text>
         </TextContainer>
         <ButtonContainer>
-          <button
-            type="button"
-            onClick={() => handleGatherApply(gatherId, userId)}
-          >
-            신청
-          </button>
-          <button
-            type="button"
-            onClick={() => handleGatherCancel(gatherId, userId)}
-          >
-            취소
-          </button>
-          {isAuthor ? (
+          {myProfile?.user?.userId !== author.userId && isApplied ? (
+            <button type="button" onClick={() => handleGatherCancel(gatherId)}>
+              취소
+            </button>
+          ) : (
+            <button type="button" onClick={() => handleGatherApply(gatherId)}>
+              신청
+            </button>
+          )}
+          {myProfile?.user?.userId === author.userId ? (
             <>
               <button type="button" onClick={() => handleGatherClose(gatherId)}>
                 모집 마감
@@ -122,19 +138,27 @@ const GatherDetail = ({
           ) : undefined}
         </ButtonContainer>
       </DetailContainer>
-      <CommentForm onSubmit={handleCommentSubmit} />
-      <Comment
-        commentId={1}
-        createdAt="2021-12-04"
-        commentText="우왕 재밌겠네요"
-        authorUsername="홍길동"
-        authorProfile="https://picsum.photos/200/400"
-        authorCourse="BE"
-        authorGeneration={1}
-        isAuthor={isAuthor}
-        handleCommentDelete={handleCommentDelete}
-        handleCommentEdit={handleCommentEdit}
-      />
+      <CommentForm onSubmit={handleCommentSubmit} gatherId={gatherId} />
+      {commentCount
+        ? comments?.map((comment) => (
+            <Comment
+              key={comment.commentId}
+              commentId={comment.commentId}
+              createdAt={comment.createdAt}
+              parentId={comment?.parentId}
+              content={comment.content}
+              modifiedAt={comment?.modifiedAt}
+              status={comment.status}
+              author={comment.author}
+              handleCommentDelete={handleCommentDelete}
+              handleCommentEdit={handleCommentEdit}
+              // eslint-disable-next-line react/no-children-prop
+              children={comment?.children}
+              handleCommentSubmit={handleCommentSubmit}
+              gatherId={gatherId}
+            />
+          ))
+        : undefined}
     </Container>
   );
 };

@@ -10,6 +10,8 @@ export const Container = styled.li`
   }
 `;
 
+export const DiscernContainer = styled.div``;
+
 export const AuthorContainer = styled.div`
   display: flex;
   align-items: center;
@@ -32,4 +34,9 @@ export const DateStyle: CSSProperties = {
 export const DateText = styled(Text)`
   color: #8c8d96;
   padding-right: 10px;
+`;
+
+export const CommetFormWrapper = styled.div<{ visible: boolean }>`
+  display: ${({ visible }) => (visible ? "flex" : "none")};
+  width: 100%;
 `;

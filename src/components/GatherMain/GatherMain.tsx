@@ -3,27 +3,11 @@ import Modal from "../base/Modal";
 import GatherRegisterFormContainer from "../GatherRegisterForm/GatherRegistorFormContainer";
 import SearchForm from "../SearchForm";
 import { Container, SearchAndWriteContainer, WriteButton } from "./styles";
-
-export interface GatherData {
-  status: string;
-  gatherId: number;
-  category: string;
-  title: string;
-  createdDate: string;
-  deadLine: string;
-  applicantLimit: number;
-  applicantCount: number;
-  view: number;
-  name: string;
-  course: string;
-  generation: number;
-  profileImgUrl: string;
-  content?: string;
-}
+import { Gather } from "../../types/gather";
 
 interface Props {
   selectedCategory?: string;
-  gatherData: Array<GatherData>;
+  gatherData: Array<Gather>;
   modalVisible: boolean;
   handleVisibleModal: (isModalVisible: boolean) => void;
 }

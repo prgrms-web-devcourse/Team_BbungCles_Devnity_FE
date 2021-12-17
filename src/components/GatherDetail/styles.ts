@@ -9,6 +9,10 @@ export const Container = styled.div`
   height: 100%;
 `;
 
+export const CategoryWrapper = styled.div`
+  display: flex;
+`;
+
 export const Category = styled.div`
   width: 60px;
   height: 30px;
