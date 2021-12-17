@@ -25,13 +25,9 @@ export const signupValidator = Yup.object({
     .email(signup.message.EMAIL_FORMAT_VALIDATION)
     .required(signup.message.EMAIL_REQUIRED_VALIDATION),
   password: Yup.string()
-    .min(
-      signup.validation.PASSWORD_MIN_LENGTH,
-      `비밀번호는 ${signup.validation.PASSWORD_MIN_LENGTH}자 이상 입력해 주세요`
-    )
-    .max(
-      signup.validation.PASSWORD_MAX_LENGTH,
-      `비밀번호는 ${signup.validation.PASSWORD_MAX_LENGTH}자를 넘을 수 없습니다`
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()\\[\]_+;:'"?<>,.|\\/])[A-Za-z\d!@#$%^&*()\\[\]_+;:'"?<>,.|\\/]{8,20}$/g,
+      `비밀번호는 8~20자리의 숫자, 영문자, 특수문자를 최소 1개씩 포함해야 합니다.`
     )
     .required(signup.message.PASSWORD_REQUIRED_VALIDATION),
   confirmPassword: Yup.string()
