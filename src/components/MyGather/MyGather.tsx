@@ -9,14 +9,14 @@ import {
   LargeTitleContainer,
   MediumTitleContainer,
 } from "./styles";
-import { GatherData } from "../GatherMain/GatherMain";
+import { Gather } from "../../types/gather";
 import GatherList from "../GatherList/GatherList";
 import Button from "../base/Button";
 import theme from "../../assets/theme";
 
 interface Props {
-  applyData: Array<GatherData>;
-  makeData: Array<GatherData>;
+  applyData: Array<Gather>;
+  makeData: Array<Gather>;
 }
 
 export const FILTER_APPLY = "show_applyList";
