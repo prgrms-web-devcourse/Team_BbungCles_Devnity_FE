@@ -3,20 +3,25 @@ import { useLocation } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { globalMyProfile } from "../atoms";
 import { sidebarVisibleState } from "../atoms/sidebarVisible";
+import { topbarVisibleState } from "../atoms/topbarVisble";
 import SidebarContainer from "../components/Sidebar/SidebarContainer";
-import { routes } from "../constants";
+import UserImageAndDropdownContainer from "../components/UserImageAndDropdown/UserImageAndDropdownContainer";
+import { common, routes } from "../constants";
 import useMyProfile from "../hooks/useMyProfile";
-import { PageWrapper, Container } from "./styles";
+import { PageWrapper, Container, Header } from "./styles";
 
 interface Props {
   children: ReactChild;
 }
 
 const DefaultTemplate = ({ children }: Props) => {
-  // TODO: 페이지에 따라 사이드바를 보여줘야 하는지에 대한 여부를 팀원들과 논의하여 확정한 후에 하드코딩된 값을 제거하고 로직으로 변경한다.
   const isShowSidebar = useRecoilValue(sidebarVisibleState);
+  const isShowTopbar = useRecoilValue(topbarVisibleState);
+
   const { pathname } = useLocation();
-  const [, setGlobalMyProfile] = useRecoilState(globalMyProfile);
+
+  const [globalMyProfileData, setGlobalMyProfile] =
+    useRecoilState(globalMyProfile);
   const { data } = useMyProfile(pathname);
 
   useEffect(() => {
@@ -32,7 +37,19 @@ const DefaultTemplate = ({ children }: Props) => {
   return (
     <Container>
       {isShowSidebar && <SidebarContainer />}
-      <PageWrapper>{children}</PageWrapper>
+      <PageWrapper>
+        {isShowTopbar && (
+          <Header>
+            <UserImageAndDropdownContainer
+              imageUrl={
+                globalMyProfileData?.introduction.profileImgUrl ||
+                common.placeHolderImageSrc
+              }
+            />
+          </Header>
+        )}
+        {children}
+      </PageWrapper>
     </Container>
   );
 };
