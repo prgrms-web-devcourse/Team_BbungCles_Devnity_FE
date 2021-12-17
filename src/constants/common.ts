@@ -64,5 +64,6 @@ export default {
 
   validation: {
     COMMENT_MAX_LENGTH: 150,
+    SUMMARY_MAX_LENGTH: 50,
   },
 };

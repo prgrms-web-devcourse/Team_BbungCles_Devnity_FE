@@ -182,6 +182,7 @@ const MyProfile = ({
           name="summary"
           onChange={formik.handleChange}
           value={formik.values.summary || ""}
+          maxLength={common.validation.SUMMARY_MAX_LENGTH}
         />
 
         <label htmlFor="description">{common.text.DESCRIPTION}</label>
