@@ -1,22 +1,43 @@
 import { Position } from "../../types/mapTypes";
 
-interface MarkerProps {
-  map: kakao.maps.Map;
-  position: Position;
-}
-
-export const addMarker = ({ map, position }: MarkerProps) => {
+export const createMarker = (position: Position): kakao.maps.Marker => {
   const { lat, lng } = position;
 
   const markerPosition = new kakao.maps.LatLng(lat, lng);
 
-  const marker = new kakao.maps.Marker({
+  return new kakao.maps.Marker({
     position: markerPosition,
   });
+};
 
+interface MarkerFromPositionProps {
+  map: kakao.maps.Map;
+  position: Position;
+}
+
+export const addMarkerFromPosition = ({
+  map,
+  position,
+}: MarkerFromPositionProps): kakao.maps.Marker => {
+  const marker = createMarker(position);
+
+  marker.setMap(map);
+
+  return marker;
+};
+
+interface MarkerProps {
+  map: kakao.maps.Map;
+  marker: kakao.maps.Marker;
+}
+
+export const addMarker = ({ map, marker }: MarkerProps) => {
   marker.setMap(map);
 };
 
+export const removeMarker = (marker: kakao.maps.Marker) => {
+  marker.setMap(null);
+};
 interface ImageMarkerProps {
   map: kakao.maps.Map;
   position: Position;

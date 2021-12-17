@@ -46,7 +46,11 @@ const Sidebar = ({ onLinkClick }: Props) => {
       </Header>
       <Nav>
         <ul>
-          <li>
+          <li
+            onClick={handleClick(routes.MAIN)}
+            onKeyPress={handleClick(routes.MAIN)}
+            role="presentation"
+          >
             <div>
               <Logo
                 width={24}

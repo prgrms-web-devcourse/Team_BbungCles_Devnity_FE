@@ -43,6 +43,7 @@ export const CustomStyledInput = styled(StyledInput)<IProps>`
   border-top: ${({ customStyle }) => customStyle.borderTop};
   box-shadow: ${({ customStyle, theme }) =>
     theme.boxShadows[customStyle.boxShadow]};
+  font-size: ${({ customStyle }) => customStyle.fontSize};
 
   &:focus {
     outline: ${({ customStyle }) => customStyle.focusOutline};

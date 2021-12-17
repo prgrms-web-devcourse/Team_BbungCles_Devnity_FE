@@ -1,8 +1,8 @@
 $border-width: 3px;
 $marker-size: 40px;
 $marker-color: #d22b05;
-$marker--blue-color: royalblue;
-$marker--green-color: lightgreen;
+$marker--blue-color: #4169e0;
+$marker--green-color: #90EE90;
 
 .marker, .marker--blue, .marker--green {
   position: relative;
@@ -63,14 +63,12 @@ $marker--green-color: lightgreen;
     object-fit: cover;
     z-index: 9;
     pointer-events: none;
+    background: #eee;
   }
 
   &__text {
     opacity: 1;
     visibility: visible;
-    // TODO: hover를 할 때 보여주는 게 나은지 팀원들과 논의한다. hover를 할 때 보여주는 게 낫다면 주석을 해제한다.
-    // opacity: 0;
-    // visibility: hidden;
     transition: 0.2s ease-out;
 
     position: absolute;
@@ -78,7 +76,7 @@ $marker--green-color: lightgreen;
     left: 50%;
     padding: 6px 6px 4px 60%;
     box-shadow: 0 2px 5px 1px #363a3c25;
-    background-color: white;
+    background-color: #fff;
     font-size: 14px;
     border-radius: 16px;
     max-width: 120px;

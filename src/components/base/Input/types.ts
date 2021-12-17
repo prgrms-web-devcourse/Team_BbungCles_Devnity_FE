@@ -4,6 +4,7 @@ import { ColorType, ShadowType } from "../../../assets/theme";
 export interface CustomStyles {
   width?: string | number;
   height?: string | number;
+  fontSize?: string | number;
   color?: ColorType;
   padding?: string;
   border?: string;

@@ -3,7 +3,7 @@ import { StyledButton } from "./styles";
 
 interface Props {
   name?: string;
-  children?: ReactChild;
+  children?: ReactChild | ReactChild[];
   text?: string;
   onClick: (event: React.MouseEvent) => void;
   style?: React.CSSProperties;

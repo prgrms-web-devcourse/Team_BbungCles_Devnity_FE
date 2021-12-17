@@ -29,6 +29,7 @@ const UsersMap = ({ center, userImageUrl, userMapInfos }: Props) => {
   return (
     <Mapbox
       center={{ lat: center.lat, lng: center.lng }}
+      hasCenterMarker
       userImageUrl={userImageUrl || common.placeHolderImageSrc}
       imageMarkerOverlays={imageMarkerOverlays}
     />
