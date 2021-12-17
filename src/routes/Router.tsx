@@ -15,6 +15,7 @@ import UserDetailPage from "../pages/UserDetailPage";
 import UsersMapPage from "../pages/UsersMapPage";
 import MapgakcoMapPage from "../pages/MapgakcoMapPage";
 import MyGatherPage from "../pages/MyGatherPage";
+import AdminPage from "../pages/AdminPage";
 
 const Router = () => {
   return (
@@ -27,7 +28,12 @@ const Router = () => {
       />
       <Route path={routes.SIGNUP} exact component={SignupPage} />
       <Route path={routes.LOGIN} exact component={LoginPage} />
-      <Route path={routes.ADMIN} exact component={MainPage} />
+      <PrivateRoute
+        exact
+        path={routes.ADMIN}
+        fallbackPath={routes.LOGIN}
+        component={AdminPage}
+      />
       <PrivateRoute
         exact
         path={routes.MYPROFILE}

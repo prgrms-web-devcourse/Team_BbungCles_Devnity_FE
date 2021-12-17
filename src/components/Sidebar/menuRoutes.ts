@@ -29,4 +29,8 @@ export default [
     name: "맵각코",
     path: routes.MAPGAKCOLIST,
   },
+  {
+    name: "관리자",
+    path: routes.ADMIN,
+  },
 ];

@@ -64,6 +64,7 @@ const Sidebar = ({ onLinkClick }: Props) => {
           {menuRoutes.map(({ name, path }, index) => {
             const key = `${index}${name}`;
 
+            // TODO: 관리자는 관리자 권한이 있는 사용자일 경우에만 보이도록 필터링 해야함
             return (
               <li
                 key={key}
