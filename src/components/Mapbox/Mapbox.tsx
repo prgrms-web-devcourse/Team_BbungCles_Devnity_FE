@@ -105,10 +105,11 @@ const Mapbox = ({
     (target: kakao.maps.Map) => {
       const currentCenter = target.getCenter();
 
-      onCenterChanged({
-        lat: currentCenter.getLat(),
-        lng: currentCenter.getLng(),
-      });
+      onCenterChanged &&
+        onCenterChanged({
+          lat: currentCenter.getLat(),
+          lng: currentCenter.getLng(),
+        });
     },
     [onCenterChanged]
   );
