@@ -1,4 +1,3 @@
-// import "react-datepicker/dist/react-datepicker.css";
 import { FormikProps, useFormik } from "formik";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -58,7 +57,6 @@ const Admin = () => {
     handleSubmit,
     handleChange,
     handleBlur,
-    // setFieldValue,
     touched,
     values,
     errors,
