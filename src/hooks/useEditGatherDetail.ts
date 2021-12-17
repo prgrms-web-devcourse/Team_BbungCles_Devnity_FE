@@ -8,9 +8,9 @@ const useEditGatherDetail = () => {
     (editValue) => requestEditGatherDetail(editValue),
     {
       onSuccess: () => {
+        queryClient.invalidateQueries("gatherDetail");
         // TODO:
         // eslint-disable-next-line no-alert
-        queryClient.invalidateQueries("gatherDetail");
         alert("모집글이 수정되었습니다.");
       },
       onError: ({ response }) => {

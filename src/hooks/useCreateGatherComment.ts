@@ -8,9 +8,9 @@ const useCreateGatherComment = () => {
     (submitValue) => requestCreateComment(submitValue),
     {
       onSuccess: () => {
+        queryClient.invalidateQueries("FilteredGathers");
         // TODO:
         // eslint-disable-next-line no-alert
-        queryClient.invalidateQueries("FilteredGathers");
         alert("댓글이 작성되었습니다.");
       },
       onError: ({ response }) => {

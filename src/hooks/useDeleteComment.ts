@@ -8,9 +8,9 @@ const useDeleteComment = () => {
     (deleteValue) => requestDeleteComment(deleteValue),
     {
       onSuccess: () => {
+        queryClient.invalidateQueries("gatherDetail");
         // TODO:
         // eslint-disable-next-line no-alert
-        queryClient.invalidateQueries("gatherDetail");
         alert("댓글이 삭제되었습니다.");
       },
       onError: ({ response }) => {

@@ -8,9 +8,9 @@ const useClosGather = () => {
     (gatherId) => requestCloseGather(gatherId),
     {
       onSuccess: () => {
+        queryClient.invalidateQueries("gatherDetail");
         // TODO:
         // eslint-disable-next-line no-alert
-        queryClient.invalidateQueries("gatherDetail");
         alert("모집이 마감되었습니다.");
       },
       onError: ({ response }) => {
