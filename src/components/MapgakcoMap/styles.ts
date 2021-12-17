@@ -61,7 +61,6 @@ export const ButtonContainer = styled.div`
   gap: 10px;
 `;
 
-//= PlaceSearchFrom
 export const PlaceSearchFromContainer = styled.div`
   position: relative;
 `;
