@@ -1,32 +1,27 @@
 import { useCallback, useState } from "react";
-import { useMutation } from "react-query";
-import { MutationData, MutationError } from "../../types/commonTypes";
-import { requestPostAddGather } from "../../utils/apis/makeGather";
 import GatherRegisterForm from "./GatherRegisterForm";
+import useAddGather from "../../hooks/useAddGather";
 
 interface Props {
   onModalClose: () => void;
 }
 
+const validate = (newGather) => {
+  const newGatherKeys = Object.keys(newGather);
+
+  const errors = newGatherKeys.filter((key) => newGather[key].length === 0);
+
+  return errors;
+};
 const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
   const [title, setTitle] = useState("");
   const [applicantCount, setApplicantCount] = useState("");
   const [category, setCategory] = useState("");
   const [deadline, setDeadline] = useState("");
   const [content, setContent] = useState("");
+  const [error, setError] = useState([]);
 
-  const { mutate } = useMutation<MutationData, MutationError, unknown, unknown>(
-    (values) => requestPostAddGather(values),
-    {
-      onSuccess: () => {
-        alert("성공");
-      },
-      onError: ({ response }) => {
-        const errorMessage = response ? response.data.message : "웨않돼";
-        alert(errorMessage);
-      },
-    }
-  );
+  const { addGather } = useAddGather();
 
   const handleCategory = useCallback((selectedCategory: string) => {
     setCategory(selectedCategory);
@@ -68,23 +63,26 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
     setApplicantCount("");
     setDeadline("");
     setContent("");
+    setError([]);
   };
 
   const handleSubmit = () => {
     const value = {
       title,
-      applicantLimit: parseInt(applicantCount, 10),
+      applicantLimit: applicantCount ? parseInt(applicantCount, 10) : "",
       deadline,
       content,
       category,
     };
 
-    console.log("value:", value);
+    const isError = validate(value);
 
-    mutate(value);
-
-    // TODO: 모집 등록 API 연동 추가해야 한다.
-    closeAndValueInitialize();
+    if (isError.length === 0) {
+      addGather(value);
+      closeAndValueInitialize();
+    } else {
+      setError(isError);
+    }
   };
 
   const handleModalClose = () => {
@@ -101,6 +99,7 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
       onContent={handleContent}
       onModalClose={handleModalClose}
       onSubmit={handleSubmit}
+      error={error}
     />
   );
 };
