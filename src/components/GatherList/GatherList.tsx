@@ -6,6 +6,7 @@ import ViewText from "../ViewText";
 import theme from "../../assets/theme";
 import { Gather } from "../../types/gather";
 import {
+  TextContainer,
   Category,
   Finish,
   ItemContainer,
@@ -19,10 +20,10 @@ import { categoryDisplayName, routes } from "../../constants";
 interface Props {
   selectedCategory?: string;
   gatherData: Array<Gather>;
+  page?: string;
 }
 
-// TODO: 게시글 없을 때 처리
-const GatherList = ({ selectedCategory, gatherData }: Props) => {
+const GatherList = ({ selectedCategory, gatherData, page }: Props) => {
   const gather = selectedCategory
     ? gatherData?.filter(
         (item) =>
@@ -48,26 +49,25 @@ const GatherList = ({ selectedCategory, gatherData }: Props) => {
           <ItemContainer>
             <Category>{categoryDisplayName[item.category]}</Category>
             <ItemDetail>
-              <Text>{item.title}</Text>
-              <InfoWrapper>
+              <TextContainer page={page}>
+                <Text ellipsisLineClamp={1}>{item.title}</Text>
+              </TextContainer>
+              <InfoWrapper page={page}>
                 <PeriodText
                   createdDate={item.createdAt}
                   deadLine={item.deadline}
                   iconColor={theme.colors.gray500}
-                  fontSize={12}
                   fontColor={theme.colors.gray600}
                 />
                 <ApplicantCountText
                   applicantCount={item.applicantCount}
                   applicantLimit={item.applicantLimit}
                   iconColor={theme.colors.gray500}
-                  fontSize={12}
                   fontColor={theme.colors.gray600}
                 />
                 <ViewText
                   view={item.view}
                   iconColor={theme.colors.gray500}
-                  fontSize={12}
                   fontColor={theme.colors.gray600}
                 />
               </InfoWrapper>
@@ -87,29 +87,29 @@ const GatherList = ({ selectedCategory, gatherData }: Props) => {
           key={item.gatherId}
         >
           <FinishItemContainer>
-            <Finish>모집 마감</Finish>
+            <Finish page={page}>모집 마감</Finish>
             <Category>{categoryDisplayName[item.category]}</Category>
+
             <ItemDetail>
-              <Text>{item.title}</Text>
-              <InfoWrapper>
+              <TextContainer page={page}>
+                <Text>{item.title}</Text>
+              </TextContainer>
+              <InfoWrapper page={page}>
                 <PeriodText
                   createdDate={item.createdAt}
                   deadLine={item.deadline}
                   iconColor={theme.colors.gray500}
-                  fontSize={12}
                   fontColor={theme.colors.gray600}
                 />
                 <ApplicantCountText
                   applicantCount={item.applicantCount}
                   applicantLimit={item.applicantLimit}
                   iconColor={theme.colors.gray500}
-                  fontSize={12}
                   fontColor={theme.colors.gray600}
                 />
                 <ViewText
                   view={item.view}
                   iconColor={theme.colors.gray500}
-                  fontSize={12}
                   fontColor={theme.colors.gray600}
                 />
               </InfoWrapper>

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { BsFillEyeFill } from "react-icons/bs";
+import { breakpoints } from "../../assets/media";
 import Text from "../base/Text";
 
 interface Props {
@@ -14,6 +15,10 @@ const Container = styled.div`
   display: flex;
   gap: 4px;
   align-items: center;
+
+  ${breakpoints.maxMobile} {
+    display: none;
+  }
 `;
 
 const ViewText = ({
