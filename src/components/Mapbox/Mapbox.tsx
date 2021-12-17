@@ -14,7 +14,8 @@ import {
 } from "../../utils/map";
 import { keywordSearch } from "../../utils/map/place";
 
-import "./index.scss";
+import "./customOverlayMarker.scss";
+import "./imageMarker.scss";
 
 interface Props {
   center: Position;

@@ -1,10 +1,10 @@
-import { useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { BsArrowRightCircle, BsEye } from "react-icons/bs";
 import { MapMarker } from "react-kakao-maps-sdk";
+import { UserMapInfo } from "../../../fixtures/userMapInfo";
 import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
 import { Position } from "../../types/commonTypes";
-import { isEqualPosition } from "../../utils/map";
 import Button from "../base/Button";
 import Text from "../base/Text";
 import Mapbox from "../Mapbox/Mapbox";
@@ -20,19 +20,15 @@ import {
 
 interface Props {
   initialCenter: Position;
+  userMapInfos: UserMapInfo[];
 }
 
-const MapgakcoMap = ({ initialCenter }: Props) => {
+const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();
 
   const [center, setCenter] = useState({
-    lat: initialCenter.lat,
-    lng: initialCenter.lng,
-  });
-
-  const [currentCenter, setCurrentCenter] = useState({
     lat: initialCenter.lat,
     lng: initialCenter.lng,
   });
@@ -60,14 +56,10 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
   );
 
   const handleMyPositionClick = useCallback(() => {
-    if (isEqualPosition(currentCenter, memoCenter.current)) {
-      return;
-    }
-
     Promise.resolve().then(() => {
       setCenter(() => ({
-        lat: currentCenter.lat,
-        lng: currentCenter.lng,
+        lat: null,
+        lng: null,
       }));
 
       setCenter(() => ({
@@ -75,14 +67,23 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
         lng: memoCenter.current.lng,
       }));
     });
-  }, [currentCenter]);
-
-  const handleCenterChange = useCallback(({ lat, lng }) => {
-    setCurrentCenter({
-      lat,
-      lng,
-    });
   }, []);
+
+  const imageMarkerOverlays = userMapInfos.map((userMapInfo) => {
+    const position = {
+      lat: userMapInfo?.latitude,
+      lng: userMapInfo?.longitude,
+    };
+
+    const imageUrl = userMapInfo.profileImgUrl;
+
+    const options = {
+      color: "blue",
+      text: userMapInfo.name,
+    };
+
+    return { position, imageUrl, options };
+  });
 
   const buttonStyle = {
     padding: "8px",
@@ -135,9 +136,22 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
         center={{ lat: center.lat, lng: center.lng }}
         isPanto
         hasControl={false}
-        onCenterChanged={handleCenterChange}
+        imageMarkerOverlays={imageMarkerOverlays}
         onClick={click}
       >
+        {/* {userMapInfos.map((userInfo) => (
+          <MapMarker
+            key={`${userInfo.latitude}-${userInfo.longitude}`}
+            position={{
+              lat: userInfo.latitude,
+              lng: userInfo.longitude,
+            }}
+            title={userInfo.name}
+          >
+            <div>{userInfo.name}</div>
+          </MapMarker>
+        ))} */}
+
         {userClickPosition.lat && userClickPosition.lng ? (
           <MapMarker
             position={{
@@ -158,4 +172,4 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
   );
 };
 
-export default MapgakcoMap;
+export default memo(MapgakcoMap);
