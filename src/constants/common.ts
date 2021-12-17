@@ -61,4 +61,8 @@ export default {
   },
 
   userListInfinitePageCount: 19,
+
+  validation: {
+    COMMENT_MAX_LENGTH: 50,
+  },
 };

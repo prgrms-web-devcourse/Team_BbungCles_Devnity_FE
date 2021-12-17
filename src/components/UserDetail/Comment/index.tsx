@@ -47,7 +47,12 @@ const Comment = ({ comment, isChild, introductionId }: IProps) => {
   const modifyCommentformik = useFormik({
     initialValues: { modifyComment: comment.content },
     validationSchema: Yup.object({
-      modifyComment: Yup.string().required(),
+      modifyComment: Yup.string()
+        .required()
+        .max(
+          common.validation.COMMENT_MAX_LENGTH,
+          `댓글은 ${common.validation.COMMENT_MAX_LENGTH}자이상 작성할 수 없습니다`
+        ),
     }),
     onSubmit: (formValues, { setSubmitting, resetForm }) => {
       setSubmitting(true);
@@ -65,7 +70,12 @@ const Comment = ({ comment, isChild, introductionId }: IProps) => {
   const childCommentformik = useFormik({
     initialValues: { childComment: "" },
     validationSchema: Yup.object({
-      childComment: Yup.string().required(),
+      childComment: Yup.string()
+        .required()
+        .max(
+          common.validation.COMMENT_MAX_LENGTH,
+          `댓글은 ${common.validation.COMMENT_MAX_LENGTH}자이상 작성할 수 없습니다`
+        ),
     }),
     onSubmit: (formValues, { setSubmitting, resetForm }) => {
       setSubmitting(true);
@@ -144,6 +154,7 @@ const Comment = ({ comment, isChild, introductionId }: IProps) => {
                 placeholder="댓글을 입력해 주세요"
                 onChange={modifyCommentformik.handleChange}
                 value={modifyCommentformik.values.modifyComment}
+                maxLength={common.validation.COMMENT_MAX_LENGTH}
               />
             </InputWrapperForm>
           ) : (
@@ -186,6 +197,7 @@ const Comment = ({ comment, isChild, introductionId }: IProps) => {
             placeholder="대댓글을 입력해 주세요"
             onChange={childCommentformik.handleChange}
             value={childCommentformik.values.childComment}
+            maxLength={common.validation.COMMENT_MAX_LENGTH}
           />
         </InputWrapperForm>
       )}

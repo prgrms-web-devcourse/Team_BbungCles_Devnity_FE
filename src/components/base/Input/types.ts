@@ -28,6 +28,7 @@ export interface IProps {
   placeholder?: string;
   autoComplete?: string;
   customStyle?: CustomStyles;
+  maxLength?: number;
   onChange?: (event: FormEvent<HTMLInputElement>) => void;
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
 }
