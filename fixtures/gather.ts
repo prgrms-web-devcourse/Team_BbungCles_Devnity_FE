@@ -1,4 +1,4 @@
-import { Gather } from "../src/types/Gather";
+import { Gather } from "../src/types/gather";
 
 export const gathers: Gather[] = [
   {
