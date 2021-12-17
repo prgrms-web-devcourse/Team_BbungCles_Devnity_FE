@@ -1,14 +1,16 @@
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { MutationData, MutationError } from "../types/commonTypes";
 import { requestDeleteComment } from "../utils/apis/gather";
 
 const useDeleteComment = () => {
+  const queryClient = useQueryClient();
   const { mutate } = useMutation<MutationData, MutationError, unknown, unknown>(
     (deleteValue) => requestDeleteComment(deleteValue),
     {
       onSuccess: () => {
         // TODO:
         // eslint-disable-next-line no-alert
+        queryClient.invalidateQueries("gatherDetail");
         alert("댓글이 삭제되었습니다.");
       },
       onError: ({ response }) => {
