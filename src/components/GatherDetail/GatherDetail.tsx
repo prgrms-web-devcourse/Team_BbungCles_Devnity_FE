@@ -217,7 +217,6 @@ const GatherDetail = ({
           {isAuthor ? (
             <MarkdownEditorWrapper>
               <MarkdownEditor
-                isViewMode={false}
                 editorRef={editorRef}
                 setEditorText={(value: string) =>
                   setEditValue({ ...editValue, content: value })
@@ -226,14 +225,16 @@ const GatherDetail = ({
               />
             </MarkdownEditorWrapper>
           ) : (
-            <Input
-              type="text"
-              name="deadline"
-              onChange={handleChange}
-              value={editValue.content}
-              disabled
-              customStyle={{ fontSize: "16px" }}
-            />
+            <MarkdownEditorWrapper>
+              <MarkdownEditor
+                isViewMode
+                editorRef={editorRef}
+                setEditorText={(value: string) =>
+                  setEditValue({ ...editValue, content: value })
+                }
+                value={content || ""}
+              />
+            </MarkdownEditorWrapper>
           )}
         </TextContainer>
         <ButtonContainer>
