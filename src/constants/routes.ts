@@ -10,7 +10,7 @@ export default {
   GATHERLIST_STUDY: "/gatherlist/study",
   GATHERLIST_PROJECT: "/gatherlist/project",
   GATHERLIST_CLUB: "/gatherlist/club",
-  GATHERLIST_ID: "/gatherlist/:id",
+  GATHERLIST_ID: "/gatherlist",
   MAPGAKCOLIST: "/mapgakcolist",
   MAPGAKCOLIST_ID: "/mapgakcolist/:id",
   USERSMAP: "/usersmap",

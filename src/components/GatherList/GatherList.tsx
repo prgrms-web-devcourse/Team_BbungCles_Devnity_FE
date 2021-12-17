@@ -14,7 +14,7 @@ import {
   FinishItemContainer,
   GatherLink,
 } from "./styles";
-import { categoryDisplayName } from "../../constants";
+import { categoryDisplayName, routes } from "../../constants";
 
 interface Props {
   selectedCategory?: string;
@@ -41,7 +41,10 @@ const GatherList = ({ selectedCategory, gatherData }: Props) => {
   return (
     <>
       {gather?.map((item) => (
-        <GatherLink to={`/gatherlist/${item.gatherId}`} key={item.gatherId}>
+        <GatherLink
+          to={`${routes.GATHERLIST}/${item.gatherId}`}
+          key={item.gatherId}
+        >
           <ItemContainer>
             <Category>{categoryDisplayName[item.category]}</Category>
             <ItemDetail>
@@ -79,7 +82,10 @@ const GatherList = ({ selectedCategory, gatherData }: Props) => {
         </GatherLink>
       ))}
       {finishGather?.map((item) => (
-        <GatherLink to={`/gatherlist/${item.gatherId}`} key={item.gatherId}>
+        <GatherLink
+          to={`${routes.GATHERLIST}/${item.gatherId}`}
+          key={item.gatherId}
+        >
           <FinishItemContainer>
             <Finish>모집 마감</Finish>
             <Category>{categoryDisplayName[item.category]}</Category>
