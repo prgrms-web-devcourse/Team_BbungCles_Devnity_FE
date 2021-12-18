@@ -1,6 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 
 import { MemoryRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
@@ -44,13 +43,14 @@ describe("Main", () => {
     expect(screen.queryAllByText("모집 게시판")[0]).toBeInTheDocument();
   });
 
-  it("유저 프로필 이미지를 클릭하면, `프로필`, `내 모임 관리`, `로그아웃` 메뉴를 볼 수 있다.", () => {
-    const profileImage = screen.getByAltText("유저 프로필 이미지");
+  // TODO: 더 이상 메인 컴포넌트의 역할이 아니므로 주석 처리한다. Cypress E2E 테스트로 옮기면 아래 주석을 삭제한다.
+  // it("유저 프로필 이미지를 클릭하면, `프로필`, `내 모임 관리`, `로그아웃` 메뉴를 볼 수 있다.", () => {
+  //   const profileImage = screen.getByAltText("유저 프로필 이미지");
 
-    userEvent.click(profileImage);
+  //   userEvent.click(profileImage);
 
-    expect(screen.queryByText("프로필")).toBeVisible();
-    expect(screen.queryByText("내 모임 관리")).toBeVisible();
-    expect(screen.queryByText("로그아웃")).toBeVisible();
-  });
+  //   expect(screen.queryByText("프로필")).toBeVisible();
+  //   expect(screen.queryByText("내 모임 관리")).toBeVisible();
+  //   expect(screen.queryByText("로그아웃")).toBeVisible();
+  // });
 });

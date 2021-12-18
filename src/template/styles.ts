@@ -10,3 +10,11 @@ export const PageWrapper = styled.div`
   height: 100%;
   overflow-x: hidden;
 `;
+
+export const Header = styled.header`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px;
+  background-color: ${({ theme }) => theme.colors.gray200};
+`;

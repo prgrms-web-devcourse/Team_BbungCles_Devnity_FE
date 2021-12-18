@@ -9,10 +9,8 @@ import Text from "../base/Text";
 import GatherList from "../GatherList/GatherList";
 import Mapgakco from "../Mapgakco/Mapgakco";
 import UserCardList from "../UserCardList/UserCardList";
-import UserImageAndDropdownContainer from "../UserImageAndDropdown/UserImageAndDropdownContainer";
 import {
   Contents,
-  Header,
   Container,
   MapgakcoAndGatherListContainer,
   SelfIntroduce,
@@ -38,14 +36,6 @@ const Main = ({ currentUser, userSuggestions, gatherSuggestions }: Props) => {
 
   return (
     <Container>
-      <Header>
-        <UserImageAndDropdownContainer
-          imageUrl={
-            currentUser?.introduction.profileImgUrl ||
-            common.placeHolderImageSrc
-          }
-        />
-      </Header>
       <Contents>
         <SelfIntroduce>
           <Text strong size={18}>
