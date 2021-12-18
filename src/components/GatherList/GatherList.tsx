@@ -96,8 +96,8 @@ const GatherList = ({ selectedCategory, gatherData, page }: Props) => {
               </TextContainer>
               <InfoWrapper page={page}>
                 <PeriodText
-                  createdDate={item.createdAt}
-                  deadLine={item.deadline}
+                  createdDate={item.createdAt.substring(0, 10)}
+                  deadLine={item.deadline.substring(0, 10)}
                   iconColor={theme.colors.gray500}
                   fontColor={theme.colors.gray600}
                 />

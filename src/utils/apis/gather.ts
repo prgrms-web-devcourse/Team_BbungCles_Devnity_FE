@@ -50,3 +50,16 @@ export const requestEditComment = (editValue) => {
 export const requestDeleteGather = (gatherId) => {
   return necessaryAuthAxiosInstance.delete(`v1/gathers/${gatherId}`);
 };
+
+export const requestEditGatherDetail = (editValue) => {
+  return necessaryAuthAxiosInstance.patch(`v1/gathers/${editValue.gatherId}`, {
+    title: editValue.title,
+    content: editValue.content,
+    category: editValue.category,
+    deadline: editValue.deadline,
+  });
+};
+
+export const requestCloseGather = (gatherId) => {
+  return necessaryAuthAxiosInstance.patch(`v1/gathers/${gatherId}/close`);
+};

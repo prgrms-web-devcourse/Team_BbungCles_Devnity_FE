@@ -7,10 +7,13 @@ export const Container = styled.div`
   margin: 0 auto;
   overflow-y: auto;
   height: 100%;
+  gap: 8px;
 `;
 
 export const CategoryWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 4px;
 `;
 
 export const Category = styled.div`
@@ -41,21 +44,66 @@ export const DetailContainer = styled.div`
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  padding: 10px 0;
+  gap: 8px;
+  padding: 12px 0;
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 10px 0;
+  gap: 16px;
 
   button {
-    font-size: 18px;
+    font-size: 16px;
     border: none;
     background-color: ${({ theme }) => theme.colors.skyblue};
     border-radius: 4px;
     padding: 5px 3px;
+    width: 100px;
+    height: 40px;
   }
+`;
+
+export const EditDeadlineContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+export const Select = styled.select`
+  width: 100%;
+  color: ${({ theme }) => theme.colors?.gray800};
+  padding: 16px;
+  border: none;
+  background: ${({ theme }) => theme.colors?.white};
+  border-radius: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  input {
+    width: 80%;
+  }
+
+  &:disabled {
+    background: ${({ theme }) => theme.colors?.gray300};
+  }
+`;
+
+export const EditContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+`;
+
+export const ApplicantContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;

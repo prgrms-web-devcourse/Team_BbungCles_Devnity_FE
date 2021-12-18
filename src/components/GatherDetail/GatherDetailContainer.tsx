@@ -11,6 +11,8 @@ import useCreateGatherComment from "../../hooks/useCreateGatherComment";
 import useDeleteGather from "../../hooks/useDeleteGather";
 import useDeleteComment from "../../hooks/useDeleteComment";
 import useEditComment from "../../hooks/useEditComment";
+import useEditGatherDetail from "../../hooks/useEditGatherDetail";
+import useClosGather from "../../hooks/useCloseGather";
 
 const GatherDetailContainer = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,6 +27,8 @@ const GatherDetailContainer = () => {
   const { deleteGather } = useDeleteGather();
   const { deleteComment } = useDeleteComment();
   const { editComment } = useEditComment();
+  const { editGather } = useEditGatherDetail();
+  const { closeGather } = useClosGather();
 
   // TODO: API 호출 로직 작성 필요
 
@@ -35,6 +39,7 @@ const GatherDetailContainer = () => {
 
   const handleGatherClose = (gatherId) => {
     console.log("모임 마감", gatherId);
+    closeGather(gatherId);
   };
 
   const handleGatherApply = (gatherId) => {
@@ -63,6 +68,11 @@ const GatherDetailContainer = () => {
     editComment(editValue);
   };
 
+  const handleGatherDetailEdit = (editValue) => {
+    console.log("모집 게시글 수정", editValue);
+    editGather(editValue);
+  };
+
   return (
     <div>
       {data ? (
@@ -75,6 +85,7 @@ const GatherDetailContainer = () => {
           handleGatherCancel={handleGatherCancel}
           handleGatherClose={handleGatherClose}
           handleGatherDelete={handleGatherDelete}
+          handleGatherDetailEdit={handleGatherDetailEdit}
         />
       ) : undefined}
     </div>
