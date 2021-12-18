@@ -13,7 +13,7 @@ export const categoryValue = {
 };
 
 export const categoryColor = {
-  STUDY: theme.colors.skyblue,
-  PROJECT: theme.colors.coral,
-  CLUB: theme.colors.olive,
+  STUDY: theme?.colors?.skyblue,
+  PROJECT: theme?.colors?.coral,
+  CLUB: theme?.colors?.olive,
 };
