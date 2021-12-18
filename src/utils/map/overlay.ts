@@ -1,4 +1,5 @@
-import { Position } from "../../types/mapTypes";
+import { UserMapInfo } from "../../../fixtures/userMapInfo";
+import { Mapgakco, Position } from "../../types/mapTypes";
 
 interface CustomOverlayProps {
   map: kakao.maps.Map;
@@ -82,4 +83,39 @@ export const addImageMarkerOverlay = ({
 
 export const removeOverlay = (customOverlay: kakao.maps.CustomOverlay) => {
   customOverlay.setMap(null);
+};
+
+// TODO: 리팩터링. getUserMarkerOverlays와 getMapgakcoMarkerOverlays를 하나의 함수로 처리한다.
+export const getUserMarkerOverlays = (userMapInfos: UserMapInfo[]) => {
+  return userMapInfos.map((userMapInfo) => {
+    const position = {
+      lat: userMapInfo?.latitude,
+      lng: userMapInfo?.longitude,
+    };
+
+    const imageUrl = userMapInfo.profileImgUrl;
+
+    const options = {
+      color: "blue",
+      text: userMapInfo.name,
+    };
+
+    return { position, imageUrl, options };
+  });
+};
+
+export const getMapgakcoMarkerOverlays = (mapgakcos: Mapgakco[]) => {
+  return (mapgakcos || []).map((mapgakco) => {
+    const position = {
+      lat: mapgakco?.latitude,
+      lng: mapgakco?.longitude,
+    };
+
+    const options = {
+      color: "green",
+      text: mapgakco.title,
+    };
+
+    return { position, options };
+  });
 };

@@ -21,6 +21,10 @@ import {
   SearchContainer,
 } from "./styles";
 import { ImageMarkerOverlay, Mapgakco } from "../../types/mapTypes";
+import {
+  getMapgakcoMarkerOverlays,
+  getUserMarkerOverlays,
+} from "../../utils/map/overlay";
 
 interface Props {
   initialCenter: Position;
@@ -87,35 +91,8 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
     });
   }, []);
 
-  const userMarkerOverlays = userMapInfos.map((userMapInfo) => {
-    const position = {
-      lat: userMapInfo?.latitude,
-      lng: userMapInfo?.longitude,
-    };
-
-    const imageUrl = userMapInfo.profileImgUrl;
-
-    const options = {
-      color: "blue",
-      text: userMapInfo.name,
-    };
-
-    return { position, imageUrl, options };
-  });
-
-  const mapgakcoMarkerOverlays = (mapgakcos || []).map((mapgakco) => {
-    const position = {
-      lat: mapgakco?.latitude,
-      lng: mapgakco?.longitude,
-    };
-
-    const options = {
-      color: "green",
-      text: mapgakco.title,
-    };
-
-    return { position, options };
-  });
+  const userMarkerOverlays = getUserMarkerOverlays(userMapInfos);
+  const mapgakcoMarkerOverlays = getMapgakcoMarkerOverlays(mapgakcos);
 
   const getMarkerOVerlays = (): ImageMarkerOverlay[] => {
     const markerOverlays = [];
