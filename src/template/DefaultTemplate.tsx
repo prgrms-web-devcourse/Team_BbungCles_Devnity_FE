@@ -7,6 +7,7 @@ import { topbarBgColorState } from "../atoms/topbarBgColor";
 import { topbarVisibleState } from "../atoms/topbarVisble";
 import SidebarContainer from "../components/Sidebar/SidebarContainer";
 import UserImageAndDropdownContainer from "../components/UserImageAndDropdown/UserImageAndDropdownContainer";
+import Text from "../components/base/Text";
 import { common, routes } from "../constants";
 import useMyProfile from "../hooks/useMyProfile";
 import { PageWrapper, Container, Header } from "./styles";
@@ -42,6 +43,9 @@ const DefaultTemplate = ({ children }: Props) => {
       <PageWrapper>
         {isShowTopbar && (
           <Header topbarBgColor={topbarBgColor}>
+            <Text strong size={15}>
+              {globalMyProfileData?.user?.name}
+            </Text>
             <UserImageAndDropdownContainer
               imageUrl={
                 globalMyProfileData?.introduction.profileImgUrl ||
