@@ -12,6 +12,8 @@ const Input = ({
   placeholder,
   autoComplete,
   customStyle,
+  min,
+  max,
   onChange,
   onBlur,
   maxLength,
@@ -31,6 +33,8 @@ const Input = ({
       onBlur={onBlur}
       customStyle={customStyle}
       maxLength={maxLength}
+      min={min}
+      max={max}
     />
   ) : (
     <StyledInput
@@ -46,6 +50,8 @@ const Input = ({
       onBlur={onBlur}
       onChange={onChange}
       maxLength={maxLength}
+      min={min}
+      max={max}
     />
   );
 };

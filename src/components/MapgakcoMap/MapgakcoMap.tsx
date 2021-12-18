@@ -1,4 +1,4 @@
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { UserMapInfo } from "../../../fixtures/userMapInfo";
@@ -6,9 +6,11 @@ import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
 import { Position } from "../../types/commonTypes";
 import Button from "../base/Button";
+import Modal from "../base/Modal";
 import Text from "../base/Text";
 import Mapbox from "../Mapbox/Mapbox";
 import FilterButton from "./FilterButton";
+import MapgakcoRegister from "../MapgakcoRegister";
 import PlaceSearchForm from "./PlaceSearchForm";
 import {
   ButtonContainer,
@@ -41,6 +43,10 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
 
   const [visibleUsers, setVisibleUsers] = useState(false);
   const [visibleMapgakcos, setVisibleMapgakcos] = useState(false);
+
+  const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+
+  const [isMapClick, setIsMapClick] = useState(false);
 
   const handleVisibleUsers = useCallback(() => {
     setVisibleUsers((prev) => !prev);
@@ -96,6 +102,18 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
 
     return { position, imageUrl, options };
   });
+  const handleModalClose = useCallback(
+    () => () => {
+      setRegisterModalOpen(false);
+      setIsMapClick(false);
+      initializeClick();
+    },
+    [initializeClick]
+  );
+
+  const handleRegisterClick = useCallback(() => {
+    setRegisterModalOpen(true);
+  }, []);
 
   const buttonStyle = {
     padding: "8px",
@@ -114,9 +132,21 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
     color: "#91979a",
   };
 
+  useEffect(() => {
+    if (userClickPosition.lat && userClickPosition.lng) {
+      setIsMapClick(true);
+    }
+  }, [userClickPosition]);
+
   return (
     <Container>
       <MapFloatContainer>
+        <Modal visible={isRegisterModalOpen}>
+          <MapgakcoRegister
+            userClickPosition={userClickPosition}
+            onClose={handleModalClose()}
+          />
+        </Modal>
         <SearchContainer>
           <PlaceSearchFormWrapper>
             <PlaceSearchForm onSubmit={handleKeywordSubmit} />
@@ -134,7 +164,11 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
             >
               모각코
             </FilterButton>
-            <Button style={buttonStyle} onClick={() => ({})}>
+            <Button
+              style={buttonStyle}
+              onClick={handleRegisterClick}
+              disabled={!isMapClick}
+            >
               등록
             </Button>
           </ButtonContainer>

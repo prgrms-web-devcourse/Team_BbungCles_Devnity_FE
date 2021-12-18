@@ -7,15 +7,24 @@ interface Props {
   text?: string;
   onClick: (event: React.MouseEvent) => void;
   style?: React.CSSProperties;
+  disabled?: boolean;
 }
 
-const Button = ({ name = "", children, text = "", onClick, style }: Props) => {
+const Button = ({
+  name = "",
+  children,
+  text = "",
+  onClick,
+  style,
+  disabled,
+}: Props) => {
   return (
     <StyledButton
       type="button"
       aria-label={name}
       onClick={onClick}
       style={style}
+      disabled={disabled}
     >
       {children ?? text}
     </StyledButton>
