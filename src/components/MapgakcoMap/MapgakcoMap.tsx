@@ -48,7 +48,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
   });
 
   const [visibleUsers, setVisibleUsers] = useState(false);
-  const [visibleMapgakcos, setVisibleMapgakcos] = useState(false);
+  const [visibleMapgakcos, setVisibleMapgakcos] = useState(true);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [isMarkerSelected, setIsMarkerSelected] = useState(false);
 
@@ -232,9 +232,8 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
         center={{ lat: center.lat, lng: center.lng }}
         isPanto
         hasControl={false}
-        // imageMarkerOverlays={getMarkerOVerlays()}
-        removeImageMarkerOverlays={!visibleUsers}
-        mapgakcos={mapgakcos}
+        imageMarkerOverlays={getMarkerOVerlays()}
+        mapgakcos={[]}
         onClick={click}
       >
         {userClickPosition.lat && userClickPosition.lng ? (
