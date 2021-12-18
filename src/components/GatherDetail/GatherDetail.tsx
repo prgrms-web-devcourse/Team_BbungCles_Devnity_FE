@@ -214,28 +214,16 @@ const GatherDetail = ({
           <Text size={18} strong>
             상세 내용
           </Text>
-          {isAuthor ? (
-            <MarkdownEditorWrapper>
-              <MarkdownEditor
-                editorRef={editorRef}
-                setEditorText={(value: string) =>
-                  setEditValue({ ...editValue, content: value })
-                }
-                value={editValue.content || ""}
-              />
-            </MarkdownEditorWrapper>
-          ) : (
-            <MarkdownEditorWrapper>
-              <MarkdownEditor
-                isViewMode
-                editorRef={editorRef}
-                setEditorText={(value: string) =>
-                  setEditValue({ ...editValue, content: value })
-                }
-                value={content || ""}
-              />
-            </MarkdownEditorWrapper>
-          )}
+          <MarkdownEditorWrapper>
+            <MarkdownEditor
+              isViewMode={!isAuthor}
+              editorRef={editorRef}
+              setEditorText={(value: string) =>
+                setEditValue({ ...editValue, content: value })
+              }
+              value={isAuthor ? editValue.content || "" : content || ""}
+            />
+          </MarkdownEditorWrapper>
         </TextContainer>
         <ButtonContainer>
           {!isAuthor && !isApplied && status === gatherStatus.GATHERING ? (
