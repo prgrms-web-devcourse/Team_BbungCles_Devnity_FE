@@ -1,0 +1,18 @@
+$border-width: 3px;
+$marker-size: 40px;
+$marker-color: #d22b05;
+
+#kakao-map-container {
+  div {
+    div {
+      div {
+        div {
+          img {
+            border-radius: 50%;
+            z-index: 9;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,13 +1,14 @@
-import { useCallback, useRef, useState } from "react";
-import { BsArrowRightCircle, BsEye } from "react-icons/bs";
+import { memo, useCallback, useRef, useState } from "react";
+import { BsArrowRightCircle } from "react-icons/bs";
 import { MapMarker } from "react-kakao-maps-sdk";
+import { UserMapInfo } from "../../../fixtures/userMapInfo";
 import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
 import { Position } from "../../types/commonTypes";
-import { isEqualPosition } from "../../utils/map";
 import Button from "../base/Button";
 import Text from "../base/Text";
 import Mapbox from "../Mapbox/Mapbox";
+import FilterButton from "./FilterButton";
 import PlaceSearchForm from "./PlaceSearchForm";
 import {
   ButtonContainer,
@@ -20,9 +21,10 @@ import {
 
 interface Props {
   initialCenter: Position;
+  userMapInfos: UserMapInfo[];
 }
 
-const MapgakcoMap = ({ initialCenter }: Props) => {
+const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();
@@ -32,15 +34,21 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
     lng: initialCenter.lng,
   });
 
-  const [currentCenter, setCurrentCenter] = useState({
-    lat: initialCenter.lat,
-    lng: initialCenter.lng,
-  });
-
   const [targetPlace, setTargetPlace] = useState({
     y: null,
     x: null,
   });
+
+  const [visibleUsers, setVisibleUsers] = useState(false);
+  const [visibleMapgakcos, setVisibleMapgakcos] = useState(false);
+
+  const handleVisibleUsers = useCallback(() => {
+    setVisibleUsers((prev) => !prev);
+  }, []);
+
+  const handleVisibleMapgakcos = useCallback(() => {
+    setVisibleMapgakcos((prev) => !prev);
+  }, []);
 
   const handleKeywordSubmit = useCallback(
     (place) => {
@@ -60,14 +68,10 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
   );
 
   const handleMyPositionClick = useCallback(() => {
-    if (isEqualPosition(currentCenter, memoCenter.current)) {
-      return;
-    }
-
     Promise.resolve().then(() => {
       setCenter(() => ({
-        lat: currentCenter.lat,
-        lng: currentCenter.lng,
+        lat: null,
+        lng: null,
       }));
 
       setCenter(() => ({
@@ -75,18 +79,26 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
         lng: memoCenter.current.lng,
       }));
     });
-  }, [currentCenter]);
-
-  const handleCenterChange = useCallback(({ lat, lng }) => {
-    setCurrentCenter({
-      lat,
-      lng,
-    });
   }, []);
+
+  const imageMarkerOverlays = userMapInfos.map((userMapInfo) => {
+    const position = {
+      lat: userMapInfo?.latitude,
+      lng: userMapInfo?.longitude,
+    };
+
+    const imageUrl = userMapInfo.profileImgUrl;
+
+    const options = {
+      color: "blue",
+      text: userMapInfo.name,
+    };
+
+    return { position, imageUrl, options };
+  });
 
   const buttonStyle = {
     padding: "8px",
-    backgroundColor: theme.colors.white,
     minWidth: "80px",
     display: "flex",
     justifyContent: "center",
@@ -113,13 +125,15 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
             <Button style={buttonStyle} onClick={handleMyPositionClick}>
               <BsArrowRightCircle style={{ marginRight: 4 }} /> 나의 위치
             </Button>
-            <Button style={buttonStyle} onClick={() => ({})}>
-              <BsEye style={{ marginRight: 4 }} /> 데둥이
-            </Button>
-            <Button style={buttonStyle} onClick={() => ({})}>
-              <BsEye style={{ marginRight: 4 }} />
+            <FilterButton visible={visibleUsers} onClick={handleVisibleUsers}>
+              데둥이
+            </FilterButton>
+            <FilterButton
+              visible={visibleMapgakcos}
+              onClick={handleVisibleMapgakcos}
+            >
               모각코
-            </Button>
+            </FilterButton>
             <Button style={buttonStyle} onClick={() => ({})}>
               등록
             </Button>
@@ -135,7 +149,8 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
         center={{ lat: center.lat, lng: center.lng }}
         isPanto
         hasControl={false}
-        onCenterChanged={handleCenterChange}
+        imageMarkerOverlays={visibleUsers ? imageMarkerOverlays : []}
+        removeImageMarkerOverlays={!visibleUsers}
         onClick={click}
       >
         {userClickPosition.lat && userClickPosition.lng ? (
@@ -158,4 +173,4 @@ const MapgakcoMap = ({ initialCenter }: Props) => {
   );
 };
 
-export default MapgakcoMap;
+export default memo(MapgakcoMap);

@@ -59,6 +59,15 @@ export const PlaceSearchFormWrapper = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
+
+  & button {
+    transition: 0.4s;
+    background-color: ${({ theme }) => theme.colors.white};
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.gray200};
+    }
+  }
 `;
 
 export const PlaceSearchFromContainer = styled.div`
