@@ -7,6 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.gray200};
+  overflow-y: auto;
 `;
 
 export const Header = styled.header`
