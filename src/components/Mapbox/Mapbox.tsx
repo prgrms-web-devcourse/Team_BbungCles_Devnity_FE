@@ -3,6 +3,7 @@ import { Map } from "react-kakao-maps-sdk";
 import {
   ImageMarker,
   ImageMarkerOverlay,
+  Mapgakco,
   Marker,
   Position,
 } from "../../types/mapTypes";
@@ -13,21 +14,24 @@ import {
   addMarkerFromPosition,
   removeOverlay,
 } from "../../utils/map";
+import { addMapgakcoOverlay } from "../../utils/map/overlay";
 import { keywordSearch } from "../../utils/map/place";
 
 import "./customOverlayMarker.scss";
 import "./imageMarker.scss";
+import "./mapgakcoOverlay.scss";
 
 interface Props {
   center: Position;
   isPanto?: boolean;
+  hasControl?: boolean;
   hasCenterMarker?: boolean;
+  userImageUrl?: string;
+  keyword?: string;
   markers?: Marker[];
   imageMarkers?: ImageMarker[];
   imageMarkerOverlays?: ImageMarkerOverlay[];
-  hasControl?: boolean;
-  userImageUrl?: string;
-  keyword?: string;
+  mapgakcos?: Mapgakco[];
   style?: React.CSSProperties;
   children?: ReactNode;
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -42,13 +46,14 @@ interface Props {
 const Mapbox = ({
   center,
   isPanto = false,
+  hasControl = true,
   hasCenterMarker = false,
+  userImageUrl = "",
+  keyword = "",
   markers = [],
   imageMarkers = [],
   imageMarkerOverlays = [],
-  hasControl = true,
-  userImageUrl = "",
-  keyword = "",
+  mapgakcos = [],
   style,
   children,
   onCenterChanged,
@@ -57,6 +62,7 @@ const Mapbox = ({
 }: Props) => {
   const memoMap = useRef(null);
   const memoImageMarkerOverlays = useRef<kakao.maps.CustomOverlay[]>([]);
+  const memoMapgakcoOverlays = useRef<kakao.maps.CustomOverlay[]>([]);
 
   const MapStyle = {
     width: "100%",
@@ -94,6 +100,20 @@ const Mapbox = ({
         );
       });
 
+      if (removeImageMarkerOverlays) {
+        memoImageMarkerOverlays.current.forEach((overlay) => {
+          removeOverlay(overlay);
+        });
+
+        memoImageMarkerOverlays.current = [];
+      }
+
+      mapgakcos.forEach((mapgakco) => {
+        memoMapgakcoOverlays.current.push(
+          addMapgakcoOverlay({ map, mapgakco })
+        );
+      });
+
       hasCenterMarker &&
         addImageMarkerOverlay({
           map,
@@ -110,6 +130,7 @@ const Mapbox = ({
       imageMarkerOverlays,
       imageMarkers,
       keyword,
+      mapgakcos,
       markers,
       removeImageMarkerOverlays,
       userImageUrl,

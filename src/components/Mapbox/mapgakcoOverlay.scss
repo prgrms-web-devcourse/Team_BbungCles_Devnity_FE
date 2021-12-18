@@ -1,0 +1,53 @@
+.mapgakco {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #ed1c40;
+  padding: 6px;
+  border-radius: 10px;
+  color: white;
+  white-space: nowrap;
+
+  .mapgakco__header {
+    .mapgakco__status {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+  }
+
+  .mapgakco__section {
+    display: flex;
+    flex-direction: column;
+
+    .mapgakco__title {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .mapgakco__list {
+      padding-left: 6px;
+
+      .mapgakco__row {
+        font-size: 10px;
+        margin-top: 4px;
+
+        .mapgakco__rowItem {
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+
+  .icon {
+    display: inline-block;
+    position: relative;
+    top: -0.1em;
+    vertical-align: middle;
+  }
+}

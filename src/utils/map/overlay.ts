@@ -1,5 +1,6 @@
 import { UserMapInfo } from "../../../fixtures/userMapInfo";
 import { Mapgakco, Position } from "../../types/mapTypes";
+import { koreanDate } from "../date";
 
 interface CustomOverlayProps {
   map: kakao.maps.Map;
@@ -83,6 +84,84 @@ export const addImageMarkerOverlay = ({
 
 export const removeOverlay = (customOverlay: kakao.maps.CustomOverlay) => {
   customOverlay.setMap(null);
+};
+
+interface MapgakcoOverlayProps {
+  map: kakao.maps.Map;
+  mapgakco: Mapgakco;
+}
+
+export const addMapgakcoOverlay = ({ map, mapgakco }: MapgakcoOverlayProps) => {
+  const {
+    mapgakcoId,
+    status,
+    title,
+    location,
+    meetingAt,
+    latitude,
+    longitude,
+    applicantLimit,
+    applicantCount,
+    // author,
+  } = mapgakco;
+
+  // const { name, profileImageUrl } = author;
+
+  const $mapgakco = document.createElement("div");
+  const $header = document.createElement("header");
+  const $status = document.createElement("span");
+  const $section = document.createElement("section");
+  const $title = document.createElement("a");
+  const $list = document.createElement("ul");
+  const $row1 = document.createElement("li");
+  const $rowItem1 = document.createElement("div");
+  const $row2 = document.createElement("li");
+  const $rowItem2 = document.createElement("li");
+  const $row3 = document.createElement("li");
+  const $rowItem3 = document.createElement("div");
+
+  $mapgakco.classList.add("mapgakco");
+  $header.classList.add("mapgakco__header");
+  $status.classList.add("mapgakco__status");
+  $section.classList.add("mapgakco__section");
+  $title.classList.add("mapgakco__title");
+  $list.classList.add("mapgakco__list");
+  $row1.classList.add("mapgakco__row");
+  $rowItem1.classList.add("mapgakco__row-item");
+  $row2.classList.add("mapgakco__row");
+  $rowItem2.classList.add("mapgakco__row-item");
+  $row3.classList.add("mapgakco__row");
+  $rowItem3.classList.add("mapgakco__row-item");
+
+  $status.textContent = status;
+  $title.textContent = title;
+  $title.href = `/mapgakcos/${mapgakcoId}`;
+
+  $rowItem1.textContent = koreanDate(new Date(meetingAt));
+  $rowItem2.textContent = `${applicantCount} / ${applicantLimit} 명`;
+  $rowItem3.textContent = location;
+
+  $mapgakco.appendChild($header);
+  $header.appendChild($status);
+  $mapgakco.appendChild($section);
+  $section.appendChild($title);
+  $section.appendChild($list);
+  $list.appendChild($row1);
+  $row1.appendChild($rowItem1);
+  $list.appendChild($row2);
+  $row2.appendChild($rowItem2);
+  $list.appendChild($row3);
+  $row3.appendChild($rowItem3);
+
+  const customOverlay = addCustomOverlay({
+    map,
+    position: { lat: latitude, lng: longitude },
+    content: $mapgakco,
+  });
+
+  customOverlay.setMap(map);
+
+  return customOverlay;
 };
 
 // TODO: 리팩터링. getUserMarkerOverlays와 getMapgakcoMarkerOverlays를 하나의 함수로 처리한다.

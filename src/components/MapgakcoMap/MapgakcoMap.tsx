@@ -232,8 +232,9 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
         center={{ lat: center.lat, lng: center.lng }}
         isPanto
         hasControl={false}
-        imageMarkerOverlays={getMarkerOVerlays()}
+        // imageMarkerOverlays={getMarkerOVerlays()}
         removeImageMarkerOverlays={!visibleUsers}
+        mapgakcos={mapgakcos}
         onClick={click}
       >
         {userClickPosition.lat && userClickPosition.lng ? (
