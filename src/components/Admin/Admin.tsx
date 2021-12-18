@@ -17,6 +17,7 @@ import {
   LinkInformationContainer,
   InviteLinkBorderContainer,
   DatePicker,
+  Th,
 } from "./styles";
 import { common, admin } from "../../constants";
 import Text from "../base/Text";
@@ -28,25 +29,25 @@ interface FormValues {
   course: string;
   generation: string;
   role: string;
-  expireDate: string;
+  deadline: string;
 }
 
 const testDatas = [
   {
-    id: "1",
+    uuid: "dsfkljfsdlkjdfslkj",
     course: "FE",
     generation: "1",
     role: "STUDENT",
     link: "http://test3.com",
-    expireDate: "20211219",
+    deadline: "20211219",
   },
   {
-    id: "2",
+    uuid: "afdsdsfjlkndfslkjh",
     course: "FE",
     generation: "2",
     role: "STUDENT",
     link: "http://test2.com",
-    expireDate: "20211219",
+    deadline: "20211219",
   },
 ];
 
@@ -61,15 +62,14 @@ const Admin = () => {
     values,
     errors,
   }: FormikProps<FormValues> = useFormik<FormValues>({
-    initialValues: { course: "", generation: "", role: "", expireDate: "" },
+    initialValues: { course: "", generation: "", role: "", deadline: "" },
     validationSchema: adminValidator,
     onSubmit: (formValues, { setSubmitting }) => {
       setSubmitting(true);
-
       mutate({
         ...formValues,
-        expireDate: formValues.expireDate
-          ? dayjs(formValues.expireDate).format("YYYY-MM-DD")
+        deadline: formValues.deadline
+          ? dayjs(formValues.deadline).format("YYYY-MM-DD")
           : null,
       });
       setSubmitting(false);
@@ -162,10 +162,10 @@ const Admin = () => {
             <SelectAndErrorMessageContainer>
               <DatePicker
                 type="date"
-                name="expireDate"
+                name="deadline"
                 min={dayjs(new Date()).format("YYYY-MM-DD")}
                 max="9999-12-31"
-                value={values.expireDate}
+                value={values.deadline}
                 onChange={handleChange}
               />
             </SelectAndErrorMessageContainer>
@@ -185,13 +185,58 @@ const Admin = () => {
             현재 유효한 초대 링크가 없습니다 😥
           </Text>
         )}
+        <table>
+          <thead>
+            <tr>
+              <Th>
+                <span>코스</span>
+              </Th>
+              <Th>
+                <span>기수</span>
+              </Th>
+              <Th>
+                <span>역할</span>
+              </Th>
+              <Th>
+                <span>링크</span>
+              </Th>
+              <Th>
+                <span>만료일</span>
+              </Th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>6,000</td>
+              <td>110</td>
+              <td>1.8%</td>
+              <td>22.2</td>
+              <td>22.2</td>
+            </tr>
+            <tr>
+              <td>6,000</td>
+              <td>110</td>
+              <td>1.8%</td>
+              <td>22.2</td>
+              <td>22.2</td>
+            </tr>
+            <tr>
+              <td>6,000</td>
+              <td>110</td>
+              <td>1.8%</td>
+              <td>22.2</td>
+              <td>22.2</td>
+            </tr>
+          </tbody>
+        </table>
+
         <ul>
           {testDatas.map((testData) => (
-            <InviteLinkLi key={testData.link}>
+            <InviteLinkLi key={testData.uuid}>
               <LinkInformationContainer>
                 {`${testData.course} / ${testData.generation} / ${
                   testData.role
-                } / ${testData.link} / ${dayjs(testData.expireDate).format(
+                } / ${testData.link} / ${dayjs(testData.deadline).format(
                   "YYYY-MM-DD"
                 )}`}
               </LinkInformationContainer>

@@ -113,3 +113,7 @@ export const DatePicker = styled.input`
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
 `;
+
+export const Th = styled.th`
+  padding: 16px 0;
+`;

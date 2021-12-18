@@ -9,7 +9,7 @@ const useMutationInviteLink = () => {
   const history = useHistory();
   return useMutation<MutationData, MutationError, unknown, unknown>(
     "makeInviteLink",
-    () => requestMakeInviteLink(),
+    (valuse) => requestMakeInviteLink(valuse),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("inviteLink");
