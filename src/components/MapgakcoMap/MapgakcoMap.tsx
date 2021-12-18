@@ -125,11 +125,11 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
             <Button style={buttonStyle} onClick={handleMyPositionClick}>
               <BsArrowRightCircle style={{ marginRight: 4 }} /> 나의 위치
             </Button>
-            <FilterButton filter={visibleUsers} onClick={handleVisibleUsers}>
+            <FilterButton visible={visibleUsers} onClick={handleVisibleUsers}>
               데둥이
             </FilterButton>
             <FilterButton
-              filter={visibleMapgakcos}
+              visible={visibleMapgakcos}
               onClick={handleVisibleMapgakcos}
             >
               모각코

@@ -4,12 +4,12 @@ import theme from "../../assets/theme";
 import Button from "../base/Button";
 
 interface Props {
-  filter: boolean;
+  visible: boolean;
   children: ReactChild;
   onClick: (event: React.MouseEvent) => void;
 }
 
-const FilterButton = ({ filter, onClick, children }: Props) => {
+const FilterButton = ({ visible, children, onClick }: Props) => {
   const buttonStyle = {
     padding: "8px",
     minWidth: "80px",
@@ -21,7 +21,7 @@ const FilterButton = ({ filter, onClick, children }: Props) => {
 
   return (
     <Button style={buttonStyle} onClick={onClick}>
-      {filter ? (
+      {visible ? (
         <BsEye style={{ marginRight: 4 }} />
       ) : (
         <BsEyeSlash style={{ marginRight: 4 }} />
