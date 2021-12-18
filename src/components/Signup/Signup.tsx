@@ -1,6 +1,7 @@
 import { FormikProps } from "formik";
-import { useMemo } from "react";
-import { signup } from "../../constants";
+import { useEffect, useMemo, useState } from "react";
+import { useParams, useHistory } from "react-router-dom";
+import { routes, signup, common } from "../../constants";
 import { FormValues } from "./types";
 import {
   ErrorMessage,
@@ -18,27 +19,8 @@ import {
   RowContainer,
   Label,
 } from "./styles";
-
-interface SelectOption {
-  value: string | number;
-  label: string;
-}
-
-// TODO : 추후 data로 분리해야 함 (백엔드 API로 받아올 가능성도 있음)
-const courses: SelectOption[] = [
-  { value: "FE", label: "프론트엔드" },
-  { value: "BE", label: "백엔드" },
-  { value: "AI", label: "인공지능" },
-];
-const generations: SelectOption[] = [
-  { value: "1", label: "1기" },
-  { value: "2", label: "2기" },
-];
-const roles: SelectOption[] = [
-  { value: "STUDENT", label: "수강생" },
-  { value: "MANAGER", label: "매니저" },
-  { value: "MENTOR", label: "멘토" },
-];
+import useQueryCheckValidLink from "../../hooks/useQueryCheckValidLink";
+import useCustomToast from "../../hooks/useCustomToast";
 
 interface IProps {
   formik: FormikProps<FormValues>;
@@ -67,6 +49,33 @@ const Signup = ({ formik }: IProps) => {
     }),
     [formik]
   );
+
+  const [mounted, setMounted] = useState(false);
+
+  const history = useHistory();
+  const params = useParams<{ linkUuid?: string }>();
+
+  const { refetch } = useQueryCheckValidLink(params.linkUuid);
+
+  const [toast] = useCustomToast();
+
+  if (!mounted) {
+    if (!params.linkUuid) {
+      history.push(routes.LOGIN);
+      toast({ message: "⚠ 회원가입 권한이 없습니다 ⚠" });
+      return null;
+    }
+
+    refetch();
+  }
+
+  useEffect(() => {
+    setMounted(true);
+
+    return () => {
+      setMounted(false);
+    };
+  }, []);
 
   return (
     <Container>
@@ -155,7 +164,7 @@ const Signup = ({ formik }: IProps) => {
                   value={formik.values.course}
                 >
                   <option value="">{signup.selectDefaultLabel.COURSE}</option>
-                  {courses.map(({ value, label }) => (
+                  {common.courses.map(({ value, label }) => (
                     <option key={value} value={value}>
                       {label}
                     </option>
@@ -175,7 +184,7 @@ const Signup = ({ formik }: IProps) => {
                   <option value="">
                     {signup.selectDefaultLabel.GENERATION}
                   </option>
-                  {generations.map(({ value, label }) => (
+                  {common.generations.map(({ value, label }) => (
                     <option key={value} value={value}>
                       {label}
                     </option>
@@ -205,7 +214,7 @@ const Signup = ({ formik }: IProps) => {
                 value={formik.values.role}
               >
                 <option value="">{signup.selectDefaultLabel.ROLE}</option>
-                {roles.map(({ value, label }) => (
+                {common.roles.map(({ value, label }) => (
                   <option key={value} value={value}>
                     {label}
                   </option>

@@ -64,7 +64,6 @@ export const FormContainer = styled.form`
 `;
 
 export const Button = styled.button`
-  margin-top: auto;
   padding: 16px 16px;
   border: none;
   background-color: ${({ theme }) => theme.colors?.primary};
@@ -114,6 +113,30 @@ export const DatePicker = styled.input`
   box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
 `;
 
+export const Table = styled.table`
+  border-collapse: separate;
+  border-spacing: 0 50px;
+`;
+
 export const Th = styled.th`
+  min-width: 50px;
+  font-size: large;
+  font-weight: bold;
+  background-color: ${({ theme }) => theme.colors.gray100};
+  padding: 16px 0;
+`;
+
+export const Tr = styled.tr`
+  padding: 16px 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray300};
+  vertical-align: middle;
+
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
+export const Td = styled.td<{ textAlign?: string }>`
+  text-align: ${({ textAlign }) => textAlign || "center"};
   padding: 16px 0;
 `;

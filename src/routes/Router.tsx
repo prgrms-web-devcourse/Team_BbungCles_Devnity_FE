@@ -27,7 +27,7 @@ const Router = () => {
         exact
         component={MainPage}
       />
-      <Route path={routes.SIGNUP} exact component={SignupPage} />
+      <Route path={`${routes.SIGNUP}/:linkUuid?`} component={SignupPage} />
       <Route path={routes.LOGIN} exact component={LoginPage} />
       <PrivateRoute
         exact
