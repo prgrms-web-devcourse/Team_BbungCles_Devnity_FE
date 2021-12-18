@@ -9,13 +9,13 @@ import MainContainer from "../../components/Main/MainContainer";
 const MainPage = () => {
   const [isShowSidebar, setShowSidebar] = useRecoilState(sidebarVisibleState);
   const setShowTopbar = useSetRecoilState(topbarVisibleState);
-  const setTopbarColor = useSetRecoilState(topbarBgColorState);
+  const setTopbarBgColor = useSetRecoilState(topbarBgColorState);
 
   useEffect(() => {
     setShowSidebar(true);
     setShowTopbar(true);
-    setTopbarColor(theme.colors.gray200);
-  }, [isShowSidebar, setShowSidebar, setShowTopbar, setTopbarColor]);
+    setTopbarBgColor(theme.colors.gray200);
+  }, [isShowSidebar, setShowSidebar, setShowTopbar, setTopbarBgColor]);
 
   return <MainContainer />;
 };
