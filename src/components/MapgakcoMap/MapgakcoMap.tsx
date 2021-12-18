@@ -204,7 +204,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
               visible={visibleMapgakcos}
               onClick={handleVisibleMapgakcos}
             >
-              모각코
+              맵각코
             </FilterButton>
             <Button
               style={registerButtonStyle}
