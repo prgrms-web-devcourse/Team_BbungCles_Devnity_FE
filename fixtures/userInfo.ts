@@ -45,8 +45,8 @@ const randomUserInfo = (): UserInfo => ({
     blogUrl: faker.internet.url(),
     githubUrl: faker.internet.url(),
     summary: faker.lorem.sentence(),
-    latitude: +faker.address.longitude(37.597846162982, 37.469538697168495),
-    longitude: +faker.address.latitude(127.13984731519888, 126.9253883715795),
+    latitude: +faker.address.latitude(37.597846162982, 37.469538697168495),
+    longitude: +faker.address.longitude(127.13984731519888, 126.9253883715795),
     createdAt: faker.datatype.datetime(),
     updatedAt: faker.datatype.datetime(),
 

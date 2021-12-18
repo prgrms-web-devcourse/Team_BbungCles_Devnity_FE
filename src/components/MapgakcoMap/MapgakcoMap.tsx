@@ -43,10 +43,8 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
 
   const [visibleUsers, setVisibleUsers] = useState(false);
   const [visibleMapgakcos, setVisibleMapgakcos] = useState(false);
-
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
-
-  const [isMapClick, setIsMapClick] = useState(false);
+  const [isMarkerSelected, setIsMarkerSelected] = useState(false);
 
   const handleVisibleUsers = useCallback(() => {
     setVisibleUsers((prev) => !prev);
@@ -102,10 +100,11 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
 
     return { position, imageUrl, options };
   });
+
   const handleModalClose = useCallback(
     () => () => {
       setRegisterModalOpen(false);
-      setIsMapClick(false);
+      setIsMarkerSelected(false);
       initializeClick();
     },
     [initializeClick]
@@ -124,6 +123,14 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
     boxShadow: theme.boxShadows.primary,
   };
 
+  const registerButtonStyle = {
+    ...buttonStyle,
+    color: isMarkerSelected && theme.colors.white,
+    backgroundColor: isMarkerSelected
+      ? theme.colors.markerBlue
+      : theme.colors.white,
+  };
+
   const guideTextStyle = {
     background: theme.colors.white,
     padding: "8px",
@@ -132,18 +139,53 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
     color: "#91979a",
   };
 
+  const getMarkerPosition = () => {
+    if (userClickPosition.lat && userClickPosition.lng) {
+      return {
+        lat: userClickPosition.lat,
+        lng: userClickPosition.lng,
+      };
+    }
+
+    if (targetPlace.x && targetPlace.y) {
+      return {
+        lat: targetPlace.y,
+        lng: targetPlace.x,
+      };
+    }
+
+    return {
+      lat: initialCenter.lat,
+      lng: initialCenter.lng,
+    };
+  };
+
   useEffect(() => {
     if (userClickPosition.lat && userClickPosition.lng) {
-      setIsMapClick(true);
+      setIsMarkerSelected(true);
+      setTargetPlace({ y: null, x: null });
     }
-  }, [userClickPosition]);
+
+    if (targetPlace.y && targetPlace.x) {
+      setIsMarkerSelected(true);
+      initializeClick();
+    }
+
+    // eslint-react-hooks가 권장하는대로 targetPlace를 넣을 경우 무한 리렌더링이 발생하므로 넣지 않고 린트 규칙을 비활성화한다
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    targetPlace.x,
+    targetPlace.y,
+    userClickPosition.lat,
+    userClickPosition.lng,
+  ]);
 
   return (
     <Container>
       <MapFloatContainer>
         <Modal visible={isRegisterModalOpen} width="60%">
           <MapgakcoRegister
-            userClickPosition={userClickPosition}
+            userClickPosition={getMarkerPosition()}
             onClose={handleModalClose()}
           />
         </Modal>
@@ -165,9 +207,9 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
               모각코
             </FilterButton>
             <Button
-              style={buttonStyle}
+              style={registerButtonStyle}
               onClick={handleRegisterClick}
-              disabled={!isMapClick}
+              disabled={!isMarkerSelected}
             >
               등록
             </Button>
