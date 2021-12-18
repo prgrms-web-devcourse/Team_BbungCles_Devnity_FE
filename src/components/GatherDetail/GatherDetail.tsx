@@ -32,6 +32,7 @@ import useToastUi from "../../hooks/useToastUi";
 import { MarkdownEditorWrapper } from "../MyProfile/styles";
 import ViewText from "../ViewText";
 import PeriodText from "../PeriodText";
+import { categoryColor } from "../../constants/categoryName";
 
 const GatherDetail = ({
   gatherData,
@@ -120,7 +121,7 @@ const GatherDetail = ({
             </Select>
           </EditContainer>
         ) : (
-          <Category>
+          <Category style={{ backgroundColor: categoryColor[category] }}>
             <Text size={12} color={theme.colors.white}>
               {categoryDisplayName[category]}
             </Text>
