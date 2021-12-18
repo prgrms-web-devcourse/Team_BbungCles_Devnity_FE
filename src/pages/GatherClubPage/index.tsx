@@ -1,14 +1,20 @@
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
 import { sidebarVisibleState } from "../../atoms/sidebarVisible";
+import { topbarBgColorState } from "../../atoms/topbarBgColor";
+import { topbarVisibleState } from "../../atoms/topbarVisble";
 import GatherMainContainer from "../../components/GatherMain/GatherMainContainer";
 
 const GatherClubPage = () => {
   const [isShowSidebar, setShowSidebar] = useRecoilState(sidebarVisibleState);
+  const setShowTopbar = useSetRecoilState(topbarVisibleState);
+  const resetTopbarBgColor = useResetRecoilState(topbarBgColorState);
 
   useEffect(() => {
     setShowSidebar(true);
-  }, [isShowSidebar, setShowSidebar]);
+    setShowTopbar(true);
+    resetTopbarBgColor();
+  }, [isShowSidebar, resetTopbarBgColor, setShowSidebar, setShowTopbar]);
 
   return <GatherMainContainer selectedCategory="CLUB" />;
 };
