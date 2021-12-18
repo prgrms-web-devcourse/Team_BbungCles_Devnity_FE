@@ -20,13 +20,15 @@ import {
   PlaceSearchFormWrapper,
   SearchContainer,
 } from "./styles";
+import { ImageMarkerOverlay, Mapgakco } from "../../types/mapTypes";
 
 interface Props {
   initialCenter: Position;
   userMapInfos: UserMapInfo[];
+  mapgakcos: Mapgakco[];
 }
 
-const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
+const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();
@@ -85,7 +87,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
     });
   }, []);
 
-  const imageMarkerOverlays = userMapInfos.map((userMapInfo) => {
+  const userMarkerOverlays = userMapInfos.map((userMapInfo) => {
     const position = {
       lat: userMapInfo?.latitude,
       lng: userMapInfo?.longitude,
@@ -100,6 +102,34 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
 
     return { position, imageUrl, options };
   });
+
+  const mapgakcoMarkerOverlays = (mapgakcos || []).map((mapgakco) => {
+    const position = {
+      lat: mapgakco?.latitude,
+      lng: mapgakco?.longitude,
+    };
+
+    const options = {
+      color: "green",
+      text: mapgakco.title,
+    };
+
+    return { position, options };
+  });
+
+  const getMarkerOVerlays = (): ImageMarkerOverlay[] => {
+    const markerOverlays = [];
+
+    if (visibleUsers) {
+      markerOverlays.push(...userMarkerOverlays);
+    }
+
+    if (visibleMapgakcos) {
+      markerOverlays.push(...mapgakcoMarkerOverlays);
+    }
+
+    return markerOverlays;
+  };
 
   const handleModalClose = useCallback(
     () => () => {
@@ -225,7 +255,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
         center={{ lat: center.lat, lng: center.lng }}
         isPanto
         hasControl={false}
-        imageMarkerOverlays={visibleUsers ? imageMarkerOverlays : []}
+        imageMarkerOverlays={getMarkerOVerlays()}
         removeImageMarkerOverlays={!visibleUsers}
         onClick={click}
       >
