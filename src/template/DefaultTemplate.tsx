@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { globalMyProfile } from "../atoms";
 import { sidebarVisibleState } from "../atoms/sidebarVisible";
+import { topbarBgColorState } from "../atoms/topbarBgColor";
 import { topbarVisibleState } from "../atoms/topbarVisble";
 import SidebarContainer from "../components/Sidebar/SidebarContainer";
 import UserImageAndDropdownContainer from "../components/UserImageAndDropdown/UserImageAndDropdownContainer";
@@ -17,6 +18,7 @@ interface Props {
 const DefaultTemplate = ({ children }: Props) => {
   const isShowSidebar = useRecoilValue(sidebarVisibleState);
   const isShowTopbar = useRecoilValue(topbarVisibleState);
+  const topbarBgColor = useRecoilValue(topbarBgColorState);
 
   const { pathname } = useLocation();
 
@@ -39,7 +41,7 @@ const DefaultTemplate = ({ children }: Props) => {
       {isShowSidebar && <SidebarContainer />}
       <PageWrapper>
         {isShowTopbar && (
-          <Header>
+          <Header topbarBgColor={topbarBgColor}>
             <UserImageAndDropdownContainer
               imageUrl={
                 globalMyProfileData?.introduction.profileImgUrl ||

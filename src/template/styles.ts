@@ -13,10 +13,10 @@ export const PageWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const Header = styled.header`
+export const Header = styled.header<{ topbarBgColor }>`
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding: 12px;
-  background-color: ${({ theme }) => theme.colors.gray200};
+  background-color: ${({ topbarBgColor }) => topbarBgColor};
 `;
