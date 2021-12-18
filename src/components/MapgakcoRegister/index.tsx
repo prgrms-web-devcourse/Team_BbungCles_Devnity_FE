@@ -149,11 +149,11 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
         </InputContainer>
 
         <ButtonContainer>
-          <Button>등록</Button>
-
           <CancelButton type="button" onClick={onClose}>
             취소
           </CancelButton>
+
+          <Button>등록</Button>
         </ButtonContainer>
       </FormContainer>
     </Container>
