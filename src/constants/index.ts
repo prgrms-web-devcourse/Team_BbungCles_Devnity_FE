@@ -15,7 +15,11 @@ export { default as errorCode } from "./errorCode";
 export { default as routes } from "./routes";
 export { default as myProfile } from "./myProfile";
 export { default as common } from "./common";
-export { categoryDisplayName, categoryValue } from "./categoryName";
+export {
+  categoryDisplayName,
+  categoryValue,
+  categoryColor,
+} from "./categoryName";
 export { url } from "./api";
 export { gatherDisplayStatus, gatherStatus } from "./gatherStatus";
 export { default as admin } from "./admin";
