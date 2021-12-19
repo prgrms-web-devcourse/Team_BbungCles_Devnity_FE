@@ -49,11 +49,12 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
     x: null,
   });
 
-  const [visibleUsers, setVisibleUsers] = useState(false);
-  const [visibleMapgakcos, setVisibleMapgakcos] = useState(true);
-  const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
-  const [isDetailModalOpen, setDetailModalOpen] = useState(true);
-  const [isMarkerSelected, setIsMarkerSelected] = useState(false);
+  const [visibleUsers, setVisibleUsers] = useState<boolean>(false);
+  const [visibleMapgakcos, setVisibleMapgakcos] = useState<boolean>(true);
+  const [isRegisterModalOpen, setRegisterModalOpen] = useState<boolean>(false);
+  const [isDetailModalOpen, setDetailModalOpen] = useState<boolean>(false);
+  const [isMarkerSelected, setIsMarkerSelected] = useState<boolean>(false);
+  const [selectedMapgakco, setSelectedMapgakco] = useState(null);
 
   const handleVisibleUsers = useCallback(() => {
     setVisibleUsers((prev) => !prev);
@@ -97,18 +98,20 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
   const userMarkerOverlays = getUserMarkerOverlays(userMapInfos);
   const mapgakcoMarkerOverlays = getMapgakcoMarkerOverlays(mapgakcos);
 
-  const handleModalClose = useCallback(
-    () => () => {
-      setRegisterModalOpen(false);
-      setDetailModalOpen(false);
-      setIsMarkerSelected(false);
-      initializeClick();
-    },
-    [initializeClick]
-  );
+  const handleModalClose = useCallback(() => {
+    setRegisterModalOpen(false);
+    setDetailModalOpen(false);
+    setIsMarkerSelected(false);
+    initializeClick();
+  }, [initializeClick]);
 
   const handleRegisterClick = useCallback(() => {
     setRegisterModalOpen(true);
+  }, []);
+
+  const handleMapgakcoClick = useCallback((mapgakco: Mapgakco) => {
+    setDetailModalOpen(true);
+    setSelectedMapgakco(mapgakco);
   }, []);
 
   const buttonStyle = {
@@ -183,7 +186,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
         <Modal visible={isRegisterModalOpen} width="60%">
           <MapgakcoRegister
             userClickPosition={getMarkerPosition()}
-            onClose={handleModalClose()}
+            onClose={handleModalClose}
           />
         </Modal>
         <Modal
@@ -200,7 +203,10 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
             height: "100%",
           }}
         >
-          <MapgakcoDetail onModalClose={handleModalClose()} />
+          <MapgakcoDetail
+            mapgakco={selectedMapgakco}
+            onModalClose={handleModalClose}
+          />
         </Modal>
         <SearchContainer>
           <PlaceSearchFormWrapper>
@@ -262,7 +268,6 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
           />
         ) : null}
 
-        {/* 데둥이 마커 */}
         {visibleUsers &&
           userMarkerOverlays.map(
             ({ position, imageUrl, options: { text } }, index) => (
@@ -278,9 +283,14 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
 
         {visibleMapgakcos &&
           mapgakcoMarkerOverlays.map(
-            ({ position, options: { text } }, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <MapgakcoMarker key={index} position={position} text={text} />
+            ({ position, options: { text }, mapgakco }, index) => (
+              <MapgakcoMarker
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                position={position}
+                text={text}
+                onClick={() => handleMapgakcoClick(mapgakco)}
+              />
             )
           )}
       </Map>

@@ -9,9 +9,10 @@ import { Position } from "../../types/commonTypes";
 interface Props {
   position: Position;
   text: string;
+  onClick: () => void;
 }
 
-const MapgakcoMarker = ({ position, text }: Props) => {
+const MapgakcoMarker = ({ position, text, onClick }: Props) => {
   const handleClick = useCallback(
     () => (event: React.MouseEvent) => {
       event.preventDefault();
@@ -27,7 +28,7 @@ const MapgakcoMarker = ({ position, text }: Props) => {
         position={{ lat: position.lat, lng: position.lng }}
         yAnchor={0.0}
       >
-        <div className="customoverlay" onClick={() => alert("test")}>
+        <div className="customoverlay" onClick={onClick}>
           <a href="#" onClick={handleClick}>
             <span className="title">{text}</span>
           </a>

@@ -195,6 +195,6 @@ export const getMapgakcoMarkerOverlays = (mapgakcos: Mapgakco[]) => {
       text: mapgakco.title,
     };
 
-    return { position, options };
+    return { position, options, mapgakco };
   });
 };
