@@ -25,6 +25,7 @@ import {
   getUserMarkerOverlays,
 } from "../../utils/map/overlay";
 import MapgakcoMarker from "./MapgakcoMarker";
+import UserMarker from "./UserMarker";
 
 interface Props {
   initialCenter: Position;
@@ -246,21 +247,13 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
         {visibleUsers &&
           userMarkerOverlays.map(
             ({ position, imageUrl, options: { text } }, index) => (
-              <CustomOverlayMap
+              <UserMarker
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
-                position={{ lat: position.lat, lng: position.lng }}
-                yAnchor={1}
-              >
-                <div className="marker--blue">
-                  <img
-                    className="marker__image"
-                    src={imageUrl}
-                    alt="유저 이미지"
-                  />
-                  <span className="marker__text">{text}</span>
-                </div>
-              </CustomOverlayMap>
+                position={position}
+                imageUrl={imageUrl}
+                text={text}
+              />
             )
           )}
 
