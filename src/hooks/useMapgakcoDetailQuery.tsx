@@ -8,11 +8,9 @@ const getMapgakcoDetail = async (id: string) => {
 
   const { data } = await requestGetMapgakcoDetail(id);
 
-  console.log({ data });
-
   return data?.data || [];
 };
 
-export default function useMapgakcoDetail(id: string) {
+export default function useMapgakcoDetailQuery(id: string) {
   return useQuery(["mapgakcoDetail", id], () => getMapgakcoDetail(id));
 }
