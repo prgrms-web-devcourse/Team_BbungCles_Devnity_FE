@@ -10,7 +10,7 @@ const MyGatherContainer = () => {
     <div>
       {applyData && makeData ? (
         <MyGather applyData={applyData} makeData={makeData} />
-      ) : undefined}
+      ) : null}
     </div>
   );
 };
