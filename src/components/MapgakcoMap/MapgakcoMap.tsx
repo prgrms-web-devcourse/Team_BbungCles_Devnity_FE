@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { BsArrowRightCircle } from "react-icons/bs";
-import { MapMarker } from "react-kakao-maps-sdk";
+import { Map, CustomOverlayMap, MapMarker } from "react-kakao-maps-sdk";
 import { UserMapInfo } from "../../../fixtures/userMapInfo";
 import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
@@ -8,7 +8,6 @@ import { Position } from "../../types/commonTypes";
 import Button from "../base/Button";
 import Modal from "../base/Modal";
 import Text from "../base/Text";
-import Mapbox from "../Mapbox/Mapbox";
 import FilterButton from "./FilterButton";
 import MapgakcoRegister from "../MapgakcoRegister";
 import PlaceSearchForm from "./PlaceSearchForm";
@@ -20,11 +19,12 @@ import {
   PlaceSearchFormWrapper,
   SearchContainer,
 } from "./styles";
-import { ImageMarkerOverlay, Mapgakco } from "../../types/mapTypes";
+import { Mapgakco } from "../../types/mapTypes";
 import {
   getMapgakcoMarkerOverlays,
   getUserMarkerOverlays,
 } from "../../utils/map/overlay";
+import MapgakcoMarker from "./MapgakcoMarker";
 
 interface Props {
   initialCenter: Position;
@@ -93,20 +93,6 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
 
   const userMarkerOverlays = getUserMarkerOverlays(userMapInfos);
   const mapgakcoMarkerOverlays = getMapgakcoMarkerOverlays(mapgakcos);
-
-  const getMarkerOVerlays = (): ImageMarkerOverlay[] => {
-    const markerOverlays = [];
-
-    if (visibleUsers) {
-      markerOverlays.push(...userMarkerOverlays);
-    }
-
-    if (visibleMapgakcos) {
-      markerOverlays.push(...mapgakcoMarkerOverlays);
-    }
-
-    return markerOverlays;
-  };
 
   const handleModalClose = useCallback(
     () => () => {
@@ -228,12 +214,16 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
           </Text>
         </Guide>
       </MapFloatContainer>
-      <Mapbox
-        center={{ lat: center.lat, lng: center.lng }}
-        isPanto
-        hasControl={false}
-        imageMarkerOverlays={getMarkerOVerlays()}
-        mapgakcos={[]}
+      <Map
+        center={{
+          lat: center.lat,
+          lng: center.lng,
+        }}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        level={4}
         onClick={click}
       >
         {userClickPosition.lat && userClickPosition.lng ? (
@@ -251,7 +241,37 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
             }}
           />
         ) : null}
-      </Mapbox>
+
+        {/* 데둥이 마커 */}
+        {visibleUsers &&
+          userMarkerOverlays.map(
+            ({ position, imageUrl, options: { text } }, index) => (
+              <CustomOverlayMap
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                position={{ lat: position.lat, lng: position.lng }}
+                yAnchor={1}
+              >
+                <div className="marker--blue">
+                  <img
+                    className="marker__image"
+                    src={imageUrl}
+                    alt="유저 이미지"
+                  />
+                  <span className="marker__text">{text}</span>
+                </div>
+              </CustomOverlayMap>
+            )
+          )}
+
+        {visibleMapgakcos &&
+          mapgakcoMarkerOverlays.map(
+            ({ position, options: { text } }, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <MapgakcoMarker key={index} position={position} text={text} />
+            )
+          )}
+      </Map>
     </Container>
   );
 };

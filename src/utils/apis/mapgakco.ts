@@ -4,16 +4,17 @@ export const requestMapgakcoRegister = (values) => {
   return necessaryAuthAxiosInstance.post("v1/mapgakcos", values);
 };
 
-export const requestGetMapgakcos = (values) => {
-  const {
-    lastDistance,
-    centerX,
-    centerY,
-    currentNEX,
-    currentNEY,
-    currentSWX,
-    currentSWY,
-  } = values;
+export const requestGetMapgakcos = () => {
+  // TODO: API 명세에서는 get 요청으로 body를 보내야 하는데 axios.get에는 body를 보낼 수 없다. 이 문제가 해결되지 않아 일단 주석처리한다.
+  // const {
+  //   lastDistance,
+  //   centerX,
+  //   centerY,
+  //   currentNEX,
+  //   currentNEY,
+  //   currentSWX,
+  //   currentSWY,
+  // } = values;
 
   return necessaryAuthAxiosInstance.get("v1/mapgakcos", {
     params: {
