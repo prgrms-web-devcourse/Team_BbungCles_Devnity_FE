@@ -20,7 +20,7 @@ export const Category = styled.div`
   width: 60px;
   height: 30px;
   line-height: 30px;
-  background-color: ${({ theme }) => theme.colors.scarlet};
+  background-color: ${({ theme }) => theme.colors.gray800};
   border-radius: 7px;
   text-align: center;
   vertical-align: middle;

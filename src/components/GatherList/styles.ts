@@ -37,20 +37,26 @@ export const FinishItemContainer = styled.div`
     #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   opacity: 80%;
-  padding: 20px;
+  padding: 16px;
 `;
 
 export const Category = styled.div`
-  background-color: ${({ theme }) => theme.colors.scarlet};
+  background-color: ${({ theme }) => theme.colors.ultramarine};
   border-radius: 7px;
-  padding: 12px;
   font-size: 12px;
   display: flex;
   flex-wrap: wrap;
+  width: 70px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  color: white;
 
   ${gatherBreakpoints.mobile} {
     font-size: 6px;
     padding: 6px;
+    width: auto;
+    height: 35px;
   }
 `;
 

@@ -6,8 +6,8 @@ import {
   Container,
   TitleContainer,
   GatherListContainer,
-  LargeTitleContainer,
-  MediumTitleContainer,
+  GatherContainer,
+  BothTitleContainer,
 } from "./styles";
 import { Gather } from "../../types/gather";
 import GatherList from "../GatherList/GatherList";
@@ -26,16 +26,12 @@ const MyGather = ({ applyData, makeData }: Props) => {
   const [filter, setFilter] = useState(FILTER_APPLY);
   return (
     <Container>
-      <AllContainer>
-        <TitleContainer>
-          <LargeTitleContainer>
-            <span style={{ fontSize: "30px" }}>🎈</span>
-            <Text size={20} strong>
-              신청
-            </Text>
-            <Text size={18}>한 모임</Text>
-          </LargeTitleContainer>
-          <MediumTitleContainer>
+      <Text size={24} strong>
+        내 모임 관리
+      </Text>
+      <GatherContainer>
+        <AllContainer>
+          <BothTitleContainer>
             <Button onClick={() => setFilter(FILTER_APPLY)}>
               <>
                 <span
@@ -108,27 +104,39 @@ const MyGather = ({ applyData, makeData }: Props) => {
                 </Text>
               </>
             </Button>
-          </MediumTitleContainer>
-        </TitleContainer>
-        <GatherListContainer>
-          <GatherList
-            gatherData={filter === FILTER_APPLY ? applyData : makeData}
-            page="MyGather"
-          />
-        </GatherListContainer>
-      </AllContainer>
-      <MakeContainer>
-        <TitleContainer>
-          <span style={{ fontSize: "30px" }}>🚩</span>
-          <Text size={20} strong>
-            개설
-          </Text>
-          <Text size={18}>한 모임</Text>
-        </TitleContainer>
-        <GatherListContainer>
-          <GatherList gatherData={makeData} page="MyGather" />
-        </GatherListContainer>
-      </MakeContainer>
+          </BothTitleContainer>
+          <GatherListContainer>
+            <GatherList
+              gatherData={filter === FILTER_APPLY ? applyData : makeData}
+              page="MyGather"
+            />
+          </GatherListContainer>
+        </AllContainer>
+        <MakeContainer>
+          <TitleContainer>
+            <span style={{ fontSize: "30px" }}>🚩</span>
+            <Text size={20} strong>
+              신청
+            </Text>
+            <Text size={18}>한 모임</Text>
+          </TitleContainer>
+          <GatherListContainer>
+            <GatherList gatherData={applyData} page="MyGather" />
+          </GatherListContainer>
+        </MakeContainer>
+        <MakeContainer>
+          <TitleContainer>
+            <span style={{ fontSize: "30px" }}>🚩</span>
+            <Text size={20} strong>
+              등록
+            </Text>
+            <Text size={18}>한 모임</Text>
+          </TitleContainer>
+          <GatherListContainer>
+            <GatherList gatherData={makeData} page="MyGather" />
+          </GatherListContainer>
+        </MakeContainer>
+      </GatherContainer>
     </Container>
   );
 };

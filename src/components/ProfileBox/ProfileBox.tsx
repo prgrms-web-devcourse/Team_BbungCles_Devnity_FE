@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { breakpoints, gatherBreakpoints } from "../../assets/media";
 import theme from "../../assets/theme";
+import { common } from "../../constants";
 import Text from "../base/Text";
 
 interface Props {
@@ -53,7 +54,7 @@ export const InfoWrapper = styled.div`
 `;
 
 const ProfileBox = ({
-  src,
+  src = common.placeHolderImageSrc,
   size,
   alt,
   fontSize,
@@ -63,7 +64,7 @@ const ProfileBox = ({
 }: Props) => {
   return (
     <ProfileBoxWrapper>
-      {src && <Image src={src} alt={alt} size={size} />}
+      <Image src={src || common.placeHolderImageSrc} alt={alt} size={size} />
       <Text size={fontSize}>{name}</Text>
       <InfoWrapper>
         <Text size={fontSize - 2} color={theme.colors.white}>

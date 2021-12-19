@@ -3,7 +3,7 @@ import { BsFillCalendar2EventFill } from "react-icons/bs";
 import Text from "../base/Text";
 
 interface Props {
-  createdDate: string;
+  createdDate?: string;
   deadLine: string;
   iconSize?: string | number;
   iconColor?: string;
@@ -28,10 +28,16 @@ const PeriodText = ({
   return (
     <Container>
       <BsFillCalendar2EventFill size={iconSize} color={iconColor} />
-      <Text
-        size={fontSize}
-        color={fontColor}
-      >{`${createdDate}~${deadLine}`}</Text>
+      {createdDate ? (
+        <Text
+          size={fontSize}
+          color={fontColor}
+        >{`${createdDate} ~ ${deadLine}`}</Text>
+      ) : (
+        <Text size={fontSize} color={fontColor}>
+          {deadLine}
+        </Text>
+      )}
     </Container>
   );
 };

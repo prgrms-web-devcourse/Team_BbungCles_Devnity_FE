@@ -63,3 +63,11 @@ export const requestEditGatherDetail = (editValue) => {
 export const requestCloseGather = (gatherId) => {
   return necessaryAuthAxiosInstance.patch(`v1/gathers/${gatherId}/close`);
 };
+
+export const requestGetMyCreatedGather = () => {
+  return necessaryAuthAxiosInstance.get("v1/users/me/host");
+};
+
+export const requestGetMyAppliedGather = () => {
+  return necessaryAuthAxiosInstance.get("v1/users/me/applicant");
+};
