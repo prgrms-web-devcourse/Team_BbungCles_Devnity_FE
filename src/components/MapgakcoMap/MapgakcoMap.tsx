@@ -98,16 +98,16 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
   const userMarkerOverlays = getUserMarkerOverlays(userMapInfos);
   const mapgakcoMarkerOverlays = getMapgakcoMarkerOverlays(mapgakcos);
 
-  const handleModalClose = useCallback(() => {
+  const handleRegisterModalClose = useCallback(() => {
     setRegisterModalOpen(false);
-    setDetailModalOpen(false);
     setIsMarkerSelected(false);
     initializeClick();
   }, [initializeClick]);
 
-  const handleRegisterClick = useCallback(() => {
-    setRegisterModalOpen(true);
-  }, []);
+  const handleDetailModalClose = () => setDetailModalOpen(false);
+
+  // TODO: 알아보기. useCallback하면 DetailModal이 닫히고 나서 정상적으로 동작하지 않는다.
+  const handleRegisterClick = () => setRegisterModalOpen(true);
 
   const handleMapgakcoClick = useCallback((mapgakco: Mapgakco) => {
     setDetailModalOpen(true);
@@ -186,7 +186,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
         <Modal visible={isRegisterModalOpen} width="60%">
           <MapgakcoRegister
             userClickPosition={getMarkerPosition()}
-            onClose={handleModalClose}
+            onClose={handleRegisterModalClose}
           />
         </Modal>
         <Modal
@@ -206,7 +206,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
           {selectedMapgakco && (
             <MapgakcoDetail
               mapgakco={selectedMapgakco}
-              onModalClose={handleModalClose}
+              onModalClose={handleDetailModalClose}
             />
           )}
         </Modal>
