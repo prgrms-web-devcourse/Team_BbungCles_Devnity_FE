@@ -6,16 +6,16 @@ import MarkdownEditor from "../../base/MarkdownEditor";
 import { Card, Container, MarkdownEditorWrapper } from "./styles";
 
 interface Props {
-  onClose: () => void;
+  onModalClose: () => void;
 }
 
-const MapgakcoDetail = ({ onClose }: Props) => {
+const MapgakcoDetail = ({ onModalClose }: Props) => {
   const [editorRef] = useToastUi();
 
   const [content, setContent] = useState("markdown content");
 
   const ref = useClickAway(() => {
-    onClose();
+    onModalClose();
   });
 
   return (
@@ -43,14 +43,14 @@ const MapgakcoDetail = ({ onClose }: Props) => {
             </span>
           </p>
         </div>
-        <MarkdownEditorWrapper>
-          <MarkdownEditor
-            isViewMode={false}
-            editorRef={editorRef}
-            value={content}
-          />
-        </MarkdownEditorWrapper>
       </Card>
+      <MarkdownEditorWrapper>
+        <MarkdownEditor
+          isViewMode={false}
+          editorRef={editorRef}
+          value={content}
+        />
+      </MarkdownEditorWrapper>
     </Container>
   );
 };

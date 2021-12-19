@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
   flex-grow: 1;
   display: flex;
+  gap: 10px;
   flex-direction: column;
   padding: 8px;
 `;
 
 export const Card = styled.div`
-  flex-grow: 1;
   background: #ed1c40;
   display: flex;
   flex-direction: column;

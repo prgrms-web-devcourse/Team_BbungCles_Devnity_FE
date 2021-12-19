@@ -200,7 +200,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
             height: "100%",
           }}
         >
-          <MapgakcoDetail onClose={handleModalClose()} />
+          <MapgakcoDetail onModalClose={handleModalClose()} />
         </Modal>
         <SearchContainer>
           <PlaceSearchFormWrapper>
