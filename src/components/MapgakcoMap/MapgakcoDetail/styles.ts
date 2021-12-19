@@ -19,7 +19,7 @@ export const Card = styled.div`
   color: ${({ theme }) => theme.colors.white};
 
   .poster {
-    h2 {
+    .status {
       border-bottom: 1px solid rgba(255, 255, 255, 0.7);
       font-weight: 400;
       font-size: 18px;
@@ -28,7 +28,7 @@ export const Card = styled.div`
       margin-bottom: 12px;
     }
 
-    h1 {
+    .title {
       font-size: 24px;
       font-weight: 700;
       line-height: 1;

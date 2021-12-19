@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { BsCalendarDate, BsPeople, BsPinMap } from "react-icons/bs";
 import useClickAway from "../../../hooks/useClickAway";
 import useToastUi from "../../../hooks/useToastUi";
@@ -45,68 +45,52 @@ const MapgakcoDetail = ({
     onModalClose();
   });
 
+  const handleMarkdownChange = useCallback((markdownInnerText) => {
+    setContent(markdownInnerText);
+  }, []);
+
   if (!mapgakco) {
     return null;
   }
-
-  const {
-    status = "",
-    title = "",
-    location = "",
-    meetingAt = "",
-    applicantLimit = 0,
-    applicantCount = 0,
-    author = {
-      name: "",
-      course: "",
-      generation: 0,
-      role: "",
-      profileImgUrl: "",
-    },
-  } = mapgakco;
-
-  const {
-    name = "",
-    course = "",
-    generation = "",
-    role = "",
-    profileImgUrl = "",
-  } = author;
 
   return (
     <Container ref={ref}>
       <Card>
         <div className="poster">
-          <h2 className="location">{status}</h2>
-          <h1 className="title">{title}</h1>
+          <h2 className="status">{mapgakco?.status}</h2>
+          <h1 className="title">{mapgakco?.title}</h1>
           <p className="details">
             <span className="row">
               <BsCalendarDate />
               <span className="row-item">
-                {koreanDate(new Date(meetingAt))}
+                {koreanDate(new Date(mapgakco?.meetingAt))}
               </span>
             </span>
             <span className="row">
               <BsPinMap />
               <span className="row-item">
-                <strong>상세 장소</strong>
+                <strong>{mapgakco?.location}</strong>
               </span>
             </span>
             <span className="row">
               <BsPeople />
               <span className="row-item">
-                <strong>4 / 6 명</strong>
+                <strong>
+                  {mapgakco?.applicantCount} / {mapgakco?.applicantLimit} 명
+                </strong>
               </span>
             </span>
           </p>
         </div>
       </Card>
       <MarkdownEditorWrapper>
+        {/* 신청자 */}
+        {/* <MarkdownEditor isViewMode editorRef={editorRef} value={content} /> */}
         <MarkdownEditor
           isViewMode={false}
           editorRef={editorRef}
           value={content}
-          setEditorText={() => ({})}
+          setEditorText={handleMarkdownChange}
         />
       </MarkdownEditorWrapper>
     </Container>

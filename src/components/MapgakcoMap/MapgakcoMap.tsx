@@ -203,10 +203,12 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
             height: "100%",
           }}
         >
-          <MapgakcoDetail
-            mapgakco={selectedMapgakco}
-            onModalClose={handleModalClose}
-          />
+          {selectedMapgakco && (
+            <MapgakcoDetail
+              mapgakco={selectedMapgakco}
+              onModalClose={handleModalClose}
+            />
+          )}
         </Modal>
         <SearchContainer>
           <PlaceSearchFormWrapper>
