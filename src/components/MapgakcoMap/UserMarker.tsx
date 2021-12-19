@@ -10,6 +10,7 @@ interface Props {
 const UserMarker = ({ position, imageUrl, text }: Props) => {
   return (
     <CustomOverlayMap
+      clickable
       position={{ lat: position.lat, lng: position.lng }}
       yAnchor={1}
     >

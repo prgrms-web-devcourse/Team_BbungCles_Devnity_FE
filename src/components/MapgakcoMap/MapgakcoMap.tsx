@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { BsArrowRightCircle } from "react-icons/bs";
-import { Map, CustomOverlayMap, MapMarker } from "react-kakao-maps-sdk";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { UserMapInfo } from "../../../fixtures/userMapInfo";
 import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
@@ -26,6 +26,7 @@ import {
 } from "../../utils/map/overlay";
 import MapgakcoMarker from "./MapgakcoMarker";
 import UserMarker from "./UserMarker";
+import MapgakcoDetail from "./MapgakcoDetail";
 
 interface Props {
   initialCenter: Position;
@@ -51,6 +52,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
   const [visibleUsers, setVisibleUsers] = useState(false);
   const [visibleMapgakcos, setVisibleMapgakcos] = useState(true);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+  const [isDetailModalOpen, setDetailModalOpen] = useState(true);
   const [isMarkerSelected, setIsMarkerSelected] = useState(false);
 
   const handleVisibleUsers = useCallback(() => {
@@ -182,6 +184,22 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
             userClickPosition={getMarkerPosition()}
             onClose={handleModalClose()}
           />
+        </Modal>
+        <Modal
+          visible={isDetailModalOpen}
+          width="320px"
+          height="100%"
+          modalContainerStyles={{
+            top: 0,
+            left: 0,
+            transform: "none",
+            borderRadius: 0,
+          }}
+          contentContainerStyles={{
+            height: "100%",
+          }}
+        >
+          <MapgakcoDetail />
         </Modal>
         <SearchContainer>
           <PlaceSearchFormWrapper>
