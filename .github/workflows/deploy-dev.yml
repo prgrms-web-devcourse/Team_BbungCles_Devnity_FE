@@ -39,6 +39,7 @@ jobs:
       uses: SpicyPizza/create-envfile@v1
       with:
         envkey_REST_API_KEY: ${{ secrets.REST_API_KEY }}
+        envkey_DOMAIN: ${{ secrets.DOMAIN }}
 
     - name: Build project        
       run: yarn build
