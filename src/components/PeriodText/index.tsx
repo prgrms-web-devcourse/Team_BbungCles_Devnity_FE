@@ -4,7 +4,7 @@ import Text from "../base/Text";
 
 interface Props {
   createdDate?: string;
-  deadLine: string;
+  deadLine?: string;
   iconSize?: string | number;
   iconColor?: string;
   fontSize?: number;
@@ -28,14 +28,14 @@ const PeriodText = ({
   return (
     <Container>
       <BsFillCalendar2EventFill size={iconSize} color={iconColor} />
-      {createdDate ? (
+      {createdDate && deadLine ? (
         <Text
           size={fontSize}
           color={fontColor}
         >{`${createdDate} ~ ${deadLine}`}</Text>
       ) : (
         <Text size={fontSize} color={fontColor}>
-          {deadLine}
+          {deadLine || createdDate}
         </Text>
       )}
     </Container>
