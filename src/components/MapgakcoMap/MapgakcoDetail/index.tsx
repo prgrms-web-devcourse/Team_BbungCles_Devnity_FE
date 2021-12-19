@@ -8,37 +8,35 @@ import { Mapgakco } from "../../../types/mapTypes";
 import { koreanDate } from "../../../utils/date";
 import Button from "../../base/Button";
 import theme from "../../../assets/theme";
+import useMapgakcoDetail from "../../../hooks/useMapgakcoDetail";
 
 interface Props {
-  mapgakco: Mapgakco;
+  mapgakcoId: string;
   onModalClose: () => void;
 }
 
-const initialMapgakco: Mapgakco = {
-  mapgakcoId: 37,
-  status: "GATHERING",
-  title: "맵각코",
-  location: "맵각코 위치",
-  meetingAt: "2021-12-18T23:51:34",
-  latitude: 37.58009056466645,
-  longitude: 126.9228016641275,
-  applicantLimit: 5,
-  applicantCount: 1,
-  createdAt: "2021-12-18T23:51:34",
-  author: {
-    userId: 54,
-    name: "dummy1",
-    course: "FE",
-    generation: 1,
-    profileImgUrl: null,
-    role: "STUDENT",
-  },
-};
+// const initialMapgakco: Mapgakco = {
+//   mapgakcoId: 37,
+//   status: "GATHERING",
+//   title: "맵각코",
+//   location: "맵각코 위치",
+//   meetingAt: "2021-12-18T23:51:34",
+//   latitude: 37.58009056466645,
+//   longitude: 126.9228016641275,
+//   applicantLimit: 5,
+//   applicantCount: 1,
+//   createdAt: "2021-12-18T23:51:34",
+//   author: {
+//     userId: 54,
+//     name: "dummy1",
+//     course: "FE",
+//     generation: 1,
+//     profileImgUrl: null,
+//     role: "STUDENT",
+//   },
+// };
 
-const MapgakcoDetail = ({
-  mapgakco = initialMapgakco,
-  onModalClose,
-}: Props) => {
+const MapgakcoDetail = ({ mapgakcoId, onModalClose }: Props) => {
   const [editorRef] = useToastUi();
 
   const [content, setContent] = useState("markdown content");
@@ -46,6 +44,8 @@ const MapgakcoDetail = ({
   const ref = useClickAway(() => {
     onModalClose();
   });
+
+  const { data } = useMapgakcoDetail(mapgakcoId);
 
   const handleMarkdownChange = useCallback((markdownInnerText) => {
     setContent(markdownInnerText);
@@ -74,9 +74,11 @@ const MapgakcoDetail = ({
     backgroundColor: theme.colors.disabled,
   };
 
-  if (!mapgakco) {
+  if (!data) {
     return null;
   }
+
+  const { mapgakco, author, applicants, comments } = data;
 
   return (
     <Container ref={ref}>

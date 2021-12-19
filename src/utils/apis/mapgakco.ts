@@ -28,3 +28,7 @@ export const requestGetMapgakcos = () => {
     },
   });
 };
+
+export const requestGetMapgakcoDetail = (id: string) => {
+  return necessaryAuthAxiosInstance.get(`v1/mapgakcos/${id}`);
+};

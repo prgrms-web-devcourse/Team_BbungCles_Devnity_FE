@@ -205,7 +205,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
         >
           {selectedMapgakco && (
             <MapgakcoDetail
-              mapgakco={selectedMapgakco}
+              mapgakcoId={selectedMapgakco?.mapgakcoId}
               onModalClose={handleDetailModalClose}
             />
           )}

@@ -5,4 +5,8 @@ export { requestMedia } from "./markdown";
 export { requestGetUserSuggestions, requestGetGatherSuggestions } from "./main";
 export { requestKeywordSearch } from "./search";
 export { requestPostCreateGather } from "./gather";
-export { requestMapgakcoRegister, requestGetMapgakcos } from "./mapgakco";
+export {
+  requestMapgakcoRegister,
+  requestGetMapgakcos,
+  requestGetMapgakcoDetail,
+} from "./mapgakco";
