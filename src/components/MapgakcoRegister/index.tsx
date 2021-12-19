@@ -15,10 +15,12 @@ import {
   ErrorMessage,
   FormContainer,
   InputContainer,
-  Textarea,
+  MarkdownEditorWrapper,
 } from "./stlyes";
 import useMutationMapgakcoRegister from "../../hooks/useMutationMapgakcoRegister";
 import { Position } from "../../types/commonTypes";
+import MarkdownEditor from "../base/MarkdownEditor";
+import useToastUi from "../../hooks/useToastUi";
 
 interface IProps {
   userClickPosition: Position;
@@ -34,6 +36,8 @@ interface FormValues {
 }
 
 const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
+  const [editorRef, resetMarkDown] = useToastUi();
+
   const [toast] = useCustomToast();
 
   const getDefaultMeetingAt = useCallback(() => {
@@ -73,11 +77,13 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
       setSubmitting(true);
       mutate({
         ...formValues,
-        meetingAt: dayjs(formValues.meetingAt).format("YYYY-MM-DDTHH:mm"),
+        meetingAt: dayjs(formValues.meetingAt).format("YYYY-MM-DDTHH:00:00"),
         latitude: userClickPosition.lat,
         longitude: userClickPosition.lng,
       });
       setSubmitting(false);
+
+      resetMarkDown();
       resetForm();
       onClose();
 
@@ -87,8 +93,9 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
 
   const handleCancelClick = useCallback(() => {
     resetForm();
+    resetMarkDown();
     onClose();
-  }, [onClose, resetForm]);
+  }, [onClose, resetForm, resetMarkDown]);
 
   const handleChangeDate = useCallback(
     (changedDate) => {
@@ -182,12 +189,19 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
 
         <InputContainer>
           <label htmlFor="content">내용</label>
-          <Textarea
+          <input
+            type="hidden"
             name="content"
             value={values.content}
             onChange={handleChange}
-            onBlur={handleBlur}
           />
+          <MarkdownEditorWrapper>
+            <MarkdownEditor
+              editorRef={editorRef}
+              setEditorText={(value: string) => setFieldValue("content", value)}
+              value={values.content || ""}
+            />
+          </MarkdownEditorWrapper>
           {touched.content && !!errors.content && (
             <ErrorMessage>{errors.content}</ErrorMessage>
           )}

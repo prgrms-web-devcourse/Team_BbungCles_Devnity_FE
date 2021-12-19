@@ -73,15 +73,10 @@ export const StyledDatePicker = styled(DatePicker)`
   outline: none;
 `;
 
-export const Textarea = styled.textarea`
-  height: 260px;
-  color: ${({ theme }) => theme.colors?.gray800};
-  padding: 16px;
-  background-color: ${({ theme }) => theme.colors?.white};
+export const MarkdownEditorWrapper = styled.div`
+  width: 100%;
+  height: 360px;
+  padding: 12px;
   border-radius: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
-  border: none;
-  outline: none;
-  resize: none;
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
 `;
