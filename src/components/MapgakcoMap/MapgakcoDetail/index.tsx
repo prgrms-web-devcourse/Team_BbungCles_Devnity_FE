@@ -17,7 +17,13 @@ interface Props {
 }
 
 const isAuthor = (myProfile, mapgakcoDetail) => {
-  return myProfile?.user?.userId !== mapgakcoDetail?.author?.userId;
+  return myProfile?.user?.userId === mapgakcoDetail?.author?.userId;
+};
+
+const hasApplied = (myProfile, mapgakcoDetail) => {
+  const applicantsIds = mapgakcoDetail?.applicants?.map(({ userId }) => userId);
+
+  return applicantsIds.some((id) => id === myProfile?.user?.userId);
 };
 
 const MapgakcoDetail = ({ mapgakcoId, onModalClose }: Props) => {
@@ -30,8 +36,6 @@ const MapgakcoDetail = ({ mapgakcoId, onModalClose }: Props) => {
   });
 
   const myProfile = useRecoilValue(globalMyProfile);
-
-  console.log({ myProfile });
 
   const { isLoading, data: mapgakcoDetail } =
     useMapgakcoDetailQuery(mapgakcoId);
@@ -100,22 +104,29 @@ const MapgakcoDetail = ({ mapgakcoId, onModalClose }: Props) => {
           </Card>
           <MarkdownEditorWrapper>
             <MarkdownEditor
-              isViewMode={!isAuthor(myProfile, mapgakcoDetail)}
+              // isViewMode={!isAuthor(myProfile, mapgakcoDetail)}
+              isViewMode
               editorRef={editorRef}
               value={content}
               setEditorText={handleMarkdownChange}
             />
+            {JSON.stringify(myProfile.user.userId)}
+            {JSON.stringify(mapgakcoDetail.author.userId)}
           </MarkdownEditorWrapper>
           <Footer>
-            <Button style={activeButtonStyle} onClick={() => ({})}>
-              수정
-            </Button>
-            <Button style={activeButtonStyle} onClick={() => ({})}>
-              신청
-            </Button>
-            <Button style={inactiveButtonStyle} onClick={() => ({})}>
-              신청 취소
-            </Button>
+            {isAuthor(myProfile, mapgakcoDetail) ? (
+              <Button style={activeButtonStyle} onClick={() => ({})}>
+                수정
+              </Button>
+            ) : hasApplied(myProfile, mapgakcoDetail) ? (
+              <Button style={activeButtonStyle} onClick={() => ({})}>
+                신청
+              </Button>
+            ) : (
+              <Button style={inactiveButtonStyle} onClick={() => ({})}>
+                신청 취소
+              </Button>
+            )}
           </Footer>
         </>
       )}
