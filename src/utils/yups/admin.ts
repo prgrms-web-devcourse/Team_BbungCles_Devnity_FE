@@ -7,4 +7,5 @@ export const adminValidator = Yup.object({
     admin.message.GENERATION_REQUIRED_VALIDATION
   ),
   role: Yup.string().required(admin.message.ROLE_REQUIRED_VALIDATION),
+  deadline: Yup.string().required(admin.message.DEADLINE_REQUIRED_VALIDATION),
 });

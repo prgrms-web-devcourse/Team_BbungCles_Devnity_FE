@@ -22,6 +22,7 @@ export default {
     COURSE_REQUIRED_VALIDATION: "코스를 선택해 주세요",
     GENERATION_REQUIRED_VALIDATION: "기수를 선택해 주세요",
     ROLE_REQUIRED_VALIDATION: "역할을 선택해 주세요",
+    DEADLINE_REQUIRED_VALIDATION: "만료일을 선택해 주세요",
   },
 
   selectDefaultLabel: {

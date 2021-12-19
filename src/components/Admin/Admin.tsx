@@ -13,46 +13,32 @@ import {
   ErrorMessage,
   SelectAndErrorMessageContainer,
   SelectContainer,
-  InviteLinkLi,
-  LinkInformationContainer,
   InviteLinkBorderContainer,
   DatePicker,
+  Th,
+  Td,
+  Tr,
 } from "./styles";
 import { common, admin } from "../../constants";
 import Text from "../base/Text";
 import useMutationInviteLink from "../../hooks/useMutationInviteLink";
 import useQueryInviteLink from "../../hooks/useQueryInviteLink";
 import useCopyClipboard from "../../hooks/useCopyClipboard";
+import useCustomToast from "../../hooks/useCustomToast";
 
 interface FormValues {
   course: string;
   generation: string;
   role: string;
-  expireDate: string;
+  deadline: string;
 }
 
-const testDatas = [
-  {
-    id: "1",
-    course: "FE",
-    generation: "1",
-    role: "STUDENT",
-    link: "http://test3.com",
-    expireDate: "20211219",
-  },
-  {
-    id: "2",
-    course: "FE",
-    generation: "2",
-    role: "STUDENT",
-    link: "http://test2.com",
-    expireDate: "20211219",
-  },
-];
-
 const Admin = () => {
-  const { data, isLoading } = useQueryInviteLink();
+  const { data } = useQueryInviteLink();
   const { mutate } = useMutationInviteLink();
+
+  const [toast] = useCustomToast();
+
   const {
     handleSubmit,
     handleChange,
@@ -61,26 +47,23 @@ const Admin = () => {
     values,
     errors,
   }: FormikProps<FormValues> = useFormik<FormValues>({
-    initialValues: { course: "", generation: "", role: "", expireDate: "" },
+    initialValues: { course: "", generation: "", role: "", deadline: "" },
     validationSchema: adminValidator,
-    onSubmit: (formValues, { setSubmitting }) => {
+    onSubmit: (formValues, { setSubmitting, resetForm }) => {
       setSubmitting(true);
-
       mutate({
         ...formValues,
-        expireDate: formValues.expireDate
-          ? dayjs(formValues.expireDate).format("YYYY-MM-DD")
+        deadline: formValues.deadline
+          ? dayjs(formValues.deadline).format("YYYY-MM-DD")
           : null,
       });
       setSubmitting(false);
+      resetForm();
+      toast({ message: "링크 생성이 완료되었습니다 😄" });
     },
   });
 
   const [handleCopyClick] = useCopyClipboard();
-
-  // TODO: API 연동되면 지울 예정
-  // eslint-disable-next-line
-  console.log(data, isLoading);
 
   useEffect(() => {
     dayjs.extend(relativeTime);
@@ -162,12 +145,16 @@ const Admin = () => {
             <SelectAndErrorMessageContainer>
               <DatePicker
                 type="date"
-                name="expireDate"
+                name="deadline"
                 min={dayjs(new Date()).format("YYYY-MM-DD")}
                 max="9999-12-31"
-                value={values.expireDate}
+                value={values.deadline}
                 onChange={handleChange}
+                onBlur={handleBlur}
               />
+              {touched.deadline && !!errors.deadline && (
+                <ErrorMessage>{errors.deadline}</ErrorMessage>
+              )}
             </SelectAndErrorMessageContainer>
           </SelectContainer>
 
@@ -179,28 +166,52 @@ const Admin = () => {
         <Text size={24} strong>
           유효한 초대 링크 목록
         </Text>
-
-        {testDatas?.length === 0 && (
+        {data?.data.data.length === 0 && (
           <Text size={16} strong>
             현재 유효한 초대 링크가 없습니다 😥
           </Text>
         )}
-        <ul>
-          {testDatas.map((testData) => (
-            <InviteLinkLi key={testData.link}>
-              <LinkInformationContainer>
-                {`${testData.course} / ${testData.generation} / ${
-                  testData.role
-                } / ${testData.link} / ${dayjs(testData.expireDate).format(
-                  "YYYY-MM-DD"
-                )}`}
-              </LinkInformationContainer>
-              <Button type="button" onClick={handleCopyClick(testData.link)}>
-                링크 복사
-              </Button>
-            </InviteLinkLi>
-          ))}
-        </ul>
+        {data?.data.data.length !== 0 && (
+          <table>
+            <thead>
+              <tr>
+                <Th>
+                  <span>코스</span>
+                </Th>
+                <Th>
+                  <span>기수</span>
+                </Th>
+                <Th>
+                  <span>역할</span>
+                </Th>
+                <Th>
+                  <span>만료일</span>
+                </Th>
+                <Th />
+              </tr>
+            </thead>
+            <tbody>
+              {data?.data.data.map((inviteLink) => (
+                <Tr key={inviteLink.uuid}>
+                  <Td>{common.courseMap[inviteLink.course]}</Td>
+                  <Td>{inviteLink.generation}</Td>
+                  <Td>{common.roleMap[inviteLink.role]}</Td>
+                  <Td>{dayjs(inviteLink.deadline).format("YYYY-MM-DD")}</Td>
+                  <Td>
+                    <Button
+                      type="button"
+                      onClick={handleCopyClick(
+                        `${process.env.DOMAIN}signup/${inviteLink.uuid}`
+                      )}
+                    >
+                      링크 복사
+                    </Button>
+                  </Td>
+                </Tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </InviteLinkBorderContainer>
     </Container>
   );
