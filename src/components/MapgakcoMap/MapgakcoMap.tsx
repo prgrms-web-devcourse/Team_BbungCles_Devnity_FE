@@ -141,7 +141,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
   return (
     <Container>
       <MapFloatContainer>
-        <Modal visible={isRegisterModalOpen}>
+        <Modal visible={isRegisterModalOpen} width="60%">
           <MapgakcoRegister
             userClickPosition={userClickPosition}
             onClose={handleModalClose()}

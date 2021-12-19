@@ -1,4 +1,6 @@
+import DatePicker from "react-datepicker";
 import styled from "@emotion/styled";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const Container = styled.div`
   display: flex;
@@ -59,7 +61,7 @@ export const InputContainer = styled.div`
   gap: 8px;
 `;
 
-export const DatePicker = styled.input`
+export const StyledDatePicker = styled(DatePicker)`
   width: 100%;
   color: ${({ theme }) => theme.colors?.gray800};
   padding: 16px;
@@ -68,10 +70,11 @@ export const DatePicker = styled.input`
   border-radius: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
+  outline: none;
 `;
 
 export const Textarea = styled.textarea`
-  height: 160px;
+  height: 260px;
   color: ${({ theme }) => theme.colors?.gray800};
   padding: 16px;
   background-color: ${({ theme }) => theme.colors?.white};
