@@ -9,7 +9,7 @@ export const Container = styled.div`
 `;
 
 export const Card = styled.div`
-  background: #ed1c40;
+  background: ${({ theme }) => theme.colors.markerBlue};
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -56,4 +56,10 @@ export const Card = styled.div`
 
 export const MarkdownEditorWrapper = styled.div`
   flex-grow: 1;
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 `;

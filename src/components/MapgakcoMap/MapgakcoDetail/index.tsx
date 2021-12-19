@@ -3,9 +3,11 @@ import { BsCalendarDate, BsPeople, BsPinMap } from "react-icons/bs";
 import useClickAway from "../../../hooks/useClickAway";
 import useToastUi from "../../../hooks/useToastUi";
 import MarkdownEditor from "../../base/MarkdownEditor";
-import { Card, Container, MarkdownEditorWrapper } from "./styles";
+import { Card, Container, Footer, MarkdownEditorWrapper } from "./styles";
 import { Mapgakco } from "../../../types/mapTypes";
 import { koreanDate } from "../../../utils/date";
+import Button from "../../base/Button";
+import theme from "../../../assets/theme";
 
 interface Props {
   mapgakco: Mapgakco;
@@ -48,6 +50,29 @@ const MapgakcoDetail = ({
   const handleMarkdownChange = useCallback((markdownInnerText) => {
     setContent(markdownInnerText);
   }, []);
+
+  const defaultButtonStyle = {
+    padding: "8px",
+    minWidth: "80px",
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    borderRadius: "8px",
+
+    boxShadow: theme.boxShadows.primary,
+  };
+
+  const activeButtonStyle = {
+    ...defaultButtonStyle,
+    color: theme.colors.white,
+    backgroundColor: theme.colors.markerBlue,
+  };
+
+  const inactiveButtonStyle = {
+    ...defaultButtonStyle,
+    color: theme.colors.white,
+    backgroundColor: theme.colors.disabled,
+  };
 
   if (!mapgakco) {
     return null;
@@ -93,6 +118,14 @@ const MapgakcoDetail = ({
           setEditorText={handleMarkdownChange}
         />
       </MarkdownEditorWrapper>
+      <Footer>
+        <Button style={activeButtonStyle} onClick={() => ({})}>
+          신청
+        </Button>
+        <Button style={inactiveButtonStyle} onClick={() => ({})}>
+          신청 취소
+        </Button>
+      </Footer>
     </Container>
   );
 };
