@@ -23,13 +23,10 @@ import { common } from "../../../constants";
 import theme from "../../../assets/theme";
 import { globalMyProfile } from "../../../atoms";
 import useToggle from "../../../hooks/useToggle";
-// import useMutationUserDeleteComment from "../../../hooks/useMutationUserDeleteComment";
 import Input from "../../base/Input";
 import useDeleteComment from "../../../hooks/useDeleteComment";
 import useCreateGatherComment from "../../../hooks/useCreateGatherComment";
 import useEditComment from "../../../hooks/useEditComment";
-// import useMutationUserDetailComment from "../../../hooks/useMutationUserDetailComment";
-// import useMutationUserModifyComment from "../../../hooks/useMutationUserModifyComment";
 
 interface IProps {
   comment: Comment;

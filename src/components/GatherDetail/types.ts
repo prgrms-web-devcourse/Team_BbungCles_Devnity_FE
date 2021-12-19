@@ -1,5 +1,4 @@
 import { Gather } from "../../types/gather";
-import { SubmitProps } from "../CommentForm/CommentForm";
 
 export interface DeleteCommentProps {
   gatherId: number;
@@ -26,8 +25,5 @@ export interface Props {
   handleGatherClose: (arg: number) => void;
   handleGatherCancel: (arg1: number) => void;
   handleGatherApply: (arg1: number) => void;
-  handleCommentSubmit: (arg: SubmitProps) => void;
-  handleCommentDelete: (arg: DeleteCommentProps) => void;
-  handleCommentEdit: (arg: EditommentProps) => void;
   handleGatherDetailEdit: (arg: EditGatherProps) => void;
 }

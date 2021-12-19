@@ -1,15 +1,17 @@
 import { useRecoilValue } from "recoil";
-import { useState } from "react";
-import { BsFillPersonFill } from "react-icons/bs";
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+import { MdModeComment } from "react-icons/md";
+import * as Yup from "yup";
 import { Props } from "./types";
 import Text from "../base/Text";
-import CommentForm from "../CommentForm/CommentForm";
-import Comment from "../Comment/Comment";
 import ProfileBox from "../ProfileBox/ProfileBox";
 import Input from "../base/Input";
 import { globalMyProfile } from "../../atoms";
 import {
   Container,
+  TestContainer,
   Category,
   UserContainer,
   DetailContainer,
@@ -20,19 +22,29 @@ import {
   Select,
   EditContainer,
   ApplicantContainer,
+  MarkdownEditorWrapper,
+  BorderContainer,
+  IconWrapper,
+  FormContainer,
+  CommentContainer,
+  TextWrapper,
 } from "./styles";
 import theme from "../../assets/theme";
 import {
   categoryDisplayName,
+  common,
   gatherDisplayStatus,
   gatherStatus,
 } from "../../constants";
 import MarkdownEditor from "../base/MarkdownEditor";
 import useToastUi from "../../hooks/useToastUi";
-import { MarkdownEditorWrapper } from "../MyProfile/styles";
 import ViewText from "../ViewText";
 import PeriodText from "../PeriodText";
+import Comment from "./Comment";
+import useCreateGatherComment from "../../hooks/useCreateGatherComment";
+import { Button, HiddenLabel } from "../UserDetail/styles";
 import { categoryColor } from "../../constants/categoryName";
+import useToggle from "../../hooks/useToggle";
 
 const GatherDetail = ({
   gatherData,
@@ -40,9 +52,6 @@ const GatherDetail = ({
   handleGatherClose,
   handleGatherApply,
   handleGatherCancel,
-  handleCommentSubmit,
-  handleCommentDelete,
-  handleCommentEdit,
   handleGatherDetailEdit,
 }: Props): JSX.Element => {
   const {
@@ -75,7 +84,9 @@ const GatherDetail = ({
     deadline: deadline.substring(0, 10),
   });
 
-  const handleChange = (e) => {
+  const [isModifyClick, toggleModify] = useToggle(false);
+
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditValue({
       ...editValue,
@@ -83,205 +94,320 @@ const GatherDetail = ({
     });
   };
 
+  const { mutate: gatherDetailCommentMutate } = useCreateGatherComment();
+
+  const { handleChange, handleSubmit, handleBlur, values } = useFormik<{
+    content: string;
+  }>({
+    initialValues: { content: "" },
+    validationSchema: Yup.object({
+      content: Yup.string()
+        .required()
+        .max(50, "댓글은 50자이상 작성할 수 없습니다"),
+    }),
+    onSubmit: (formValues, { setSubmitting, resetForm }) => {
+      setSubmitting(true);
+      gatherDetailCommentMutate({
+        gatherId,
+        parentId: null,
+        content: formValues.content,
+      });
+      setSubmitting(false);
+      resetForm();
+    },
+  });
+
   const myProfile = useRecoilValue(globalMyProfile);
 
   const isAuthor = myProfile?.user?.userId === author?.userId;
 
   return (
     <Container>
-      <CategoryWrapper>
-        {status !== gatherStatus.GATHERING ? (
-          <Category>
-            <Text size={12} color={theme.colors.white}>
-              {gatherDisplayStatus[status]}
-            </Text>
-          </Category>
-        ) : undefined}
-        {isAuthor ? (
+      <TestContainer>
+        <CategoryWrapper
+          row={status !== gatherStatus.GATHERING && !isModifyClick}
+        >
+          {status !== gatherStatus.GATHERING ? (
+            <Category>
+              <Text size={12} color={theme.colors.white}>
+                {gatherDisplayStatus[status]}
+              </Text>
+            </Category>
+          ) : undefined}
+          {isAuthor && isModifyClick ? (
+            <EditContainer>
+              <label
+                htmlFor="category"
+                style={{ fontSize: "18px", fontWeight: 700 }}
+              >
+                카테고리
+              </label>
+              <Select
+                name="category"
+                value={editValue.category}
+                onChange={handleChange}
+              >
+                <option value={category}>
+                  {categoryDisplayName[category]}
+                </option>
+                {Object.keys(categoryDisplayName).map((item) =>
+                  item !== category ? (
+                    <option key={item} value={item}>
+                      {categoryDisplayName[item]}
+                    </option>
+                  ) : undefined
+                )}
+              </Select>
+            </EditContainer>
+          ) : (
+            <Category style={{ backgroundColor: categoryColor[category] }}>
+              <Text size={12} color={theme.colors.white}>
+                {categoryDisplayName[category]}
+              </Text>
+            </Category>
+          )}
+        </CategoryWrapper>
+
+        {isAuthor && isModifyClick ? (
           <EditContainer>
             <label
-              htmlFor="category"
+              htmlFor="title"
               style={{ fontSize: "18px", fontWeight: 700 }}
             >
-              카테고리
+              제목
             </label>
-            <Select
-              name="category"
-              value={editValue.category}
-              onChange={handleChange}
-            >
-              <option value={category}>{categoryDisplayName[category]}</option>
-              {Object.keys(categoryDisplayName).map((item) =>
-                item !== category ? (
-                  <option key={item} value={item}>
-                    {categoryDisplayName[item]}
-                  </option>
-                ) : undefined
-              )}
-            </Select>
+            <Input
+              type="text"
+              name="title"
+              onChange={handleInputChange}
+              value={editValue.title}
+            />
           </EditContainer>
         ) : (
-          <Category style={{ backgroundColor: categoryColor[category] }}>
-            <Text size={12} color={theme.colors.white}>
-              {categoryDisplayName[category]}
-            </Text>
-          </Category>
+          <Text size={24} strong>
+            {title}
+          </Text>
         )}
-      </CategoryWrapper>
-      {isAuthor ? (
-        <EditContainer>
-          <label htmlFor="title" style={{ fontSize: "18px", fontWeight: 700 }}>
-            제목
-          </label>
-          <Input
-            type="text"
-            name="title"
-            onChange={handleChange}
-            value={editValue.title}
+        <UserContainer>
+          <ProfileBox
+            src={author?.profileImgUrl}
+            alt="프로필"
+            name={author.name}
+            course={author.course}
+            generation={author.generation}
+            fontSize={16}
           />
-        </EditContainer>
-      ) : (
-        <Text size={24} strong>
-          {title}
-        </Text>
-      )}
-      <UserContainer>
-        <ProfileBox
-          src={author?.profileImgUrl}
-          alt="프로필"
-          name={author.name}
-          course={author.course}
-          generation={author.generation}
-          fontSize={16}
-        />
-        <Text>{createdAt.substring(0, 10)}</Text>
-        <ViewText
-          view={view}
-          iconColor={theme.colors.gray500}
-          fontColor={theme.colors.gray600}
-        />
-      </UserContainer>
-      <DetailContainer>
-        <TextContainer>
-          <Text size={18} strong>
-            모집 기간
-          </Text>
-          {isAuthor ? (
-            <EditDeadlineContainer>
-              <Text>{`${createdAt.substring(0, 10)} ~ `}</Text>
-              <Input
-                type="text"
-                name="deadline"
-                onChange={handleChange}
-                value={editValue.deadline}
-                customStyle={{ width: "30%" }}
-              />
-            </EditDeadlineContainer>
-          ) : (
-            <PeriodText
-              createdDate={createdAt.substring(0, 10)}
-              deadLine={deadline.substring(0, 10)}
-            />
-          )}
-        </TextContainer>
-        <TextContainer>
-          <Text size={18} strong>
-            모집 인원
-          </Text>
-          <Text>{`${applicantLimit}명`}</Text>
-        </TextContainer>
-        <TextContainer>
-          <Text size={18} strong>
-            신청 인원
-          </Text>
-          <Text>{`${applicantCount}명`}</Text>
-          {participants?.map((applicant) => {
-            return (
-              <ApplicantContainer key={applicant.name}>
-                <BsFillPersonFill />
-                <ProfileBox
-                  src={applicant.profileImgUrl}
-                  alt="프로필"
-                  name={applicant.name}
-                  course={applicant.course}
-                  generation={applicant.generation}
-                  fontSize={14}
+          <PeriodText
+            createdDate={createdAt.substring(0, 10)}
+            iconColor={theme.colors.gray500}
+            fontColor={theme.colors.gray600}
+            fontSize={14}
+          />
+          <ViewText
+            view={view}
+            iconColor={theme.colors.gray500}
+            fontColor={theme.colors.gray600}
+            fontSize={14}
+          />
+        </UserContainer>
+        <DetailContainer>
+          <TextContainer>
+            <div>
+              <span>📅 </span>
+              <Text size={18} strong>
+                모집 기간
+              </Text>
+            </div>
+            {isAuthor && isModifyClick ? (
+              <EditDeadlineContainer>
+                <Text color={theme.colors.fontColor}>{`${createdAt.substring(
+                  0,
+                  10
+                )} ~ `}</Text>
+                <Input
+                  type="text"
+                  name="deadline"
+                  onChange={handleInputChange}
+                  value={editValue.deadline}
+                  customStyle={{ width: "30%" }}
                 />
-              </ApplicantContainer>
-            );
-          })}
-        </TextContainer>
-        <TextContainer>
-          <Text size={18} strong>
-            상세 내용
-          </Text>
-          <MarkdownEditorWrapper>
-            <MarkdownEditor
-              isViewMode={!isAuthor}
-              editorRef={editorRef}
-              setEditorText={(value: string) =>
-                setEditValue({ ...editValue, content: value })
-              }
-              value={isAuthor ? editValue.content || "" : content || ""}
-            />
-          </MarkdownEditorWrapper>
-        </TextContainer>
-        <ButtonContainer>
-          {!isAuthor && !isApplied && status === gatherStatus.GATHERING ? (
-            <button type="button" onClick={() => handleGatherApply(gatherId)}>
-              신청
-            </button>
-          ) : undefined}
-          {!isAuthor && isApplied && status !== gatherStatus.DELETED ? (
-            <button type="button" onClick={() => handleGatherCancel(gatherId)}>
-              취소
-            </button>
-          ) : undefined}
-          {isAuthor &&
-          (status === gatherStatus.GATHERING ||
-            status === gatherStatus.FULL) ? (
-            <>
+              </EditDeadlineContainer>
+            ) : (
+              <TextWrapper>
+                <Text color={theme.colors.fontColor}>
+                  {`${createdAt.substring(0, 10)} ~ ${deadline.substring(
+                    0,
+                    10
+                  )}`}
+                </Text>
+              </TextWrapper>
+            )}
+          </TextContainer>
+          <TextContainer>
+            <div>
+              <span>👤 </span>
+              <Text size={18} strong>
+                모집 인원
+              </Text>
+            </div>
+            <TextWrapper>
+              <Text
+                color={theme.colors.fontColor}
+              >{`${applicantLimit}명`}</Text>
+            </TextWrapper>
+          </TextContainer>
+          <TextContainer>
+            <div>
+              <span>👥 </span>
+              <Text size={18} strong>
+                신청 인원
+              </Text>
+            </div>
+            <TextWrapper>
+              <Text color={theme.colors.fontColor}>
+                {`${applicantCount} / ${applicantLimit}명`}
+              </Text>
+              {participants?.map((applicant) => {
+                return (
+                  <ApplicantContainer key={applicant.name}>
+                    <ProfileBox
+                      src={applicant.profileImgUrl}
+                      alt="프로필"
+                      name={applicant.name}
+                      course={applicant.course}
+                      generation={applicant.generation}
+                      fontSize={14}
+                    />
+                  </ApplicantContainer>
+                );
+              })}
+            </TextWrapper>
+          </TextContainer>
+          <TextContainer>
+            <div>
+              <span>💡 </span>
+              <Text size={18} strong>
+                상세 내용
+              </Text>
+            </div>
+            <TestContainer>
+              <MarkdownEditorWrapper>
+                <MarkdownEditor
+                  isViewMode={!isModifyClick}
+                  editorRef={editorRef}
+                  setEditorText={(value: string) =>
+                    setEditValue({ ...editValue, content: value })
+                  }
+                  value={isAuthor ? editValue.content || "" : content || ""}
+                />
+              </MarkdownEditorWrapper>
+            </TestContainer>
+          </TextContainer>
+          <ButtonContainer>
+            {!isAuthor && !isApplied && status === gatherStatus.GATHERING ? (
+              <button type="button" onClick={() => handleGatherApply(gatherId)}>
+                신청
+              </button>
+            ) : undefined}
+            {!isAuthor && isApplied && status !== gatherStatus.DELETED ? (
               <button
                 type="button"
-                onClick={() =>
-                  handleGatherDetailEdit({ ...editValue, gatherId })
-                }
+                onClick={() => handleGatherCancel(gatherId)}
               >
-                수정
+                취소
               </button>
+            ) : undefined}
+            {isAuthor &&
+            (status === gatherStatus.GATHERING ||
+              status === gatherStatus.FULL) ? (
               <button type="button" onClick={() => handleGatherClose(gatherId)}>
                 마감
               </button>
-            </>
-          ) : undefined}
-          {isAuthor && status !== gatherStatus.DELETED ? (
-            <button type="button" onClick={() => handleGatherDelete(gatherId)}>
-              삭제
-            </button>
-          ) : undefined}
-        </ButtonContainer>
-      </DetailContainer>
-      <CommentForm onSubmit={handleCommentSubmit} gatherId={gatherId} />
-      {commentCount
-        ? comments?.map((comment) => (
-            <Comment
-              key={comment.commentId}
-              commentId={comment.commentId}
-              createdAt={comment.createdAt}
-              parentId={comment?.parentId}
-              content={comment.content}
-              modifiedAt={comment?.modifiedAt}
-              status={comment.status}
-              author={comment.author}
-              handleCommentDelete={handleCommentDelete}
-              handleCommentEdit={handleCommentEdit}
-              // eslint-disable-next-line react/no-children-prop
-              children={comment?.children}
-              handleCommentSubmit={handleCommentSubmit}
-              gatherId={gatherId}
+            ) : undefined}
+            {isAuthor && status !== gatherStatus.DELETED ? (
+              <button
+                type="button"
+                onClick={() => handleGatherDelete(gatherId)}
+              >
+                삭제
+              </button>
+            ) : undefined}
+            {isAuthor &&
+            !isModifyClick &&
+            (status === gatherStatus.GATHERING ||
+              status === gatherStatus.FULL) ? (
+              <button type="button" onClick={() => toggleModify()}>
+                수정
+              </button>
+            ) : null}
+            {isAuthor &&
+            isModifyClick &&
+            (status === gatherStatus.GATHERING ||
+              status === gatherStatus.FULL) ? (
+              <button
+                type="button"
+                onClick={() => {
+                  toggleModify();
+                  handleGatherDetailEdit({ ...editValue, gatherId });
+                }}
+              >
+                수정완료
+              </button>
+            ) : null}
+          </ButtonContainer>
+        </DetailContainer>
+
+        <BorderContainer height={560}>
+          <IconWrapper>
+            <MdModeComment size={24} />
+            <Text size={20}> 댓글</Text>
+          </IconWrapper>
+
+          {commentCount === 0 && (
+            <span>{`${author.name}님에게 제일 먼저 댓글을 달아주세요!`}</span>
+          )}
+
+          <FormContainer onSubmit={handleSubmit}>
+            <HiddenLabel htmlFor="content">내용</HiddenLabel>
+
+            <Input
+              type="text"
+              name="content"
+              placeholder={common.message.ENTER_COMMENT}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.content}
+              maxLength={common.validation.COMMENT_MAX_LENGTH}
             />
-          ))
-        : undefined}
+
+            <Button type="submit">
+              <Text size={12} color="white" strong ellipsisLineClamp={1}>
+                <HiOutlinePencilAlt size={20} />
+              </Text>
+            </Button>
+          </FormContainer>
+
+          <CommentContainer>
+            {comments?.map((comment) => (
+              <React.Fragment key={comment.commentId}>
+                <Comment
+                  comment={comment}
+                  gatherId={gatherId}
+                  isChild={false}
+                />
+                {comment.children?.map((child) => (
+                  <Comment
+                    key={`child${child.commentId}`}
+                    comment={child}
+                    gatherId={gatherId}
+                    isChild
+                  />
+                ))}
+              </React.Fragment>
+            ))}
+          </CommentContainer>
+        </BorderContainer>
+      </TestContainer>
     </Container>
   );
 };
