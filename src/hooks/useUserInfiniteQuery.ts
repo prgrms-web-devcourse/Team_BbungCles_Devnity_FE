@@ -1,9 +1,9 @@
 import { useInfiniteQuery } from "react-query";
 import { requestGetFilteredUsers } from "../utils/apis/introductions";
 
-const useMutationUserDeleteComment = (filters) => {
+const useUserInfiniteQuery = (filters) => {
   return useInfiniteQuery(
-    ["filteredUsers2", filters],
+    ["filteredUsers", filters],
     ({ pageParam }) => requestGetFilteredUsers(filters, pageParam),
     {
       getNextPageParam: (lastPage) => {
@@ -15,8 +15,9 @@ const useMutationUserDeleteComment = (filters) => {
           : lastPage.data.data.nextLastId;
       },
       staleTime: 1000 * 10,
+      retry: false,
     }
   );
 };
 
-export default useMutationUserDeleteComment;
+export default useUserInfiniteQuery;
