@@ -26,7 +26,7 @@ import {
 } from "../../utils/map/overlay";
 import MapgakcoMarker from "./MapgakcoMarker";
 import UserMarker from "./UserMarker";
-import MapgakcoDetail from "./MapgakcoDetail";
+import MapgakcoDetailContainer from "./MapgakcoDetail/MapgakcoDetailContainer";
 
 interface Props {
   initialCenter: Position;
@@ -35,8 +35,6 @@ interface Props {
 }
 
 const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
-  return <MapgakcoDetail mapgakcoId="44" onModalClose={() => ({})} />;
-
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();
@@ -206,7 +204,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
           }}
         >
           {selectedMapgakco && (
-            <MapgakcoDetail
+            <MapgakcoDetailContainer
               mapgakcoId={selectedMapgakco?.mapgakcoId}
               onModalClose={handleDetailModalClose}
             />

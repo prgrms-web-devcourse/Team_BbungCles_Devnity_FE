@@ -1,11 +1,11 @@
 import { BsCalendarDate, BsPeople, BsPinMap } from "react-icons/bs";
 import { toast } from "react-toastify";
-import theme from "../../../assets/theme";
-import useMapgakcoFormik from "../../../hooks/useMapgakcoForm";
-import useMutationMapgakcoRegister from "../../../hooks/useMutationMapgakcoRegister";
-import useToastUi from "../../../hooks/useToastUi";
-import Button from "../../base/Button";
-import MarkdownEditor from "../../base/MarkdownEditor";
+import theme from "../../../../assets/theme";
+import useMapgakcoFormik from "../../../../hooks/useMapgakcoFormik";
+import useMutationMapgakcoPatch from "../../../../hooks/useMutationMapgakcoPatch";
+import useToastUi from "../../../../hooks/useToastUi";
+import Button from "../../../base/Button";
+import MarkdownEditor from "../../../base/MarkdownEditor";
 import {
   HiddenLabel,
   StyledDatePicker,
@@ -17,7 +17,9 @@ import {
 } from "./styles";
 
 interface Props {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mapgakcoDetail: any;
+  onCancel: () => void;
 }
 interface FormValues {
   applicantLimit: number;
@@ -42,32 +44,33 @@ const getDefaultMeetingAt = () => {
   return now;
 };
 
-const MapgakcoDetailOnEdit = ({ mapgakcoDetail }: Props) => {
+const MapgakcoDetailOnEdit = ({ mapgakcoDetail, onCancel }: Props) => {
   const [editorRef] = useToastUi();
 
-  const { mutate } = useMutationMapgakcoRegister();
+  const { mutate } = useMutationMapgakcoPatch(
+    mapgakcoDetail.mapgakco.mapgakcoId
+  );
 
-  const submitHandler = (formvValues: FormValues) => {
-    console.log("submit handler 실행중");
-
-    mutate(formvValues);
-    toast({ message: "모집 등록이 완료되었습니다" });
+  const submitHandler = (formValues: FormValues) => {
+    mutate({
+      title: formValues.title,
+      content: formValues.content,
+      location: formValues.location,
+      latitude: mapgakcoDetail.mapgakco.latitude,
+      longitude: mapgakcoDetail.mapgakco.longitude,
+      meetingAt: formValues.meetingAt,
+    });
+    toast({ message: "모집 수정이 완료되었습니다" });
   };
 
   const formik = useMapgakcoFormik({
     initialValues: {
       title: mapgakcoDetail?.mapgakco?.title,
       content: mapgakcoDetail.mapgakco?.content,
-      applicantLimit: mapgakcoDetail?.mapgakco?.applicantLimit,
       location: mapgakcoDetail?.mapgakco?.location,
       meetingAt: mapgakcoDetail?.mapgakco?.meetingAt,
     },
     submitHandler,
-    validation: {
-      applicantLimit: {
-        min: mapgakcoDetail?.mapgakco?.applicantCount,
-      },
-    },
   });
 
   const handleChangeDate = (changedDate) => {
@@ -79,7 +82,7 @@ const MapgakcoDetailOnEdit = ({ mapgakcoDetail }: Props) => {
   };
 
   const titleInputStyle = {
-    padding: "10px 10px 10px 5px",
+    background: "transparent",
   };
 
   const defaultButtonStyle = {
@@ -100,6 +103,12 @@ const MapgakcoDetailOnEdit = ({ mapgakcoDetail }: Props) => {
     backgroundColor: theme.colors.markerBlue,
   };
 
+  const cancelButtonStyle = {
+    ...defaultButtonStyle,
+    color: theme.colors.black,
+    backgroundColor: theme.colors.gray200,
+  };
+
   return (
     <FormContainer onSubmit={formik.handleSubmit} autoComplete="off">
       <Card>
@@ -113,6 +122,7 @@ const MapgakcoDetailOnEdit = ({ mapgakcoDetail }: Props) => {
             value={formik.values.title}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            autoComplete="off"
             style={titleInputStyle}
           />
           <div className="details">
@@ -148,20 +158,12 @@ const MapgakcoDetailOnEdit = ({ mapgakcoDetail }: Props) => {
             </span>
             <span className="row">
               <BsPeople />
-              <HiddenLabel htmlFor="applicantLimit">모임 인원</HiddenLabel>
-              <Input
-                type="text"
-                name="applicantLimit"
-                className="row-item"
-                value={formik.values.applicantLimit}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-
-              <strong>
-                (현재: {mapgakcoDetail?.mapgakco?.applicantCount} /{" "}
-                {mapgakcoDetail?.mapgakco?.applicantLimit} 명)
-              </strong>
+              <span className="row-item">
+                <strong>
+                  {mapgakcoDetail?.mapgakco?.applicantCount} /{" "}
+                  {mapgakcoDetail?.mapgakco?.applicantLimit} 명
+                </strong>
+              </span>
             </span>
           </div>
         </div>
@@ -171,7 +173,6 @@ const MapgakcoDetailOnEdit = ({ mapgakcoDetail }: Props) => {
           isViewMode={false}
           editorRef={editorRef}
           value={formik.values.content}
-          // setEditorText={handleMarkdownChange}
           setEditorText={(value: string) =>
             formik.setFieldValue("content", value)
           }
@@ -181,6 +182,9 @@ const MapgakcoDetailOnEdit = ({ mapgakcoDetail }: Props) => {
         <button type="submit" style={activeButtonStyle}>
           등록
         </button>
+        <Button style={cancelButtonStyle} onClick={onCancel}>
+          취소
+        </Button>
       </Footer>
     </FormContainer>
   );
