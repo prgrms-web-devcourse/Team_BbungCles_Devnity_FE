@@ -43,7 +43,6 @@ export const FinishItemContainer = styled.div`
 export const Category = styled.div`
   background-color: ${({ theme }) => theme.colors.ultramarine};
   border-radius: 7px;
-  // padding: 12px;
   font-size: 12px;
   display: flex;
   flex-wrap: wrap;
