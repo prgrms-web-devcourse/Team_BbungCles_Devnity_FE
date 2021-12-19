@@ -1,16 +1,25 @@
 import { useState } from "react";
 import { BsCalendarDate, BsPeople, BsPinMap } from "react-icons/bs";
+import useClickAway from "../../../hooks/useClickAway";
 import useToastUi from "../../../hooks/useToastUi";
 import MarkdownEditor from "../../base/MarkdownEditor";
 import { Card, Container, MarkdownEditorWrapper } from "./styles";
 
-const MapgakcoDetail = () => {
+interface Props {
+  onClose: () => void;
+}
+
+const MapgakcoDetail = ({ onClose }: Props) => {
   const [editorRef] = useToastUi();
 
   const [content, setContent] = useState("markdown content");
 
+  const ref = useClickAway(() => {
+    onClose();
+  });
+
   return (
-    <Container>
+    <Container ref={ref}>
       <Card>
         <div className="poster">
           <h2 className="location">GATHERING</h2>

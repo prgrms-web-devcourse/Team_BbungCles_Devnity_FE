@@ -100,6 +100,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
   const handleModalClose = useCallback(
     () => () => {
       setRegisterModalOpen(false);
+      setDetailModalOpen(false);
       setIsMarkerSelected(false);
       initializeClick();
     },
@@ -199,7 +200,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
             height: "100%",
           }}
         >
-          <MapgakcoDetail />
+          <MapgakcoDetail onClose={handleModalClose()} />
         </Modal>
         <SearchContainer>
           <PlaceSearchFormWrapper>
