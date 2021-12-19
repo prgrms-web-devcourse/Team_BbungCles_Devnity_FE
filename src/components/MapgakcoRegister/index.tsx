@@ -1,23 +1,26 @@
 import { useFormik } from "formik";
-import { memo, useEffect } from "react";
+import { memo, useCallback, useEffect } from "react";
 import * as Yup from "yup";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
+import useCustomToast from "../../hooks/useCustomToast";
 import Input from "../base/Input";
 import {
   Button,
   ButtonContainer,
   CancelButton,
   Container,
-  DatePicker,
+  StyledDatePicker,
   ErrorMessage,
   FormContainer,
   InputContainer,
-  Textarea,
+  MarkdownEditorWrapper,
 } from "./stlyes";
 import useMutationMapgakcoRegister from "../../hooks/useMutationMapgakcoRegister";
 import { Position } from "../../types/commonTypes";
+import MarkdownEditor from "../base/MarkdownEditor";
+import useToastUi from "../../hooks/useToastUi";
 
 interface IProps {
   userClickPosition: Position;
@@ -26,47 +29,91 @@ interface IProps {
 
 interface FormValues {
   applicantLimit: number;
-  meetingAt: string;
+  meetingAt: Date | string;
   title: string;
   location: string;
   content: string;
 }
 
 const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
-  const { mutate } = useMutationMapgakcoRegister();
-  const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
-    useFormik<FormValues>({
-      initialValues: {
-        applicantLimit: 1,
-        meetingAt: "",
-        title: "",
-        location: "",
-        content: "",
-      },
-      validationSchema: Yup.object({
-        applicantLimit: Yup.number().required("모집 인원은 필수 입니다"),
-        meetingAt: Yup.string().required("마감 날짜는 필수 입니다"),
-        title: Yup.string().required("모임 제목은 필수 입니다"),
-        location: Yup.string().required("상세 장소는 필수 입니다"),
-        content: Yup.string().required("내용은 필수 입니다"),
-      }),
-      onSubmit: (formValues, { setSubmitting, resetForm }) => {
-        setSubmitting(true);
-        mutate({
-          ...formValues,
-          meetingAt: `${formValues.meetingAt}:00`,
-          latitude: userClickPosition.lat,
-          longitude: userClickPosition.lng,
-        });
-        setSubmitting(false);
-        resetForm();
-        onClose();
+  const [editorRef, resetMarkDown] = useToastUi();
 
-        // TODO: 추후 alert 제거하기
-        // eslint-disable-next-line
-        alert("모집 등록이 완료되었습니다.");
-      },
-    });
+  const [toast] = useCustomToast();
+
+  const getDefaultMeetingAt = useCallback(() => {
+    const now = new Date();
+    now.setHours(now.getHours() + 1);
+    now.setMinutes(0);
+
+    return now;
+  }, []);
+
+  const { mutate } = useMutationMapgakcoRegister();
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    resetForm,
+    setFieldValue,
+    values,
+    errors,
+    touched,
+  } = useFormik<FormValues>({
+    initialValues: {
+      applicantLimit: 1,
+      meetingAt: getDefaultMeetingAt(),
+      title: "",
+      location: "",
+      content: "",
+    },
+    validationSchema: Yup.object({
+      applicantLimit: Yup.number().required("모집 인원은 필수 입니다"),
+      meetingAt: Yup.string().required("모임 날짜는 필수 입니다"),
+      title: Yup.string().required("모임 제목은 필수 입니다"),
+      location: Yup.string().required("상세 장소는 필수 입니다"),
+      content: Yup.string().required("내용은 필수 입니다"),
+    }),
+    onSubmit: (formValues, { setSubmitting }) => {
+      setSubmitting(true);
+      mutate({
+        ...formValues,
+        meetingAt: dayjs(formValues.meetingAt).format("YYYY-MM-DDTHH:00:00"),
+        latitude: userClickPosition.lat,
+        longitude: userClickPosition.lng,
+      });
+      setSubmitting(false);
+
+      resetMarkDown();
+      resetForm();
+      onClose();
+
+      toast({ message: "모집 등록이 완료되었습니다" });
+    },
+  });
+
+  const handleCancelClick = useCallback(() => {
+    resetForm();
+    resetMarkDown();
+    onClose();
+  }, [onClose, resetForm, resetMarkDown]);
+
+  const handleChangeDate = useCallback(
+    (changedDate) => {
+      if (changedDate) {
+        setFieldValue("meetingAt", changedDate.setMinutes(0));
+      } else {
+        setFieldValue("meetingAt", getDefaultMeetingAt());
+      }
+    },
+    [setFieldValue, getDefaultMeetingAt]
+  );
+
+  const filterPassedTime = useCallback((time) => {
+    const currentDate = new Date();
+    const selectedDate = new Date(time);
+
+    return currentDate.getTime() < selectedDate.getTime();
+  }, []);
 
   useEffect(() => {
     dayjs.extend(relativeTime);
@@ -75,7 +122,7 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
 
   return (
     <Container>
-      <FormContainer onSubmit={handleSubmit}>
+      <FormContainer onSubmit={handleSubmit} autoComplete="off">
         <InputContainer>
           <label htmlFor="applicantLimit">모집 인원</label>
           <Input
@@ -93,14 +140,19 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
         </InputContainer>
 
         <InputContainer>
-          <label htmlFor="meetingAt">마감 날짜</label>
-          <DatePicker
-            type="datetime-local"
+          <label htmlFor="meetingAt">모임 날짜</label>
+          <StyledDatePicker
             name="meetingAt"
-            min={dayjs(new Date()).format("YYYY-MM-DDThh:mm")}
-            max="9999-12-31T23:59:59"
+            placeholderText="yyyy-mm-dd HH:mm"
+            dateFormat="yyyy-MM-dd HH:mm"
+            selected={values.meetingAt || getDefaultMeetingAt()}
+            showTimeSelect
+            timeIntervals={60}
+            minDate={new Date()}
+            maxDate={new Date("9999-12-31")}
+            filterTime={filterPassedTime}
+            onChange={handleChangeDate}
             value={values.meetingAt}
-            onChange={handleChange}
           />
           {touched.meetingAt && !!errors.meetingAt && (
             <ErrorMessage>{errors.meetingAt}</ErrorMessage>
@@ -137,19 +189,26 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
 
         <InputContainer>
           <label htmlFor="content">내용</label>
-          <Textarea
+          <input
+            type="hidden"
             name="content"
             value={values.content}
             onChange={handleChange}
-            onBlur={handleBlur}
           />
+          <MarkdownEditorWrapper>
+            <MarkdownEditor
+              editorRef={editorRef}
+              setEditorText={(value: string) => setFieldValue("content", value)}
+              value={values.content || ""}
+            />
+          </MarkdownEditorWrapper>
           {touched.content && !!errors.content && (
             <ErrorMessage>{errors.content}</ErrorMessage>
           )}
         </InputContainer>
 
         <ButtonContainer>
-          <CancelButton type="button" onClick={onClose}>
+          <CancelButton type="button" onClick={handleCancelClick}>
             취소
           </CancelButton>
 
