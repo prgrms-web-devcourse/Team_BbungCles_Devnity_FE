@@ -10,6 +10,7 @@ import Button from "../../base/Button";
 import theme from "../../../assets/theme";
 import useMapgakcoDetailQuery from "../../../hooks/useMapgakcoDetailQuery";
 import { globalMyProfile } from "../../../atoms";
+import MapgakcoDetailOnEdit from "../MapgakcoDetailOnEdit";
 
 interface Props {
   mapgakcoId: string;
@@ -30,6 +31,7 @@ const MapgakcoDetail = ({ mapgakcoId, onModalClose }: Props) => {
   const [editorRef] = useToastUi();
 
   const [content, setContent] = useState("markdown content");
+  const [isEditing, setIsEditing] = useState(true);
 
   const ref = useClickAway(() => {
     onModalClose();
@@ -39,6 +41,8 @@ const MapgakcoDetail = ({ mapgakcoId, onModalClose }: Props) => {
 
   const { isLoading, data: mapgakcoDetail } =
     useMapgakcoDetailQuery(mapgakcoId);
+
+  const handleEdit = () => setIsEditing(true);
 
   const handleMarkdownChange = useCallback((markdownInnerText) => {
     setContent(markdownInnerText);
@@ -71,6 +75,8 @@ const MapgakcoDetail = ({ mapgakcoId, onModalClose }: Props) => {
     <Container ref={ref}>
       {isLoading ? (
         <div>Loading...</div>
+      ) : isEditing ? (
+        <MapgakcoDetailOnEdit mapgakcoDetail={mapgakcoDetail} />
       ) : (
         <>
           <Card>
@@ -115,7 +121,7 @@ const MapgakcoDetail = ({ mapgakcoId, onModalClose }: Props) => {
           </MarkdownEditorWrapper>
           <Footer>
             {isAuthor(myProfile, mapgakcoDetail) ? (
-              <Button style={activeButtonStyle} onClick={() => ({})}>
+              <Button style={activeButtonStyle} onClick={handleEdit}>
                 수정
               </Button>
             ) : hasApplied(myProfile, mapgakcoDetail) ? (

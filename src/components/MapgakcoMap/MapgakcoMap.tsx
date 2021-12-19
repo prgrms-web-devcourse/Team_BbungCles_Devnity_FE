@@ -35,6 +35,8 @@ interface Props {
 }
 
 const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
+  return <MapgakcoDetail mapgakcoId="44" onModalClose={() => ({})} />;
+
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();

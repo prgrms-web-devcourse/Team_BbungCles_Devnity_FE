@@ -5,7 +5,7 @@ interface Props {
   name?: string;
   children?: ReactChild | ReactChild[];
   text?: string;
-  onClick: (event: React.MouseEvent) => void;
+  onClick?: (event: React.MouseEvent) => void;
   style?: React.CSSProperties;
   disabled?: boolean;
 }
