@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { BsArrowRightCircle } from "react-icons/bs";
-import { MapMarker } from "react-kakao-maps-sdk";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { UserMapInfo } from "../../../fixtures/userMapInfo";
 import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
@@ -8,7 +8,6 @@ import { Position } from "../../types/commonTypes";
 import Button from "../base/Button";
 import Modal from "../base/Modal";
 import Text from "../base/Text";
-import Mapbox from "../Mapbox/Mapbox";
 import FilterButton from "./FilterButton";
 import MapgakcoRegister from "../MapgakcoRegister";
 import PlaceSearchForm from "./PlaceSearchForm";
@@ -20,13 +19,22 @@ import {
   PlaceSearchFormWrapper,
   SearchContainer,
 } from "./styles";
+import { Mapgakco } from "../../types/mapTypes";
+import {
+  getMapgakcoMarkerOverlays,
+  getUserMarkerOverlays,
+} from "../../utils/map/overlay";
+import MapgakcoMarker from "./MapgakcoMarker";
+import UserMarker from "./UserMarker";
+import MapgakcoDetail from "./MapgakcoDetail";
 
 interface Props {
   initialCenter: Position;
   userMapInfos: UserMapInfo[];
+  mapgakcos: Mapgakco[];
 }
 
-const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
+const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();
@@ -41,12 +49,12 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
     x: null,
   });
 
-  const [visibleUsers, setVisibleUsers] = useState(false);
-  const [visibleMapgakcos, setVisibleMapgakcos] = useState(false);
-
-  const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
-
-  const [isMapClick, setIsMapClick] = useState(false);
+  const [visibleUsers, setVisibleUsers] = useState<boolean>(false);
+  const [visibleMapgakcos, setVisibleMapgakcos] = useState<boolean>(true);
+  const [isRegisterModalOpen, setRegisterModalOpen] = useState<boolean>(false);
+  const [isDetailModalOpen, setDetailModalOpen] = useState<boolean>(false);
+  const [isMarkerSelected, setIsMarkerSelected] = useState<boolean>(false);
+  const [selectedMapgakco, setSelectedMapgakco] = useState(null);
 
   const handleVisibleUsers = useCallback(() => {
     setVisibleUsers((prev) => !prev);
@@ -87,32 +95,23 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
     });
   }, []);
 
-  const imageMarkerOverlays = userMapInfos.map((userMapInfo) => {
-    const position = {
-      lat: userMapInfo?.latitude,
-      lng: userMapInfo?.longitude,
-    };
+  const userMarkerOverlays = getUserMarkerOverlays(userMapInfos);
+  const mapgakcoMarkerOverlays = getMapgakcoMarkerOverlays(mapgakcos);
 
-    const imageUrl = userMapInfo.profileImgUrl;
+  const handleRegisterModalClose = useCallback(() => {
+    setRegisterModalOpen(false);
+    setIsMarkerSelected(false);
+    initializeClick();
+  }, [initializeClick]);
 
-    const options = {
-      color: "blue",
-      text: userMapInfo.name,
-    };
+  const handleDetailModalClose = () => setDetailModalOpen(false);
 
-    return { position, imageUrl, options };
-  });
-  const handleModalClose = useCallback(
-    () => () => {
-      setRegisterModalOpen(false);
-      setIsMapClick(false);
-      initializeClick();
-    },
-    [initializeClick]
-  );
+  // TODO: 알아보기. useCallback하면 DetailModal이 닫히고 나서 정상적으로 동작하지 않는다.
+  const handleRegisterClick = () => setRegisterModalOpen(true);
 
-  const handleRegisterClick = useCallback(() => {
-    setRegisterModalOpen(true);
+  const handleMapgakcoClick = useCallback((mapgakco: Mapgakco) => {
+    setDetailModalOpen(true);
+    setSelectedMapgakco(mapgakco);
   }, []);
 
   const buttonStyle = {
@@ -124,6 +123,14 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
     boxShadow: theme.boxShadows.primary,
   };
 
+  const registerButtonStyle = {
+    ...buttonStyle,
+    color: isMarkerSelected && theme.colors.white,
+    backgroundColor: isMarkerSelected
+      ? theme.colors.markerBlue
+      : theme.colors.white,
+  };
+
   const guideTextStyle = {
     background: theme.colors.white,
     padding: "8px",
@@ -132,20 +139,76 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
     color: "#91979a",
   };
 
+  const getMarkerPosition = () => {
+    if (userClickPosition.lat && userClickPosition.lng) {
+      return {
+        lat: userClickPosition.lat,
+        lng: userClickPosition.lng,
+      };
+    }
+
+    if (targetPlace.x && targetPlace.y) {
+      return {
+        lat: targetPlace.y,
+        lng: targetPlace.x,
+      };
+    }
+
+    return {
+      lat: initialCenter.lat,
+      lng: initialCenter.lng,
+    };
+  };
+
   useEffect(() => {
     if (userClickPosition.lat && userClickPosition.lng) {
-      setIsMapClick(true);
+      setIsMarkerSelected(true);
+      setTargetPlace({ y: null, x: null });
     }
-  }, [userClickPosition]);
+
+    if (targetPlace.y && targetPlace.x) {
+      setIsMarkerSelected(true);
+      initializeClick();
+    }
+
+    // eslint-react-hooks가 권장하는대로 targetPlace를 넣을 경우 무한 리렌더링이 발생하므로 넣지 않고 린트 규칙을 비활성화한다
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    targetPlace.x,
+    targetPlace.y,
+    userClickPosition.lat,
+    userClickPosition.lng,
+  ]);
 
   return (
     <Container>
       <MapFloatContainer>
         <Modal visible={isRegisterModalOpen} width="60%">
           <MapgakcoRegister
-            userClickPosition={userClickPosition}
-            onClose={handleModalClose()}
+            userClickPosition={getMarkerPosition()}
+            onClose={handleRegisterModalClose}
           />
+        </Modal>
+        <Modal
+          visible={isDetailModalOpen}
+          width="320px"
+          height="100%"
+          modalContainerStyles={{
+            top: 0,
+            left: 0,
+            transform: "none",
+            borderRadius: 0,
+          }}
+          contentContainerStyles={{
+            height: "100%",
+          }}
+        >
+          {selectedMapgakco && (
+            <MapgakcoDetail
+              mapgakco={selectedMapgakco}
+              onModalClose={handleDetailModalClose}
+            />
+          )}
         </Modal>
         <SearchContainer>
           <PlaceSearchFormWrapper>
@@ -162,12 +225,12 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
               visible={visibleMapgakcos}
               onClick={handleVisibleMapgakcos}
             >
-              모각코
+              맵각코
             </FilterButton>
             <Button
-              style={buttonStyle}
+              style={registerButtonStyle}
               onClick={handleRegisterClick}
-              disabled={!isMapClick}
+              disabled={!isMarkerSelected}
             >
               등록
             </Button>
@@ -179,12 +242,16 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
           </Text>
         </Guide>
       </MapFloatContainer>
-      <Mapbox
-        center={{ lat: center.lat, lng: center.lng }}
-        isPanto
-        hasControl={false}
-        imageMarkerOverlays={visibleUsers ? imageMarkerOverlays : []}
-        removeImageMarkerOverlays={!visibleUsers}
+      <Map
+        center={{
+          lat: center.lat,
+          lng: center.lng,
+        }}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        level={4}
         onClick={click}
       >
         {userClickPosition.lat && userClickPosition.lng ? (
@@ -202,7 +269,33 @@ const MapgakcoMap = ({ initialCenter, userMapInfos }: Props) => {
             }}
           />
         ) : null}
-      </Mapbox>
+
+        {visibleUsers &&
+          userMarkerOverlays.map(
+            ({ position, imageUrl, options: { text } }, index) => (
+              <UserMarker
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                position={position}
+                imageUrl={imageUrl}
+                text={text}
+              />
+            )
+          )}
+
+        {visibleMapgakcos &&
+          mapgakcoMarkerOverlays.map(
+            ({ position, options: { text }, mapgakco }, index) => (
+              <MapgakcoMarker
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                position={position}
+                text={text}
+                onClick={() => handleMapgakcoClick(mapgakco)}
+              />
+            )
+          )}
+      </Map>
     </Container>
   );
 };

@@ -1,11 +1,12 @@
 import { useRecoilValue } from "recoil";
 import randomUserMapInfo from "../../../fixtures/userMapInfo";
-import { currentUserState } from "../../atoms/user";
+import { globalMyProfile } from "../../atoms/user";
 import { common } from "../../constants";
+import useMapgakcos from "../../hooks/useMapgakcos";
 import MapgakcoMap from "./MapgakcoMap";
 
 const MapgakcoMapContainer = () => {
-  const currentUser = useRecoilValue(currentUserState);
+  const currentUser = useRecoilValue(globalMyProfile);
 
   const userMapInfos = Array.from({ length: 120 }, () => randomUserMapInfo());
 
@@ -14,7 +15,15 @@ const MapgakcoMapContainer = () => {
     lng: currentUser?.introduction?.longitude || common.defaultPosition.lng,
   };
 
-  return <MapgakcoMap initialCenter={center} userMapInfos={userMapInfos} />;
+  const { data: mapgakcos } = useMapgakcos();
+
+  return (
+    <MapgakcoMap
+      initialCenter={center}
+      userMapInfos={userMapInfos}
+      mapgakcos={mapgakcos}
+    />
+  );
 };
 
 export default MapgakcoMapContainer;

@@ -3,6 +3,7 @@ import { Map } from "react-kakao-maps-sdk";
 import {
   ImageMarker,
   ImageMarkerOverlay,
+  Mapgakco,
   Marker,
   Position,
 } from "../../types/mapTypes";
@@ -13,26 +14,28 @@ import {
   addMarkerFromPosition,
   removeOverlay,
 } from "../../utils/map";
+import { addMapgakcoOverlay } from "../../utils/map/overlay";
 import { keywordSearch } from "../../utils/map/place";
 
 import "./customOverlayMarker.scss";
 import "./imageMarker.scss";
+import "./mapgakcoOverlay.scss";
 
 interface Props {
   center: Position;
   isPanto?: boolean;
+  hasControl?: boolean;
   hasCenterMarker?: boolean;
+  userImageUrl?: string;
+  keyword?: string;
   markers?: Marker[];
   imageMarkers?: ImageMarker[];
   imageMarkerOverlays?: ImageMarkerOverlay[];
-  hasControl?: boolean;
-  userImageUrl?: string;
-  keyword?: string;
+  mapgakcos?: Mapgakco[];
   style?: React.CSSProperties;
   children?: ReactNode;
   // eslint-disable-next-line @typescript-eslint/ban-types
   onCenterChanged?: Function;
-  removeImageMarkerOverlays?: boolean;
   onClick?: (
     target: kakao.maps.Map,
     mouseEvent: kakao.maps.event.MouseEvent
@@ -42,21 +45,22 @@ interface Props {
 const Mapbox = ({
   center,
   isPanto = false,
+  hasControl = true,
   hasCenterMarker = false,
+  userImageUrl = "",
+  keyword = "",
   markers = [],
   imageMarkers = [],
   imageMarkerOverlays = [],
-  hasControl = true,
-  userImageUrl = "",
-  keyword = "",
+  mapgakcos = [],
   style,
   children,
   onCenterChanged,
-  removeImageMarkerOverlays = false,
   onClick,
 }: Props) => {
   const memoMap = useRef(null);
   const memoImageMarkerOverlays = useRef<kakao.maps.CustomOverlay[]>([]);
+  const memoMapgakcos = useRef<kakao.maps.CustomOverlay[]>([]);
 
   const MapStyle = {
     width: "100%",
@@ -67,6 +71,18 @@ const Mapbox = ({
   const handleCreate = useCallback(
     (map: kakao.maps.Map) => {
       memoMap.current = map;
+
+      memoImageMarkerOverlays.current.forEach((overlay) => {
+        removeOverlay(overlay);
+      });
+
+      memoImageMarkerOverlays.current = [];
+
+      memoMapgakcos.current.forEach((overlay) => {
+        removeOverlay(overlay);
+      });
+
+      memoMapgakcos.current = [];
 
       if (hasControl) {
         addControl(map);
@@ -80,18 +96,14 @@ const Mapbox = ({
         addImageMarker({ map, position, imageUrl });
       });
 
-      if (removeImageMarkerOverlays) {
-        memoImageMarkerOverlays.current.forEach((overlay) => {
-          removeOverlay(overlay);
-        });
-
-        memoImageMarkerOverlays.current = [];
-      }
-
       imageMarkerOverlays.forEach(({ position, imageUrl, options }) => {
         memoImageMarkerOverlays.current.push(
           addImageMarkerOverlay({ map, position, imageUrl, options })
         );
+      });
+
+      mapgakcos.forEach((mapgakco) => {
+        memoMapgakcos.current.push(addMapgakcoOverlay({ map, mapgakco }));
       });
 
       hasCenterMarker &&
@@ -110,8 +122,8 @@ const Mapbox = ({
       imageMarkerOverlays,
       imageMarkers,
       keyword,
+      mapgakcos,
       markers,
-      removeImageMarkerOverlays,
       userImageUrl,
     ]
   );

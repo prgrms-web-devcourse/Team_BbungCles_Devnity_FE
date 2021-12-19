@@ -17,6 +17,7 @@ export const Header = styled.header<{ topbarBgColor }>`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  gap: 4px;
   padding: 12px;
   background-color: ${({ topbarBgColor }) => topbarBgColor};
 `;

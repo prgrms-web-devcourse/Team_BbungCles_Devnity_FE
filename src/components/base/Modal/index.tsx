@@ -1,4 +1,4 @@
-import { useEffect, useMemo, ReactChild } from "react";
+import { useEffect, useMemo, ReactChild, CSSProperties } from "react";
 import ReactDOM from "react-dom";
 import Button from "../Button";
 import {
@@ -13,6 +13,8 @@ export interface Props {
   width?: number | string;
   height?: number | string;
   visible?: boolean;
+  modalContainerStyles?: CSSProperties;
+  contentContainerStyles?: CSSProperties;
   onClose?: () => void;
 }
 
@@ -21,13 +23,17 @@ const Modal = ({
   width = 500,
   height,
   visible = false,
+  modalContainerStyles = {},
+  contentContainerStyles = {},
   onClose,
 }: Props) => {
   const containerStyle = useMemo(
     () => ({
       width,
       height,
+      ...modalContainerStyles,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [width, height]
   );
 
@@ -42,7 +48,7 @@ const Modal = ({
   return ReactDOM.createPortal(
     <BackgroundDim visible={visible}>
       <ModalContainer style={{ ...containerStyle }}>
-        <ContentContainer>
+        <ContentContainer style={{ ...contentContainerStyles }}>
           <ButtonWrapper>
             {onClose && (
               <Button onClick={onClose} style={{ display: "none" }}>
