@@ -11,6 +11,7 @@ const useMutationMapgakcoPatch = (id: string) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries("mapgakcoDetail");
+        queryClient.invalidateQueries("mapgakcos");
       },
     }
   );
