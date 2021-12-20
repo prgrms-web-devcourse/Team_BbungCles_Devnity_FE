@@ -98,12 +98,15 @@ export const Select = styled.select`
   }
 `;
 
-export const RowContainer = styled.div<{ cursor?: string }>`
+export const RowContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
   gap: 0 16px;
-  cursor: ${({ cursor }) => cursor};
+`;
+
+export const RowContainerCoursor = styled(RowContainer)`
+  cursor: pointer;
 `;
 
 export const ColumnContainer = styled.div`

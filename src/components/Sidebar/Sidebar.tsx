@@ -66,8 +66,8 @@ const Sidebar = ({ onLinkClick }: Props) => {
             </div>
           </li>
           {menuRoutes
-            .filter(({ isNeedAuth }) => {
-              if (isNeedAuth && myProfile?.user.role !== "MANAGER") {
+            .filter(({ shouldAuth }) => {
+              if (shouldAuth && myProfile?.user.role !== "MANAGER") {
                 return false;
               }
 
