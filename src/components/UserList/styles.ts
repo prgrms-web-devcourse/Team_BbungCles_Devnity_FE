@@ -13,13 +13,14 @@ export const Container = styled.div`
 export const UserContainer = styled.div`
   display: grid;
   gap: 32px;
+  place-items: center;
 
   ${mediaQueriesBreakpoints.mobile} {
     grid-template-columns: repeat(1, 1fr);
   }
 
   ${mediaQueriesBreakpoints.tablet} {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   ${mediaQueriesBreakpoints.desktop} {
@@ -27,11 +28,11 @@ export const UserContainer = styled.div`
   }
 
   ${mediaQueriesBreakpoints.middleDesktop} {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   ${mediaQueriesBreakpoints.largeDesktop} {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 
   grid-auto-rows: 360px;
@@ -92,6 +93,7 @@ export const ButtonWrapper = styled.div`
 export const ProfileCardWrapper = styled.div`
   display: flex;
   justify-content: center;
+  width: 220px;
 `;
 
 export const NotFoundResult = styled.div`

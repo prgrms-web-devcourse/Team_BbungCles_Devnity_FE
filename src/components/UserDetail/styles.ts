@@ -17,8 +17,17 @@ export const Container = styled.div`
   align-items: center;
   gap: 16px 0;
   width: 100%;
+  height: 100%;
   padding: 20px;
   overflow-y: auto;
+`;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px 0;
 `;
 
 export const ProfileImage = styled.img`
@@ -54,7 +63,7 @@ export const MbtiTag = styled(UserTag)`
 
 export const TextWrapper = styled.div`
   display: flex;
-  width: 50%;
+  width: 60%;
   justify-content: center;
   align-items: center;
 `;
@@ -65,7 +74,7 @@ export const BorderContainer = styled.div<{ height?: number }>`
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
   border-radius: 20px;
   padding: 32px;
-  width: 50%;
+  width: 60%;
   min-width: 500px;
   gap: 32px;
   height: ${({ height }) => (height ? `${height}px` : "auto")};

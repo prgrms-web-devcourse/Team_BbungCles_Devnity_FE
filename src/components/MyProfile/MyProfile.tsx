@@ -1,3 +1,4 @@
+import { HiPlusCircle } from "react-icons/hi";
 import { useCallback, useRef } from "react";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { common, myProfile } from "../../constants";
@@ -14,9 +15,13 @@ import {
   MapWrapper,
   StyledMap,
   MarkdownEditorWrapper,
+  TitleWrapper,
+  ProfileModifyButton,
 } from "./styles";
 import { IProps } from "./types";
 import MarkdownEditor from "../base/MarkdownEditor";
+import Text from "../base/Text";
+import theme from "../../assets/theme";
 
 interface SelectOption {
   value: string | number;
@@ -68,11 +73,22 @@ const MyProfile = ({
 
   return (
     <Container>
-      <ProfileImage
-        src={formik.values.profileImgUrl || common.placeHolderImageSrc}
-        alt="profile"
-        onClick={handleImageClick}
-      />
+      <TitleWrapper>
+        <Text size={32} color={theme.colors.gray800} strong>
+          내 프로필
+        </Text>
+      </TitleWrapper>
+
+      <RowContainer onClick={handleImageClick} cursor>
+        <ProfileImage
+          src={formik.values.profileImgUrl || common.placeHolderImageSrc}
+          alt="profile"
+        />
+        <ProfileModifyButton>
+          <HiPlusCircle size={36} color={theme.colors.primary} />
+        </ProfileModifyButton>
+      </RowContainer>
+
       <MyProfileForm onSubmit={formik.handleSubmit}>
         <HiddenInput
           ref={inputRef}

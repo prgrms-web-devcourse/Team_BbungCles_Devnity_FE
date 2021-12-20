@@ -27,6 +27,7 @@ import {
   UserTag,
   HiddenLabel,
   IconWrapper,
+  ContentContainer,
 } from "./styles";
 import MarkdownEditor from "../base/MarkdownEditor";
 import Comment from "./Comment";
@@ -115,117 +116,121 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
         </Text>
       </TextWrapper>
 
-      <BorderContainer>
-        <ContactContainer>
-          <MdEmail size={24} />
-
-          <Text size={16}>{userInfo.user.email}</Text>
-
-          <BlankLink href={`mailto:${userInfo.user.email}`} target="_blank">
-            <AiFillCaretRight size={24} />
-          </BlankLink>
-        </ContactContainer>
-
-        {userInfo.introduction.githubUrl && (
+      <ContentContainer>
+        <BorderContainer>
           <ContactContainer>
-            <BsGithub size={24} />
+            <MdEmail size={24} />
 
-            <Text size={16}>{userInfo.introduction.githubUrl}</Text>
+            <Text size={16}>{userInfo.user.email}</Text>
 
-            <BlankLink href={userInfo.introduction.githubUrl} target="_blank">
+            <BlankLink href={`mailto:${userInfo.user.email}`} target="_blank">
               <AiFillCaretRight size={24} />
             </BlankLink>
           </ContactContainer>
-        )}
 
-        {userInfo.introduction.blogUrl && (
-          <ContactContainer>
-            <GiNotebook size={24} />
+          {userInfo.introduction.githubUrl && (
+            <ContactContainer>
+              <BsGithub size={24} />
 
-            <Text size={16}>{userInfo.introduction.blogUrl}</Text>
+              <Text size={16}>{userInfo.introduction.githubUrl}</Text>
 
-            <BlankLink href={userInfo.introduction.blogUrl} target="_blank">
-              <AiFillCaretRight size={24} />
-            </BlankLink>
-          </ContactContainer>
-        )}
-      </BorderContainer>
+              <BlankLink href={userInfo.introduction.githubUrl} target="_blank">
+                <AiFillCaretRight size={24} />
+              </BlankLink>
+            </ContactContainer>
+          )}
 
-      {userInfo.introduction.description && (
-        <BorderContainer height={480}>
-          <MarkdownEditor
-            editorRef={null}
-            isViewMode
-            value={userInfo.introduction.description}
-          />
+          {userInfo.introduction.blogUrl && (
+            <ContactContainer>
+              <GiNotebook size={24} />
+
+              <Text size={16}>{userInfo.introduction.blogUrl}</Text>
+
+              <BlankLink href={userInfo.introduction.blogUrl} target="_blank">
+                <AiFillCaretRight size={24} />
+              </BlankLink>
+            </ContactContainer>
+          )}
         </BorderContainer>
-      )}
 
-      <BorderContainer height={560}>
-        <StyledMap
-          center={{
-            lat: userInfo.introduction.latitude || common.defaultPosition.lat,
-            lng: userInfo.introduction.longitude || common.defaultPosition.lng,
-          }}
-        >
-          <MapMarker
-            position={{
+        {userInfo.introduction.description && (
+          <BorderContainer height={480}>
+            <MarkdownEditor
+              editorRef={null}
+              isViewMode
+              value={userInfo.introduction.description}
+            />
+          </BorderContainer>
+        )}
+
+        <BorderContainer height={560}>
+          <StyledMap
+            center={{
               lat: userInfo.introduction.latitude || common.defaultPosition.lat,
               lng:
                 userInfo.introduction.longitude || common.defaultPosition.lng,
             }}
-          />
-        </StyledMap>
-      </BorderContainer>
+          >
+            <MapMarker
+              position={{
+                lat:
+                  userInfo.introduction.latitude || common.defaultPosition.lat,
+                lng:
+                  userInfo.introduction.longitude || common.defaultPosition.lng,
+              }}
+            />
+          </StyledMap>
+        </BorderContainer>
 
-      <BorderContainer height={560}>
-        <IconWrapper>
-          <MdModeComment size={24} />
-        </IconWrapper>
+        <BorderContainer height={560}>
+          <IconWrapper>
+            <MdModeComment size={24} />
+          </IconWrapper>
 
-        {userInfo.comments?.length === 0 && (
-          <CommentContainer>{`${userInfo.user.name}님에게 제일 먼저 댓글을 달아주세요!`}</CommentContainer>
-        )}
+          {userInfo.comments?.length === 0 && (
+            <CommentContainer>{`${userInfo.user.name}님에게 제일 먼저 댓글을 달아주세요!`}</CommentContainer>
+          )}
 
-        <CommentContainer>
-          {userInfo.comments?.map((comment) => (
-            <React.Fragment key={comment.commentId}>
-              <Comment
-                comment={comment}
-                introductionId={userInfo.introduction.introductionId}
-                isChild={false}
-              />
-              {comment.children?.map((child) => (
+          <CommentContainer>
+            {userInfo.comments?.map((comment) => (
+              <React.Fragment key={comment.commentId}>
                 <Comment
-                  key={`child${child.commentId}`}
-                  comment={child}
+                  comment={comment}
                   introductionId={userInfo.introduction.introductionId}
-                  isChild
+                  isChild={false}
                 />
-              ))}
-            </React.Fragment>
-          ))}
-        </CommentContainer>
-        <FormContainer onSubmit={handleSubmit}>
-          <HiddenLabel htmlFor="content">내용</HiddenLabel>
+                {comment.children?.map((child) => (
+                  <Comment
+                    key={`child${child.commentId}`}
+                    comment={child}
+                    introductionId={userInfo.introduction.introductionId}
+                    isChild
+                  />
+                ))}
+              </React.Fragment>
+            ))}
+          </CommentContainer>
+          <FormContainer onSubmit={handleSubmit}>
+            <HiddenLabel htmlFor="content">내용</HiddenLabel>
 
-          <Input
-            type="text"
-            name="content"
-            placeholder={common.message.ENTER_COMMENT}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.content}
-            maxLength={common.validation.COMMENT_MAX_LENGTH}
-          />
+            <Input
+              type="text"
+              name="content"
+              placeholder={common.message.ENTER_COMMENT}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.content}
+              maxLength={common.validation.COMMENT_MAX_LENGTH}
+            />
 
-          <Button type="submit">
-            <Text size={12} color="white" strong ellipsisLineClamp={1}>
-              <HiOutlinePencilAlt size={20} />
-            </Text>
-          </Button>
-        </FormContainer>
-      </BorderContainer>
+            <Button type="submit">
+              <Text size={12} color="white" strong ellipsisLineClamp={1}>
+                <HiOutlinePencilAlt size={20} />
+              </Text>
+            </Button>
+          </FormContainer>
+        </BorderContainer>
+      </ContentContainer>
     </Container>
   );
 };
