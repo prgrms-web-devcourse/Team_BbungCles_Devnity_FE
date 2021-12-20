@@ -1,4 +1,5 @@
 import { CourseKeyType, RoleKeyType } from "../constants";
+import { StatusKeyType } from "../constants/status";
 
 export interface RequestGetMapgakcosRange {
   currentNEY: number;
@@ -11,7 +12,7 @@ export interface ResponseMapgakco {
   mapgakcoId: number;
   applicantLimit: number;
   applicantCount: number;
-  status: "GATHERING" | "CLOSED" | "FULL" | "DELETED";
+  status: StatusKeyType;
   title: string;
   content: string;
   location: string;

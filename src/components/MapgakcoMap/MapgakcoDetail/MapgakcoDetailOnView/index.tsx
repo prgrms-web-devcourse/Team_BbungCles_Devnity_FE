@@ -3,6 +3,7 @@
 import { BsCalendarDate, BsPeople, BsPinMap } from "react-icons/bs";
 import { toast } from "react-toastify";
 import theme from "../../../../assets/theme";
+import { status } from "../../../../constants";
 import useMutationMapgakcoApplyDelete from "../../../../hooks/useMutationMapgakcoApplyDelete";
 import useMutationMapgakcoApplyPost from "../../../../hooks/useMutationMapgakcoApplyPost";
 import useToastUi from "../../../../hooks/useToastUi";
@@ -50,6 +51,18 @@ const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
     toast("신청이 취소되었습니다.");
   };
 
+  const bgColorByStatus = {
+    [status.GATHERING]: theme.colors.markerBlue,
+    [status.FULL]: "#134f5b",
+    [status.CLOSED]: theme.colors.disabled,
+    [status.DELETED]: theme.colors.scarlet,
+  };
+
+  const cardStyle = {
+    backgroundColor:
+      bgColorByStatus[mapgakcoDetail?.mapgakco?.status || status.GATHERING],
+  };
+
   const defaultButtonStyle = {
     padding: "8px",
     minWidth: "80px",
@@ -76,7 +89,7 @@ const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
 
   return (
     <>
-      <Card>
+      <Card style={cardStyle}>
         <div className="poster">
           <h2 className="status">{mapgakcoDetail?.mapgakco?.status}</h2>
           <h1 className="title">{mapgakcoDetail?.mapgakco?.title}</h1>
