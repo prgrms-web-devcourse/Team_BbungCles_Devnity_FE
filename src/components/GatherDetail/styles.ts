@@ -133,25 +133,24 @@ export const MarkdownEditorWrapper = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
 `;
 
-export const BorderContainer = styled.div<{ height?: number }>`
+export const BorderContainer = styled.div`
   display: flex;
   flex-direction: column;
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
   border-radius: 20px;
   padding: 32px;
   width: 100%;
-  min-width: 500px;
+  min-width: 560px;
   gap: 28px;
-  height: ${({ height }) => (height ? `${height}px` : "auto")};
-  overflow-y: auto;
+  height: auto;
 `;
 
 export const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  overflow-y: auto;
   gap: 16px 0;
+  height: auto;
 `;
 
 export const FormContainer = styled.form`
@@ -163,4 +162,28 @@ export const IconWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   height: 24px;
+`;
+
+export const EmptyTextWrapper = styled.div`
+  align-self: center;
+  margin-top: auto;
+  margin-bottom: auto;
+`;
+
+export const Button = styled.button`
+  min-width: 64px;
+  margin-top: auto;
+  padding: 16px 16px;
+  border: none;
+  background-color: ${({ theme }) => theme.colors?.newPrimary};
+  border-radius: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: ${({ theme }) => theme.colors?.gray800};
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
+  flex-grow: 1;
+  height: 100%;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.orange600};
+  }
 `;

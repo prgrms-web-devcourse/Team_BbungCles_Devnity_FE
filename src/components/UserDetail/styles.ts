@@ -150,7 +150,7 @@ export const Button = styled.button`
   margin-top: auto;
   padding: 16px 16px;
   border: none;
-  background-color: ${({ theme }) => theme.colors?.primary};
+  background-color: ${({ theme }) => theme.colors?.newPrimary};
   border-radius: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   color: ${({ theme }) => theme.colors?.gray800};

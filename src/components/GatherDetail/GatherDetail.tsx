@@ -2,7 +2,6 @@ import { useRecoilValue } from "recoil";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { HiOutlinePencilAlt } from "react-icons/hi";
-import { MdModeComment } from "react-icons/md";
 import * as Yup from "yup";
 import { Props } from "./types";
 import Text from "../base/Text";
@@ -28,6 +27,8 @@ import {
   FormContainer,
   CommentContainer,
   TextWrapper,
+  EmptyTextWrapper,
+  Button,
 } from "./styles";
 import theme from "../../assets/theme";
 import {
@@ -42,7 +43,7 @@ import ViewText from "../ViewText";
 import PeriodText from "../PeriodText";
 import Comment from "./Comment";
 import useCreateGatherComment from "../../hooks/useCreateGatherComment";
-import { Button, HiddenLabel } from "../UserDetail/styles";
+import { HiddenLabel } from "../UserDetail/styles";
 import { categoryColor } from "../../constants/categoryName";
 import useToggle from "../../hooks/useToggle";
 
@@ -357,15 +358,12 @@ const GatherDetail = ({
           </ButtonContainer>
         </DetailContainer>
 
-        <BorderContainer height={560}>
+        <BorderContainer>
           <IconWrapper>
-            <MdModeComment size={24} />
-            <Text size={20}> 댓글</Text>
+            <Text size={20} strong>
+              댓글
+            </Text>
           </IconWrapper>
-
-          {commentCount === 0 && (
-            <span>{`${author.name}님에게 제일 먼저 댓글을 달아주세요!`}</span>
-          )}
 
           <FormContainer onSubmit={handleSubmit}>
             <HiddenLabel htmlFor="content">내용</HiddenLabel>
@@ -386,6 +384,12 @@ const GatherDetail = ({
               </Text>
             </Button>
           </FormContainer>
+
+          {commentCount === 0 && (
+            <CommentContainer>
+              <EmptyTextWrapper>{`${author.name}님에게 제일 먼저 댓글을 달아주세요!`}</EmptyTextWrapper>
+            </CommentContainer>
+          )}
 
           <CommentContainer>
             {comments?.map((comment) => (

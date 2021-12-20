@@ -1,10 +1,10 @@
-import { FaComments } from "react-icons/fa";
-import { BsFillKeyboardFill } from "react-icons/bs";
 import { MdDeleteSweep, MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 import { useRecoilValue } from "recoil";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import {
   Container,
   ButtonContainer,
@@ -27,6 +27,7 @@ import Input from "../../base/Input";
 import useDeleteComment from "../../../hooks/useDeleteComment";
 import useCreateGatherComment from "../../../hooks/useCreateGatherComment";
 import useEditComment from "../../../hooks/useEditComment";
+import "dayjs/locale/ko";
 
 interface IProps {
   comment: Comment;
@@ -35,7 +36,10 @@ interface IProps {
 }
 
 const Comment = ({ comment, isChild, gatherId }: IProps) => {
+  const [fromNow, setFromNow] = useState<string | null>(null);
+
   const myProfile = useRecoilValue(globalMyProfile);
+
   const [isModifyClick, toggleModify] = useToggle(false);
   const [isChildCommentClick, toggleChildComment] = useToggle(false);
 
@@ -114,6 +118,12 @@ const Comment = ({ comment, isChild, gatherId }: IProps) => {
     [gatherDeleteCommentMutate, gatherId, comment]
   );
 
+  useEffect(() => {
+    dayjs.extend(relativeTime);
+    dayjs.locale("ko");
+    setFromNow(dayjs(comment.modifiedAt).fromNow());
+  }, [comment]);
+
   return (
     <Container>
       <CommentContainer>
@@ -157,8 +167,12 @@ const Comment = ({ comment, isChild, gatherId }: IProps) => {
               />
             </InputWrapperForm>
           ) : (
-            comment.content
+            <Text>{comment.content}</Text>
           )}
+
+          <Text size={12} color={theme.colors.gray500}>
+            {fromNow}
+          </Text>
         </ContentContainer>
 
         <ButtonContainer>
@@ -166,14 +180,18 @@ const Comment = ({ comment, isChild, gatherId }: IProps) => {
             <>
               {!isChild && (
                 <IconButton role="button" onClick={handleChildCommentClick}>
-                  <FaComments size={24} />
+                  <Text size={12} color={theme.colors.gray600}>
+                    답글
+                  </Text>
                 </IconButton>
               )}
 
               {myProfile?.user?.userId === comment?.author?.userId && (
                 <>
                   <IconButton role="button" onClick={handleModifyClick}>
-                    <BsFillKeyboardFill size={24} />
+                    <Text size={12} color={theme.colors.gray600}>
+                      수정
+                    </Text>
                   </IconButton>
                   <IconButton
                     role="button"
