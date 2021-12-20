@@ -7,6 +7,7 @@ export const Container = styled.nav`
   flex-direction: column;
   width: 200px;
   height: 100%;
+  border-right: 1px solid ${({ theme }) => theme.colors.gray300};
 
   ${breakpoints.maxTablet} {
     width: 52px;
