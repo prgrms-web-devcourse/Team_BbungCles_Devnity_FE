@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import Lottie from "react-lottie";
+import { useRecoilValue } from "recoil";
 import animationData from "../../assets/lotties/christmas-dog.json";
 import {
   Container,
@@ -14,6 +15,7 @@ import Text from "../base/Text";
 import menuRoutes from "./menuRoutes";
 import { routes } from "../../constants";
 import SidebarIcon from "./SidebarIcon";
+import { globalMyProfile } from "../../atoms";
 
 interface Props {
   onLinkClick: (link: string) => void;
@@ -27,6 +29,8 @@ const Sidebar = ({ onLinkClick }: Props) => {
     },
     [onLinkClick]
   );
+
+  const myProfile = useRecoilValue(globalMyProfile);
 
   return (
     <Container>
@@ -61,24 +65,32 @@ const Sidebar = ({ onLinkClick }: Props) => {
               />
             </div>
           </li>
-          {menuRoutes.map(({ name, path }, index) => {
-            const key = `${index}${name}`;
+          {menuRoutes
+            .filter(({ isNeedAuth }) => {
+              if (isNeedAuth && myProfile?.user.role !== "MANAGER") {
+                return false;
+              }
 
-            // TODO: 관리자는 관리자 권한이 있는 사용자일 경우에만 보이도록 필터링 해야함
-            return (
-              <li
-                key={key}
-                onClick={handleClick(path)}
-                onKeyPress={handleClick(path)}
-                role="presentation"
-              >
-                <div>
-                  <SidebarIcon name={name} />
-                  <Text>{name}</Text>
-                </div>
-              </li>
-            );
-          })}
+              return true;
+            })
+            .map(({ name, path }, index) => {
+              const key = `${index}${name}`;
+
+              // TODO: 관리자는 관리자 권한이 있는 사용자일 경우에만 보이도록 필터링 해야함
+              return (
+                <li
+                  key={key}
+                  onClick={handleClick(path)}
+                  onKeyPress={handleClick(path)}
+                  role="presentation"
+                >
+                  <div>
+                    <SidebarIcon name={name} />
+                    <Text>{name}</Text>
+                  </div>
+                </li>
+              );
+            })}
         </ul>
       </Nav>
       <Footer>

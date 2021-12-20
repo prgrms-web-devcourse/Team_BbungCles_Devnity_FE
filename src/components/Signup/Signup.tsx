@@ -1,6 +1,7 @@
-import { FormikProps } from "formik";
+import { FormikProps, useFormik } from "formik";
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { useMutation } from "react-query";
 import { routes, signup, common } from "../../constants";
 import { FormValues } from "./types";
 import {
@@ -21,43 +22,74 @@ import {
 } from "./styles";
 import useQueryCheckValidLink from "../../hooks/useQueryCheckValidLink";
 import useCustomToast from "../../hooks/useCustomToast";
+import { MutationData, MutationError } from "../../types/commonTypes";
+import { requestSignup } from "../../utils/apis";
+import { signupValidator } from "../../utils/yups/signup";
 
-interface IProps {
-  formik: FormikProps<FormValues>;
-}
+const Signup = () => {
+  const history = useHistory();
 
-const Signup = ({ formik }: IProps) => {
+  const [toast] = useCustomToast();
+
+  const { mutate } = useMutation<MutationData, MutationError, unknown, unknown>(
+    (values: FormValues) => requestSignup(values),
+    {
+      onSuccess: () => {
+        toast({ message: signup.message.COMPLETED_SIGNUP });
+        history.push(routes.LOGIN);
+      },
+    }
+  );
+
+  const {
+    handleBlur,
+    handleSubmit,
+    handleChange,
+    setFieldValue,
+    errors,
+    values,
+    touched,
+  }: FormikProps<FormValues> = useFormik<FormValues>({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      course: "",
+      generation: "",
+      role: "",
+    },
+    validationSchema: signupValidator,
+    onSubmit: (formValues, { setSubmitting }) => {
+      setSubmitting(true);
+      mutate(formValues);
+      setSubmitting(false);
+    },
+  });
+
   const errorCondition = useMemo(
     () => ({
-      name: formik.touched.name && !!formik.errors.name,
-      email: formik.touched.email && !!formik.errors.email,
-      password: formik.touched.password && !!formik.errors.password,
-      confirmPassword:
-        formik.touched.confirmPassword && !!formik.errors.confirmPassword,
-      course:
-        formik.touched.course &&
-        !!formik.errors.course &&
-        !formik.errors.generation,
-      generation:
-        formik.touched.generation &&
-        !!formik.errors.generation &&
-        !formik.errors.course,
+      name: touched.name && !!errors.name,
+      email: touched.email && !!errors.email,
+      password: touched.password && !!errors.password,
+      confirmPassword: touched.confirmPassword && !!errors.confirmPassword,
+      course: touched.course && !!errors.course && !errors.generation,
+      generation: touched.generation && !!errors.generation && !errors.course,
       courseAndGeneration:
-        (formik.touched.course || formik.touched.generation) &&
-        !!formik.errors.course &&
-        !!formik.errors.generation,
+        (touched.course || touched.generation) &&
+        !!errors.course &&
+        !!errors.generation,
     }),
-    [formik]
+    [errors, touched]
   );
 
   const [mounted, setMounted] = useState(false);
 
-  const history = useHistory();
   const params = useParams<{ linkUuid?: string }>();
 
-  const { refetch } = useQueryCheckValidLink(params.linkUuid);
-
-  const [toast] = useCustomToast();
+  const { data: validResultData, refetch } = useQueryCheckValidLink(
+    params.linkUuid
+  );
 
   if (!mounted) {
     if (!params.linkUuid) {
@@ -77,6 +109,12 @@ const Signup = ({ formik }: IProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    setFieldValue("course", validResultData?.data.data.course);
+    setFieldValue("generation", validResultData?.data.data.generation);
+    setFieldValue("role", validResultData?.data.data.role);
+  }, [validResultData, setFieldValue]);
+
   return (
     <Container>
       <SignupFormContainer>
@@ -93,7 +131,7 @@ const Signup = ({ formik }: IProps) => {
         <FormContainer>
           <Title>회원가입</Title>
 
-          <SignupForm onSubmit={formik.handleSubmit}>
+          <SignupForm onSubmit={handleSubmit}>
             <HiddenLabel htmlFor="name" style={{ display: "none" }}>
               {signup.text.NAME}
             </HiddenLabel>
@@ -101,12 +139,12 @@ const Signup = ({ formik }: IProps) => {
               type="text"
               name="name"
               placeholder={signup.text.NAME}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.name}
             />
             {errorCondition.name ? (
-              <ErrorMessage>{formik.errors.name}</ErrorMessage>
+              <ErrorMessage>{errors.name}</ErrorMessage>
             ) : null}
 
             <HiddenLabel htmlFor="email" style={{ display: "none" }}>
@@ -116,12 +154,12 @@ const Signup = ({ formik }: IProps) => {
               type="text"
               name="email"
               placeholder={signup.text.EMAIL}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
             />
             {errorCondition.email ? (
-              <ErrorMessage>{formik.errors.email}</ErrorMessage>
+              <ErrorMessage>{errors.email}</ErrorMessage>
             ) : null}
 
             <HiddenLabel htmlFor="password" style={{ display: "none" }}>
@@ -131,12 +169,12 @@ const Signup = ({ formik }: IProps) => {
               type="password"
               name="password"
               placeholder={signup.text.PASSWORD}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
             />
             {errorCondition.password ? (
-              <ErrorMessage>{formik.errors.password}</ErrorMessage>
+              <ErrorMessage>{errors.password}</ErrorMessage>
             ) : null}
 
             <HiddenLabel htmlFor="confirmPassword" style={{ display: "none" }}>
@@ -146,12 +184,12 @@ const Signup = ({ formik }: IProps) => {
               type="password"
               name="confirmPassword"
               placeholder={signup.text.CONFIRM_PASSWORD}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.confirmPassword}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.confirmPassword}
             />
             {errorCondition.confirmPassword ? (
-              <ErrorMessage>{formik.errors.confirmPassword}</ErrorMessage>
+              <ErrorMessage>{errors.confirmPassword}</ErrorMessage>
             ) : null}
             <RowContainer>
               <Label htmlFor="course">
@@ -159,9 +197,8 @@ const Signup = ({ formik }: IProps) => {
                 <Select
                   id="course"
                   name="course"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.course}
+                  value={validResultData?.data.data.course}
+                  disabled
                 >
                   <option value="">{signup.selectDefaultLabel.COURSE}</option>
                   {common.courses.map(({ value, label }) => (
@@ -177,9 +214,8 @@ const Signup = ({ formik }: IProps) => {
                 <Select
                   id="generation"
                   name="generation"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.generation}
+                  value={validResultData?.data.data.generation}
+                  disabled
                 >
                   <option value="">
                     {signup.selectDefaultLabel.GENERATION}
@@ -193,10 +229,10 @@ const Signup = ({ formik }: IProps) => {
               </Label>
             </RowContainer>
             {errorCondition.course ? (
-              <ErrorMessage>{formik.errors.course}</ErrorMessage>
+              <ErrorMessage>{errors.course}</ErrorMessage>
             ) : null}
             {errorCondition.generation ? (
-              <ErrorMessage>{formik.errors.generation}</ErrorMessage>
+              <ErrorMessage>{errors.generation}</ErrorMessage>
             ) : null}
             {errorCondition.courseAndGeneration ? (
               <ErrorMessage>
@@ -209,9 +245,8 @@ const Signup = ({ formik }: IProps) => {
               <Select
                 id="role"
                 name="role"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.role}
+                value={validResultData?.data.data.role}
+                disabled
               >
                 <option value="">{signup.selectDefaultLabel.ROLE}</option>
                 {common.roles.map(({ value, label }) => (
@@ -221,8 +256,8 @@ const Signup = ({ formik }: IProps) => {
                 ))}
               </Select>
             </Label>
-            {formik.touched.role && formik.errors.role ? (
-              <ErrorMessage>{formik.errors.role}</ErrorMessage>
+            {touched.role && errors.role ? (
+              <ErrorMessage>{errors.role}</ErrorMessage>
             ) : null}
 
             <Button type="submit">{signup.text.SIGNUP}</Button>

@@ -102,6 +102,10 @@ export const Select = styled.select`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+
+  &:disabled {
+    background: ${({ theme }) => theme.colors.gray300};
+  }
 `;
 
 export const Button = styled.button`
