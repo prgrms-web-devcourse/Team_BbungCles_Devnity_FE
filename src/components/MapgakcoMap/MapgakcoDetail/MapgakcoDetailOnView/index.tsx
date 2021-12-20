@@ -1,3 +1,5 @@
+// TODO: any를 지운다.
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BsCalendarDate, BsPeople, BsPinMap } from "react-icons/bs";
 import theme from "../../../../assets/theme";
 import useToastUi from "../../../../hooks/useToastUi";
@@ -7,9 +9,7 @@ import MarkdownEditor from "../../../base/MarkdownEditor";
 import { Card, MarkdownEditorWrapper, Footer } from "./styles";
 
 interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mapgakcoDetail: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   myProfile: any;
   onEdit: () => void;
 }

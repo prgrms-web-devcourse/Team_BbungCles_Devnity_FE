@@ -38,6 +38,8 @@ const MapgakcoDetailContainer = ({ mapgakcoId, onModalClose }: Props) => {
         />
       ) : (
         <MapgakcoDetailOnView
+          // TODO: 마크다운 내용에 따라 뷰가 리렌더링되지 않아 DOM reconcilation이 강제되도록 key로 넣었다. 더 정확한 방법이 있는지 조사하자.
+          key={mapgakcoDetail.mapgakco.content}
           mapgakcoDetail={mapgakcoDetail}
           myProfile={myProfile}
           onEdit={handleEdit}

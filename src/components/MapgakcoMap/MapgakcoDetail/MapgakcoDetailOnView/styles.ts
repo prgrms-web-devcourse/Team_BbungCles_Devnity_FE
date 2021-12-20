@@ -56,6 +56,21 @@ export const Card = styled.div`
 
 export const MarkdownEditorWrapper = styled.div`
   flex-grow: 1;
+  height: 1px;
+  overflow-y: auto;
+  padding: 0 10px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.colors.gray200};
+    border-radius: 30px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.gray400};
+    border-radius: 30px;
+  }
 `;
 
 export const Footer = styled.div`

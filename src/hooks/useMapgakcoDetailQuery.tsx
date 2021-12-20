@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { requestGetMapgakcoDetail } from "../utils/apis/mocks";
+import { requestGetMapgakcoDetail } from "../utils/apis";
 
 const getMapgakcoDetail = async (id: string) => {
   if (!id) {

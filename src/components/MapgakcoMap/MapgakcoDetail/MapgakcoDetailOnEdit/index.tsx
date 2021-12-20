@@ -61,6 +61,7 @@ const MapgakcoDetailOnEdit = ({ mapgakcoDetail, onCancel }: Props) => {
       meetingAt: formValues.meetingAt,
     });
     toast({ message: "모집 수정이 완료되었습니다" });
+    onCancel();
   };
 
   const formik = useMapgakcoFormik({
