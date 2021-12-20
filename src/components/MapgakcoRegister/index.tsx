@@ -21,6 +21,7 @@ import useMutationMapgakcoRegister from "../../hooks/useMutationMapgakcoRegister
 import { Position } from "../../types/commonTypes";
 import MarkdownEditor from "../base/MarkdownEditor";
 import useToastUi from "../../hooks/useToastUi";
+import Text from "../base/Text";
 
 interface IProps {
   userClickPosition: Position;
@@ -124,7 +125,9 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
     <Container>
       <FormContainer onSubmit={handleSubmit} autoComplete="off">
         <InputContainer>
-          <label htmlFor="applicantLimit">모집 인원</label>
+          <label htmlFor="applicantLimit">
+            <Text strong>모집 인원</Text>
+          </label>
           <Input
             type="number"
             name="applicantLimit"
@@ -140,7 +143,9 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
         </InputContainer>
 
         <InputContainer>
-          <label htmlFor="meetingAt">모임 날짜</label>
+          <label htmlFor="meetingAt">
+            <Text strong>모임 날짜</Text>
+          </label>
           <StyledDatePicker
             name="meetingAt"
             placeholderText="yyyy-mm-dd HH:mm"
@@ -160,7 +165,9 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
         </InputContainer>
 
         <InputContainer>
-          <label htmlFor="title">모임 제목</label>
+          <label htmlFor="title">
+            <Text strong>모임 제목</Text>
+          </label>
           <Input
             type="text"
             name="title"
@@ -174,7 +181,9 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
         </InputContainer>
 
         <InputContainer>
-          <label htmlFor="location">상세 장소</label>
+          <label htmlFor="location">
+            <Text strong>상세 장소</Text>
+          </label>
           <Input
             type="text"
             name="location"
@@ -188,7 +197,9 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
         </InputContainer>
 
         <InputContainer>
-          <label htmlFor="content">내용</label>
+          <label htmlFor="content">
+            <Text strong>내용</Text>
+          </label>
           <input
             type="hidden"
             name="content"
