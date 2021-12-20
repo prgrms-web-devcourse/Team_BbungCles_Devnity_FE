@@ -1,28 +1,34 @@
 import { ChangeEvent, useCallback, useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { FormikProps, useFormik } from "formik";
 import { requestGetMyProfile } from "../../utils/apis";
 import MyProfile from "./MyProfile";
 import { FormValues, QueryData, QueryError } from "./types";
 import { Position, MutationData, MutationError } from "../../types/commonTypes";
-import { errorCode, login } from "../../constants";
-import { useLocalStorage } from "../../hooks";
+import { errorCode } from "../../constants";
 import {
   requestProfileImage,
   requestPutMyProfile,
 } from "../../utils/apis/myProfile";
 import { initialValues } from "./formik";
 import useToastUi from "../../hooks/useToastUi";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const MyProfileContainer = () => {
+  const [toast] = useCustomToast();
+
   const [editorRef] = useToastUi();
-  const [, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
+
+  const queryClient = useQueryClient();
+
   const [mapCenterPosition, setMapCenterPosition] = useState<Position | null>(
     null
   );
+
   const [userClickPosition, setUserClickPosition] = useState<Position | null>(
     null
   );
+
   const formik: FormikProps<FormValues> = useFormik<FormValues>({
     initialValues,
     onSubmit: (values, { setSubmitting }) => {
@@ -65,23 +71,6 @@ const MyProfileContainer = () => {
           }
         }
       },
-      onError: ({ response }) => {
-        const errorMessage = response
-          ? response.data.message
-          : login.message.UNKNOWN_ERROR;
-
-        if (
-          response === undefined ||
-          response?.status === errorCode.UNAUTHORIZED ||
-          response?.status === errorCode.FORBIDDEN
-        ) {
-          setToken("");
-        }
-
-        // TODO: 에러가 발생할 경우 Toast를 띄워 사용자에게 알려준다.
-        // eslint-disable-next-line
-        alert(errorMessage);
-      },
       retry: false,
     }
   );
@@ -98,15 +87,6 @@ const MyProfileContainer = () => {
         formik.setFieldValue("profileImgUrl", data.data.imageUrl);
       }
     },
-    onError: ({ response }) => {
-      const errorMessage = response
-        ? response.data.message
-        : login.message.UNKNOWN_ERROR;
-
-      // TODO: 에러가 발생할 경우 Toast를 띄워 사용자에게 알려준다. Toast가 완성될 경우 alert는 지운다.
-      // eslint-disable-next-line no-alert
-      alert(errorMessage);
-    },
   });
 
   const profileInformationMutation = useMutation<
@@ -117,22 +97,9 @@ const MyProfileContainer = () => {
   >((values: FormValues) => requestPutMyProfile(values), {
     onSuccess: ({ data }) => {
       if (data.statusCode === errorCode.OK) {
-        // TODO: toast가 완성될 경우 alert는 지운다.
-        // eslint-disable-next-line no-alert
-        alert("변경이 완료되었습니다.");
+        queryClient.invalidateQueries("globalMyProfile");
+        toast({ message: "변경이 완료되었습니다." });
       }
-    },
-    onError: ({ response }) => {
-      const errorMessage = response
-        ? response.data.message
-        : login.message.UNKNOWN_ERROR;
-
-      if (response.status === errorCode.UNAUTHORIZED) {
-        setToken("");
-      }
-      // TODO: 에러가 발생할 경우 Toast를 띄워 사용자에게 알려준다. Toast가 완성될 경우 alert는 지운다.
-      // eslint-disable-next-line no-alert
-      alert(errorMessage);
     },
   });
 

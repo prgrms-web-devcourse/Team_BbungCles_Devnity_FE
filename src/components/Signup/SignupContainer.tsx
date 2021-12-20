@@ -7,26 +7,19 @@ import { requestSignup } from "../../utils/apis";
 import { signupValidator } from "../../utils/yups/signup";
 import { routes, signup } from "../../constants";
 import Signup from "./Signup";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const SignupContainer = () => {
   const history = useHistory();
+
+  const [toast] = useCustomToast();
+
   const { mutate } = useMutation<MutationData, MutationError, unknown, unknown>(
     (values: FormValues) => requestSignup(values),
     {
       onSuccess: () => {
-        // TODO: 성공했을 경우 '회원가입이 완료되었습니다.' 문구를 Toast로 띄워 사용자에게 알려준다. Toast가 완성될 경우 alert는 지운다.
-        // eslint-disable-next-line no-alert
-        alert(signup.message.COMPLETED_SIGNUP);
+        toast({ message: signup.message.COMPLETED_SIGNUP });
         history.push(routes.LOGIN);
-      },
-      // https://github.com/tannerlinsley/react-query/discussions/1385
-      onError: ({ response }) => {
-        const errorMessage = response
-          ? response.data.message
-          : signup.message.UNKNOWN_ERROR;
-        // TODO: 에러가 발생할 경우 Toast를 띄워 사용자에게 알려준다. Toast가 완성될 경우 alert는 지운다.
-        // eslint-disable-next-line no-alert
-        alert(errorMessage);
       },
     }
   );
