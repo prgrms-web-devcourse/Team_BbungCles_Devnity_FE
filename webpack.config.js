@@ -61,8 +61,15 @@ module.exports = (webpackEnv) => {
       rules: [
         {
           test: /\.tsx?$/,
-          use: "ts-loader",
           exclude: /node_modules/,
+          use: [
+            {
+              loader: "babel-loader",
+            },
+            {
+              loader: "ts-loader",
+            },
+          ],
         },
         {
           test: /\.s?css$/i,

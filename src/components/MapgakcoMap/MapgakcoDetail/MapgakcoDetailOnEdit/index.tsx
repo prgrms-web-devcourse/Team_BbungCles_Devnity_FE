@@ -62,7 +62,6 @@ const MapgakcoDetailOnEdit = ({ mapgakcoDetail, onCancel }: Props) => {
     });
     toast({ message: "모집 수정이 완료되었습니다" });
     onCancel();
-    console.log("submit 성공");
   };
 
   const formik = useMapgakcoFormik({
