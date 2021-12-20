@@ -1,4 +1,5 @@
 import { UserData } from "../../components/MyProfile/types";
+import { common } from "../../constants";
 import { Mapgakco, Position } from "../../types/mapTypes";
 import { ResponseUserLocation } from "../../types/userLocation";
 import { koreanDate } from "../date";
@@ -176,7 +177,7 @@ export const getUserMarkerOverlays = (
       lng: userLocation?.longitude,
     };
 
-    const imageUrl = userLocation?.profileImgUrl;
+    const imageUrl = userLocation?.profileImgUrl || common.placeHolderImageSrc;
 
     const options = {
       color: userLocation?.userId === currentUser.user.userId ? "red" : "blue",

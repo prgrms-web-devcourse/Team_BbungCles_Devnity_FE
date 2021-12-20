@@ -2,7 +2,7 @@ import { CourseKeyType } from "../constants";
 
 export interface RequestGetUsersLocations {
   course?: CourseKeyType;
-  generation?: number;
+  generation?: number | string;
   currentNEX: number;
   currentNEY: number;
   currentSWX: number;

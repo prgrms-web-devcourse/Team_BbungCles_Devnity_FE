@@ -12,7 +12,7 @@ export default function useUsersLocationsQuery(
   values: RequestGetUsersLocations,
   interval = 0
 ) {
-  return useQuery("usersLocations", () => getUsersLocations(values), {
+  return useQuery(["usersLocations", values], () => getUsersLocations(values), {
     refetchInterval: interval || false,
   });
 }
