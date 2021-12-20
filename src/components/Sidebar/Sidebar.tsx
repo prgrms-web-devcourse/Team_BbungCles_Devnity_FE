@@ -83,6 +83,7 @@ const Sidebar = ({ onLinkClick }: Props) => {
                   onClick={handleClick(path)}
                   onKeyPress={handleClick(path)}
                   role="presentation"
+                  title={name}
                 >
                   <div>
                     <SidebarIcon name={name} />
