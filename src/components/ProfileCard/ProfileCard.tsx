@@ -46,7 +46,7 @@ const ProfileCard = ({ user }: IProps) => {
 
       <TextContainer>
         <Text size={16} strong ellipsisLineClamp={2}>
-          {user.introduction.summary || "아직 한줄소개가 없어요"}
+          {user.introduction.summary || "아직 한 줄 소개가 없어요"}
         </Text>
       </TextContainer>
 

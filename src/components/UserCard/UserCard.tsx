@@ -55,7 +55,7 @@ const UserCard = ({ userInfo, onClick }: Props) => {
             ellipsisLineClamp={1}
             style={{ whiteSpace: "nowrap" }}
           >
-            {userInfo.introduction.summary || "아직 한줄소개가 없어요"}
+            {userInfo.introduction.summary || "아직 한 줄 소개가 없어요"}
           </Text>
         </SummaryWrapper>
       </Section>
