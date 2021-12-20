@@ -1,26 +1,26 @@
-import { UserMapInfo } from "../../../fixtures/userMapInfo";
 import { common } from "../../constants";
 import { Position } from "../../types/commonTypes";
+import { ResponseUserLocation } from "../../types/userLocation";
 import Mapbox from "../Mapbox/Mapbox";
 
 interface Props {
   center: Position;
   userImageUrl: string;
-  userMapInfos?: UserMapInfo[];
+  usersLocations?: ResponseUserLocation[];
 }
 
-const UsersMap = ({ center, userImageUrl, userMapInfos }: Props) => {
-  const imageMarkerOverlays = userMapInfos.map((userMapInfo) => {
+const UsersMap = ({ center, userImageUrl, usersLocations }: Props) => {
+  const imageMarkerOverlays = (usersLocations || []).map((userLocation) => {
     const position = {
-      lat: userMapInfo?.latitude,
-      lng: userMapInfo?.longitude,
+      lat: userLocation?.latitude,
+      lng: userLocation?.longitude,
     };
 
-    const imageUrl = userMapInfo.profileImgUrl;
+    const imageUrl = userLocation.profileImgUrl;
 
     const options = {
       color: "blue",
-      text: userMapInfo.name,
+      text: userLocation.name,
     };
 
     return { position, imageUrl, options };
