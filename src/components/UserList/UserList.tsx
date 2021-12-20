@@ -2,24 +2,23 @@ import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import * as Yup from "yup";
 import { useInView } from "react-intersection-observer";
-import { courses, generations, roles } from "../../../fixtures/selectDatas";
+import { AiOutlineSearch } from "react-icons/ai";
 import { common } from "../../constants";
-import Input from "../base/Input";
 import Text from "../base/Text";
 import ProfileCard from "../ProfileCard/ProfileCard";
-
 import {
-  Button,
   Container,
-  SearchBarFormContainer,
   UserContainer,
-  InputWrapper,
-  ButtonWrapper,
   Select,
   ProfileCardWrapper,
   NotFoundResult,
+  SearchBarFormContainer,
+  IconWrapper,
+  Input,
+  VerticalDivider,
 } from "./styles";
 import { IProps } from "./types";
+import theme from "../../assets/theme";
 
 const UserList = ({
   pages,
@@ -59,69 +58,71 @@ const UserList = ({
   return (
     <Container>
       <SearchBarFormContainer onSubmit={handleSubmit}>
-        <InputWrapper>
-          <Select
-            id="generation"
-            name="generation"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.generation}
-          >
-            <option value="">{common.text.GENERATION}</option>
-            {generations.map(({ value, label }) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </Select>
-          <Select
-            id="course"
-            name="course"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.course}
-          >
-            <option value="">{common.text.COURSE}</option>
-            {courses.map(({ value, label }) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </Select>
-          <Select
-            id="role"
-            name="role"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.role}
-          >
-            <option value="">{common.text.ROLE}</option>
-            {roles.map(({ value, label }) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </Select>
-          <Input
-            type="text"
-            name="name"
-            placeholder={common.message.ENTER_SEARCH_TERM}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.name}
-          />
-        </InputWrapper>
+        <IconWrapper>
+          <AiOutlineSearch size={24} color={theme.colors.gray500} />
+        </IconWrapper>
 
-        <ButtonWrapper>
-          <Button type="submit">
-            <Text size={12} color="white" strong ellipsisLineClamp={1}>
-              {common.text.SEARCH}
-            </Text>
-          </Button>
-        </ButtonWrapper>
+        <Input
+          type="text"
+          name="name"
+          placeholder={common.message.ENTER_SEARCH_TERM}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.name}
+        />
+
+        <VerticalDivider />
+
+        <Select
+          id="generation"
+          name="generation"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.generation}
+        >
+          <option value="">{common.text.GENERATION}</option>
+          {common.generations.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </Select>
+
+        <VerticalDivider />
+
+        <Select
+          id="course"
+          name="course"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.course}
+        >
+          <option value="">{common.text.COURSE}</option>
+          {common.courses.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </Select>
+
+        <VerticalDivider />
+
+        <Select
+          id="role"
+          name="role"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.role}
+        >
+          <option value="">{common.text.ROLE}</option>
+          {common.roles.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </Select>
       </SearchBarFormContainer>
 
-      {/* TODO: 검색 결과가 없을 경우 */}
       {pages?.pages[0].data.data.values.length === 0 && (
         <NotFoundResult>
           <Text size={32} strong>
@@ -129,6 +130,7 @@ const UserList = ({
           </Text>
         </NotFoundResult>
       )}
+
       {!isLoading && (
         <UserContainer>
           {pages?.pages.map((page, pageIndex) => (
