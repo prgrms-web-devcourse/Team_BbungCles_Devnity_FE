@@ -1,2 +1,2 @@
 export { requestGetUserSuggestions, requestGetGatherSuggestions } from "./main";
-export { requestGetMapgakcos } from "./mapgakcos";
+export { requestGetMapgakcos, requestGetMapgakcoDetail } from "./mapgakcos";

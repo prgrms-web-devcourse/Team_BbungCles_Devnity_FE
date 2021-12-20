@@ -26,7 +26,7 @@ import {
 } from "../../utils/map/overlay";
 import MapgakcoMarker from "./MapgakcoMarker";
 import UserMarker from "./UserMarker";
-import MapgakcoDetail from "./MapgakcoDetail";
+import MapgakcoDetailContainer from "./MapgakcoDetail/MapgakcoDetailContainer";
 
 interface Props {
   initialCenter: Position;
@@ -204,8 +204,8 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
           }}
         >
           {selectedMapgakco && (
-            <MapgakcoDetail
-              mapgakco={selectedMapgakco}
+            <MapgakcoDetailContainer
+              mapgakcoId={selectedMapgakco?.mapgakcoId}
               onModalClose={handleDetailModalClose}
             />
           )}

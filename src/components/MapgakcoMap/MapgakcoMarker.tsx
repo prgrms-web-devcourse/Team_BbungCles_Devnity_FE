@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import { useCallback } from "react";
@@ -29,9 +28,9 @@ const MapgakcoMarker = ({ position, text, onClick }: Props) => {
         yAnchor={0.0}
       >
         <div className="customoverlay" onClick={onClick}>
-          <a href="#" onClick={handleClick}>
+          <div onClick={handleClick}>
             <span className="title">{text}</span>
-          </a>
+          </div>
         </div>
       </CustomOverlayMap>
     </>
