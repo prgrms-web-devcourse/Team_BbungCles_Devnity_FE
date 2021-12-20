@@ -358,7 +358,7 @@ const GatherDetail = ({
           </ButtonContainer>
         </DetailContainer>
 
-        <BorderContainer height={560}>
+        <BorderContainer>
           <IconWrapper>
             <Text size={20} strong>
               댓글

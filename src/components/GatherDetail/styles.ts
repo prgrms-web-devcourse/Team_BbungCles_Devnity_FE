@@ -133,7 +133,7 @@ export const MarkdownEditorWrapper = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
 `;
 
-export const BorderContainer = styled.div<{ height?: number }>`
+export const BorderContainer = styled.div`
   display: flex;
   flex-direction: column;
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
@@ -142,16 +142,15 @@ export const BorderContainer = styled.div<{ height?: number }>`
   width: 100%;
   min-width: 560px;
   gap: 28px;
-  height: ${({ height }) => (height ? `${height}px` : "auto")};
-  overflow-y: auto;
+  height: auto;
 `;
 
 export const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  overflow-y: auto;
   gap: 16px 0;
+  height: auto;
 `;
 
 export const FormContainer = styled.form`
