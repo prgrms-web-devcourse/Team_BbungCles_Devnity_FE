@@ -4,7 +4,6 @@ import { useRecoilState } from "recoil";
 import { globalMyProfile } from "../../atoms";
 import { login, routes } from "../../constants";
 import { useLocalStorage } from "../../hooks";
-import useToggle from "../../hooks/useToggle";
 import UserImageAndDropdown from "./UserImageAndDropdown";
 
 interface Props {
@@ -15,8 +14,6 @@ const UserImageAndDropdownContainer = ({ imageUrl }: Props) => {
   const history = useHistory();
 
   const [, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
-
-  const [isTriggered, toggle] = useToggle(false);
 
   const [, setGlobalMyProfile] = useRecoilState(globalMyProfile);
 
@@ -36,12 +33,7 @@ const UserImageAndDropdownContainer = ({ imageUrl }: Props) => {
   );
 
   return (
-    <UserImageAndDropdown
-      imageUrl={imageUrl}
-      isTriggered={isTriggered}
-      onImageClick={toggle}
-      onLinkClick={handleLinkClick}
-    />
+    <UserImageAndDropdown imageUrl={imageUrl} onLinkClick={handleLinkClick} />
   );
 };
 
