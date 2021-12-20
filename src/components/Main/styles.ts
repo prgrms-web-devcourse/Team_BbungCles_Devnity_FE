@@ -6,7 +6,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.gray200};
   overflow-y: auto;
 `;
 
@@ -21,9 +20,10 @@ export const Contents = styled.section`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 32px 20px;
   width: 100%;
   overflow-y: auto;
+  padding: 0 16px;
 
   &::-webkit-scrollbar {
     display: none;
@@ -32,6 +32,7 @@ export const Contents = styled.section`
 
 export const SelfIntroduce = styled.div`
   width: 100%;
+  height: 270px;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -103,8 +104,7 @@ export const SubContents = styled.div`
 export const MapgakcoWrapper = styled.div<{ filter: string }>`
   flex-grow: 1;
   border-radius: 10px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  outline: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
   overflow: hidden;
 
   ${breakpoints.maxTablet} {
@@ -119,6 +119,7 @@ export const GatherListWrapper = styled.div<{ filter: string }>`
   gap: 12px;
   max-width: calc(100% / 2);
   overflow-y: auto;
+  padding: 0 8px;
 
   &::-webkit-scrollbar {
     width: 8px;

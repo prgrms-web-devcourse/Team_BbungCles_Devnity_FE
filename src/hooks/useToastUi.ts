@@ -2,8 +2,11 @@ import { Editor } from "@toast-ui/react-editor";
 import { useCallback, useEffect, useRef } from "react";
 import { errorCode } from "../constants";
 import { requestMedia } from "../utils/apis";
+import useCustomToast from "./useCustomToast";
 
 const useToastUi = (): [typeof editorRef, typeof resetMarkDown] => {
+  const [toast] = useCustomToast();
+
   const editorRef = useRef<Editor>();
 
   const resetMarkDown = useCallback(() => {
@@ -25,13 +28,11 @@ const useToastUi = (): [typeof editorRef, typeof resetMarkDown] => {
             callback(data.data.mediaUrl, "image");
           }
         } catch (error) {
-          // TODO: alert 처리
-          // eslint-disable-next-line
-          alert(error.response.data.error);
+          toast({ message: error.response.data.error });
         }
       });
     }
-  }, []);
+  }, [toast]);
 
   return [editorRef, resetMarkDown];
 };

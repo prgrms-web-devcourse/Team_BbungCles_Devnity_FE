@@ -8,6 +8,7 @@ export const Container = styled.div`
   height: 100%;
   padding: 20px;
   overflow-y: auto;
+  gap: 64px 0;
 `;
 
 export const UserContainer = styled.div`
@@ -38,31 +39,6 @@ export const UserContainer = styled.div`
   grid-auto-rows: 360px;
   justify-content: center;
   align-items: center;
-`;
-
-export const SearchBarFormContainer = styled.form`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 32px;
-  gap: 0 16px;
-`;
-
-export const Select = styled.select`
-  width: 15%;
-  min-width: 64px;
-  color: ${({ theme }) => theme.colors?.gray800};
-  padding: 16px;
-  border: none;
-  background: ${({ theme }) => theme.colors?.white};
-  border-radius: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: ${({ theme }) => theme.boxShadows.primary};
-  -o-appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  outline: none;
 `;
 
 export const Button = styled.button`
@@ -102,4 +78,45 @@ export const NotFoundResult = styled.div`
   height: 100%;
   justify-content: center;
   align-items: center;
+`;
+
+export const SearchBarFormContainer = styled.form`
+  display: flex;
+  padding: 4px 16px;
+  width: 60%;
+  min-width: 500px;
+  height: 64px;
+  align-items: center;
+  align-self: center;
+  border-radius: 6px;
+  box-shadow: ${({ theme }) => theme.boxShadows.secondary};
+`;
+
+export const IconWrapper = styled.div`
+  margin: 0 16px;
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  height: 64px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray500};
+  }
+`;
+
+export const VerticalDivider = styled.div`
+  width: 1px;
+  height: 60%;
+  border: 1px solid ${({ theme }) => theme.colors.gray200};
+  margin: 0 16px;
+`;
+
+export const Select = styled.select`
+  border: none;
+  outline: none;
+  width: 150px;
 `;
