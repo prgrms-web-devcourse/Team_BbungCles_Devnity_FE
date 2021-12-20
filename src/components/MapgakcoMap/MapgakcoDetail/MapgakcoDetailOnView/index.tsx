@@ -30,6 +30,10 @@ const hasApplied = (myProfile, mapgakcoDetail: ResponseGetMapgakcoDetail) => {
   return applicantsIds.some((id) => id === myProfile?.user?.userId);
 };
 
+const isFull = (mapgakcoDetail: ResponseGetMapgakcoDetail) => {
+  return mapgakcoDetail?.mapgakco.status === status.FULL;
+};
+
 const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
   const [editorRef] = useToastUi();
 
@@ -79,6 +83,12 @@ const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
     ...defaultButtonStyle,
     color: theme.colors.white,
     backgroundColor: theme.colors.markerBlue,
+  };
+
+  const inactiveButtonStyle = {
+    ...defaultButtonStyle,
+    color: theme.colors.white,
+    backgroundColor: theme.colors.disabled,
   };
 
   const cancelButtonStyle = {
@@ -160,7 +170,13 @@ const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
             신청 취소
           </Button>
         ) : (
-          <Button style={activeButtonStyle} onClick={handleApplyClick}>
+          <Button
+            style={
+              isFull(mapgakcoDetail) ? inactiveButtonStyle : activeButtonStyle
+            }
+            disabled={isFull(mapgakcoDetail)}
+            onClick={handleApplyClick}
+          >
             신청
           </Button>
         )}
