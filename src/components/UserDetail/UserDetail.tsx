@@ -2,7 +2,6 @@ import { MdEmail } from "react-icons/md";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { BsGithub } from "react-icons/bs";
 import { GiNotebook } from "react-icons/gi";
-import { AiFillCaretRight } from "react-icons/ai";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -13,7 +12,6 @@ import Input from "../base/Input";
 import Text from "../base/Text";
 import LikeButtonAndText from "../LikeButtonAndText/LikeButtonAndText";
 import {
-  BlankLink,
   BorderContainer,
   Button,
   CommentContainer,
@@ -31,6 +29,7 @@ import {
   EmptyTextWrapper,
   IconWrapper,
   CommentBorderContainer,
+  EllipsisWrapper,
 } from "./styles";
 import MarkdownEditor from "../base/MarkdownEditor";
 import Comment from "./Comment";
@@ -103,7 +102,7 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
       </UserTag>
 
       {userInfo.introduction.mbti && (
-        <MbtiTag fontSize={16} mbti="ISFJ">
+        <MbtiTag fontSize={16} mbti={userInfo.introduction.mbti}>
           {userInfo.introduction.mbti}
         </MbtiTag>
       )}
@@ -136,10 +135,6 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
             <Text size={16} strong>
               {userInfo.user.email}
             </Text>
-
-            <BlankLink>
-              <AiFillCaretRight size={24} />
-            </BlankLink>
           </ContactContainer>
 
           <ContactContainer
@@ -150,16 +145,12 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
               <BsGithub size={24} />
             </IconWrapper>
 
-            <Text ellipsisLineClamp={1} size={16} strong>
-              {userInfo.introduction.githubUrl ||
-                "아직 깃허브 주소를 입력하지 않았어요"}
-            </Text>
-
-            {userInfo.introduction.githubUrl && (
-              <BlankLink>
-                <AiFillCaretRight size={24} />
-              </BlankLink>
-            )}
+            <EllipsisWrapper>
+              <Text size={16} strong>
+                {userInfo.introduction.githubUrl ||
+                  "아직 깃허브 주소를 입력하지 않았어요"}
+              </Text>
+            </EllipsisWrapper>
           </ContactContainer>
 
           <ContactContainer
@@ -170,16 +161,12 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
               <GiNotebook size={24} />
             </IconWrapper>
 
-            <Text ellipsisLineClamp={1} size={16} strong>
-              {userInfo.introduction.blogUrl ||
-                "아직 블로그 주소를 입력하지 않았어요"}
-            </Text>
-
-            {userInfo.introduction.blogUrl && (
-              <BlankLink>
-                <AiFillCaretRight size={24} />
-              </BlankLink>
-            )}
+            <EllipsisWrapper>
+              <Text size={16} strong>
+                {userInfo.introduction.blogUrl ||
+                  "아직 블로그 주소를 입력하지 않았어요"}
+              </Text>
+            </EllipsisWrapper>
           </ContactContainer>
         </BorderContainer>
 

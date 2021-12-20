@@ -177,3 +177,9 @@ export const EmptyTextWrapper = styled.div`
   margin-top: auto;
   margin-bottom: auto;
 `;
+
+export const EllipsisWrapper = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+`;
