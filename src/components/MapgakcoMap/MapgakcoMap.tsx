@@ -27,14 +27,21 @@ import MapgakcoMarker from "./MapgakcoMarker/MapgakcoMarker";
 import UserMarker from "./UserMarker";
 import MapgakcoDetailContainer from "./MapgakcoDetail/MapgakcoDetailContainer";
 import { ResponseUserLocation } from "../../types/userLocation";
+import { UserData } from "../MyProfile/types";
 
 interface Props {
   initialCenter: Position;
-  usersLocations: ResponseUserLocation[];
   mapgakcos: Mapgakco[];
+  usersLocations: ResponseUserLocation[];
+  currentUser: UserData;
 }
 
-const MapgakcoMap = ({ initialCenter, usersLocations, mapgakcos }: Props) => {
+const MapgakcoMap = ({
+  initialCenter,
+  mapgakcos,
+  usersLocations,
+  currentUser,
+}: Props) => {
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();
@@ -95,7 +102,7 @@ const MapgakcoMap = ({ initialCenter, usersLocations, mapgakcos }: Props) => {
     });
   }, []);
 
-  const userMarkerOverlays = getUserMarkerOverlays(usersLocations);
+  const userMarkerOverlays = getUserMarkerOverlays(usersLocations, currentUser);
   const mapgakcoMarkerOverlays = getMapgakcoMarkerOverlays(mapgakcos);
 
   const handleRegisterModalClose = useCallback(() => {
@@ -272,13 +279,14 @@ const MapgakcoMap = ({ initialCenter, usersLocations, mapgakcos }: Props) => {
 
         {visibleUsers &&
           userMarkerOverlays.map(
-            ({ position, imageUrl, options: { text } }, index) => (
+            ({ position, imageUrl, options: { color, text } }, index) => (
               <UserMarker
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 position={position}
                 imageUrl={imageUrl}
                 text={text}
+                color={color}
               />
             )
           )}

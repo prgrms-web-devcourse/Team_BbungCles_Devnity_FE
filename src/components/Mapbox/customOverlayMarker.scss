@@ -4,7 +4,7 @@ $marker-color: #d22b05;
 $marker--blue-color: #4169e0;
 $marker--green-color: #90EE90;
 
-.marker, .marker--blue, .marker--green {
+.marker, .marker--red, .marker--blue, .marker--green {
   position: relative;
   width: $marker-size;
   height: $marker-size;
@@ -18,6 +18,19 @@ $marker--green-color: #90EE90;
   pointer-events: none;
 
   &::before {
+    content: "";
+    position: absolute;
+    width: $marker-size;
+    height: $marker-size;
+    border: $border-width solid $marker-color;
+    box-sizing: border-box;
+    background-color: $marker-color;
+    border-radius: 50% 50% 0 50%;
+    transform: rotate(45deg);
+    z-index: 9;
+  }
+
+  &--before {
     content: "";
     position: absolute;
     width: $marker-size;

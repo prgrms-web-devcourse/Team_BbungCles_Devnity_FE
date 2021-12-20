@@ -40,6 +40,7 @@ const MapgakcoMapContainer = () => {
       initialCenter={center}
       usersLocations={usersLocations}
       mapgakcos={mapgakcos}
+      currentUser={currentUser}
     />
   );
 };
