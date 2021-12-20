@@ -2,6 +2,7 @@ import { tagName } from "../constants";
 
 const theme = {
   colors: {
+    newPrimary: "#ee8f35",
     primary: "#ffb266",
     fontColor: "#4d5256",
     disabled: "#c0c0c0",
