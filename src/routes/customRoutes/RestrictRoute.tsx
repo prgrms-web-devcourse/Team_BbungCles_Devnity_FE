@@ -1,6 +1,9 @@
 import { ComponentType } from "react";
 import { Route, Redirect } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { globalMyProfile } from "../../atoms";
 import { login } from "../../constants";
+import useCustomToast from "../../hooks/useCustomToast";
 import { getLocalStorageItem } from "../../utils/functions";
 
 interface IProps {
@@ -13,7 +16,6 @@ interface IProps {
   component: ComponentType<any>;
 }
 
-// TODO: prop spread 문법 관련된 lint는 off 해도 될지 팀원들과 상의 (Prop spreading is forbiddeneslintreact/jsx-props-no-spreading)
 /* eslint-disable */
 const RestrictRoute = ({
   component: Component,
@@ -21,10 +23,16 @@ const RestrictRoute = ({
   allowRoles,
   ...rest
 }: IProps) => {
+  const [toast] = useCustomToast();
+
   const isLogin = getLocalStorageItem(login.localStorageKey.TOKEN, null);
-  // TODO: 추후 recoil로 로그인 사용자의 정보를 관리하고 그 정보에서 나의 role만 이곳에서 사용해야 할듯 함
-  const myRole = "STUDENT";
-  const isAllow = allowRoles.includes(myRole);
+  const myProfile = useRecoilValue(globalMyProfile);
+
+  const isAllow = allowRoles.includes(myProfile?.user.role);
+
+  if (!isAllow) {
+    toast({ message: "⚠ 권한이 없습니다 ⚠" });
+  }
 
   return (
     <Route

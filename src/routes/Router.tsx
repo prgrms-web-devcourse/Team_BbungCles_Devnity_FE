@@ -1,5 +1,5 @@
 import { Route, Switch } from "react-router-dom";
-import { PrivateRoute } from "./customRoutes";
+import { PrivateRoute, RestrictRoute } from "./customRoutes";
 import { routes } from "../constants";
 import MainPage from "../pages/MainPage";
 import LoginPage from "../pages/LoginPage";
@@ -29,9 +29,10 @@ const Router = () => {
       />
       <Route path={`${routes.SIGNUP}/:linkUuid?`} component={SignupPage} />
       <Route path={routes.LOGIN} exact component={LoginPage} />
-      <PrivateRoute
+      <RestrictRoute
         exact
         path={routes.ADMIN}
+        allowRoles={["MANAGER"]}
         fallbackPath={routes.LOGIN}
         component={AdminPage}
       />
