@@ -17,8 +17,17 @@ export const Container = styled.div`
   align-items: center;
   gap: 16px 0;
   width: 100%;
+  height: 100%;
   padding: 20px;
   overflow-y: auto;
+`;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px 0;
 `;
 
 export const ProfileImage = styled.img`
@@ -54,7 +63,7 @@ export const MbtiTag = styled(UserTag)`
 
 export const TextWrapper = styled.div`
   display: flex;
-  width: 50%;
+  width: 60%;
   justify-content: center;
   align-items: center;
 `;
@@ -65,19 +74,39 @@ export const BorderContainer = styled.div<{ height?: number }>`
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
   border-radius: 20px;
   padding: 32px;
-  width: 50%;
+  width: 60%;
   min-width: 500px;
   gap: 32px;
   height: ${({ height }) => (height ? `${height}px` : "auto")};
-  overflow-y: auto;
 `;
 
-export const ContactContainer = styled.div`
+export const DescriptionBorderContainer = styled(BorderContainer)`
+  min-height: 560px;
+  height: auto;
+`;
+
+export const CommentBorderContainer = styled(BorderContainer)`
+  overflow-y: auto;
+  min-height: 560px;
+  height: auto;
+`;
+
+export const ContactContainer = styled.a`
   display: flex;
   align-items: center;
+  cursor: pointer;
 
-  & > svg {
-    margin-right: 36px;
+  &:link {
+    color: black;
+    text-decoration: none;
+  }
+  &:visited {
+    color: black;
+    text-decoration: none;
+  }
+  &:hover {
+    color: black;
+    text-decoration: none;
   }
 `;
 
@@ -107,8 +136,8 @@ export const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  overflow-y: auto;
   gap: 16px 0;
+  height: auto;
 `;
 
 export const FormContainer = styled.form`
@@ -140,4 +169,17 @@ export const HiddenLabel = styled.label`
 
 export const IconWrapper = styled.div`
   height: 24px;
+  margin-right: 36px;
+`;
+
+export const EmptyTextWrapper = styled.div`
+  align-self: center;
+  margin-top: auto;
+  margin-bottom: auto;
+`;
+
+export const EllipsisWrapper = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 `;

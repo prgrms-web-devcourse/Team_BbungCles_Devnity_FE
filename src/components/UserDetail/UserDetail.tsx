@@ -1,8 +1,7 @@
-import { MdEmail, MdModeComment } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { BsGithub } from "react-icons/bs";
 import { GiNotebook } from "react-icons/gi";
-import { AiFillCaretRight } from "react-icons/ai";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -13,7 +12,6 @@ import Input from "../base/Input";
 import Text from "../base/Text";
 import LikeButtonAndText from "../LikeButtonAndText/LikeButtonAndText";
 import {
-  BlankLink,
   BorderContainer,
   Button,
   CommentContainer,
@@ -26,7 +24,12 @@ import {
   TextWrapper,
   UserTag,
   HiddenLabel,
+  ContentContainer,
+  DescriptionBorderContainer,
+  EmptyTextWrapper,
   IconWrapper,
+  CommentBorderContainer,
+  EllipsisWrapper,
 } from "./styles";
 import MarkdownEditor from "../base/MarkdownEditor";
 import Comment from "./Comment";
@@ -99,7 +102,7 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
       </UserTag>
 
       {userInfo.introduction.mbti && (
-        <MbtiTag fontSize={16} mbti="ISFJ">
+        <MbtiTag fontSize={16} mbti={userInfo.introduction.mbti}>
           {userInfo.introduction.mbti}
         </MbtiTag>
       )}
@@ -115,117 +118,153 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
         </Text>
       </TextWrapper>
 
-      <BorderContainer>
-        <ContactContainer>
-          <MdEmail size={24} />
+      <ContentContainer>
+        <BorderContainer>
+          <Text size={20} strong>
+            연락처
+          </Text>
 
-          <Text size={16}>{userInfo.user.email}</Text>
+          <ContactContainer
+            href={`mailto:${userInfo.user.email}`}
+            target="_blank"
+          >
+            <IconWrapper>
+              <MdEmail size={24} />
+            </IconWrapper>
 
-          <BlankLink href={`mailto:${userInfo.user.email}`} target="_blank">
-            <AiFillCaretRight size={24} />
-          </BlankLink>
-        </ContactContainer>
-
-        {userInfo.introduction.githubUrl && (
-          <ContactContainer>
-            <BsGithub size={24} />
-
-            <Text size={16}>{userInfo.introduction.githubUrl}</Text>
-
-            <BlankLink href={userInfo.introduction.githubUrl} target="_blank">
-              <AiFillCaretRight size={24} />
-            </BlankLink>
+            <Text size={16} strong>
+              {userInfo.user.email}
+            </Text>
           </ContactContainer>
-        )}
 
-        {userInfo.introduction.blogUrl && (
-          <ContactContainer>
-            <GiNotebook size={24} />
+          <ContactContainer
+            href={userInfo.introduction.githubUrl}
+            target="_blank"
+          >
+            <IconWrapper>
+              <BsGithub size={24} />
+            </IconWrapper>
 
-            <Text size={16}>{userInfo.introduction.blogUrl}</Text>
-
-            <BlankLink href={userInfo.introduction.blogUrl} target="_blank">
-              <AiFillCaretRight size={24} />
-            </BlankLink>
+            <EllipsisWrapper>
+              <Text size={16} strong>
+                {userInfo.introduction.githubUrl ||
+                  "아직 깃허브 주소를 입력하지 않았어요"}
+              </Text>
+            </EllipsisWrapper>
           </ContactContainer>
-        )}
-      </BorderContainer>
 
-      {userInfo.introduction.description && (
-        <BorderContainer height={480}>
+          <ContactContainer
+            href={userInfo.introduction.blogUrl}
+            target="_blank"
+          >
+            <IconWrapper>
+              <GiNotebook size={24} />
+            </IconWrapper>
+
+            <EllipsisWrapper>
+              <Text size={16} strong>
+                {userInfo.introduction.blogUrl ||
+                  "아직 블로그 주소를 입력하지 않았어요"}
+              </Text>
+            </EllipsisWrapper>
+          </ContactContainer>
+        </BorderContainer>
+
+        <DescriptionBorderContainer height={560}>
+          <Text size={20} strong>
+            자기소개
+          </Text>
+
+          {!userInfo.introduction.description && (
+            <EmptyTextWrapper>
+              <Text size={16} strong>
+                아직 자기소개를 입력하지 않았어요
+              </Text>
+            </EmptyTextWrapper>
+          )}
+
           <MarkdownEditor
             editorRef={null}
             isViewMode
             value={userInfo.introduction.description}
           />
-        </BorderContainer>
-      )}
+        </DescriptionBorderContainer>
 
-      <BorderContainer height={560}>
-        <StyledMap
-          center={{
-            lat: userInfo.introduction.latitude || common.defaultPosition.lat,
-            lng: userInfo.introduction.longitude || common.defaultPosition.lng,
-          }}
-        >
-          <MapMarker
-            position={{
+        <BorderContainer height={640}>
+          <Text size={20} strong>
+            내 위치
+          </Text>
+
+          <StyledMap
+            center={{
               lat: userInfo.introduction.latitude || common.defaultPosition.lat,
               lng:
                 userInfo.introduction.longitude || common.defaultPosition.lng,
             }}
-          />
-        </StyledMap>
-      </BorderContainer>
+          >
+            <MapMarker
+              position={{
+                lat:
+                  userInfo.introduction.latitude || common.defaultPosition.lat,
+                lng:
+                  userInfo.introduction.longitude || common.defaultPosition.lng,
+              }}
+            />
+          </StyledMap>
+        </BorderContainer>
 
-      <BorderContainer height={560}>
-        <IconWrapper>
-          <MdModeComment size={24} />
-        </IconWrapper>
+        <CommentBorderContainer height={560}>
+          <Text size={20} strong>
+            댓글
+          </Text>
 
-        {userInfo.comments?.length === 0 && (
-          <CommentContainer>{`${userInfo.user.name}님에게 제일 먼저 댓글을 달아주세요!`}</CommentContainer>
-        )}
+          <FormContainer onSubmit={handleSubmit}>
+            <HiddenLabel htmlFor="content">내용</HiddenLabel>
 
-        <CommentContainer>
-          {userInfo.comments?.map((comment) => (
-            <React.Fragment key={comment.commentId}>
-              <Comment
-                comment={comment}
-                introductionId={userInfo.introduction.introductionId}
-                isChild={false}
-              />
-              {comment.children?.map((child) => (
+            <Input
+              type="text"
+              name="content"
+              placeholder={common.message.ENTER_COMMENT}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.content}
+              maxLength={common.validation.COMMENT_MAX_LENGTH}
+            />
+
+            <Button type="submit">
+              <Text size={12} color="white" strong ellipsisLineClamp={1}>
+                <HiOutlinePencilAlt size={20} />
+              </Text>
+            </Button>
+          </FormContainer>
+
+          {userInfo.comments?.length === 0 && (
+            <CommentContainer>
+              <EmptyTextWrapper>{`${userInfo.user.name}님에게 제일 먼저 댓글을 달아주세요!`}</EmptyTextWrapper>
+            </CommentContainer>
+          )}
+
+          <CommentContainer>
+            {userInfo.comments?.map((comment) => (
+              <React.Fragment key={comment.commentId}>
                 <Comment
-                  key={`child${child.commentId}`}
-                  comment={child}
+                  comment={comment}
                   introductionId={userInfo.introduction.introductionId}
-                  isChild
+                  isChild={false}
                 />
-              ))}
-            </React.Fragment>
-          ))}
-        </CommentContainer>
-        <FormContainer onSubmit={handleSubmit}>
-          <HiddenLabel htmlFor="content">내용</HiddenLabel>
-
-          <Input
-            type="text"
-            name="content"
-            placeholder={common.message.ENTER_COMMENT}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.content}
-            maxLength={common.validation.COMMENT_MAX_LENGTH}
-          />
-
-          <Button type="submit">
-            <Text size={12} color="white" strong ellipsisLineClamp={1}>
-              <HiOutlinePencilAlt size={20} />
-            </Text>
-          </Button>
-        </FormContainer>
-      </BorderContainer>
+                {comment.children?.map((child) => (
+                  <Comment
+                    key={`child${child.commentId}`}
+                    comment={child}
+                    introductionId={userInfo.introduction.introductionId}
+                    isChild
+                  />
+                ))}
+              </React.Fragment>
+            ))}
+          </CommentContainer>
+        </CommentBorderContainer>
+      </ContentContainer>
     </Container>
   );
 };

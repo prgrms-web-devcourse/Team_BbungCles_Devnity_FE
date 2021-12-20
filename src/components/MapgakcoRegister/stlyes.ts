@@ -6,6 +6,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 16px;
+  height: 90vh;
   overflow-y: auto;
 `;
 
@@ -13,6 +14,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   gap: 0 20px;
   align-self: flex-end;
+  margin-top: auto;
 `;
 
 export const Button = styled.button`
@@ -47,6 +49,7 @@ export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 16px 0;
+  height: 100%;
 `;
 
 export const ErrorMessage = styled.p`
@@ -75,7 +78,7 @@ export const StyledDatePicker = styled(DatePicker)`
 
 export const MarkdownEditorWrapper = styled.div`
   width: 100%;
-  height: 360px;
+  height: 400px;
   padding: 12px;
   border-radius: 10px;
   box-shadow: ${({ theme }) => theme.boxShadows.primary};

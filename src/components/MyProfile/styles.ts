@@ -11,10 +11,17 @@ export const Container = styled.div`
   overflow-y: auto;
 `;
 
+export const TitleWrapper = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  width: 60%;
+  gap: 16px 0;
+`;
+
 export const MyProfileForm = styled.form`
   display: inline-flex;
   flex-direction: column;
-  width: 50%;
+  width: 60%;
   gap: 16px 0;
 `;
 
@@ -91,10 +98,12 @@ export const Select = styled.select`
   }
 `;
 
-export const RowContainer = styled.div`
+export const RowContainer = styled.div<{ cursor?: boolean }>`
+  position: relative;
   display: flex;
   justify-content: space-between;
   gap: 0 16px;
+  cursor: ${({ cursor }) => cursor && "pointer"};
 `;
 
 export const ColumnContainer = styled.div`
@@ -125,6 +134,7 @@ export const Textarea = styled.textarea`
 
 export const MapWrapper = styled.div`
   width: 100%;
+  min-height: 560px;
   height: 560px;
   border-radius: 10px;
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
@@ -137,8 +147,17 @@ export const StyledMap = styled(Map)`
 
 export const MarkdownEditorWrapper = styled.div`
   width: 100%;
-  height: 360px;
+  min-height: 560px;
+  height: 100%;
   padding: 12px;
   border-radius: 10px;
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
+`;
+
+export const ProfileModifyButton = styled.div`
+  bottom: 20px;
+  right: 20px;
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
 `;
