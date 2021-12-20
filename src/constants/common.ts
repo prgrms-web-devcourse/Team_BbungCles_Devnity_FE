@@ -25,6 +25,7 @@ export default {
     EXPIRE_OR_SERVER_ERROR:
       "로그인 유효기간이 만료되었거나 서버 에러 입니다. 로그인 화면으로 돌아갑니다.",
     CONFIRM_DELETE: "정말 삭제하시겠습니까?",
+    CONFIRM_MODIFY: "정말 마감하시겠습니까?",
   },
 
   buttonName: {

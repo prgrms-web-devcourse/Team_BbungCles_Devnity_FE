@@ -7,7 +7,9 @@ const getGatherDetail = async (gatherId) => {
 };
 
 const useGetGatherDetail = (gatherId) => {
-  return useQuery(["gatherDetail"], async () => getGatherDetail(gatherId));
+  return useQuery(["gatherDetail", gatherId], async () =>
+    getGatherDetail(gatherId)
+  );
 };
 
 export default useGetGatherDetail;

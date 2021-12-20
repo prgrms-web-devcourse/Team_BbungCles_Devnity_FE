@@ -3,28 +3,37 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 40px 20px;
+  padding: 0 20px 20px 20px;
   margin: 0 auto;
   overflow-y: auto;
   height: 100%;
   gap: 8px;
+  align-items: center;
+  width: 80%;
 `;
 
-export const CategoryWrapper = styled.div`
+export const TestContainer = styled.div`
   display: flex;
+  align-items: flex-start;
   flex-direction: column;
+  gap: 16px;
+  width: 100%;
+`;
+
+export const CategoryWrapper = styled.div<{ row?: boolean }>`
+  display: flex;
+  flex-direction: ${({ row }) => (row ? "row" : "column")};
   gap: 4px;
 `;
 
 export const Category = styled.div`
-  width: 60px;
-  height: 30px;
-  line-height: 30px;
+  width: 70px;
+  height: 35px;
   background-color: ${({ theme }) => theme.colors.gray800};
   border-radius: 7px;
-  text-align: center;
-  vertical-align: middle;
-  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const UserContainer = styled.div`
@@ -34,18 +43,24 @@ export const UserContainer = styled.div`
   align-items: center;
   margin-top: 10px;
   padding-bottom: 10px;
+  flex-grow: 0;
 `;
 
 export const DetailContainer = styled.div`
   padding: 15px 0;
-  border-top: 1px solid #f1f3f5;
+  border-top: 3px solid #f1f3f5;
+  width: 100%;
 `;
 
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 12px 0;
+  padding: 16px 0;
+`;
+
+export const TextWrapper = styled.div`
+  padding-left: 3px;
 `;
 
 export const ButtonContainer = styled.div`
@@ -105,5 +120,47 @@ export const EditContainer = styled.div`
 export const ApplicantContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  padding-top: 8px;
+  padding-left: 4px;
+`;
+
+export const MarkdownEditorWrapper = styled.div`
+  width: 100%;
+  height: 360px;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
+`;
+
+export const BorderContainer = styled.div<{ height?: number }>`
+  display: flex;
+  flex-direction: column;
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
+  border-radius: 20px;
+  padding: 32px;
+  width: 100%;
+  min-width: 500px;
+  gap: 28px;
+  height: ${({ height }) => (height ? `${height}px` : "auto")};
+  overflow-y: auto;
+`;
+
+export const CommentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+  gap: 16px 0;
+`;
+
+export const FormContainer = styled.form`
+  display: flex;
+  gap: 8px;
+`;
+
+export const IconWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  height: 24px;
 `;

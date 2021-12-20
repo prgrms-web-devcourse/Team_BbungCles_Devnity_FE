@@ -1,28 +1,35 @@
 import { useMutation, useQueryClient } from "react-query";
+import { useHistory } from "react-router-dom";
 import { MutationData, MutationError } from "../types/commonTypes";
 import { requestCreateComment } from "../utils/apis/gather";
+import { common, routes } from "../constants";
 
 const useCreateGatherComment = () => {
   const queryClient = useQueryClient();
-  const { mutate } = useMutation<MutationData, MutationError, unknown, unknown>(
-    (submitValue) => requestCreateComment(submitValue),
+  const history = useHistory();
+
+  return useMutation<MutationData, MutationError, unknown, unknown>(
+    "gatherDetailWriteComment",
+    (values) => requestCreateComment(values),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("FilteredGathers");
-        // TODO:
-        // eslint-disable-next-line no-alert
-        alert("댓글이 작성되었습니다.");
+        queryClient.invalidateQueries("gatherDetail");
       },
       onError: ({ response }) => {
-        const errorMessage = response.data?.message;
-        // TODO:
-        // eslint-disable-next-line no-alert
+        const errorMessage = response
+          ? response.data.message
+          : common.message.UNKNOWN_ERROR;
+
+        // TODO: 에러처리 토스트
+        // eslint-disable-next-line
         alert(errorMessage);
+
+        if (!response) {
+          history.push(routes.LOGIN);
+        }
       },
     }
   );
-
-  return { createComment: mutate };
 };
 
 export default useCreateGatherComment;
