@@ -78,12 +78,36 @@ export const BorderContainer = styled.div<{ height?: number }>`
   min-width: 500px;
   gap: 32px;
   height: ${({ height }) => (height ? `${height}px` : "auto")};
-  overflow-y: auto;
 `;
 
-export const ContactContainer = styled.div`
+export const DescriptionBorderContainer = styled(BorderContainer)`
+  min-height: 560px;
+  height: auto;
+`;
+
+export const CommentBorderContainer = styled(BorderContainer)`
+  overflow-y: auto;
+  min-height: 560px;
+  height: auto;
+`;
+
+export const ContactContainer = styled.a`
   display: flex;
   align-items: center;
+  cursor: pointer;
+
+  &:link {
+    color: black;
+    text-decoration: none;
+  }
+  &:visited {
+    color: black;
+    text-decoration: none;
+  }
+  &:hover {
+    color: black;
+    text-decoration: none;
+  }
 
   & > svg {
     margin-right: 36px;
@@ -149,4 +173,10 @@ export const HiddenLabel = styled.label`
 
 export const IconWrapper = styled.div`
   height: 24px;
+`;
+
+export const EmptyTextWrapper = styled.div`
+  align-self: center;
+  margin-top: auto;
+  margin-bottom: auto;
 `;

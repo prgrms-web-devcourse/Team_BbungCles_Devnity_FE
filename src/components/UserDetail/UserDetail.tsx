@@ -1,4 +1,4 @@
-import { MdEmail, MdModeComment } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { BsGithub } from "react-icons/bs";
 import { GiNotebook } from "react-icons/gi";
@@ -26,8 +26,9 @@ import {
   TextWrapper,
   UserTag,
   HiddenLabel,
-  IconWrapper,
   ContentContainer,
+  DescriptionBorderContainer,
+  EmptyTextWrapper,
 } from "./styles";
 import MarkdownEditor from "../base/MarkdownEditor";
 import Comment from "./Comment";
@@ -118,52 +119,87 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
 
       <ContentContainer>
         <BorderContainer>
-          <ContactContainer>
+          <Text size={20} strong>
+            연락처
+          </Text>
+
+          <ContactContainer
+            href={`mailto:${userInfo.user.email}`}
+            target="_blank"
+          >
             <MdEmail size={24} />
 
-            <Text size={16}>{userInfo.user.email}</Text>
+            <Text size={16} strong>
+              {userInfo.user.email}
+            </Text>
 
-            <BlankLink href={`mailto:${userInfo.user.email}`} target="_blank">
+            <BlankLink>
               <AiFillCaretRight size={24} />
             </BlankLink>
           </ContactContainer>
 
-          {userInfo.introduction.githubUrl && (
-            <ContactContainer>
-              <BsGithub size={24} />
+          <ContactContainer
+            href={userInfo.introduction.githubUrl}
+            target="_blank"
+          >
+            <BsGithub size={24} />
 
-              <Text size={16}>{userInfo.introduction.githubUrl}</Text>
+            <Text size={16} strong>
+              {userInfo.introduction.githubUrl ||
+                "아직 깃허브 주소를 입력하지 않았어요"}
+            </Text>
 
-              <BlankLink href={userInfo.introduction.githubUrl} target="_blank">
+            {userInfo.introduction.githubUrl && (
+              <BlankLink>
                 <AiFillCaretRight size={24} />
               </BlankLink>
-            </ContactContainer>
-          )}
+            )}
+          </ContactContainer>
 
-          {userInfo.introduction.blogUrl && (
-            <ContactContainer>
-              <GiNotebook size={24} />
+          <ContactContainer
+            href={userInfo.introduction.blogUrl}
+            target="_blank"
+          >
+            <GiNotebook size={24} />
 
-              <Text size={16}>{userInfo.introduction.blogUrl}</Text>
+            <Text size={16} strong>
+              {userInfo.introduction.blogUrl ||
+                "아직 블로그 주소를 입력하지 않았어요"}
+            </Text>
 
-              <BlankLink href={userInfo.introduction.blogUrl} target="_blank">
+            {userInfo.introduction.blogUrl && (
+              <BlankLink>
                 <AiFillCaretRight size={24} />
               </BlankLink>
-            </ContactContainer>
-          )}
+            )}
+          </ContactContainer>
         </BorderContainer>
 
-        {userInfo.introduction.description && (
-          <BorderContainer height={480}>
-            <MarkdownEditor
-              editorRef={null}
-              isViewMode
-              value={userInfo.introduction.description}
-            />
-          </BorderContainer>
-        )}
+        <DescriptionBorderContainer height={560}>
+          <Text size={20} strong>
+            자기소개
+          </Text>
 
-        <BorderContainer height={560}>
+          {!userInfo.introduction.description && (
+            <EmptyTextWrapper>
+              <Text size={16} strong>
+                아직 자기소개를 입력하지 않았어요
+              </Text>
+            </EmptyTextWrapper>
+          )}
+
+          <MarkdownEditor
+            editorRef={null}
+            isViewMode
+            value={userInfo.introduction.description}
+          />
+        </DescriptionBorderContainer>
+
+        <BorderContainer height={640}>
+          <Text size={20} strong>
+            내 위치
+          </Text>
+
           <StyledMap
             center={{
               lat: userInfo.introduction.latitude || common.defaultPosition.lat,
@@ -183,9 +219,9 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
         </BorderContainer>
 
         <BorderContainer height={560}>
-          <IconWrapper>
-            <MdModeComment size={24} />
-          </IconWrapper>
+          <Text size={20} strong>
+            댓글
+          </Text>
 
           {userInfo.comments?.length === 0 && (
             <CommentContainer>{`${userInfo.user.name}님에게 제일 먼저 댓글을 달아주세요!`}</CommentContainer>
