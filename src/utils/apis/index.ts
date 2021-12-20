@@ -7,6 +7,6 @@ export { requestKeywordSearch } from "./search";
 export { requestPostCreateGather } from "./gather";
 export {
   requestMapgakcoRegister,
-  requestGetMapgakcos,
+  requestGetMapgakcosRange,
   requestGetMapgakcoDetail,
 } from "./mapgakco";

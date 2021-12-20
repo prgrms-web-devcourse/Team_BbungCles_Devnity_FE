@@ -1,12 +1,13 @@
 import { useQuery } from "react-query";
-import { requestGetMapgakcos } from "../utils/apis/mocks";
+import { RequestGetMapgakcosRange } from "../types/mapgakco";
+import { requestGetMapgakcosRange } from "../utils/apis";
 
-const getMapgakcos = async () => {
-  const { data } = await requestGetMapgakcos();
+const getMapgakcos = async (values: RequestGetMapgakcosRange) => {
+  const { data } = await requestGetMapgakcosRange(values);
 
-  return data?.data?.mapgakcos || [];
+  return data?.data || [];
 };
 
-export default function useMapgakcos() {
-  return useQuery("mapgakcos", getMapgakcos);
+export default function useMapgakcosQuery(values: RequestGetMapgakcosRange) {
+  return useQuery("mapgakcos", () => getMapgakcos(values));
 }

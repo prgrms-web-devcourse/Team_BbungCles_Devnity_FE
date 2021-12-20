@@ -1,38 +1,26 @@
 import necessaryAuthAxiosInstance from "./necessaryAuthAxiosInstance";
+import { url, COORDS } from "../../constants";
+import { RequestGetMapgakcosRange } from "../../types/mapgakco";
 
 export const requestMapgakcoRegister = (values) => {
-  return necessaryAuthAxiosInstance.post("v1/mapgakcos", values);
+  return necessaryAuthAxiosInstance.post(url.MAPGAKCOS, values);
 };
 
-export const requestGetMapgakcos = () => {
-  // TODO: API 명세에서는 get 요청으로 body를 보내야 하는데 axios.get에는 body를 보낼 수 없다. 이 문제가 해결되지 않아 일단 주석처리한다.
-  // const {
-  //   lastDistance,
-  //   centerX,
-  //   centerY,
-  //   currentNEX,
-  //   currentNEY,
-  //   currentSWX,
-  //   currentSWY,
-  // } = values;
-
-  return necessaryAuthAxiosInstance.get("v1/mapgakcos", {
+export const requestGetMapgakcosRange = (values: RequestGetMapgakcosRange) => {
+  return necessaryAuthAxiosInstance.get(url.MAPGAKCOS_RANGE, {
     params: {
-      lastDistance: 0.0,
-      centerX: 37.566653033875774,
-      centerY: 126.97876549797886,
-      currentNEX: 37.57736394041695,
-      currentNEY: 127.03009029300624,
-      currentSWX: 37.55659510685803,
-      currentSWY: 126.9430729297755,
+      currentNEY: values?.currentNEY || COORDS.KOREA_NEY,
+      currentNEX: values?.currentNEX || COORDS.KOREA_NEX,
+      currentSWY: values?.currentSWY || COORDS.KOREA_SWY,
+      currentSWX: values?.currentSWX || COORDS.KOREA_SWX,
     },
   });
 };
 
 export const requestGetMapgakcoDetail = (id: string) => {
-  return necessaryAuthAxiosInstance.get(`v1/mapgakcos/${id}`);
+  return necessaryAuthAxiosInstance.get(`${url.MAPGAKCOS}${id}`);
 };
 
 export const requestPatchMapgakcoDetail = (id: string, values) => {
-  return necessaryAuthAxiosInstance.patch(`v1/mapgakcos/${id}`, values);
+  return necessaryAuthAxiosInstance.patch(`${url.MAPGAKCOS}${id}`, values);
 };
