@@ -1,3 +1,4 @@
+import { Editor } from "@toast-ui/react-editor";
 import theme from "../../assets/theme";
 import { categoryValue } from "../../constants";
 import Button from "../base/Button";
@@ -10,9 +11,11 @@ import {
   ClickedStyle,
   NormalStyle,
   ButtonContainer,
-  Textarea,
   ErrorMessage,
+  MarkdownEditorWrapper,
+  StyledDatePicker,
 } from "./styles";
+import MarkdownEditor from "../base/MarkdownEditor";
 
 interface Props {
   values: {
@@ -25,11 +28,12 @@ interface Props {
   onTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onApplicantChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCategoryChange: (selectedCategory: string) => void;
-  onDeadline: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onContent: (e: React.ChangeEvent<HTMLTextAreaElement>) => void; // (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onDeadline: (value: string) => void;
+  onContent: (value: string) => void;
   onModalClose: () => void;
   onSubmit: () => void;
   error: Array<string>;
+  editorRef: React.MutableRefObject<Editor>;
 }
 
 const GatherRegisterForm = ({
@@ -42,6 +46,7 @@ const GatherRegisterForm = ({
   onModalClose,
   onSubmit,
   error,
+  editorRef,
 }: Props) => {
   return (
     <Container>
@@ -50,7 +55,7 @@ const GatherRegisterForm = ({
           <label htmlFor="category">카테고리</label>
           {error.includes("category") ? (
             <ErrorMessage>필수 입력 값입니다.</ErrorMessage>
-          ) : undefined}
+          ) : null}
         </LabelContainer>
         <CategoryWrapper>
           <Button
@@ -90,7 +95,7 @@ const GatherRegisterForm = ({
           <label htmlFor="title">제목</label>
           {error.includes("title") ? (
             <ErrorMessage>필수 입력 값입니다.</ErrorMessage>
-          ) : undefined}
+          ) : null}
         </LabelContainer>
         <Input
           type="text"
@@ -104,7 +109,7 @@ const GatherRegisterForm = ({
           <label htmlFor="applicantCount">모집 인원</label>
           {error.includes("applicantLimit") ? (
             <ErrorMessage>필수 입력 값입니다.</ErrorMessage>
-          ) : undefined}
+          ) : null}
         </LabelContainer>
         <Input
           type="text"
@@ -118,12 +123,15 @@ const GatherRegisterForm = ({
           <label htmlFor="deadline">마감 날짜</label>
           {error.includes("deadline") ? (
             <ErrorMessage>필수 입력 값입니다.</ErrorMessage>
-          ) : undefined}
+          ) : null}
         </LabelContainer>
-        <Input
-          type="text"
+        <StyledDatePicker
           name="deadline"
-          onChange={onDeadline}
+          dateFormat="yyyy-MM-dd"
+          selected={values.deadline || null}
+          minDate={new Date()}
+          maxDate={new Date("9999-12-31")}
+          onChange={(value: string) => onDeadline(value)}
           value={values.deadline}
         />
       </ItemContainer>
@@ -132,14 +140,15 @@ const GatherRegisterForm = ({
           <label htmlFor="content">내용</label>
           {error.includes("content") ? (
             <ErrorMessage>필수 입력 값입니다.</ErrorMessage>
-          ) : undefined}
+          ) : null}
         </LabelContainer>
-        <Textarea
-          id="content"
-          name="content"
-          value={values.content}
-          onChange={onContent}
-        />
+        <MarkdownEditorWrapper>
+          <MarkdownEditor
+            editorRef={editorRef}
+            setEditorText={(value: string) => onContent(value)}
+            value={values.content || ""}
+          />
+        </MarkdownEditorWrapper>
       </ItemContainer>
       <ButtonContainer>
         <Button
