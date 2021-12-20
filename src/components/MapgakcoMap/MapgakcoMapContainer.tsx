@@ -2,7 +2,7 @@ import { useRecoilValue } from "recoil";
 import randomUserMapInfo from "../../../fixtures/userMapInfo";
 import { globalMyProfile } from "../../atoms/user";
 import { common, COORDS } from "../../constants";
-import useMapgakcosQuery from "../../hooks/useMapgakcos";
+import useMapgakcosQuery from "../../hooks/useMapgakcosQuery";
 import MapgakcoMap from "./MapgakcoMap";
 
 const MapgakcoMapContainer = () => {
