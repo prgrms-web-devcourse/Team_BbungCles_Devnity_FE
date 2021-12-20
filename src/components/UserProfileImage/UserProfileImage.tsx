@@ -1,17 +1,30 @@
 import Image from "../base/Image";
 
+interface Style {
+  [key: string]: string;
+}
 interface Props {
   imageUrl: string;
+  title?: string;
+  size?: number;
+  style?: Style;
 }
 
-const UserProfileImage = ({ imageUrl }: Props) => {
+const UserProfileImage = ({ imageUrl, title, size, style }: Props) => {
+  const imageStyle = {
+    border: "2px solid white",
+    boxSizing: "content-box",
+    ...style,
+  };
+
   return (
     <Image
       src={imageUrl}
-      width={32}
-      height={32}
+      width={size || 32}
+      height={size || 32}
+      title={title}
       borderRadius="50%"
-      style={{ border: "2px solid white", boxSizing: "content-box" }}
+      style={imageStyle}
       alt="유저 프로필 이미지"
       mode="cover"
     />
