@@ -108,10 +108,6 @@ export const ContactContainer = styled.a`
     color: black;
     text-decoration: none;
   }
-
-  & > svg {
-    margin-right: 36px;
-  }
 `;
 
 export const BlankLink = styled.a`
@@ -140,8 +136,8 @@ export const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  overflow-y: auto;
   gap: 16px 0;
+  height: auto;
 `;
 
 export const FormContainer = styled.form`
@@ -173,6 +169,7 @@ export const HiddenLabel = styled.label`
 
 export const IconWrapper = styled.div`
   height: 24px;
+  margin-right: 36px;
 `;
 
 export const EmptyTextWrapper = styled.div`

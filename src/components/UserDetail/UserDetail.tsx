@@ -29,6 +29,8 @@ import {
   ContentContainer,
   DescriptionBorderContainer,
   EmptyTextWrapper,
+  IconWrapper,
+  CommentBorderContainer,
 } from "./styles";
 import MarkdownEditor from "../base/MarkdownEditor";
 import Comment from "./Comment";
@@ -127,7 +129,9 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
             href={`mailto:${userInfo.user.email}`}
             target="_blank"
           >
-            <MdEmail size={24} />
+            <IconWrapper>
+              <MdEmail size={24} />
+            </IconWrapper>
 
             <Text size={16} strong>
               {userInfo.user.email}
@@ -142,9 +146,11 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
             href={userInfo.introduction.githubUrl}
             target="_blank"
           >
-            <BsGithub size={24} />
+            <IconWrapper>
+              <BsGithub size={24} />
+            </IconWrapper>
 
-            <Text size={16} strong>
+            <Text ellipsisLineClamp={1} size={16} strong>
               {userInfo.introduction.githubUrl ||
                 "아직 깃허브 주소를 입력하지 않았어요"}
             </Text>
@@ -160,9 +166,11 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
             href={userInfo.introduction.blogUrl}
             target="_blank"
           >
-            <GiNotebook size={24} />
+            <IconWrapper>
+              <GiNotebook size={24} />
+            </IconWrapper>
 
-            <Text size={16} strong>
+            <Text ellipsisLineClamp={1} size={16} strong>
               {userInfo.introduction.blogUrl ||
                 "아직 블로그 주소를 입력하지 않았어요"}
             </Text>
@@ -218,13 +226,35 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
           </StyledMap>
         </BorderContainer>
 
-        <BorderContainer height={560}>
+        <CommentBorderContainer height={560}>
           <Text size={20} strong>
             댓글
           </Text>
 
+          <FormContainer onSubmit={handleSubmit}>
+            <HiddenLabel htmlFor="content">내용</HiddenLabel>
+
+            <Input
+              type="text"
+              name="content"
+              placeholder={common.message.ENTER_COMMENT}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.content}
+              maxLength={common.validation.COMMENT_MAX_LENGTH}
+            />
+
+            <Button type="submit">
+              <Text size={12} color="white" strong ellipsisLineClamp={1}>
+                <HiOutlinePencilAlt size={20} />
+              </Text>
+            </Button>
+          </FormContainer>
+
           {userInfo.comments?.length === 0 && (
-            <CommentContainer>{`${userInfo.user.name}님에게 제일 먼저 댓글을 달아주세요!`}</CommentContainer>
+            <CommentContainer>
+              <EmptyTextWrapper>{`${userInfo.user.name}님에게 제일 먼저 댓글을 달아주세요!`}</EmptyTextWrapper>
+            </CommentContainer>
           )}
 
           <CommentContainer>
@@ -246,26 +276,7 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
               </React.Fragment>
             ))}
           </CommentContainer>
-          <FormContainer onSubmit={handleSubmit}>
-            <HiddenLabel htmlFor="content">내용</HiddenLabel>
-
-            <Input
-              type="text"
-              name="content"
-              placeholder={common.message.ENTER_COMMENT}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.content}
-              maxLength={common.validation.COMMENT_MAX_LENGTH}
-            />
-
-            <Button type="submit">
-              <Text size={12} color="white" strong ellipsisLineClamp={1}>
-                <HiOutlinePencilAlt size={20} />
-              </Text>
-            </Button>
-          </FormContainer>
-        </BorderContainer>
+        </CommentBorderContainer>
       </ContentContainer>
     </Container>
   );
