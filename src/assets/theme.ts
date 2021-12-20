@@ -58,8 +58,8 @@ const theme = {
     },
     [tagName.COURSE]: {
       FE: "#ffb266",
-      BE: "#6667ff",
-      AI: "#ff6667",
+      BE: "#ff6667",
+      AI: "#6667ff",
     },
   },
   boxShadows: {
