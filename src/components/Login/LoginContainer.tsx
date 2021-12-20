@@ -10,11 +10,17 @@ import { login } from "../../constants";
 import Login from "./Login";
 import { useLocalStorage } from "../../hooks";
 import { authState } from "../../atoms/auth";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const LoginContainer = () => {
   const history = useHistory();
+
+  const [toast] = useCustomToast();
+
   const setAuthState = useSetRecoilState(authState);
+
   const [, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
+
   const { mutate } = useMutation<MutationData, MutationError, unknown, unknown>(
     (values: FormValues) => requestLogin(values),
     {
@@ -22,6 +28,7 @@ const LoginContainer = () => {
         setToken(data.data.token);
         setAuthState(data.data.token);
         history.push("/");
+        toast({ message: `환영합니다 😁` });
       },
     }
   );

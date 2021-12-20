@@ -20,16 +20,14 @@ const GatherDetailContainer = () => {
   const { closeGather } = useClosGather();
 
   const handleGatherDelete = (gatherId) => {
-    // eslint-disable-next-line no-alert
-    // eslint-disable-next-line no-restricted-globals
+    // eslint-disable-next-line
     if (confirm(common.message.CONFIRM_DELETE)) {
       deleteGather(gatherId);
     }
   };
 
   const handleGatherClose = (gatherId) => {
-    // eslint-disable-next-line no-alert
-    // eslint-disable-next-line no-restricted-globals
+    // eslint-disable-next-line
     if (confirm(common.message.CONFIRM_MODIFY)) {
       closeGather(gatherId);
     }

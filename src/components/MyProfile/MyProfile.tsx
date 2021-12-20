@@ -17,6 +17,7 @@ import {
   MarkdownEditorWrapper,
   TitleWrapper,
   ProfileModifyButton,
+  RowContainerCoursor,
 } from "./styles";
 import { IProps } from "./types";
 import MarkdownEditor from "../base/MarkdownEditor";
@@ -79,7 +80,7 @@ const MyProfile = ({
         </Text>
       </TitleWrapper>
 
-      <RowContainer onClick={handleImageClick} cursor>
+      <RowContainerCoursor onClick={handleImageClick}>
         <ProfileImage
           src={formik.values.profileImgUrl || common.placeHolderImageSrc}
           alt="profile"
@@ -87,7 +88,7 @@ const MyProfile = ({
         <ProfileModifyButton>
           <HiPlusCircle size={36} color={theme.colors.primary} />
         </ProfileModifyButton>
-      </RowContainer>
+      </RowContainerCoursor>
 
       <MyProfileForm onSubmit={formik.handleSubmit}>
         <HiddenInput
