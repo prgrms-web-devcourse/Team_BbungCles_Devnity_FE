@@ -1,7 +1,9 @@
 // TODO: any를 지운다.
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BsCalendarDate, BsPeople, BsPinMap } from "react-icons/bs";
+import { toast } from "react-toastify";
 import theme from "../../../../assets/theme";
+import useMutationMapgakcoApplyPost from "../../../../hooks/useMutationMapgakcoApplyPost";
 import useToastUi from "../../../../hooks/useToastUi";
 import { ResponseGetMapgakcoDetail } from "../../../../types/mapgakco";
 import { koreanDate } from "../../../../utils/date";
@@ -28,6 +30,15 @@ const hasApplied = (myProfile, mapgakcoDetail: ResponseGetMapgakcoDetail) => {
 
 const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
   const [editorRef] = useToastUi();
+
+  const { mutate } = useMutationMapgakcoApplyPost(
+    mapgakcoDetail?.mapgakco?.mapgakcoId
+  );
+
+  const handleApplyClick = () => {
+    mutate({});
+    toast("신청이 완료되었습니다.");
+  };
 
   const defaultButtonStyle = {
     padding: "8px",
@@ -126,7 +137,7 @@ const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
             신청 취소
           </Button>
         ) : (
-          <Button style={activeButtonStyle} onClick={() => ({})}>
+          <Button style={activeButtonStyle} onClick={handleApplyClick}>
             신청
           </Button>
         )}
