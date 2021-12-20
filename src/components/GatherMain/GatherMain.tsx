@@ -26,7 +26,11 @@ const GatherMain = ({
           글쓰기
         </WriteButton>
       </SearchAndWriteContainer>
-      <Modal visible={modalVisible} onClose={() => handleVisibleModal(false)}>
+      <Modal
+        width="60%"
+        visible={modalVisible}
+        onClose={() => handleVisibleModal(false)}
+      >
         <GatherRegisterFormContainer
           onModalClose={() => handleVisibleModal(false)}
         />

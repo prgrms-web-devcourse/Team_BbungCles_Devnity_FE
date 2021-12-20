@@ -1,6 +1,8 @@
 import { useCallback, useState } from "react";
+import dayjs from "dayjs";
 import GatherRegisterForm from "./GatherRegisterForm";
 import useAddGather from "../../hooks/useAddGather";
+import useToastUi from "../../hooks/useToastUi";
 
 interface Props {
   onModalClose: () => void;
@@ -9,11 +11,16 @@ interface Props {
 const validate = (newGather) => {
   const newGatherKeys = Object.keys(newGather);
 
-  const errors = newGatherKeys.filter((key) => newGather[key].length === 0);
+  const errors = newGatherKeys.filter(
+    (key) => newGather[key].length === 0 || newGather[key] === "Invalid Date"
+  );
 
   return errors;
 };
+
 const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
+  const [editorRef, resetMarkDown] = useToastUi();
+
   const [title, setTitle] = useState("");
   const [applicantCount, setApplicantCount] = useState("");
   const [category, setCategory] = useState("");
@@ -35,26 +42,19 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
   const handleApplicant = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;
-      setApplicantCount(value);
+      const onlyNumber = value.replace(/[^0-9]/g, "");
+      setApplicantCount(onlyNumber);
     },
     []
   );
 
-  const handleDeadline = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.target;
-      setDeadline(value);
-    },
-    []
-  );
+  const handleDeadline = useCallback((value: string) => {
+    setDeadline(value);
+  }, []);
 
-  const handleContent = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const { value } = e.target;
-      setContent(value);
-    },
-    []
-  );
+  const handleContent = useCallback((value: string) => {
+    setContent(value);
+  }, []);
 
   const closeAndValueInitialize = () => {
     onModalClose();
@@ -70,7 +70,7 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
     const value = {
       title,
       applicantLimit: applicantCount ? parseInt(applicantCount, 10) : "",
-      deadline,
+      deadline: dayjs(deadline).format("YYYY-MM-DD"),
       content,
       category,
     };
@@ -80,6 +80,7 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
     if (isError.length === 0) {
       addGather(value);
       closeAndValueInitialize();
+      resetMarkDown();
     } else {
       setError(isError);
     }
@@ -87,6 +88,7 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
 
   const handleModalClose = () => {
     closeAndValueInitialize();
+    resetMarkDown();
   };
 
   return (
@@ -100,6 +102,7 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
       onModalClose={handleModalClose}
       onSubmit={handleSubmit}
       error={error}
+      editorRef={editorRef}
     />
   );
 };
