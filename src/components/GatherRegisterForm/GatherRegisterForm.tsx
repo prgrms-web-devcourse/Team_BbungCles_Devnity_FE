@@ -168,7 +168,7 @@ const GatherRegisterForm = ({
         <Button
           onClick={onSubmit}
           style={{
-            backgroundColor: theme.colors.orange400,
+            backgroundColor: theme.colors.newPrimary,
             width: 100,
             padding: 10,
             borderRadius: "6px",

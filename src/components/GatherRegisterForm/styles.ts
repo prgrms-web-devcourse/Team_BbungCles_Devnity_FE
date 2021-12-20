@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export const ClickedStyle: CSSProperties = {
   color: theme.colors.white,
-  backgroundColor: theme.colors.orange400,
+  backgroundColor: theme.colors.newPrimary,
   padding: "12px",
   borderRadius: "6px",
   fontWeight: 600,
