@@ -140,7 +140,7 @@ export const BorderContainer = styled.div<{ height?: number }>`
   border-radius: 20px;
   padding: 32px;
   width: 100%;
-  min-width: 500px;
+  min-width: 560px;
   gap: 28px;
   height: ${({ height }) => (height ? `${height}px` : "auto")};
   overflow-y: auto;
@@ -163,4 +163,28 @@ export const IconWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   height: 24px;
+`;
+
+export const EmptyTextWrapper = styled.div`
+  align-self: center;
+  margin-top: auto;
+  margin-bottom: auto;
+`;
+
+export const Button = styled.button`
+  min-width: 64px;
+  margin-top: auto;
+  padding: 16px 16px;
+  border: none;
+  background-color: ${({ theme }) => theme.colors?.newPrimary};
+  border-radius: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: ${({ theme }) => theme.colors?.gray800};
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
+  flex-grow: 1;
+  height: 100%;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.orange600};
+  }
 `;
