@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 import { CustomOverlayMap, MapMarker } from "react-kakao-maps-sdk";
-import { Position } from "../../types/commonTypes";
+import { Position } from "../../../types/commonTypes";
 
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 interface Props {

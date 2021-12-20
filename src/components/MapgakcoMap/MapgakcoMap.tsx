@@ -24,7 +24,7 @@ import {
   getMapgakcoMarkerOverlays,
   getUserMarkerOverlays,
 } from "../../utils/map/overlay";
-import MapgakcoMarker from "./MapgakcoMarker";
+import MapgakcoMarker from "./MapgakcoMarker/MapgakcoMarker";
 import UserMarker from "./UserMarker";
 import MapgakcoDetailContainer from "./MapgakcoDetail/MapgakcoDetailContainer";
 

@@ -1,20 +1,19 @@
 import { useMutation, useQueryClient } from "react-query";
 import { MutationData, MutationError } from "../types/commonTypes";
-import { requestPatchMapgakcoDetail } from "../utils/apis/mapgakco";
+import { requestDeleteMapgakcoApply } from "../utils/apis/mapgakco";
 
-const useMutationMapgakcoPatch = (id: string) => {
+const useMutationMapgakcoApplyDelete = (mapgakcoId: string | number) => {
   const queryClient = useQueryClient();
 
   return useMutation<MutationData, MutationError, unknown, unknown>(
-    "mapgakcoPatch",
-    (values) => requestPatchMapgakcoDetail(id, values),
+    "mapgakcoApplyDelete",
+    () => requestDeleteMapgakcoApply(mapgakcoId),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("mapgakcoDetail");
-        queryClient.invalidateQueries("mapgakcos");
       },
     }
   );
 };
 
-export default useMutationMapgakcoPatch;
+export default useMutationMapgakcoApplyDelete;

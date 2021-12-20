@@ -6,6 +6,7 @@ import useMapgakcoDetailQuery from "../../../hooks/useMapgakcoDetailQuery";
 import { globalMyProfile } from "../../../atoms";
 import MapgakcoDetailOnEdit from "./MapgakcoDetailOnEdit";
 import MapgakcoDetailOnView from "./MapgakcoDetailOnView";
+import { ResponseGetMapgakcoDetail } from "../../../types/mapgakco";
 
 interface Props {
   mapgakcoId: string;
@@ -21,8 +22,13 @@ const MapgakcoDetailContainer = ({ mapgakcoId, onModalClose }: Props) => {
 
   const myProfile = useRecoilValue(globalMyProfile);
 
-  const { isLoading, data: mapgakcoDetail } =
-    useMapgakcoDetailQuery(mapgakcoId);
+  const {
+    isLoading,
+    data: mapgakcoDetail,
+  }: {
+    isLoading: boolean;
+    data: ResponseGetMapgakcoDetail;
+  } = useMapgakcoDetailQuery(mapgakcoId);
 
   const handleEdit = () => setIsEditing(true);
   const handleEditCancel = () => setIsEditing(false);

@@ -45,11 +45,21 @@ export const Card = styled.div`
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
+      align-items: center;
       margin-top: 10px;
     }
 
     .row-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       padding-left: 10px;
+
+      .participants {
+        .participant:not(:first-of-type) {
+          margin-left: -8px;
+        }
+      }
     }
   }
 `;

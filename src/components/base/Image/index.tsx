@@ -15,6 +15,7 @@ interface Props {
   borderRadius?: string;
   alt: string;
   mode: "cover" | "fill" | "contain";
+  title?: string;
   style?: Style;
 }
 
@@ -41,6 +42,7 @@ const Image = ({
   borderRadius,
   alt,
   mode,
+  title,
   ...props
 }: Props) => {
   const [loaded, setLoaded] = useState(false);
@@ -82,6 +84,7 @@ const Image = ({
       ref={imgRef}
       src={loaded ? src : placeholder}
       alt={alt}
+      title={title}
       style={{ ...props.style, ...imageStyle }}
     />
   );

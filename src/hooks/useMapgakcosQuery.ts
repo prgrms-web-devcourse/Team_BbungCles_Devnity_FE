@@ -8,6 +8,11 @@ const getMapgakcos = async (values: RequestGetMapgakcosRange) => {
   return data?.data || [];
 };
 
-export default function useMapgakcosQuery(values: RequestGetMapgakcosRange) {
-  return useQuery("mapgakcos", () => getMapgakcos(values));
+export default function useMapgakcosQuery(
+  values: RequestGetMapgakcosRange,
+  interval = 0
+) {
+  return useQuery("mapgakcos", () => getMapgakcos(values), {
+    refetchInterval: interval || false,
+  });
 }

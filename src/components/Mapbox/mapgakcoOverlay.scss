@@ -61,6 +61,7 @@ $marker--blue-color: #0472E7;
   border: 1px solid #ccc;
   border-bottom: 2px solid #ddd;
   float: left;
+  cursor: pointer;
 }
 .customoverlay:nth-of-type(n) {
   border: 0;
@@ -79,6 +80,10 @@ $marker--blue-color: #0472E7;
   background: $marker--blue-color
     url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
     no-repeat right 14px center;
+
+    &:hover {
+    background-color: #ed1c40;
+  }
 }
 .customoverlay .title {
   display: block;
@@ -88,6 +93,12 @@ $marker--blue-color: #0472E7;
   padding: 10px 15px;
   font-size: 14px;
   font-weight: bold;
+  user-select: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #f1f5f5;
+  }
 }
 .customoverlay:after {
   content: "";

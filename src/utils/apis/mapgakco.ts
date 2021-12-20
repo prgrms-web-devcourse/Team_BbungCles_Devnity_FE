@@ -24,3 +24,13 @@ export const requestGetMapgakcoDetail = (id: string) => {
 export const requestPatchMapgakcoDetail = (id: string, values) => {
   return necessaryAuthAxiosInstance.patch(`${url.MAPGAKCOS}${id}`, values);
 };
+
+export const requestPostMapgakcoApply = (mapgakcoId: string | number) => {
+  return necessaryAuthAxiosInstance.post(`${url.MAPGAKCOS}${mapgakcoId}/apply`);
+};
+
+export const requestDeleteMapgakcoApply = (mapgakcoId: string | number) => {
+  return necessaryAuthAxiosInstance.delete(
+    `${url.MAPGAKCOS}${mapgakcoId}/apply`
+  );
+};
