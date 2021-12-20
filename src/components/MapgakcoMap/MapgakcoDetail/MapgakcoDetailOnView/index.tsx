@@ -3,6 +3,7 @@
 import { BsCalendarDate, BsPeople, BsPinMap } from "react-icons/bs";
 import { toast } from "react-toastify";
 import theme from "../../../../assets/theme";
+import useMutationMapgakcoApplyDelete from "../../../../hooks/useMutationMapgakcoApplyDelete";
 import useMutationMapgakcoApplyPost from "../../../../hooks/useMutationMapgakcoApplyPost";
 import useToastUi from "../../../../hooks/useToastUi";
 import { ResponseGetMapgakcoDetail } from "../../../../types/mapgakco";
@@ -31,13 +32,22 @@ const hasApplied = (myProfile, mapgakcoDetail: ResponseGetMapgakcoDetail) => {
 const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
   const [editorRef] = useToastUi();
 
-  const { mutate } = useMutationMapgakcoApplyPost(
+  const { mutate: applyPost } = useMutationMapgakcoApplyPost(
+    mapgakcoDetail?.mapgakco?.mapgakcoId
+  );
+
+  const { mutate: applyDelete } = useMutationMapgakcoApplyDelete(
     mapgakcoDetail?.mapgakco?.mapgakcoId
   );
 
   const handleApplyClick = () => {
-    mutate({});
+    applyPost({});
     toast("신청이 완료되었습니다.");
+  };
+
+  const handleCancelClick = () => {
+    applyDelete({});
+    toast("신청이 취소되었습니다.");
   };
 
   const defaultButtonStyle = {
@@ -58,10 +68,10 @@ const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
     backgroundColor: theme.colors.markerBlue,
   };
 
-  const inactiveButtonStyle = {
+  const cancelButtonStyle = {
     ...defaultButtonStyle,
     color: theme.colors.white,
-    backgroundColor: theme.colors.disabled,
+    backgroundColor: theme.colors.scarlet,
   };
 
   return (
@@ -133,7 +143,7 @@ const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
             수정
           </Button>
         ) : hasApplied(myProfile, mapgakcoDetail) ? (
-          <Button style={inactiveButtonStyle} onClick={() => ({})}>
+          <Button style={cancelButtonStyle} onClick={handleCancelClick}>
             신청 취소
           </Button>
         ) : (

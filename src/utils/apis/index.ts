@@ -10,4 +10,5 @@ export {
   requestGetMapgakcosRange,
   requestGetMapgakcoDetail,
   requestPostMapgakcoApply,
+  requestDeleteMapgakcoApply,
 } from "./mapgakco";
