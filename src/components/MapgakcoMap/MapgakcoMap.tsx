@@ -1,7 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { UserMapInfo } from "../../../fixtures/userMapInfo";
 import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
 import { Position } from "../../types/commonTypes";
@@ -27,14 +26,15 @@ import {
 import MapgakcoMarker from "./MapgakcoMarker/MapgakcoMarker";
 import UserMarker from "./UserMarker";
 import MapgakcoDetailContainer from "./MapgakcoDetail/MapgakcoDetailContainer";
+import { ResponseUserLocation } from "../../types/userLocation";
 
 interface Props {
   initialCenter: Position;
-  userMapInfos: UserMapInfo[];
+  usersLocations: ResponseUserLocation[];
   mapgakcos: Mapgakco[];
 }
 
-const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
+const MapgakcoMap = ({ initialCenter, usersLocations, mapgakcos }: Props) => {
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();
@@ -95,7 +95,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
     });
   }, []);
 
-  const userMarkerOverlays = getUserMarkerOverlays(userMapInfos);
+  const userMarkerOverlays = getUserMarkerOverlays(usersLocations);
   const mapgakcoMarkerOverlays = getMapgakcoMarkerOverlays(mapgakcos);
 
   const handleRegisterModalClose = useCallback(() => {
