@@ -79,7 +79,7 @@ const MyProfile = ({
         </Text>
       </TitleWrapper>
 
-      <RowContainer onClick={handleImageClick} cursor>
+      <RowContainer onClick={handleImageClick} cursor="pointer">
         <ProfileImage
           src={formik.values.profileImgUrl || common.placeHolderImageSrc}
           alt="profile"

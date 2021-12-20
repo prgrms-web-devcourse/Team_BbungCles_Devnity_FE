@@ -98,12 +98,12 @@ export const Select = styled.select`
   }
 `;
 
-export const RowContainer = styled.div<{ cursor?: boolean }>`
+export const RowContainer = styled.div<{ cursor?: string }>`
   position: relative;
   display: flex;
   justify-content: space-between;
   gap: 0 16px;
-  cursor: ${({ cursor }) => cursor && "pointer"};
+  cursor: ${({ cursor }) => cursor};
 `;
 
 export const ColumnContainer = styled.div`
