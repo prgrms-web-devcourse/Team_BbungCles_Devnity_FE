@@ -12,7 +12,7 @@ import Image from "../base/Image";
 import Tag from "../Tag/Tag";
 import LikeButtonAndText from "../LikeButtonAndText/LikeButtonAndText";
 import CommentButtonAndText from "../CommentButtonAndText/CommentButtonAndText";
-import { tagName } from "../../constants";
+import { common, tagName } from "../../constants";
 import ProfileBox from "../ProfileBox/ProfileBox";
 import { UserInfo } from "../../types/userInfo";
 
@@ -27,7 +27,9 @@ const UserCard = ({ userInfo, onClick }: Props) => {
       <Header>
         <ImageWrapper>
           <Image
-            src={userInfo.introduction.profileImgUrl}
+            src={
+              userInfo.introduction.profileImgUrl || common.placeHolderImageSrc
+            }
             width="100%"
             height="100%"
             mode="cover"
