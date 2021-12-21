@@ -29,6 +29,7 @@ const theme = {
     coral: "#ffb09b",
     olive: "#d8c573",
     skyblue: "#66b3ff",
+    blue: "#0457e7",
     mint: "#66ffb2",
     scarlet: "#ff6667",
     yellow: "#ffff66",
