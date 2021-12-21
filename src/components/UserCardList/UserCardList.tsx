@@ -33,16 +33,18 @@ const UserCardList = ({ userInfos }: Props) => {
               paddingLeft: "4px",
             }}
           >
-            {userInfos?.map((userInfo) => (
-              <li key={userInfo.user.userId}>
-                <UserCard
-                  userInfo={userInfo}
-                  onClick={handleUserCardClick(
-                    userInfo.introduction.introductionId
-                  )}
-                />
-              </li>
-            ))}
+            <div style={{ display: "flex", width: "110vw" }}>
+              {userInfos?.map((userInfo) => (
+                <li key={userInfo.user.userId}>
+                  <UserCard
+                    userInfo={userInfo}
+                    onClick={handleUserCardClick(
+                      userInfo.introduction.introductionId
+                    )}
+                  />
+                </li>
+              ))}
+            </div>
           </ScrollHorizontal>
         </ul>
       ) : (
