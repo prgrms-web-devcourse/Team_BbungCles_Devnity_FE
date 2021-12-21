@@ -53,14 +53,27 @@ const UsersMap = ({ center, currentUser }: Props) => {
   return (
     <Container>
       <MapFloatContainer>
-        <SearchBarFormContainer onSubmit={formik.handleSubmit}>
-          <InputWrapper>
+        <SearchBarFormContainer
+          onSubmit={formik.handleSubmit}
+          style={{
+            justifyContent: "center",
+            boxShadow: "none",
+            minWidth: "none",
+          }}
+        >
+          <InputWrapper style={{ justifyContent: "center" }}>
             <Select
               id="generation"
               name="generation"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.generation}
+              style={{
+                padding: "10px 0",
+                textAlign: "center",
+                borderRadius: "6px",
+                width: "100px",
+              }}
             >
               <option value="">{common.text.GENERATION}</option>
               {generations.map(({ value, label }) => (
@@ -75,6 +88,12 @@ const UsersMap = ({ center, currentUser }: Props) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.course}
+              style={{
+                padding: "10px 0",
+                textAlign: "center",
+                borderRadius: "6px",
+                width: "100px",
+              }}
             >
               <option value="">{common.text.COURSE}</option>
               {courses.map(({ value, label }) => (
