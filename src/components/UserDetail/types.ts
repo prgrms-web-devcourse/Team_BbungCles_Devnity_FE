@@ -60,6 +60,7 @@ export interface UserDetailProps {
       createdAt: string;
       updatedAt: string;
       likeCount: number | null;
+      commentCount: number | null;
       description: string | null;
     };
 
