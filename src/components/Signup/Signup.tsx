@@ -11,7 +11,6 @@ import {
   SignupFormContainer,
   SignupForm,
   FormContainer,
-  ImageWrapper,
   Title,
   Container,
   Input,
@@ -118,16 +117,6 @@ const Signup = () => {
   return (
     <Container>
       <SignupFormContainer>
-        <ImageWrapper>
-          <img
-            src="https://source.unsplash.com/random"
-            width="100%"
-            height="100%"
-            alt="profile"
-            style={{ borderRadius: "10px", objectFit: "cover" }}
-          />
-        </ImageWrapper>
-
         <FormContainer>
           <Title>회원가입</Title>
 

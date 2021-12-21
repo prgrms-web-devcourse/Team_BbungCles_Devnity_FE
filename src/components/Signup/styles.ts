@@ -16,7 +16,7 @@ export const Container = styled.div`
 
 export const SignupFormContainer = styled.div`
   display: flex;
-  width: 70vw;
+  width: 400px;
   height: 85vh;
   border-radius: 20px;
   box-shadow: 0 8px 32px 0 ${({ theme }) => `${theme.colors?.gray600}`};
@@ -26,7 +26,7 @@ export const SignupFormContainer = styled.div`
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 100%;
   height: 100%;
   padding: 16px;
   overflow-y: auto;
