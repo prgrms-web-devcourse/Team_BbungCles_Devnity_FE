@@ -35,7 +35,10 @@ module.exports = (webpackEnv) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env": JSON.stringify(process.env),
+        "process.env.REST_API_KEY": JSON.stringify(process.env.REST_API_KEY),
+        "process.env.API_URL": JSON.stringify(
+          isEnvProduction ? process.env.API_URL_PROD : process.env.API_URL_DEV
+        ),
       }),
       new HtmlWebpackPlugin({
         filename: "./index.html",

@@ -191,7 +191,7 @@ const Admin = () => {
                     <Button
                       type="button"
                       onClick={handleCopyClick(
-                        `${process.env.DOMAIN}signup/${inviteLink.uuid}`
+                        `${window.location.origin}/signup/${inviteLink.uuid}`
                       )}
                     >
                       링크 복사

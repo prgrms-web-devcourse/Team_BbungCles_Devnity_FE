@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "webpack serve --env=development",
     "start": "webpack serve --env=production",
+    "build:dev": "webpack build --mode=development",
     "build": "webpack build --mode=production",
     "build:report": "webpack build --mode=production && webpack-bundle-analyzer --port 9090 dist/bundleStats.json",
     "check": "tsc --noEmit",
