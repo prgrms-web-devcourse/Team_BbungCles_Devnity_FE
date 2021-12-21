@@ -16,25 +16,24 @@ export const Container = styled.div`
 
 export const LoginFormContainer = styled.div`
   display: flex;
-  width: 50vw;
+  width: 400px;
   height: 50vh;
-  border-radius: 20px;
   box-shadow: 0 8px 32px 0 ${({ theme }) => `${theme.colors?.gray600}`};
   border-radius: 10px;
-`;
-
-export const ImageWrapper = styled.div`
-  width: 60%;
-  height: 100%;
+  overflow-y: auto;
 `;
 
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 40%;
+  width: 100%;
   height: 100%;
   padding: 16px;
+
+  img {
+    margin-bottom: 32px;
+  }
 `;
 
 export const LoginForm = styled.form`

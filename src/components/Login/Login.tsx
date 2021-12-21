@@ -5,9 +5,7 @@ import {
   Container,
   LoginForm,
   ErrorMessage,
-  Title,
   LoginFormContainer,
-  ImageWrapper,
   FormContainer,
   Input,
   Button,
@@ -31,18 +29,16 @@ const Login = ({ formik }: IProps) => {
   return (
     <Container>
       <LoginFormContainer>
-        <ImageWrapper>
-          <img
-            src="https://source.unsplash.com/random"
-            width="100%"
-            height="100%"
-            alt="profile"
-            style={{ borderRadius: "10px", objectFit: "cover" }}
-          />
-        </ImageWrapper>
-
         <FormContainer>
-          <Title>Devnity</Title>
+          <img
+            // TODO: 추후 webpack 설정 필요
+            // eslint-disable-next-line
+            src={require("../../assets/images/logo.png")}
+            width="100%"
+            height="80px"
+            alt="main"
+            style={{ width: "100%", objectFit: "contain" }}
+          />
 
           <LoginForm onSubmit={formik.handleSubmit} autoComplete="off">
             <HiddenLabel htmlFor="email">{login.text.EMAIL}</HiddenLabel>
