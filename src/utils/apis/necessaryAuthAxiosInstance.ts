@@ -4,7 +4,6 @@ import { getLocalStorageItem } from "../functions";
 
 const axiosInstance = axios.create();
 
-// axiosInstance.defaults.baseURL = "http://3.37.54.135:8888/api/";
 axiosInstance.defaults.baseURL = process.env.API_URL;
 axiosInstance.defaults.responseType = "json";
 axiosInstance.interceptors.request.use(
