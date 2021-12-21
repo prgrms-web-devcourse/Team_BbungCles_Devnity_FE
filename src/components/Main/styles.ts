@@ -49,8 +49,14 @@ export const SelfIntroduce = styled.div`
     width: 100%;
     overflow-x: auto;
 
+    height: 350px;
+
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    & li {
+      margin-right: 20px;
     }
   }
 `;

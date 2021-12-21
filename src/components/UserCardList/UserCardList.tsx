@@ -21,10 +21,13 @@ const UserCardList = ({ userInfos }: Props) => {
   );
 
   return (
-    <ScrollHorizontal reverseScroll style={{ height: "100%" }}>
-      <div>
-        {(userInfos || []).length ? (
-          <ul>
+    <div>
+      {(userInfos || []).length ? (
+        <ul>
+          <ScrollHorizontal
+            reverseScroll
+            style={{ display: "flex", gap: "20px", height: "100%" }}
+          >
             {userInfos?.map((userInfo) => (
               <li key={userInfo.user.userId}>
                 <UserCard
@@ -35,12 +38,12 @@ const UserCardList = ({ userInfos }: Props) => {
                 />
               </li>
             ))}
-          </ul>
-        ) : (
-          <Text>자기소개 목록이 없습니다.</Text>
-        )}
-      </div>
-    </ScrollHorizontal>
+          </ScrollHorizontal>
+        </ul>
+      ) : (
+        <Text>자기소개 목록이 없습니다.</Text>
+      )}
+    </div>
   );
 };
 
