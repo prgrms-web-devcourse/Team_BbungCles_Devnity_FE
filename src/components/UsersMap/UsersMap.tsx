@@ -1,6 +1,5 @@
 import { Map } from "react-kakao-maps-sdk";
 import { useQueryClient } from "react-query";
-import { courses, generations } from "../../../fixtures/selectDatas";
 import { common, COORDS, CourseKeyType } from "../../constants";
 import useUsersLocationsFormik from "../../hooks/useUsersLocationsFormik";
 import useUsersLocationsQuery from "../../hooks/useUsersLocationsQuery";
@@ -76,7 +75,7 @@ const UsersMap = ({ center, currentUser }: Props) => {
               }}
             >
               <option value="">{common.text.GENERATION}</option>
-              {generations.map(({ value, label }) => (
+              {common.generations.map(({ value, label }) => (
                 <option key={value} value={value}>
                   {label}
                 </option>
@@ -96,7 +95,7 @@ const UsersMap = ({ center, currentUser }: Props) => {
               }}
             >
               <option value="">{common.text.COURSE}</option>
-              {courses.map(({ value, label }) => (
+              {common.courses.map(({ value, label }) => (
                 <option key={value} value={value}>
                   {label}
                 </option>
