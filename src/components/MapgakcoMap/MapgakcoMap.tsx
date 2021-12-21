@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { useParams } from "react-router-dom";
 import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
 import { Position } from "../../types/commonTypes";
@@ -44,6 +45,8 @@ const MapgakcoMap = ({
   currentUser,
   visibleMapFloatContainer = true,
 }: Props) => {
+  const { id: mapgakcoIdParam }: { id: string } = useParams();
+
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();
@@ -188,6 +191,25 @@ const MapgakcoMap = ({
     userClickPosition.lat,
     userClickPosition.lng,
   ]);
+
+  useEffect(() => {
+    if (mapgakcoIdParam !== "") {
+      const mapgakco = mapgakcos.find(
+        (mapgakcoElement) =>
+          mapgakcoElement.mapgakcoId === Number(mapgakcoIdParam)
+      );
+
+      if (mapgakco) {
+        setCenter({
+          lat: mapgakco.latitude,
+          lng: mapgakco.longitude,
+        });
+        handleMapgakcoClick(mapgakco);
+      }
+    }
+    // 디펜던시를 추가해야 할 필요성을 느끼지 못하고 있어서 린트 규칙을 비활성화한다
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container>
