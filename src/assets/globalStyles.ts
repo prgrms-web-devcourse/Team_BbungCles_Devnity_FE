@@ -26,6 +26,10 @@ const globalStyles = css`
   a {
     text-decoration: none;
   }
+
+  .react-datepicker-popper {
+    z-index: 9999 !important;
+  }
 `;
 
 export default globalStyles;
