@@ -13,7 +13,7 @@ const useDeleteGather = () => {
         // TODO:
         // eslint-disable-next-line no-alert
         alert("모집글이 삭제되었습니다.");
-        history.push(routes.MYGATHERLIST);
+        history.push(routes.GATHERLIST);
       },
       onError: ({ response }) => {
         const errorMessage = response?.data?.message;

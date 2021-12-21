@@ -17,8 +17,7 @@ export { default as myProfile } from "./myProfile";
 export { default as common } from "./common";
 export {
   categoryDisplayName,
-  categoryValue,
-  categoryColor,
+  categoryValue, // categoryColor,
 } from "./categoryName";
 export { url } from "./api";
 export { gatherDisplayStatus, gatherStatus } from "./gatherStatus";

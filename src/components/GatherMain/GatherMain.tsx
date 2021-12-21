@@ -1,27 +1,48 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
 import GatherList from "../GatherList/GatherList";
 import Modal from "../base/Modal";
 import GatherRegisterFormContainer from "../GatherRegisterForm/GatherRegistorFormContainer";
 import SearchForm from "../SearchForm";
 import { Container, SearchAndWriteContainer, WriteButton } from "./styles";
-import { Gather } from "../../types/gather";
 
 interface Props {
   selectedCategory?: string;
-  gatherData: Array<Gather>;
   modalVisible: boolean;
   handleVisibleModal: (isModalVisible: boolean) => void;
+  pages: any;
+  isLoading: any;
+  hasNextPage: any;
+  fetchNextPage: any;
+  setFilters: any;
 }
 
 const GatherMain = ({
   selectedCategory,
-  gatherData,
   modalVisible,
   handleVisibleModal,
+  pages,
+  isLoading,
+  hasNextPage,
+  fetchNextPage,
+  setFilters,
 }: Props) => {
+  const [ref, inView] = useInView({ threshold: 0.8 });
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isLoading) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView, hasNextPage, isLoading]);
+
   return (
     <Container>
       <SearchAndWriteContainer>
-        <SearchForm />
+        <SearchForm
+          selectedCategory={selectedCategory}
+          setFilters={setFilters}
+        />
         <WriteButton type="submit" onClick={() => handleVisibleModal(true)}>
           글쓰기
         </WriteButton>
@@ -35,7 +56,14 @@ const GatherMain = ({
           onModalClose={() => handleVisibleModal(false)}
         />
       </Modal>
-      <GatherList selectedCategory={selectedCategory} gatherData={gatherData} />
+      <div ref={ref}>
+        <GatherList
+          gatherRef={ref}
+          selectedCategory={selectedCategory}
+          gatherData={pages?.data?.data?.data?.values}
+          pages={pages}
+        />
+      </div>
     </Container>
   );
 };

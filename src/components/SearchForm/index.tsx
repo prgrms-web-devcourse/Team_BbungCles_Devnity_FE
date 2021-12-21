@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import Input from "../base/Input";
 import {
@@ -7,16 +8,27 @@ import {
   searchInputStyle,
 } from "./styles";
 
-const SearchForm = () => {
+interface Props {
+  selectedCategory: string;
+  setFilters: any;
+}
+
+const SearchForm = ({ selectedCategory, setFilters }: Props) => {
   const [state, setState] = useState("");
 
   const handleChange = (e) => {
     setState(e.target.value);
   };
 
-  // TODO: 검색 API를 호출하도록 연동해야한다.
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setFilters({
+      title: state,
+      category: selectedCategory || null,
+      lastId: null,
+      size: 19,
+    });
   };
 
   return (
