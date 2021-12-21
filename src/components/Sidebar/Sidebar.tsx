@@ -11,7 +11,6 @@ import {
   LottieWrapper,
   Footer,
 } from "./styles";
-import Logo from "../Logo/Logo";
 import Text from "../base/Text";
 import menuRoutes from "./menuRoutes";
 import { routes } from "../../constants";
@@ -39,17 +38,16 @@ const Sidebar = ({ onLinkClick }: Props) => {
   return (
     <Container>
       <Header>
-        <Logo
-          width={36}
-          height={36}
-          borderRadius="4px"
-          imageUrl="https://source.unsplash.com/100x100"
-          onClick={handleClick(routes.MAIN)}
-        />
         <TextWrapper onClick={handleClick(routes.MAIN)}>
-          <Text size={24} strong>
-            Devnity
-          </Text>
+          <img
+            // TODO: 추후 webpack 설정 필요
+            // eslint-disable-next-line
+            src={require("../../assets/images/logo.png")}
+            width="100%"
+            height="80px"
+            alt="main"
+            style={{ width: "100%", objectFit: "contain" }}
+          />
         </TextWrapper>
       </Header>
       <Nav>
@@ -60,12 +58,14 @@ const Sidebar = ({ onLinkClick }: Props) => {
             role="presentation"
           >
             <div>
-              <Logo
-                width={24}
-                height={24}
-                borderRadius="4px"
-                imageUrl="https://source.unsplash.com/100x100"
-                onClick={handleClick(routes.MAIN)}
+              <img
+                // TODO: 추후 webpack 설정 필요
+                // eslint-disable-next-line
+                src={require("../../assets/images/small-logo.png")}
+                width="100%"
+                height="24px"
+                alt="main"
+                style={{ width: "100%", objectFit: "contain" }}
               />
             </div>
           </li>
