@@ -77,10 +77,9 @@ const Sidebar = ({ onLinkClick }: Props) => {
 
               return true;
             })
-            .map(({ name, path }, index) => {
+            .map(({ name, path, isChild }, index) => {
               const key = `${index}${name}`;
 
-              // TODO: 관리자는 관리자 권한이 있는 사용자일 경우에만 보이도록 필터링 해야함
               return (
                 <li
                   key={key}
@@ -92,7 +91,7 @@ const Sidebar = ({ onLinkClick }: Props) => {
                     backgroundColor: path === pathname && theme.colors.gray100,
                   }}
                 >
-                  <div>
+                  <div data-child={isChild}>
                     <SidebarIcon name={name} />
                     <Text>{name}</Text>
                   </div>

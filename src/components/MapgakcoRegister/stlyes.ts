@@ -21,7 +21,7 @@ export const Button = styled.button`
   min-width: 64px;
   padding: 10px;
   border: none;
-  background-color: ${({ theme }) => theme.colors.orange400};
+  background-color: ${({ theme }) => theme.colors.markerBlue};
   border-radius: 6px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   color: ${({ theme }) => theme.colors.white};
@@ -31,8 +31,10 @@ export const Button = styled.button`
   align-self: flex-end;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.orange600};
+    background-color: ${({ theme }) => theme.colors.blue};
   }
+
+  transition: background-color 0.4s;
 `;
 
 export const CancelButton = styled(Button)`

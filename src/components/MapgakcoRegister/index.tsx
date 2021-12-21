@@ -1,9 +1,6 @@
 import { useFormik } from "formik";
-import { memo, useCallback, useEffect } from "react";
+import { memo, useCallback } from "react";
 import * as Yup from "yup";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import relativeTime from "dayjs/plugin/relativeTime";
 import useCustomToast from "../../hooks/useCustomToast";
 import Input from "../base/Input";
 import {
@@ -22,6 +19,7 @@ import { Position } from "../../types/commonTypes";
 import MarkdownEditor from "../base/MarkdownEditor";
 import useToastUi from "../../hooks/useToastUi";
 import Text from "../base/Text";
+import useDayjs from "../../hooks/useDayjs";
 
 interface IProps {
   userClickPosition: Position;
@@ -40,6 +38,8 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
   const [editorRef, resetMarkDown] = useToastUi();
 
   const [toast] = useCustomToast();
+
+  const [dayjs] = useDayjs();
 
   const getDefaultMeetingAt = useCallback(() => {
     const now = new Date();
@@ -114,11 +114,6 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
     const selectedDate = new Date(time);
 
     return currentDate.getTime() < selectedDate.getTime();
-  }, []);
-
-  useEffect(() => {
-    dayjs.extend(relativeTime);
-    dayjs.extend(customParseFormat);
   }, []);
 
   return (

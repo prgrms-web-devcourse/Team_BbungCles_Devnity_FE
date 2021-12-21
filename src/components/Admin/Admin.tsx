@@ -1,8 +1,4 @@
 import { FormikProps, useFormik } from "formik";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import relativeTime from "dayjs/plugin/relativeTime";
-import { useEffect } from "react";
 import { adminValidator } from "../../utils/yups/admin";
 import {
   BorderContainer,
@@ -24,7 +20,7 @@ import Text from "../base/Text";
 import useMutationInviteLink from "../../hooks/useMutationInviteLink";
 import useQueryInviteLink from "../../hooks/useQueryInviteLink";
 import useCopyClipboard from "../../hooks/useCopyClipboard";
-import useCustomToast from "../../hooks/useCustomToast";
+import useDayjs from "../../hooks/useDayjs";
 
 interface FormValues {
   course: string;
@@ -37,7 +33,7 @@ const Admin = () => {
   const { data } = useQueryInviteLink();
   const { mutate } = useMutationInviteLink();
 
-  const [toast] = useCustomToast();
+  const [dayjs] = useDayjs();
 
   const {
     handleSubmit,
@@ -59,16 +55,10 @@ const Admin = () => {
       });
       setSubmitting(false);
       resetForm();
-      toast({ message: "링크 생성이 완료되었습니다 😄" });
     },
   });
 
   const [handleCopyClick] = useCopyClipboard();
-
-  useEffect(() => {
-    dayjs.extend(relativeTime);
-    dayjs.extend(customParseFormat);
-  }, []);
 
   return (
     <Container>

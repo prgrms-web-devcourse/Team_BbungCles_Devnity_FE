@@ -77,6 +77,14 @@ export const Nav = styled.div`
         }
       }
     }
+
+    div[data-child="true"] {
+      margin-left: 24px;
+
+      ${breakpoints.maxTablet} {
+        margin-left: 0;
+      }
+    }
   }
 `;
 

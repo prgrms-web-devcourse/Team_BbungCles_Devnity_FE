@@ -215,7 +215,7 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
 
         <CommentBorderContainer height={560}>
           <Text size={20} strong>
-            댓글
+            {`댓글 ${userInfo?.introduction.commentCount}`}
           </Text>
 
           <FormContainer onSubmit={handleSubmit}>

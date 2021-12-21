@@ -32,7 +32,7 @@ export const Contents = styled.section`
 
 export const SelfIntroduce = styled.div`
   width: 100%;
-  height: 270px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -49,8 +49,14 @@ export const SelfIntroduce = styled.div`
     width: 100%;
     overflow-x: auto;
 
+    height: 350px;
+
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    & li {
+      margin-right: 20px;
     }
   }
 `;
