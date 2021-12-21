@@ -1,15 +1,22 @@
 import { useRecoilValue } from "recoil";
-import randomUserMapInfo from "../../../fixtures/userMapInfo";
 import { globalMyProfile } from "../../atoms/user";
-import { common, COORDS } from "../../constants";
+import { common, COORDS, CourseKeyType } from "../../constants";
 import useMapgakcosQuery from "../../hooks/useMapgakcosQuery";
+import useUsersLocationsQuery from "../../hooks/useUsersLocationsQuery";
 import MapgakcoMap from "./MapgakcoMap";
 
 const MapgakcoMapContainer = () => {
   const currentUser = useRecoilValue(globalMyProfile);
 
-  // TODO: 빠른 개발을 위해 모킹 데이터를 쓰고 있다. 추후 데둥이 조회 API로 교체한다.
-  const userMapInfos = Array.from({ length: 120 }, () => randomUserMapInfo());
+  const { data: usersLocations } = useUsersLocationsQuery({
+    // TODO: 빠른 개발을 위해 대한민국 전체 좌표 범위를 사용한다. 사용자가 지도의 범위를 수정하면 해당하는 좌표 범위만 보여주도록 하는 기능을 추후 도입한다.
+    course: (currentUser?.user?.course as CourseKeyType) || "FE",
+    generation: currentUser?.user?.generation,
+    currentNEY: COORDS.KOREA_NEY,
+    currentNEX: COORDS.KOREA_NEX,
+    currentSWY: COORDS.KOREA_SWY,
+    currentSWX: COORDS.KOREA_SWX,
+  });
 
   const center = {
     lat: currentUser?.introduction?.latitude || common.defaultPosition.lat,
@@ -31,8 +38,9 @@ const MapgakcoMapContainer = () => {
   return (
     <MapgakcoMap
       initialCenter={center}
-      userMapInfos={userMapInfos}
+      usersLocations={usersLocations}
       mapgakcos={mapgakcos}
+      currentUser={currentUser}
     />
   );
 };

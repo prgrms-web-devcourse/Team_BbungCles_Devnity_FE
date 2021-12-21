@@ -12,3 +12,4 @@ export {
   requestPostMapgakcoApply,
   requestDeleteMapgakcoApply,
 } from "./mapgakco";
+export { requestGetUsersLocations } from "./user";

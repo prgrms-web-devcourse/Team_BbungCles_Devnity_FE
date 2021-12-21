@@ -1,7 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { UserMapInfo } from "../../../fixtures/userMapInfo";
 import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
 import { Position } from "../../types/commonTypes";
@@ -27,14 +26,22 @@ import {
 import MapgakcoMarker from "./MapgakcoMarker/MapgakcoMarker";
 import UserMarker from "./UserMarker";
 import MapgakcoDetailContainer from "./MapgakcoDetail/MapgakcoDetailContainer";
+import { ResponseUserLocation } from "../../types/userLocation";
+import { UserData } from "../MyProfile/types";
 
 interface Props {
   initialCenter: Position;
-  userMapInfos: UserMapInfo[];
   mapgakcos: Mapgakco[];
+  usersLocations: ResponseUserLocation[];
+  currentUser: UserData;
 }
 
-const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
+const MapgakcoMap = ({
+  initialCenter,
+  mapgakcos,
+  usersLocations,
+  currentUser,
+}: Props) => {
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();
@@ -95,7 +102,7 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
     });
   }, []);
 
-  const userMarkerOverlays = getUserMarkerOverlays(userMapInfos);
+  const userMarkerOverlays = getUserMarkerOverlays(usersLocations, currentUser);
   const mapgakcoMarkerOverlays = getMapgakcoMarkerOverlays(mapgakcos);
 
   const handleRegisterModalClose = useCallback(() => {
@@ -272,13 +279,14 @@ const MapgakcoMap = ({ initialCenter, userMapInfos, mapgakcos }: Props) => {
 
         {visibleUsers &&
           userMarkerOverlays.map(
-            ({ position, imageUrl, options: { text } }, index) => (
+            ({ position, imageUrl, options: { color, text } }, index) => (
               <UserMarker
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 position={position}
                 imageUrl={imageUrl}
                 text={text}
+                color={color}
               />
             )
           )}

@@ -1,5 +1,7 @@
-import { UserMapInfo } from "../../../fixtures/userMapInfo";
+import { UserData } from "../../components/MyProfile/types";
+import { common } from "../../constants";
 import { Mapgakco, Position } from "../../types/mapTypes";
+import { ResponseUserLocation } from "../../types/userLocation";
 import { koreanDate } from "../date";
 
 interface CustomOverlayProps {
@@ -165,18 +167,21 @@ export const addMapgakcoOverlay = ({ map, mapgakco }: MapgakcoOverlayProps) => {
 };
 
 // TODO: 리팩터링. getUserMarkerOverlays와 getMapgakcoMarkerOverlays를 하나의 함수로 처리한다.
-export const getUserMarkerOverlays = (userMapInfos: UserMapInfo[]) => {
-  return userMapInfos.map((userMapInfo) => {
+export const getUserMarkerOverlays = (
+  usersLocations: ResponseUserLocation[],
+  currentUser: UserData
+) => {
+  return (usersLocations || []).map((userLocation) => {
     const position = {
-      lat: userMapInfo?.latitude,
-      lng: userMapInfo?.longitude,
+      lat: userLocation?.latitude,
+      lng: userLocation?.longitude,
     };
 
-    const imageUrl = userMapInfo.profileImgUrl;
+    const imageUrl = userLocation?.profileImgUrl || common.placeHolderImageSrc;
 
     const options = {
-      color: "blue",
-      text: userMapInfo.name,
+      color: userLocation?.userId === currentUser.user.userId ? "red" : "blue",
+      text: userLocation?.name,
     };
 
     return { position, imageUrl, options };

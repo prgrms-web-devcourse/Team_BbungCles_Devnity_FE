@@ -58,7 +58,7 @@ export const Nav = styled.div`
     }
 
     &:hover {
-      background-color: ${({ theme }) => theme.colors.gray100};
+      background-color: ${({ theme }) => theme.colors.gray300};
     }
 
     div {

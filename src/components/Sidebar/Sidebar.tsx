@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import Lottie from "react-lottie";
 import { useRecoilValue } from "recoil";
+import { useLocation } from "react-router-dom";
 import animationData from "../../assets/lotties/christmas-dog.json";
 import {
   Container,
@@ -16,12 +17,15 @@ import menuRoutes from "./menuRoutes";
 import { routes } from "../../constants";
 import SidebarIcon from "./SidebarIcon";
 import { globalMyProfile } from "../../atoms";
+import theme from "../../assets/theme";
 
 interface Props {
   onLinkClick: (link: string) => void;
 }
 
 const Sidebar = ({ onLinkClick }: Props) => {
+  const { pathname } = useLocation();
+
   const handleClick = useCallback(
     (link) => (event: React.MouseEvent | React.KeyboardEvent) => {
       event.preventDefault();
@@ -83,6 +87,10 @@ const Sidebar = ({ onLinkClick }: Props) => {
                   onClick={handleClick(path)}
                   onKeyPress={handleClick(path)}
                   role="presentation"
+                  title={name}
+                  style={{
+                    backgroundColor: path === pathname && theme.colors.gray100,
+                  }}
                 >
                   <div>
                     <SidebarIcon name={name} />
