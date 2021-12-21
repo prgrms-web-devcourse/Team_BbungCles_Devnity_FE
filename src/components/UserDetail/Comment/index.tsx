@@ -3,9 +3,6 @@ import { useRecoilValue } from "recoil";
 import { useCallback, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import dayjs from "dayjs";
-import "dayjs/locale/ko";
-import relativeTime from "dayjs/plugin/relativeTime";
 import {
   Container,
   ButtonContainer,
@@ -28,6 +25,7 @@ import useMutationUserDeleteComment from "../../../hooks/useMutationUserDeleteCo
 import Input from "../../base/Input";
 import useMutationUserDetailComment from "../../../hooks/useMutationUserDetailComment";
 import useMutationUserModifyComment from "../../../hooks/useMutationUserModifyComment";
+import useDayjs from "../../../hooks/useDayjs";
 
 interface IProps {
   comment: Comment;
@@ -36,6 +34,8 @@ interface IProps {
 }
 
 const Comment = ({ comment, isChild, introductionId }: IProps) => {
+  const [dayjs] = useDayjs();
+
   const [fromNow, setFromNow] = useState<string | null>(null);
 
   const myProfile = useRecoilValue(globalMyProfile);
@@ -120,10 +120,8 @@ const Comment = ({ comment, isChild, introductionId }: IProps) => {
   );
 
   useEffect(() => {
-    dayjs.extend(relativeTime);
-    dayjs.locale("ko");
-    setFromNow(dayjs(comment.updatedAt).fromNow());
-  }, [comment]);
+    setFromNow(dayjs(comment.updatedAt).subtract(5, "second").fromNow());
+  }, [dayjs, comment]);
 
   return (
     <Container>
