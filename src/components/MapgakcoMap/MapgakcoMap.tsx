@@ -34,6 +34,7 @@ interface Props {
   mapgakcos: Mapgakco[];
   usersLocations: ResponseUserLocation[];
   currentUser: UserData;
+  visibleMapFloatContainer?: boolean;
 }
 
 const MapgakcoMap = ({
@@ -41,6 +42,7 @@ const MapgakcoMap = ({
   mapgakcos,
   usersLocations,
   currentUser,
+  visibleMapFloatContainer = true,
 }: Props) => {
   const memoCenter = useRef(initialCenter);
 
@@ -189,7 +191,9 @@ const MapgakcoMap = ({
 
   return (
     <Container>
-      <MapFloatContainer>
+      <MapFloatContainer
+        style={{ display: visibleMapFloatContainer ? "flex" : "none" }}
+      >
         <Modal visible={isRegisterModalOpen} width="60%">
           <MapgakcoRegister
             userClickPosition={getMarkerPosition()}

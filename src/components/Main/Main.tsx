@@ -9,6 +9,7 @@ import Text from "../base/Text";
 import GatherList from "../GatherList/GatherList";
 import Mapgakco from "../Mapgakco/Mapgakco";
 import UserCardList from "../UserCardList/UserCardList";
+import MapgakcoSummaryContainer from "./MapgakcoSummary/MapgakcoSummaryContainer";
 import {
   Contents,
   Container,
@@ -84,13 +85,15 @@ const Main = ({ currentUser, userSuggestions, gatherSuggestions }: Props) => {
           </TextOuterContainer>
           <SubContents>
             <MapgakcoWrapper filter={filter}>
-              <Mapgakco
+              {/* <Mapgakco
                 center={center}
                 userImageUrl={
                   currentUser?.introduction.profileImgUrl ||
                   common.placeHolderImageSrc
                 }
-              />
+              /> */}
+
+              <MapgakcoSummaryContainer />
             </MapgakcoWrapper>
             <GatherListWrapper filter={filter}>
               <GatherList gatherData={gatherSuggestions} />

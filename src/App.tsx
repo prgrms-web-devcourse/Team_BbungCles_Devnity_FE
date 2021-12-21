@@ -7,6 +7,10 @@ import DefaultTemplate from "./template/DefaultTemplate";
 import theme from "./assets/theme";
 import useCustomQueryClient from "./hooks/useCustomQueryClient";
 
+import "./components/Mapbox/customOverlayMarker.scss";
+import "./components/Mapbox/imageMarker.scss";
+import "./components/Mapbox/mapgakcoOverlay.scss";
+
 const App = () => {
   const [queryClient] = useCustomQueryClient();
 
