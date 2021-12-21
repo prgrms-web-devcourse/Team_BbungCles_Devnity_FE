@@ -49,7 +49,7 @@ export const SelfIntroduce = styled.div`
     width: 100%;
     overflow-x: auto;
 
-    height: 350px;
+    height: 320px;
 
     &::-webkit-scrollbar {
       display: none;
