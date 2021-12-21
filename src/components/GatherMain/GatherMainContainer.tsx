@@ -1,6 +1,5 @@
 import { useState } from "react";
 import GatherMain from "./GatherMain";
-// import useFilteredGathers from "../../hooks/useFilteredGathers";
 import useGatherinfiniteQuery from "../../hooks/useGatherInfiniteQuery";
 
 export interface IProps {
@@ -22,19 +21,14 @@ const GatherContainer = ({ selectedCategory }: IProps) => {
     fetchNextPage,
   } = useGatherinfiniteQuery(filters);
 
-  // console.log(pages);
-
   const [modalVisible, setModalVisible] = useState(false);
-
-  // const { gatherData } = useFilteredGathers(filters);
 
   const handleVisibleModal = (isModalVisible: boolean) => {
     setModalVisible(isModalVisible);
   };
-  // console.log(filters);
+
   return (
     <GatherMain
-      // gatherData={gatherData}
       selectedCategory={selectedCategory}
       modalVisible={modalVisible}
       handleVisibleModal={handleVisibleModal}

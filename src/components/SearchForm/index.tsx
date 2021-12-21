@@ -20,7 +20,6 @@ const SearchForm = ({ selectedCategory, setFilters }: Props) => {
     setState(e.target.value);
   };
 
-  // TODO: 검색 API를 호출하도록 연동해야한다.
   const handleSubmit = (e) => {
     e.preventDefault();
 

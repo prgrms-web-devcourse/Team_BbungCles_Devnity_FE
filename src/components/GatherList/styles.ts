@@ -29,24 +29,12 @@ export const TextContainer = styled.div<{ page: string }>`
   }
 `;
 
-// export const FinishItemContainer = styled.div`
-//   display: flex;
-//   align-items: center;
-//   gap: 8px;
-//   border-radius: 12px;
-//   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-//     #ffffff;
-//   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-//   opacity: 80%;
-//   padding: 16px;
-// `;
-
 export const FinishItem: CSSProperties = {
   display: "flex",
   alignItems: "center",
   gap: "8px",
   borderRadius: "12px",
-  backgroundColor: "lightgrey", // "linear gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),#ffffff",
+  backgroundColor: "lightgrey",
   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
   opacity: "80%",
   padding: "16px",

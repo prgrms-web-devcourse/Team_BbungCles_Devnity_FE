@@ -1,17 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useInView } from "react-intersection-observer";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import GatherList from "../GatherList/GatherList";
 import Modal from "../base/Modal";
 import GatherRegisterFormContainer from "../GatherRegisterForm/GatherRegistorFormContainer";
 import SearchForm from "../SearchForm";
 import { Container, SearchAndWriteContainer, WriteButton } from "./styles";
-// import { Gather } from "../../types/gather";
 
 interface Props {
   selectedCategory?: string;
-  // gatherData: Array<Gather>;
   modalVisible: boolean;
   handleVisibleModal: (isModalVisible: boolean) => void;
   pages: any;
@@ -23,7 +20,6 @@ interface Props {
 
 const GatherMain = ({
   selectedCategory,
-  //  gatherData,
   modalVisible,
   handleVisibleModal,
   pages,
@@ -62,10 +58,6 @@ const GatherMain = ({
       </Modal>
       <div ref={ref}>
         <GatherList
-          // pages={pages}
-          // isLoading={isLoading}
-          // hasNextPage={hasNextPage}
-          // fetchNextPage={fetchNextPage}
           gatherRef={ref}
           selectedCategory={selectedCategory}
           gatherData={pages?.data?.data?.data?.values}

@@ -44,7 +44,6 @@ import PeriodText from "../PeriodText";
 import Comment from "./Comment";
 import useCreateGatherComment from "../../hooks/useCreateGatherComment";
 import { HiddenLabel } from "../UserDetail/styles";
-// import { categoryColor } from "../../constants/categoryName";
 import useToggle from "../../hooks/useToggle";
 
 const GatherDetail = ({
