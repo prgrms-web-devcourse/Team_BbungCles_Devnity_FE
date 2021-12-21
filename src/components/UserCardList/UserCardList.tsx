@@ -26,7 +26,12 @@ const UserCardList = ({ userInfos }: Props) => {
         <ul>
           <ScrollHorizontal
             reverseScroll
-            style={{ display: "flex", gap: "20px", height: "100%" }}
+            style={{
+              display: "flex",
+              gap: "20px",
+              height: "100%",
+              paddingLeft: "4px",
+            }}
           >
             {userInfos?.map((userInfo) => (
               <li key={userInfo.user.userId}>
