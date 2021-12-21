@@ -13,7 +13,7 @@ const useClosGather = () => {
         // TODO:
         // eslint-disable-next-line no-alert
         alert("모집이 마감되었습니다.");
-        history.push(routes.MYGATHERLIST);
+        history.push(routes.GATHERLIST);
       },
       onError: ({ response }) => {
         const errorMessage = response?.data?.message;

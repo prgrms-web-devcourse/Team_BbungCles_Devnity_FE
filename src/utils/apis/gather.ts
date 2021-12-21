@@ -16,10 +16,15 @@ export const requestGetGatherDetail = (gatherId) => {
   return necessaryAuthAxiosInstance.get(`v1/gathers/${gatherId}`);
 };
 
-export const requestGetFilteredGathers = (filters) => {
-  return necessaryAuthAxiosInstance.get(
-    `v1/gathers?category=${filters.category}&lastId=${filters.lastId}&size=${filters.size}`
-  );
+export const requestGetFilteredGathers = (filters, pageParam) => {
+  return necessaryAuthAxiosInstance.get("v1/gathers", {
+    params: {
+      title: filters.title ? filters.title : null,
+      category: filters.category ? filters.category : null,
+      lastId: pageParam !== null ? pageParam : null,
+      size: filters.size ? filters.size : null,
+    },
+  });
 };
 
 export const requestCreateComment = (submitValue) => {

@@ -1,4 +1,4 @@
-import theme from "../assets/theme";
+// import theme from "../assets/theme";
 
 export const categoryDisplayName = {
   STUDY: "스터디",
@@ -12,8 +12,8 @@ export const categoryValue = {
   CLUB: "CLUB",
 };
 
-export const categoryColor = {
-  STUDY: theme?.colors?.skyblue,
-  PROJECT: theme?.colors?.coral,
-  CLUB: theme?.colors?.olive,
-};
+// export const categoryColor = {
+//   STUDY: theme?.colors?.skyblue,
+//   PROJECT: theme?.colors?.coral,
+//   CLUB: theme?.colors?.olive,
+// };

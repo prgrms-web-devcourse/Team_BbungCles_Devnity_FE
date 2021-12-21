@@ -34,10 +34,15 @@ const theme = {
     scarlet: "#ff6667",
     yellow: "#ffff66",
     ultramarine: "#6667ff",
+    PROJECT: "#ffe2dd",
+    CLUB: "#fdecc8",
+    STUDY: "#d3e5ef",
+    MAPGAKCO: "#dbeddb",
     [tagName.ROLE]: {
       STUDENT: "#ffff66",
       MANAGER: "#66b3ff",
       MENTOR: "#66ffb2",
+      MAPGAKCO: "#dbeddb",
     },
     [tagName.MBTI]: {
       ENFP: "#e4d1ce",

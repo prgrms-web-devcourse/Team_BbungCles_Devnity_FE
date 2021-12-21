@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { gatherBreakpoints } from "../../assets/media";
 
@@ -6,7 +7,7 @@ export const GatherLink = styled(Link)`
   color: ${({ theme }) => theme.colors.fontColor};
 `;
 
-export const ItemContainer = styled.div`
+export const ItemContainer = styled.div<{ isClose?: boolean }>`
   display: flex;
   align-items: center;
   gap: 8px;
@@ -28,20 +29,32 @@ export const TextContainer = styled.div<{ page: string }>`
   }
 `;
 
-export const FinishItemContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-radius: 12px;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  opacity: 80%;
-  padding: 16px;
-`;
+// export const FinishItemContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+//   border-radius: 12px;
+//   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+//     #ffffff;
+//   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+//   opacity: 80%;
+//   padding: 16px;
+// `;
+
+export const FinishItem: CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
+  borderRadius: "12px",
+  background:
+    "linear gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),#ffffff",
+  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+  opacity: "80%",
+  padding: "16px",
+};
 
 export const Category = styled.div`
-  background-color: ${({ theme }) => theme.colors.ultramarine};
+  background-color: ${({ theme }) => theme.colors.MAPGAKCO};
   border-radius: 7px;
   font-size: 12px;
   display: flex;
@@ -50,7 +63,7 @@ export const Category = styled.div`
   height: 35px;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: black;
 
   ${gatherBreakpoints.mobile} {
     font-size: 6px;
@@ -102,4 +115,10 @@ export const InfoWrapper = styled.div<{ page: string }>`
       font-size: 3px;
     }
   }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;

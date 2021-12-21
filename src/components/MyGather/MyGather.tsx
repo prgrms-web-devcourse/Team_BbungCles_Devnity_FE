@@ -108,7 +108,7 @@ const MyGather = ({ applyData, makeData }: Props) => {
           <GatherListContainer>
             <GatherList
               gatherData={filter === FILTER_APPLY ? applyData : makeData}
-              page="MyGather"
+              pagee="MyGather"
             />
           </GatherListContainer>
         </AllContainer>
@@ -121,7 +121,7 @@ const MyGather = ({ applyData, makeData }: Props) => {
             <Text size={18}>한 모임</Text>
           </TitleContainer>
           <GatherListContainer>
-            <GatherList gatherData={applyData} page="MyGather" />
+            <GatherList gatherData={applyData} pagee="MyGather" />
           </GatherListContainer>
         </MakeContainer>
         <MakeContainer>
@@ -133,7 +133,7 @@ const MyGather = ({ applyData, makeData }: Props) => {
             <Text size={18}>한 모임</Text>
           </TitleContainer>
           <GatherListContainer>
-            <GatherList gatherData={makeData} page="MyGather" />
+            <GatherList gatherData={makeData} pagee="MyGather" />
           </GatherListContainer>
         </MakeContainer>
       </GatherContainer>

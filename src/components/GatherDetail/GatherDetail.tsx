@@ -44,7 +44,7 @@ import PeriodText from "../PeriodText";
 import Comment from "./Comment";
 import useCreateGatherComment from "../../hooks/useCreateGatherComment";
 import { HiddenLabel } from "../UserDetail/styles";
-import { categoryColor } from "../../constants/categoryName";
+// import { categoryColor } from "../../constants/categoryName";
 import useToggle from "../../hooks/useToggle";
 
 const GatherDetail = ({
@@ -161,10 +161,8 @@ const GatherDetail = ({
               </Select>
             </EditContainer>
           ) : (
-            <Category style={{ backgroundColor: categoryColor[category] }}>
-              <Text size={12} color={theme.colors.white}>
-                {categoryDisplayName[category]}
-              </Text>
+            <Category style={{ backgroundColor: theme.colors[category] }}>
+              <Text size={12}>{categoryDisplayName[category]}</Text>
             </Category>
           )}
         </CategoryWrapper>
@@ -315,7 +313,7 @@ const GatherDetail = ({
                 type="button"
                 onClick={() => handleGatherCancel(gatherId)}
               >
-                취소
+                신청 취소
               </button>
             ) : undefined}
             {isAuthor &&
