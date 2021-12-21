@@ -74,7 +74,7 @@ const Router = () => {
         exact
         component={MapgakcoMapPage}
       />
-      <Route path={routes.MAPGAKCOLIST_ID} exact component={MainPage} />
+      <Route path={routes.MAPGAKCOLIST_ID} exact component={MapgakcoMapPage} />
       <PrivateRoute
         path={routes.USERSMAP}
         fallbackPath={routes.LOGIN}

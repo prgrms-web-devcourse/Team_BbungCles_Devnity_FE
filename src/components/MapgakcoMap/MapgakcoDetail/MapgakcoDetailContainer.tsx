@@ -18,6 +18,7 @@ const MapgakcoDetailContainer = ({ mapgakcoId, onModalClose }: Props) => {
 
   const ref = useClickAway(() => {
     onModalClose();
+    setIsEditing(false);
   });
 
   const myProfile = useRecoilValue(globalMyProfile);
