@@ -132,9 +132,11 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
               <MdEmail size={24} />
             </IconWrapper>
 
-            <Text size={16} strong>
-              {userInfo.user.email}
-            </Text>
+            <EllipsisWrapper>
+              <Text size={16} strong>
+                {userInfo.user.email}
+              </Text>
+            </EllipsisWrapper>
           </ContactContainer>
 
           <ContactContainer
