@@ -32,7 +32,7 @@ export const Contents = styled.section`
 
 export const SelfIntroduce = styled.div`
   width: 100%;
-  height: 270px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   gap: 2px;
