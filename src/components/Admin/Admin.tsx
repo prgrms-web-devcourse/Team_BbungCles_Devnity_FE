@@ -1,4 +1,5 @@
 import { FormikProps, useFormik } from "formik";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { adminValidator } from "../../utils/yups/admin";
 import {
   BorderContainer,
@@ -19,8 +20,8 @@ import { common, admin } from "../../constants";
 import Text from "../base/Text";
 import useMutationInviteLink from "../../hooks/useMutationInviteLink";
 import useQueryInviteLink from "../../hooks/useQueryInviteLink";
-import useCopyClipboard from "../../hooks/useCopyClipboard";
 import useDayjs from "../../hooks/useDayjs";
+import useCustomToast from "../../hooks/useCustomToast";
 
 interface FormValues {
   course: string;
@@ -32,6 +33,8 @@ interface FormValues {
 const Admin = () => {
   const { data } = useQueryInviteLink();
   const { mutate } = useMutationInviteLink();
+
+  const [toast] = useCustomToast();
 
   const [dayjs] = useDayjs();
 
@@ -57,8 +60,6 @@ const Admin = () => {
       resetForm();
     },
   });
-
-  const [handleCopyClick] = useCopyClipboard();
 
   return (
     <Container>
@@ -188,14 +189,14 @@ const Admin = () => {
                   <Td>{common.roleMap[inviteLink.role]}</Td>
                   <Td>{dayjs(inviteLink.deadline).format("YYYY-MM-DD")}</Td>
                   <Td>
-                    <Button
-                      type="button"
-                      onClick={handleCopyClick(
-                        `${window.location.origin}/signup/${inviteLink.uuid}`
-                      )}
+                    <CopyToClipboard
+                      text={`${window.location.origin}/signup/${inviteLink.uuid}`}
+                      onCopy={() =>
+                        toast({ message: "링크가 복사되었습니다 😄" })
+                      }
                     >
-                      링크 복사
-                    </Button>
+                      <Button type="button">링크 복사</Button>
+                    </CopyToClipboard>
                   </Td>
                 </Tr>
               ))}
