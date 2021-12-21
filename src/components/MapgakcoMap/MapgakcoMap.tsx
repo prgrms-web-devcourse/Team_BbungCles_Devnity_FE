@@ -202,7 +202,7 @@ const MapgakcoMap = ({
         </Modal>
         <Modal
           visible={isDetailModalOpen}
-          width="320px"
+          width="330px"
           height="100%"
           modalContainerStyles={{
             top: 0,
