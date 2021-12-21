@@ -12,7 +12,6 @@ import Main from "./Main";
 jest.mock("axios");
 
 describe("Main", () => {
-  const currentUser = randomUserInfo();
   const userSuggestions = Array.from({ length: 1 }, () => randomUserInfo());
   const gatherSuggestions = gathers;
 
@@ -22,7 +21,6 @@ describe("Main", () => {
         <MemoryRouter>
           <ThemeProvider theme={theme}>
             <Main
-              currentUser={currentUser}
               userSuggestions={userSuggestions}
               gatherSuggestions={gatherSuggestions}
             />

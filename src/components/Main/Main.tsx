@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { center } from "../../../fixtures/map";
 import theme from "../../assets/theme";
-import { common } from "../../constants";
 import { Gather } from "../../types/gather";
 import { UserInfo } from "../../types/userInfo";
 import Button from "../base/Button";
 import Text from "../base/Text";
 import GatherList from "../GatherList/GatherList";
-import Mapgakco from "../Mapgakco/Mapgakco";
 import UserCardList from "../UserCardList/UserCardList";
 import MapgakcoSummaryContainer from "./MapgakcoSummary/MapgakcoSummaryContainer";
 import {
@@ -27,12 +24,11 @@ export const FILTER_MAPGAKCO = "show_mapgakco";
 export const FILTER_GATHERLIST = "show_gatherlist";
 
 interface Props {
-  currentUser: UserInfo;
   userSuggestions: UserInfo[];
   gatherSuggestions: Gather[];
 }
 
-const Main = ({ currentUser, userSuggestions, gatherSuggestions }: Props) => {
+const Main = ({ userSuggestions, gatherSuggestions }: Props) => {
   const [filter, setFilter] = useState(FILTER_MAPGAKCO);
 
   return (
@@ -85,14 +81,6 @@ const Main = ({ currentUser, userSuggestions, gatherSuggestions }: Props) => {
           </TextOuterContainer>
           <SubContents>
             <MapgakcoWrapper filter={filter}>
-              {/* <Mapgakco
-                center={center}
-                userImageUrl={
-                  currentUser?.introduction.profileImgUrl ||
-                  common.placeHolderImageSrc
-                }
-              /> */}
-
               <MapgakcoSummaryContainer />
             </MapgakcoWrapper>
             <GatherListWrapper filter={filter}>
