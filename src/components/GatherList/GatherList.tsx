@@ -23,6 +23,7 @@ import {
   FinishItem,
 } from "./styles";
 import { categoryDisplayName, routes } from "../../constants";
+import CommentText from "../CommentText";
 // import { categoryColor } from "../../constants/categoryName";
 
 interface Props {
@@ -40,25 +41,25 @@ const GatherList = ({
   pages,
   gatherRef,
 }: Props) => {
-  console.log(pages);
+  // console.log(pages);
   const a = pages?.pages?.data;
   // console.log("a:", a);
 
-  // const gather = selectedCategory
-  //   ? gatherData?.filter(
-  //       (item) =>
-  //         categoryDisplayName[item.category] ===
-  //           categoryDisplayName[selectedCategory] && item.status === "GATHERING"
-  //     )
-  //   : gatherData?.filter((item) => item.status === "GATHERING");
+  const gather = selectedCategory
+    ? gatherData?.filter(
+        (item) =>
+          categoryDisplayName[item.category] ===
+            categoryDisplayName[selectedCategory] && item.status === "GATHERING"
+      )
+    : gatherData?.filter((item) => item.status === "GATHERING");
 
-  // const finishGather = selectedCategory
-  //   ? gatherData?.filter(
-  //       (item) =>
-  //         categoryDisplayName[item.category] ===
-  //           categoryDisplayName[selectedCategory] && item.status !== "GATHERING"
-  //     )
-  //   : gatherData?.filter((item) => item.status !== "GATHERING");
+  const finishGather = selectedCategory
+    ? gatherData?.filter(
+        (item) =>
+          categoryDisplayName[item.category] ===
+            categoryDisplayName[selectedCategory] && item.status !== "GATHERING"
+      )
+    : gatherData?.filter((item) => item.status !== "GATHERING");
 
   if (!pages && gatherData && gatherData.length === 0) {
     return (
@@ -82,17 +83,11 @@ const GatherList = ({
                 key={item?.gatherId ? item?.gatherId : item?.mapgakcoId}
               >
                 <ItemContainer
-                  style={
-                    categoryDisplayName[item.category] ===
-                      categoryDisplayName[selectedCategory] &&
-                    item.status !== "GATHERING"
-                      ? FinishItem
-                      : null
-                  }
+                  style={item.status !== "GATHERING" ? FinishItem : null}
                 >
-                  {categoryDisplayName[item.category] ===
-                    categoryDisplayName[selectedCategory] &&
-                  item.status !== "GATHERING" ? (
+                  {/* {categoryDisplayName[item.category] ===
+                    categoryDisplayName[selectedCategory] && */}
+                  {item.status !== "GATHERING" ? (
                     <Finish page={pagee}>모집 마감</Finish>
                   ) : null}
                   <Category
@@ -132,13 +127,16 @@ const GatherList = ({
                         iconColor={theme.colors.gray500}
                         fontColor={theme.colors.gray600}
                       />
-                      {item?.view ? (
-                        <ViewText
-                          view={item?.view}
-                          iconColor={theme.colors.gray500}
-                          fontColor={theme.colors.gray600}
-                        />
-                      ) : undefined}
+                      <ViewText
+                        view={item?.view || 0}
+                        iconColor={theme.colors.gray500}
+                        fontColor={theme.colors.gray600}
+                      />
+                      <CommentText
+                        commentCount={item.commentCount || 0}
+                        iconColor={theme.colors.gray500}
+                        fontColor={theme.colors.gray600}
+                      />
                     </InfoWrapper>
                   </ItemDetail>
                   <ProfileBox
@@ -156,83 +154,161 @@ const GatherList = ({
       ))}
 
       {pagee || gatherData
-        ? gatherData.map((item) => (
-            <GatherLink
-              to={`${
-                item?.gatherId ? routes.GATHERLIST : routes.MAPGAKCOLIST
-              }/${item?.gatherId ? item?.gatherId : item?.mapgakcoId}`}
-              key={item?.gatherId ? item?.gatherId : item?.mapgakcoId}
-            >
-              <ItemContainer
-                style={
-                  categoryDisplayName[item.category] ===
-                    categoryDisplayName[selectedCategory] &&
-                  item.status !== "GATHERING"
-                    ? FinishItem
-                    : null
-                }
+        ? gather
+            ?.sort((a, b) => {
+              return +new Date(b.createdAt) - +new Date(a.createdAt);
+            })
+            .map((item) => (
+              <GatherLink
+                to={`${
+                  item?.gatherId ? routes.GATHERLIST : routes.MAPGAKCOLIST
+                }/${item?.gatherId ? item?.gatherId : item?.mapgakcoId}`}
+                key={item?.gatherId ? item?.gatherId : item?.mapgakcoId}
               >
-                {categoryDisplayName[item.category] ===
-                  categoryDisplayName[selectedCategory] &&
-                item.status !== "GATHERING" ? (
-                  <Finish page={pagee}>모집 마감</Finish>
-                ) : null}
-                <Category
-                  style={{
-                    backgroundColor: theme.colors[item.category],
-                    color: "black",
-                  }}
+                <ItemContainer
+                  style={item.status !== "GATHERING" ? FinishItem : null}
                 >
-                  {item?.category
-                    ? categoryDisplayName[item?.category]
-                    : "맵각코"}
-                </Category>
-                <ItemDetail>
-                  <TextContainer page={pagee}>
-                    <Text ellipsisLineClamp={1} size={14}>
-                      {item.title}
-                    </Text>
-                  </TextContainer>
-                  <InfoWrapper page={pagee}>
-                    {item?.meetingAt ? (
-                      <PeriodText
-                        deadLine={item?.meetingAt.substring(0, 10)}
+                  {item.status !== "GATHERING" ? (
+                    <Finish page={pagee}>모집 마감</Finish>
+                  ) : null}
+                  <Category
+                    style={{
+                      backgroundColor: theme.colors[item.category],
+                      color: "black",
+                    }}
+                  >
+                    {item?.category
+                      ? categoryDisplayName[item?.category]
+                      : "맵각코"}
+                  </Category>
+                  <ItemDetail>
+                    <TextContainer page={pagee}>
+                      <Text ellipsisLineClamp={1} size={14}>
+                        {item.title}
+                      </Text>
+                    </TextContainer>
+                    <InfoWrapper page={pagee}>
+                      {item?.meetingAt ? (
+                        <PeriodText
+                          deadLine={item?.meetingAt.substring(0, 10)}
+                          iconColor={theme.colors.gray500}
+                          fontColor={theme.colors.gray600}
+                        />
+                      ) : (
+                        <PeriodText
+                          createdDate={item.createdAt.substring(0, 10)}
+                          deadLine={item?.deadline.substring(0, 10)}
+                          iconColor={theme.colors.gray500}
+                          fontColor={theme.colors.gray600}
+                        />
+                      )}
+                      <ApplicantCountText
+                        applicantCount={item.applicantCount}
+                        applicantLimit={item.applicantLimit}
                         iconColor={theme.colors.gray500}
                         fontColor={theme.colors.gray600}
                       />
-                    ) : (
-                      <PeriodText
-                        createdDate={item.createdAt.substring(0, 10)}
-                        deadLine={item?.deadline.substring(0, 10)}
-                        iconColor={theme.colors.gray500}
-                        fontColor={theme.colors.gray600}
-                      />
-                    )}
-                    <ApplicantCountText
-                      applicantCount={item.applicantCount}
-                      applicantLimit={item.applicantLimit}
-                      iconColor={theme.colors.gray500}
-                      fontColor={theme.colors.gray600}
-                    />
-                    {item?.view ? (
                       <ViewText
-                        view={item?.view}
+                        view={item?.view || 0}
                         iconColor={theme.colors.gray500}
                         fontColor={theme.colors.gray600}
                       />
-                    ) : undefined}
-                  </InfoWrapper>
-                </ItemDetail>
-                <ProfileBox
-                  src={item.author?.profileImgUrl}
-                  name={item.author.name}
-                  course={item.author.course}
-                  generation={item.author.generation}
-                  fontSize={14}
-                />
-              </ItemContainer>
-            </GatherLink>
-          ))
+                      <CommentText
+                        commentCount={item.commentCount || 0}
+                        iconColor={theme.colors.gray500}
+                        fontColor={theme.colors.gray600}
+                      />
+                    </InfoWrapper>
+                  </ItemDetail>
+                  <ProfileBox
+                    src={item.author?.profileImgUrl}
+                    name={item.author.name}
+                    course={item.author.course}
+                    generation={item.author.generation}
+                    fontSize={14}
+                  />
+                </ItemContainer>
+              </GatherLink>
+            ))
+        : null}
+
+      {pagee || gatherData
+        ? finishGather
+            ?.sort((a, b) => {
+              return +new Date(b.createdAt) - +new Date(a.createdAt);
+            })
+            .map((item) => (
+              <GatherLink
+                to={`${
+                  item?.gatherId ? routes.GATHERLIST : routes.MAPGAKCOLIST
+                }/${item?.gatherId ? item?.gatherId : item?.mapgakcoId}`}
+                key={item?.gatherId ? item?.gatherId : item?.mapgakcoId}
+              >
+                <ItemContainer
+                  style={item.status !== "GATHERING" ? FinishItem : null}
+                >
+                  {item.status !== "GATHERING" ? (
+                    <Finish page={pagee}>모집 마감</Finish>
+                  ) : null}
+                  <Category
+                    style={{
+                      backgroundColor: theme.colors[item.category],
+                      color: "black",
+                    }}
+                  >
+                    {item?.category
+                      ? categoryDisplayName[item?.category]
+                      : "맵각코"}
+                  </Category>
+                  <ItemDetail>
+                    <TextContainer page={pagee}>
+                      <Text ellipsisLineClamp={1} size={14}>
+                        {item.title}
+                      </Text>
+                    </TextContainer>
+                    <InfoWrapper page={pagee}>
+                      {item?.meetingAt ? (
+                        <PeriodText
+                          deadLine={item?.meetingAt.substring(0, 10)}
+                          iconColor={theme.colors.gray500}
+                          fontColor={theme.colors.gray600}
+                        />
+                      ) : (
+                        <PeriodText
+                          createdDate={item.createdAt.substring(0, 10)}
+                          deadLine={item?.deadline.substring(0, 10)}
+                          iconColor={theme.colors.gray500}
+                          fontColor={theme.colors.gray600}
+                        />
+                      )}
+                      <ApplicantCountText
+                        applicantCount={item.applicantCount}
+                        applicantLimit={item.applicantLimit}
+                        iconColor={theme.colors.gray500}
+                        fontColor={theme.colors.gray600}
+                      />
+                      <ViewText
+                        view={item?.view || 0}
+                        iconColor={theme.colors.gray500}
+                        fontColor={theme.colors.gray600}
+                      />
+                      <CommentText
+                        commentCount={item.commentCount || 0}
+                        iconColor={theme.colors.gray500}
+                        fontColor={theme.colors.gray600}
+                      />
+                    </InfoWrapper>
+                  </ItemDetail>
+                  <ProfileBox
+                    src={item.author?.profileImgUrl}
+                    name={item.author.name}
+                    course={item.author.course}
+                    generation={item.author.generation}
+                    fontSize={14}
+                  />
+                </ItemContainer>
+              </GatherLink>
+            ))
         : null}
       {/* {gather
         ?.sort((a, b) => {

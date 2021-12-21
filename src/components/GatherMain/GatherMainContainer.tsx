@@ -22,7 +22,7 @@ const GatherContainer = ({ selectedCategory }: IProps) => {
     fetchNextPage,
   } = useGatherinfiniteQuery(filters);
 
-  console.log(pages);
+  // console.log(pages);
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -31,7 +31,7 @@ const GatherContainer = ({ selectedCategory }: IProps) => {
   const handleVisibleModal = (isModalVisible: boolean) => {
     setModalVisible(isModalVisible);
   };
-  console.log(filters);
+  // console.log(filters);
   return (
     <GatherMain
       // gatherData={gatherData}

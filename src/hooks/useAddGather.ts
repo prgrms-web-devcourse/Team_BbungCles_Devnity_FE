@@ -10,7 +10,6 @@ const useAddGather = () => {
     (values) => requestPostCreateGather(values),
     {
       onSuccess: (data) => {
-        console.log("data", data);
         // eslint-disable-next-line no-alert
         alert("모집글이 등록되었습니다.");
         const id = data?.data?.data?.gatherId;

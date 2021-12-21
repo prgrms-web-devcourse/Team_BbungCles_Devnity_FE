@@ -46,8 +46,7 @@ export const FinishItem: CSSProperties = {
   alignItems: "center",
   gap: "8px",
   borderRadius: "12px",
-  background:
-    "linear gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),#ffffff",
+  backgroundColor: "lightgrey", // "linear gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),#ffffff",
   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
   opacity: "80%",
   padding: "16px",
@@ -104,7 +103,7 @@ export const ItemDetail = styled.div`
 
 export const InfoWrapper = styled.div<{ page: string }>`
   display: flex;
-  gap: 12px;
+  gap: 14px;
   font-size: ${({ page }) => (page === "MyGather" ? "12px" : "12px")};
   white-space: nowrap;
   overflow: hidden;
@@ -121,4 +120,5 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-top: 10px;
 `;

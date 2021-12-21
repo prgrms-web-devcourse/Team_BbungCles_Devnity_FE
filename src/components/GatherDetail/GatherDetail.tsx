@@ -203,7 +203,7 @@ const GatherDetail = ({
             fontSize={14}
           />
           <ViewText
-            view={view}
+            view={view || 0}
             iconColor={theme.colors.gray500}
             fontColor={theme.colors.gray600}
             fontSize={14}
@@ -359,7 +359,7 @@ const GatherDetail = ({
         <BorderContainer>
           <IconWrapper>
             <Text size={20} strong>
-              댓글
+              {`댓글 ${commentCount}`}
             </Text>
           </IconWrapper>
 

@@ -21,11 +21,6 @@ const UserListContainer = () => {
     fetchNextPage,
   } = useUserInfiniteQuery(filters);
 
-  console.log("pages: ", pages);
-  console.log("isLoading: ", isLoading);
-  console.log("hasNextPage: ", hasNextPage);
-  console.log("fetchNextPage: ", fetchNextPage);
-
   return (
     <UserList
       isLoading={isLoading}

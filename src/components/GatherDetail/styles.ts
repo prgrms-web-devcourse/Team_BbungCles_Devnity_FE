@@ -127,7 +127,7 @@ export const ApplicantContainer = styled.div`
 
 export const MarkdownEditorWrapper = styled.div`
   width: 100%;
-  height: 360px;
+  height: auto;
   padding: 12px;
   border-radius: 10px;
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
