@@ -20,6 +20,19 @@ const UserCardList = ({ userInfos }: Props) => {
     [history]
   );
 
+  const userInfoList = [
+    <div style={{ display: "flex", width: "110vw" }} key={0}>
+      {userInfos?.map((userInfo) => (
+        <li key={userInfo.user.userId}>
+          <UserCard
+            userInfo={userInfo}
+            onClick={handleUserCardClick(userInfo.introduction.introductionId)}
+          />
+        </li>
+      ))}
+    </div>,
+  ];
+
   return (
     <div>
       {(userInfos || []).length ? (
@@ -33,18 +46,7 @@ const UserCardList = ({ userInfos }: Props) => {
               paddingLeft: "4px",
             }}
           >
-            <div style={{ display: "flex", width: "110vw" }}>
-              {userInfos?.map((userInfo) => (
-                <li key={userInfo.user.userId}>
-                  <UserCard
-                    userInfo={userInfo}
-                    onClick={handleUserCardClick(
-                      userInfo.introduction.introductionId
-                    )}
-                  />
-                </li>
-              ))}
-            </div>
+            {userInfoList}
           </ScrollHorizontal>
         </ul>
       ) : (
