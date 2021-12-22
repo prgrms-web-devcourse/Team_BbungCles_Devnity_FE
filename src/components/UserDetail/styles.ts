@@ -179,7 +179,10 @@ export const EmptyTextWrapper = styled.div`
 `;
 
 export const EllipsisWrapper = styled.div`
+  display: flex;
+  align-items: center;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  height: 32px;
 `;
