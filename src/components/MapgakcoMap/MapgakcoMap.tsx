@@ -14,11 +14,13 @@ import PlaceSearchForm from "./PlaceSearchForm";
 import {
   ButtonContainer,
   Container,
+  Dimmer,
   Guide,
   MapFloatContainer,
   PlaceSearchFormWrapper,
   SearchContainer,
   Slider,
+  SliderContainer,
 } from "./styles";
 import { Mapgakco } from "../../types/mapTypes";
 import {
@@ -68,7 +70,7 @@ const MapgakcoMap = ({
   const [visibleUsers, setVisibleUsers] = useState<boolean>(false);
   const [visibleMapgakcos, setVisibleMapgakcos] = useState<boolean>(true);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState<boolean>(false);
-  const [isDetailModalOpen, setDetailModalOpen] = useState<boolean>(false);
+  const [isDetailPanelOpen, setDetailPanelOpen] = useState<boolean>(false);
   const [isMarkerSelected, setIsMarkerSelected] = useState<boolean>(false);
   const [selectedMapgakco, setSelectedMapgakco] = useState(null);
 
@@ -120,8 +122,8 @@ const MapgakcoMap = ({
     initializeClick();
   }, [initializeClick]);
 
-  const handleDetailModalClose = () => {
-    setDetailModalOpen(false);
+  const handleDetailPanelClose = () => {
+    setDetailPanelOpen(false);
     // url은 변경하되 화면 리렌더링을 하지 않기 위해서 react-router가 아닌 window의 history API 를 사용한다.
     window.history.replaceState(null, null, routes.MAPGAKCOLIST);
   };
@@ -131,7 +133,7 @@ const MapgakcoMap = ({
 
   const handleMapgakcoClick = useCallback(
     (mapgakco: Mapgakco) => {
-      setDetailModalOpen(true);
+      setDetailPanelOpen(true);
       setSelectedMapgakco(mapgakco);
 
       history.push(`${routes.MAPGAKCOLIST}/${mapgakco.mapgakcoId}`);
@@ -267,14 +269,22 @@ const MapgakcoMap = ({
           />
         </Modal>
       </MapFloatContainer>
-      <Slider style={{ transform: isDetailModalOpen && "translateX(340px)" }}>
-        {selectedMapgakco && (
-          <MapgakcoDetailContainer
-            mapgakcoId={selectedMapgakco?.mapgakcoId}
-            onModalClose={handleDetailModalClose}
-          />
-        )}
-      </Slider>
+      <SliderContainer>
+        <Dimmer
+          style={{
+            zIndex: isDetailPanelOpen && 2,
+            display: isDetailPanelOpen && "block",
+          }}
+        />
+        <Slider style={{ transform: isDetailPanelOpen && "translateX(340px)" }}>
+          {selectedMapgakco && (
+            <MapgakcoDetailContainer
+              mapgakcoId={selectedMapgakco?.mapgakcoId}
+              onPanelClose={handleDetailPanelClose}
+            />
+          )}
+        </Slider>
+      </SliderContainer>
       <Map
         center={{
           lat: center.lat,
