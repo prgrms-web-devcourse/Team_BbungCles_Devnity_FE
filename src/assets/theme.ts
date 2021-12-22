@@ -7,6 +7,7 @@ const theme = {
     fontColor: "#4d5256",
     disabled: "#c0c0c0",
     markerBlue: "#0472E7",
+    crownGold: "#ffd700",
     black: "#000",
     white: "#fff",
     orange100: "#ffd9b3",

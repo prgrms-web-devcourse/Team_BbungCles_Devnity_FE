@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BsCalendarDate, BsPeople, BsPinMap } from "react-icons/bs";
 import { toast } from "react-toastify";
+import { RiVipCrownFill } from "react-icons/ri";
 import theme from "../../../../assets/theme";
 import { status } from "../../../../constants";
 import useMutationMapgakcoApplyDelete from "../../../../hooks/useMutationMapgakcoApplyDelete";
@@ -128,12 +129,17 @@ const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
                     className="participant author"
                     key={mapgakcoDetail?.author?.userId}
                   >
-                    <UserProfileImage
-                      title={mapgakcoDetail?.author?.name}
-                      imageUrl={mapgakcoDetail?.author?.profileImgUrl}
-                      size={24}
-                      style={{ border: "1px solid #fff" }}
-                    />
+                    <div className="image-wrapper">
+                      <RiVipCrownFill color={theme.colors.crownGold} />
+                      <UserProfileImage
+                        title={`주최자: ${mapgakcoDetail?.author?.name}`}
+                        imageUrl={mapgakcoDetail?.author?.profileImgUrl}
+                        size={24}
+                        style={{
+                          border: `1px solid ${theme.colors.crownGold}`,
+                        }}
+                      />
+                    </div>
                   </li>
                   {mapgakcoDetail?.applicants?.map(
                     ({ userId, name, profileImgUrl }) => (
