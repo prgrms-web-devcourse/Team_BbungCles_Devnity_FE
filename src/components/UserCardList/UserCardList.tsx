@@ -20,6 +20,7 @@ const UserCardList = ({ userInfos }: Props) => {
     [history]
   );
 
+  // TODO: ScrollHorizontal의 자식 요소는 배열이 와야 하므로 강제로 아래와 같이 변경했는데 옳지 않은 해결 방식인 것 같음. 수정 필요
   const userInfoList = [
     <div style={{ display: "flex", width: "110vw" }} key={0}>
       {userInfos?.map((userInfo) => (
