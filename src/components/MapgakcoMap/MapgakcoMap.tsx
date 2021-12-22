@@ -18,6 +18,7 @@ import {
   MapFloatContainer,
   PlaceSearchFormWrapper,
   SearchContainer,
+  Slider,
 } from "./styles";
 import { Mapgakco } from "../../types/mapTypes";
 import {
@@ -228,33 +229,6 @@ const MapgakcoMap = ({
       <MapFloatContainer
         style={{ display: visibleMapFloatContainer ? "flex" : "none" }}
       >
-        <Modal visible={isRegisterModalOpen} width="60%">
-          <MapgakcoRegister
-            userClickPosition={getMarkerPosition()}
-            onClose={handleRegisterModalClose}
-          />
-        </Modal>
-        <Modal
-          visible={isDetailModalOpen}
-          width="330px"
-          height="100%"
-          modalContainerStyles={{
-            top: 0,
-            left: 0,
-            transform: "none",
-            borderRadius: 0,
-          }}
-          contentContainerStyles={{
-            height: "100%",
-          }}
-        >
-          {selectedMapgakco && (
-            <MapgakcoDetailContainer
-              mapgakcoId={selectedMapgakco?.mapgakcoId}
-              onModalClose={handleDetailModalClose}
-            />
-          )}
-        </Modal>
         <SearchContainer>
           <PlaceSearchFormWrapper>
             <PlaceSearchForm onSubmit={handleKeywordSubmit} />
@@ -286,7 +260,21 @@ const MapgakcoMap = ({
             위치를 지정한 후 등록 버튼을 눌러주세요.
           </Text>
         </Guide>
+        <Modal visible={isRegisterModalOpen} width="60%">
+          <MapgakcoRegister
+            userClickPosition={getMarkerPosition()}
+            onClose={handleRegisterModalClose}
+          />
+        </Modal>
       </MapFloatContainer>
+      <Slider style={{ transform: isDetailModalOpen && "translateX(340px)" }}>
+        {selectedMapgakco && (
+          <MapgakcoDetailContainer
+            mapgakcoId={selectedMapgakco?.mapgakcoId}
+            onModalClose={handleDetailModalClose}
+          />
+        )}
+      </Slider>
       <Map
         center={{
           lat: center.lat,

@@ -24,6 +24,19 @@ export const MapFloatContainer = styled.div`
   padding: 10px;
 `;
 
+export const Slider = styled.div`
+  position: fixed;
+  top: 0;
+  left: -340px;
+  width: 330px;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.white};
+  z-index: 2;
+
+  transition: 0.4s;
+  padding: 8px;
+`;
+
 export const Guide = styled.div`
   position: relative;
   display: inline-flex;
