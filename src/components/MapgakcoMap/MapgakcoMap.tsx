@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
 import { Position } from "../../types/commonTypes";
@@ -29,6 +29,7 @@ import UserMarker from "./UserMarker";
 import MapgakcoDetailContainer from "./MapgakcoDetail/MapgakcoDetailContainer";
 import { ResponseUserLocation } from "../../types/userLocation";
 import { UserData } from "../MyProfile/types";
+import { routes } from "../../constants";
 
 interface Props {
   initialCenter: Position;
@@ -45,6 +46,8 @@ const MapgakcoMap = ({
   currentUser,
   visibleMapFloatContainer = true,
 }: Props) => {
+  const history = useHistory();
+
   const { id: mapgakcoIdParam }: { id: string } = useParams();
 
   const memoCenter = useRef(initialCenter);
@@ -116,15 +119,24 @@ const MapgakcoMap = ({
     initializeClick();
   }, [initializeClick]);
 
-  const handleDetailModalClose = () => setDetailModalOpen(false);
+  const handleDetailModalClose = () => {
+    setDetailModalOpen(false);
+    // url은 변경하되 화면 리렌더링을 하지 않기 위해서 react-router가 아닌 window의 history API 를 사용한다.
+    window.history.replaceState(null, null, routes.MAPGAKCOLIST);
+  };
 
   // TODO: 알아보기. useCallback하면 DetailModal이 닫히고 나서 정상적으로 동작하지 않는다.
   const handleRegisterClick = () => setRegisterModalOpen(true);
 
-  const handleMapgakcoClick = useCallback((mapgakco: Mapgakco) => {
-    setDetailModalOpen(true);
-    setSelectedMapgakco(mapgakco);
-  }, []);
+  const handleMapgakcoClick = useCallback(
+    (mapgakco: Mapgakco) => {
+      setDetailModalOpen(true);
+      setSelectedMapgakco(mapgakco);
+
+      history.push(`${routes.MAPGAKCOLIST}/${mapgakco.mapgakcoId}`);
+    },
+    [history]
+  );
 
   const buttonStyle = {
     padding: "8px",
