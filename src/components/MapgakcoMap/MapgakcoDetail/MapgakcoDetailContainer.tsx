@@ -10,14 +10,14 @@ import { ResponseGetMapgakcoDetail } from "../../../types/mapgakco";
 
 interface Props {
   mapgakcoId: string;
-  onModalClose: () => void;
+  onPanelClose: () => void;
 }
 
-const MapgakcoDetailContainer = ({ mapgakcoId, onModalClose }: Props) => {
+const MapgakcoDetailContainer = ({ mapgakcoId, onPanelClose }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const ref = useClickAway(() => {
-    onModalClose();
+    onPanelClose();
     setIsEditing(false);
   });
 

@@ -24,6 +24,31 @@ export const MapFloatContainer = styled.div`
   padding: 10px;
 `;
 
+export const SliderContainer = styled.div``;
+
+export const Dimmer = styled.div`
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 52px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+
+export const Slider = styled.div`
+  position: fixed;
+  top: 0;
+  left: -340px;
+  width: 330px;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.white};
+  z-index: 2;
+
+  transition: 0.4s;
+  padding: 8px;
+`;
+
 export const Guide = styled.div`
   position: relative;
   display: inline-flex;

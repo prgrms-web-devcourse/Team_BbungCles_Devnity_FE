@@ -3,8 +3,9 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
   flex-grow: 1;
   display: flex;
-  gap: 10px;
   flex-direction: column;
+  gap: 10px;
+  height: 100%;
   padding: 8px;
 `;
 

@@ -56,8 +56,25 @@ export const Card = styled.div`
       padding-left: 10px;
 
       .participants {
+        .participant.author {
+          z-index: 1;
+
+          .image-wrapper {
+            position: relative;
+
+            svg {
+              position: absolute;
+              top: -6px;
+              left: -6px;
+              font-size: 12px;
+              transform: rotate(-45deg);
+            }
+          }
+        }
+
         .participant:not(:first-of-type) {
           margin-left: -8px;
+          z-index: 1;
         }
       }
     }

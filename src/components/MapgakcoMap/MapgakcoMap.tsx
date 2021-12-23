@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
 import { Position } from "../../types/commonTypes";
@@ -14,10 +14,13 @@ import PlaceSearchForm from "./PlaceSearchForm";
 import {
   ButtonContainer,
   Container,
+  Dimmer,
   Guide,
   MapFloatContainer,
   PlaceSearchFormWrapper,
   SearchContainer,
+  Slider,
+  SliderContainer,
 } from "./styles";
 import { Mapgakco } from "../../types/mapTypes";
 import {
@@ -29,6 +32,7 @@ import UserMarker from "./UserMarker";
 import MapgakcoDetailContainer from "./MapgakcoDetail/MapgakcoDetailContainer";
 import { ResponseUserLocation } from "../../types/userLocation";
 import { UserData } from "../MyProfile/types";
+import { routes } from "../../constants";
 
 interface Props {
   initialCenter: Position;
@@ -45,6 +49,8 @@ const MapgakcoMap = ({
   currentUser,
   visibleMapFloatContainer = true,
 }: Props) => {
+  const history = useHistory();
+
   const { id: mapgakcoIdParam }: { id: string } = useParams();
 
   const memoCenter = useRef(initialCenter);
@@ -64,7 +70,7 @@ const MapgakcoMap = ({
   const [visibleUsers, setVisibleUsers] = useState<boolean>(false);
   const [visibleMapgakcos, setVisibleMapgakcos] = useState<boolean>(true);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState<boolean>(false);
-  const [isDetailModalOpen, setDetailModalOpen] = useState<boolean>(false);
+  const [isDetailPanelOpen, setDetailPanelOpen] = useState<boolean>(false);
   const [isMarkerSelected, setIsMarkerSelected] = useState<boolean>(false);
   const [selectedMapgakco, setSelectedMapgakco] = useState(null);
 
@@ -116,15 +122,24 @@ const MapgakcoMap = ({
     initializeClick();
   }, [initializeClick]);
 
-  const handleDetailModalClose = () => setDetailModalOpen(false);
+  const handleDetailPanelClose = () => {
+    setDetailPanelOpen(false);
+    // url은 변경하되 화면 리렌더링을 하지 않기 위해서 react-router가 아닌 window의 history API 를 사용한다.
+    window.history.replaceState(null, null, routes.MAPGAKCOLIST);
+  };
 
   // TODO: 알아보기. useCallback하면 DetailModal이 닫히고 나서 정상적으로 동작하지 않는다.
   const handleRegisterClick = () => setRegisterModalOpen(true);
 
-  const handleMapgakcoClick = useCallback((mapgakco: Mapgakco) => {
-    setDetailModalOpen(true);
-    setSelectedMapgakco(mapgakco);
-  }, []);
+  const handleMapgakcoClick = useCallback(
+    (mapgakco: Mapgakco) => {
+      setDetailPanelOpen(true);
+      setSelectedMapgakco(mapgakco);
+
+      history.push(`${routes.MAPGAKCOLIST}/${mapgakco.mapgakcoId}`);
+    },
+    [history]
+  );
 
   const buttonStyle = {
     padding: "8px",
@@ -216,33 +231,6 @@ const MapgakcoMap = ({
       <MapFloatContainer
         style={{ display: visibleMapFloatContainer ? "flex" : "none" }}
       >
-        <Modal visible={isRegisterModalOpen} width="60%">
-          <MapgakcoRegister
-            userClickPosition={getMarkerPosition()}
-            onClose={handleRegisterModalClose}
-          />
-        </Modal>
-        <Modal
-          visible={isDetailModalOpen}
-          width="330px"
-          height="100%"
-          modalContainerStyles={{
-            top: 0,
-            left: 0,
-            transform: "none",
-            borderRadius: 0,
-          }}
-          contentContainerStyles={{
-            height: "100%",
-          }}
-        >
-          {selectedMapgakco && (
-            <MapgakcoDetailContainer
-              mapgakcoId={selectedMapgakco?.mapgakcoId}
-              onModalClose={handleDetailModalClose}
-            />
-          )}
-        </Modal>
         <SearchContainer>
           <PlaceSearchFormWrapper>
             <PlaceSearchForm onSubmit={handleKeywordSubmit} />
@@ -274,7 +262,29 @@ const MapgakcoMap = ({
             위치를 지정한 후 등록 버튼을 눌러주세요.
           </Text>
         </Guide>
+        <Modal visible={isRegisterModalOpen} width="60%">
+          <MapgakcoRegister
+            userClickPosition={getMarkerPosition()}
+            onClose={handleRegisterModalClose}
+          />
+        </Modal>
       </MapFloatContainer>
+      <SliderContainer>
+        <Dimmer
+          style={{
+            zIndex: isDetailPanelOpen && 2,
+            display: isDetailPanelOpen && "block",
+          }}
+        />
+        <Slider style={{ transform: isDetailPanelOpen && "translateX(340px)" }}>
+          {selectedMapgakco && (
+            <MapgakcoDetailContainer
+              mapgakcoId={selectedMapgakco?.mapgakcoId}
+              onPanelClose={handleDetailPanelClose}
+            />
+          )}
+        </Slider>
+      </SliderContainer>
       <Map
         center={{
           lat: center.lat,
