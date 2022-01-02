@@ -148,7 +148,8 @@ const MapgakcoMap = ({
     justifyContent: "center",
     borderRadius: "8px",
     boxShadow: theme.boxShadows.primary,
-  };
+    whiteSpace: "nowrap",
+  } as React.CSSProperties;
 
   const registerButtonStyle = {
     ...buttonStyle,
