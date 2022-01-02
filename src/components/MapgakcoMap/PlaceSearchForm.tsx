@@ -26,6 +26,8 @@ const PlaceSearchForm = ({ onSubmit }: Props) => {
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       onSubmit(searchResults[0]);
+
+      setContent("");
     },
     [onSubmit, searchResults]
   );
