@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BsCalendarDate, BsPeople, BsPinMap } from "react-icons/bs";
 import { toast } from "react-toastify";
-import { RiVipCrownFill } from "react-icons/ri";
 import theme from "../../../../assets/theme";
 import { status } from "../../../../constants";
 import useMutationMapgakcoApplyDelete from "../../../../hooks/useMutationMapgakcoApplyDelete";
@@ -12,8 +11,8 @@ import { ResponseGetMapgakcoDetail } from "../../../../types/mapgakco";
 import { koreanDate } from "../../../../utils/date";
 import Button from "../../../base/Button";
 import MarkdownEditor from "../../../base/MarkdownEditor";
-import UserProfileImage from "../../../UserProfileImage/UserProfileImage";
 import { Card, MarkdownEditorWrapper, Footer } from "./styles";
+import ParticipantList from "./ParticipantList/ParticipantList";
 
 interface Props {
   mapgakcoDetail: ResponseGetMapgakcoDetail;
@@ -124,36 +123,10 @@ const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
                   {mapgakcoDetail?.mapgakco?.applicantCount} /{" "}
                   {mapgakcoDetail?.mapgakco?.applicantLimit} 명
                 </strong>
-                <ul className="participants" style={{ display: "flex" }}>
-                  <li
-                    className="participant author"
-                    key={mapgakcoDetail?.author?.userId}
-                  >
-                    <div className="image-wrapper">
-                      <RiVipCrownFill color={theme.colors.crownGold} />
-                      <UserProfileImage
-                        title={`주최자: ${mapgakcoDetail?.author?.name}`}
-                        imageUrl={mapgakcoDetail?.author?.profileImgUrl}
-                        size={24}
-                        style={{
-                          border: `1px solid ${theme.colors.crownGold}`,
-                        }}
-                      />
-                    </div>
-                  </li>
-                  {mapgakcoDetail?.applicants?.map(
-                    ({ userId, name, profileImgUrl }) => (
-                      <li key={userId} className="participant">
-                        <UserProfileImage
-                          title={name}
-                          imageUrl={profileImgUrl}
-                          size={24}
-                          style={{ border: "1px solid #fff" }}
-                        />
-                      </li>
-                    )
-                  )}
-                </ul>
+                <ParticipantList
+                  author={mapgakcoDetail?.author}
+                  applicants={mapgakcoDetail?.applicants}
+                />
               </div>
             </div>
           </div>
