@@ -1,11 +1,12 @@
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
-import useSearchResults from "../../hooks/useSearchResults";
-import Input from "../base/Input";
+import useSearchResults from "../../../hooks/useSearchResults";
+import Input from "../../base/Input";
 import {
   PlaceSearchFromContainer,
   SearchResultForm,
   SearchResultListContainer,
-} from "./styles";
+} from "../styles";
+import SearchResultList from "./SearchResultList";
 
 interface Props {
   onSubmit: (inputValue: string) => void;
@@ -59,24 +60,7 @@ const PlaceSearchForm = ({ onSubmit }: Props) => {
         />
       </SearchResultForm>
       <SearchResultListContainer>
-        <ul>
-          {(searchResults || []).slice(0, 5).map((place, index) => {
-            const key = `search-${index}`;
-
-            return (
-              <li
-                key={key}
-                onClick={handleClick(place)}
-                onKeyPress={handleClick(place)}
-                role="presentation"
-              >
-                <div>{place.place_name}</div>
-                <div>{place.address_name}</div>
-                <div>{place.road_address_name}</div>
-              </li>
-            );
-          })}
-        </ul>
+        <SearchResultList results={searchResults} onClick={handleClick} />
       </SearchResultListContainer>
     </PlaceSearchFromContainer>
   );
