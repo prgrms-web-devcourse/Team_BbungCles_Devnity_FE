@@ -42,6 +42,31 @@ interface Props {
   visibleMapFloatContainer?: boolean;
 }
 
+function getMarkerPosition(
+  userClickPosition: Position,
+  targetPlace: { y: number; x: number },
+  initialCenter: Position
+): Position {
+  if (userClickPosition.lat && userClickPosition.lng) {
+    return {
+      lat: userClickPosition.lat,
+      lng: userClickPosition.lng,
+    };
+  }
+
+  if (targetPlace.x && targetPlace.y) {
+    return {
+      lat: targetPlace.y,
+      lng: targetPlace.x,
+    };
+  }
+
+  return {
+    lat: initialCenter.lat,
+    lng: initialCenter.lng,
+  };
+}
+
 const MapgakcoMap = ({
   initialCenter,
   mapgakcos,
@@ -167,27 +192,6 @@ const MapgakcoMap = ({
     color: "#91979a",
   };
 
-  const getMarkerPosition = () => {
-    if (userClickPosition.lat && userClickPosition.lng) {
-      return {
-        lat: userClickPosition.lat,
-        lng: userClickPosition.lng,
-      };
-    }
-
-    if (targetPlace.x && targetPlace.y) {
-      return {
-        lat: targetPlace.y,
-        lng: targetPlace.x,
-      };
-    }
-
-    return {
-      lat: initialCenter.lat,
-      lng: initialCenter.lng,
-    };
-  };
-
   useEffect(() => {
     if (userClickPosition.lat && userClickPosition.lng) {
       setIsMarkerSelected(true);
@@ -265,7 +269,11 @@ const MapgakcoMap = ({
         </Guide>
         <Modal visible={isRegisterModalOpen} width="60%">
           <MapgakcoRegister
-            userClickPosition={getMarkerPosition()}
+            userClickPosition={getMarkerPosition(
+              userClickPosition,
+              targetPlace,
+              initialCenter
+            )}
             onClose={handleRegisterModalClose}
           />
         </Modal>
