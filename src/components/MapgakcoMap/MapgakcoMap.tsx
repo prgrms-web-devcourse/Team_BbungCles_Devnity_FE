@@ -269,7 +269,7 @@ const MapgakcoMap = ({
         </Guide>
         <Modal visible={isRegisterModalOpen} width="60%">
           <MapgakcoRegister
-            userClickPosition={getMarkerPosition(
+            markerPosition={getMarkerPosition(
               userClickPosition,
               targetPlace,
               initialCenter
