@@ -58,7 +58,7 @@ const Comment = ({ comment, isChild, introductionId }: IProps) => {
           `댓글은 ${common.validation.COMMENT_MAX_LENGTH}자이상 작성할 수 없습니다`
         ),
     }),
-    onSubmit: (formValues, { setSubmitting, resetForm }) => {
+    onSubmit: (formValues, { setSubmitting }) => {
       setSubmitting(true);
       userModifyCommentMutate({
         introductionId,
@@ -67,7 +67,6 @@ const Comment = ({ comment, isChild, introductionId }: IProps) => {
       });
       setSubmitting(false);
       toggleModify();
-      resetForm();
     },
   });
 
@@ -81,7 +80,7 @@ const Comment = ({ comment, isChild, introductionId }: IProps) => {
           `댓글은 ${common.validation.COMMENT_MAX_LENGTH}자이상 작성할 수 없습니다`
         ),
     }),
-    onSubmit: (formValues, { setSubmitting, resetForm }) => {
+    onSubmit: (formValues, { setSubmitting }) => {
       setSubmitting(true);
       userWriteChildCommentMutate({
         introductionId,
@@ -90,7 +89,6 @@ const Comment = ({ comment, isChild, introductionId }: IProps) => {
       });
       setSubmitting(false);
       toggleChildComment();
-      resetForm();
     },
   });
 
