@@ -22,7 +22,7 @@ import Text from "../base/Text";
 import useDayjs from "../../hooks/useDayjs";
 
 interface IProps {
-  userClickPosition: Position;
+  markerPosition: Position;
   onClose: () => void;
 }
 
@@ -34,7 +34,7 @@ interface FormValues {
   content: string;
 }
 
-const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
+const MapgakcoRegister = ({ markerPosition, onClose }: IProps) => {
   const [editorRef, resetMarkDown] = useToastUi();
 
   const [toast] = useCustomToast();
@@ -79,8 +79,8 @@ const MapgakcoRegister = ({ onClose, userClickPosition }: IProps) => {
       mutate({
         ...formValues,
         meetingAt: dayjs(formValues.meetingAt).format("YYYY-MM-DDTHH:00:00"),
-        latitude: userClickPosition.lat,
-        longitude: userClickPosition.lng,
+        latitude: markerPosition.lat,
+        longitude: markerPosition.lng,
       });
       setSubmitting(false);
 

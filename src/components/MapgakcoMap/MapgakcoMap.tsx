@@ -1,24 +1,14 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import { BsArrowRightCircle } from "react-icons/bs";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useHistory, useParams } from "react-router-dom";
-import theme from "../../assets/theme";
 import useMapClick from "../../hooks/useMapClick";
 import { Position } from "../../types/commonTypes";
-import Button from "../base/Button";
 import Modal from "../base/Modal";
-import Text from "../base/Text";
-import FilterButton from "./FilterButton";
 import MapgakcoRegister from "../MapgakcoRegister";
-import PlaceSearchForm from "./PlaceSearchForm";
 import {
-  ButtonContainer,
   Container,
   Dimmer,
-  Guide,
   MapFloatContainer,
-  PlaceSearchFormWrapper,
-  SearchContainer,
   Slider,
   SliderContainer,
 } from "./styles";
@@ -33,6 +23,7 @@ import MapgakcoDetailContainer from "./MapgakcoDetail/MapgakcoDetailContainer";
 import { ResponseUserLocation } from "../../types/userLocation";
 import { UserData } from "../MyProfile/types";
 import { routes } from "../../constants";
+import SearchBar from "./SearchBar/SearchBar";
 
 interface Props {
   initialCenter: Position;
@@ -40,6 +31,31 @@ interface Props {
   usersLocations: ResponseUserLocation[];
   currentUser: UserData;
   visibleMapFloatContainer?: boolean;
+}
+
+function getMarkerPosition(
+  userClickPosition: Position,
+  targetPlace: { y: number; x: number },
+  initialCenter: Position
+): Position {
+  if (userClickPosition.lat && userClickPosition.lng) {
+    return {
+      lat: userClickPosition.lat,
+      lng: userClickPosition.lng,
+    };
+  }
+
+  if (targetPlace.x && targetPlace.y) {
+    return {
+      lat: targetPlace.y,
+      lng: targetPlace.x,
+    };
+  }
+
+  return {
+    lat: initialCenter.lat,
+    lng: initialCenter.lng,
+  };
 }
 
 const MapgakcoMap = ({
@@ -141,53 +157,6 @@ const MapgakcoMap = ({
     [history]
   );
 
-  const buttonStyle = {
-    padding: "8px",
-    minWidth: "80px",
-    display: "flex",
-    justifyContent: "center",
-    borderRadius: "8px",
-    boxShadow: theme.boxShadows.primary,
-    whiteSpace: "nowrap",
-  } as React.CSSProperties;
-
-  const registerButtonStyle = {
-    ...buttonStyle,
-    color: isMarkerSelected && theme.colors.white,
-    backgroundColor: isMarkerSelected
-      ? theme.colors.markerBlue
-      : theme.colors.white,
-  };
-
-  const guideTextStyle = {
-    background: theme.colors.white,
-    padding: "8px",
-    borderRadius: "8px",
-    fontSize: "12px",
-    color: "#91979a",
-  };
-
-  const getMarkerPosition = () => {
-    if (userClickPosition.lat && userClickPosition.lng) {
-      return {
-        lat: userClickPosition.lat,
-        lng: userClickPosition.lng,
-      };
-    }
-
-    if (targetPlace.x && targetPlace.y) {
-      return {
-        lat: targetPlace.y,
-        lng: targetPlace.x,
-      };
-    }
-
-    return {
-      lat: initialCenter.lat,
-      lng: initialCenter.lng,
-    };
-  };
-
   useEffect(() => {
     if (userClickPosition.lat && userClickPosition.lng) {
       setIsMarkerSelected(true);
@@ -232,44 +201,27 @@ const MapgakcoMap = ({
       <MapFloatContainer
         style={{ display: visibleMapFloatContainer ? "flex" : "none" }}
       >
-        <SearchContainer>
-          <PlaceSearchFormWrapper>
-            <PlaceSearchForm onSubmit={handleKeywordSubmit} />
-          </PlaceSearchFormWrapper>
-          <ButtonContainer>
-            <Button style={buttonStyle} onClick={handleMyPositionClick}>
-              <BsArrowRightCircle style={{ marginRight: 4 }} /> 나의 위치
-            </Button>
-            <FilterButton visible={visibleUsers} onClick={handleVisibleUsers}>
-              데둥이
-            </FilterButton>
-            <FilterButton
-              visible={visibleMapgakcos}
-              onClick={handleVisibleMapgakcos}
-            >
-              맵각코
-            </FilterButton>
-            <Button
-              style={registerButtonStyle}
-              onClick={handleRegisterClick}
-              disabled={!isMarkerSelected}
-            >
-              등록
-            </Button>
-          </ButtonContainer>
-        </SearchContainer>
-        <Guide>
-          <Text style={guideTextStyle}>
-            위치를 지정한 후 등록 버튼을 눌러주세요.
-          </Text>
-        </Guide>
-        <Modal visible={isRegisterModalOpen} width="60%">
-          <MapgakcoRegister
-            userClickPosition={getMarkerPosition()}
-            onClose={handleRegisterModalClose}
-          />
-        </Modal>
+        <SearchBar
+          visibleUsers={visibleUsers}
+          visibleMapgakcos={visibleMapgakcos}
+          isMarkerSelected={isMarkerSelected}
+          onVisibleUsersButtonClick={handleVisibleUsers}
+          onVisibleMapgakcosButtonClick={handleVisibleMapgakcos}
+          onRegisterButtonClick={handleRegisterClick}
+          onKeywordSubmit={handleKeywordSubmit}
+          onMyPositionClick={handleMyPositionClick}
+        />
       </MapFloatContainer>
+      <Modal visible={isRegisterModalOpen} width="60%">
+        <MapgakcoRegister
+          markerPosition={getMarkerPosition(
+            userClickPosition,
+            targetPlace,
+            initialCenter
+          )}
+          onClose={handleRegisterModalClose}
+        />
+      </Modal>
       <SliderContainer>
         <Dimmer
           style={{
