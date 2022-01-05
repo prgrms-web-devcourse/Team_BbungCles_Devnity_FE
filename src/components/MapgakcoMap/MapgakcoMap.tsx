@@ -2,7 +2,7 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useHistory, useParams } from "react-router-dom";
 import useMapClick from "../../hooks/useMapClick";
-import { Position } from "../../types/commonTypes";
+import { CartesianPosition, Position } from "../../types/commonTypes";
 import Modal from "../base/Modal";
 import MapgakcoRegister from "../MapgakcoRegister";
 import {
@@ -35,7 +35,7 @@ interface Props {
 
 function getMarkerPosition(
   userClickPosition: Position,
-  targetPlace: { y: number; x: number },
+  targetPlace: CartesianPosition,
   initialCenter: Position
 ): Position {
   if (userClickPosition.lat && userClickPosition.lng) {
