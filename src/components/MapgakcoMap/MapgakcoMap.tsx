@@ -116,6 +116,15 @@ const MapgakcoMap = ({
   );
 
   const handleMyPositionClick = useCallback(() => {
+    /*
+     * 상태 변경을 비동기로 하는 이유:
+     *
+     * 지도 UI의 중심점을 사용자의 위치로 변경하려면, 중심점 좌표에 대한 상태값이 변경되어야 합니다. (상태값 변경에 따른 UI 자동 갱신)
+     * 그런데 초기 중심점 좌표값(initialCenter)과 사용자의 위치 좌표값(memoCenter)은 항상 동일한 값이므로 리액트 입장에서는 상태가 변경되지 않아 지도 UI를 리렌더링하지 않습니다.
+     * 따라서 중심점 좌표에 대한 상태값을 순간적으로 null로 변경했다가 다시 사용자의 위치로 변경하여, 상태값의 변경에 따른 UI 갱신이 발생하도록 만듭니다.
+     * 그런데 리액트의 상태 변경은 배치 처리 되므로 null로 변경한 상태 변경은 무시되고 마지막 상태 변경값인 사용자의 위치 좌표값으로 업데이트하는데 이는 초기 중심 좌표와 동일한 값이므로 결국 리렌더링 되지 않습니다.
+     * 따라서 상태를 변경할 때마다 리렌더링을 강제하도록 Promise를 이용하여 상태 변경을 비동기적으로 업데이트 합니다.
+     */
     Promise.resolve().then(() => {
       setCenter(() => ({
         lat: null,
@@ -192,7 +201,7 @@ const MapgakcoMap = ({
         handleMapgakcoClick(mapgakco);
       }
     }
-    // 디펜던시를 추가해야 할 필요성을 느끼지 못하고 있어서 린트 규칙을 비활성화한다
+    // 디펜던시를 추가할 필요가 없으므로 린트 규칙을 비활성화합니다.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
