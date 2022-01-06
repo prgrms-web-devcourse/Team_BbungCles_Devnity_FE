@@ -23,3 +23,8 @@ export interface Position {
   lat: number;
   lng: number;
 }
+
+export interface CartesianPosition {
+  y: number;
+  x: number;
+}
