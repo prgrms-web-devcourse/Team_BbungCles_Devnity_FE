@@ -41,7 +41,7 @@ const MapgakcoSummaryContainer = () => {
       usersLocations={usersLocations}
       mapgakcos={mapgakcos}
       currentUser={currentUser}
-      visibleMapFloatContainer={false}
+      isMapFloatControlVisible={false}
     />
   );
 };

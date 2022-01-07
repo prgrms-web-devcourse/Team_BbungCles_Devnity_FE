@@ -12,13 +12,13 @@ import {
 } from "./styles";
 
 interface Props {
-  visibleUsers: boolean;
-  visibleMapgakcos: boolean;
-  isMarkerSelected: boolean;
-  onVisibleUsersButtonClick: () => void;
-  onVisibleMapgakcosButtonClick: () => void;
-  onRegisterButtonClick: () => void;
-  onKeywordSubmit: (place) => void;
+  isUsersVisible: boolean;
+  isMapgakcosVisible: boolean;
+  isRegisterEnabled: boolean;
+  toggleVisibleUsers: () => void;
+  toggleVisibleMapgakcos: () => void;
+  onRegisterClick: () => void;
+  onKeywordSearchSubmit: (place) => void;
   onMyPositionClick: () => void;
 }
 
@@ -41,19 +41,19 @@ const guideTextStyle = {
 };
 
 const MapFloatControl = ({
-  visibleUsers,
-  visibleMapgakcos,
-  isMarkerSelected,
-  onVisibleUsersButtonClick,
-  onVisibleMapgakcosButtonClick,
-  onRegisterButtonClick,
-  onKeywordSubmit,
+  isUsersVisible,
+  isMapgakcosVisible,
+  isRegisterEnabled,
+  toggleVisibleUsers,
+  toggleVisibleMapgakcos,
   onMyPositionClick,
+  onKeywordSearchSubmit,
+  onRegisterClick,
 }: Props) => {
   const registerButtonStyle = {
     ...buttonStyle,
-    color: isMarkerSelected && theme.colors.white,
-    backgroundColor: isMarkerSelected
+    color: isRegisterEnabled && theme.colors.white,
+    backgroundColor: isRegisterEnabled
       ? theme.colors.markerBlue
       : theme.colors.white,
   };
@@ -62,28 +62,25 @@ const MapFloatControl = ({
     <>
       <SearchContainer>
         <PlaceSearchFormWrapper>
-          <PlaceSearchForm onSubmit={onKeywordSubmit} />
+          <PlaceSearchForm onSubmit={onKeywordSearchSubmit} />
         </PlaceSearchFormWrapper>
         <ButtonContainer>
           <Button style={buttonStyle} onClick={onMyPositionClick}>
             <BsArrowRightCircle style={{ marginRight: 4 }} /> 나의 위치
           </Button>
-          <FilterButton
-            visible={visibleUsers}
-            onClick={onVisibleUsersButtonClick}
-          >
+          <FilterButton visible={isUsersVisible} onClick={toggleVisibleUsers}>
             데둥이
           </FilterButton>
           <FilterButton
-            visible={visibleMapgakcos}
-            onClick={onVisibleMapgakcosButtonClick}
+            visible={isMapgakcosVisible}
+            onClick={toggleVisibleMapgakcos}
           >
             맵각코
           </FilterButton>
           <Button
             style={registerButtonStyle}
-            onClick={onRegisterButtonClick}
-            disabled={!isMarkerSelected}
+            onClick={onRegisterClick}
+            disabled={!isRegisterEnabled}
           >
             등록
           </Button>

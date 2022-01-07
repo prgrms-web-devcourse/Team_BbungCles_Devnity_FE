@@ -5,7 +5,7 @@ import useUsersLocationsFormik from "../../hooks/useUsersLocationsFormik";
 import useUsersLocationsQuery from "../../hooks/useUsersLocationsQuery";
 import { Position } from "../../types/commonTypes";
 import { getUserMarkerOverlays } from "../../utils/map/overlay";
-import { Container, MapFloatContainer } from "../MapgakcoMap/styles";
+import { Container, MapFloatControlWrapper } from "../MapgakcoMap/styles";
 import UserMarker from "../MapgakcoMap/UserMarker";
 import { UserData } from "../MyProfile/types";
 import {
@@ -51,7 +51,7 @@ const UsersMap = ({ center, currentUser }: Props) => {
 
   return (
     <Container>
-      <MapFloatContainer>
+      <MapFloatControlWrapper>
         <SearchBarFormContainer
           onSubmit={formik.handleSubmit}
           style={{
@@ -136,7 +136,7 @@ const UsersMap = ({ center, currentUser }: Props) => {
             </Button>
           </ButtonWrapper> */}
         </SearchBarFormContainer>
-      </MapFloatContainer>
+      </MapFloatControlWrapper>
       <Map
         center={{
           lat: center.lat,
