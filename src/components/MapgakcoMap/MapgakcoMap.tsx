@@ -8,7 +8,7 @@ import MapgakcoRegister from "../MapgakcoRegister";
 import {
   Container,
   Dimmer,
-  MapFloatContainer,
+  MapFloatContainer as MapFloatControlWrapper,
   Slider,
   SliderContainer,
 } from "./styles";
@@ -23,7 +23,7 @@ import MapgakcoDetailContainer from "./MapgakcoDetail/MapgakcoDetailContainer";
 import { ResponseUserLocation } from "../../types/userLocation";
 import { UserData } from "../MyProfile/types";
 import { routes } from "../../constants";
-import SearchBar from "./SearchBar/SearchBar";
+import MapFloatControl from "./MapFloatControl";
 
 interface Props {
   initialCenter: Position;
@@ -207,10 +207,10 @@ const MapgakcoMap = ({
 
   return (
     <Container>
-      <MapFloatContainer
+      <MapFloatControlWrapper
         style={{ display: visibleMapFloatContainer ? "flex" : "none" }}
       >
-        <SearchBar
+        <MapFloatControl
           visibleUsers={visibleUsers}
           visibleMapgakcos={visibleMapgakcos}
           isMarkerSelected={isMarkerSelected}
@@ -220,7 +220,7 @@ const MapgakcoMap = ({
           onKeywordSubmit={handleKeywordSubmit}
           onMyPositionClick={handleMyPositionClick}
         />
-      </MapFloatContainer>
+      </MapFloatControlWrapper>
       <Modal visible={isRegisterModalOpen} width="60%">
         <MapgakcoRegister
           markerPosition={getMarkerPosition(

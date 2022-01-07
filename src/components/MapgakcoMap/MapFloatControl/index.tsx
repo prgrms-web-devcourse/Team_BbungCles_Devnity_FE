@@ -40,7 +40,7 @@ const guideTextStyle = {
   color: "#91979a",
 };
 
-const SearchBar = ({
+const MapFloatControl = ({
   visibleUsers,
   visibleMapgakcos,
   isMarkerSelected,
@@ -98,4 +98,4 @@ const SearchBar = ({
   );
 };
 
-export default SearchBar;
+export default MapFloatControl;
