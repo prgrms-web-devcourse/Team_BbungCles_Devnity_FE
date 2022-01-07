@@ -2,17 +2,13 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useHistory, useParams } from "react-router-dom";
 import useMapClick from "../../hooks/useMapClick";
+import useToggle from "../../hooks/useToggle";
 import { CartesianPosition, Position } from "../../types/commonTypes";
+import { ResponseUserLocation } from "../../types/userLocation";
+import { Mapgakco } from "../../types/mapTypes";
+import { UserData } from "../MyProfile/types";
 import Modal from "../base/Modal";
 import MapgakcoRegister from "../MapgakcoRegister";
-import {
-  Container,
-  Dimmer,
-  MapFloatContainer,
-  Slider,
-  SliderContainer,
-} from "./styles";
-import { Mapgakco } from "../../types/mapTypes";
 import {
   getMapgakcoMarkerOverlays,
   getUserMarkerOverlays,
@@ -20,17 +16,22 @@ import {
 import MapgakcoMarker from "./MapgakcoMarker/MapgakcoMarker";
 import UserMarker from "./UserMarker";
 import MapgakcoDetailContainer from "./MapgakcoDetail/MapgakcoDetailContainer";
-import { ResponseUserLocation } from "../../types/userLocation";
-import { UserData } from "../MyProfile/types";
+import MapFloatControl from "./MapFloatControl";
 import { routes } from "../../constants";
-import SearchBar from "./SearchBar/SearchBar";
+import {
+  Container,
+  Dimmer,
+  MapFloatControlWrapper,
+  Slider,
+  SliderContainer,
+} from "./styles";
 
 interface Props {
   initialCenter: Position;
   mapgakcos: Mapgakco[];
   usersLocations: ResponseUserLocation[];
   currentUser: UserData;
-  visibleMapFloatContainer?: boolean;
+  isMapFloatControlVisible?: boolean;
 }
 
 function getMarkerPosition(
@@ -63,7 +64,7 @@ const MapgakcoMap = ({
   mapgakcos,
   usersLocations,
   currentUser,
-  visibleMapFloatContainer = true,
+  isMapFloatControlVisible = true,
 }: Props) => {
   const history = useHistory();
 
@@ -72,6 +73,9 @@ const MapgakcoMap = ({
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();
+
+  const [isUsersVisible, toggleVisibleUsers] = useToggle(false);
+  const [isMapgakcosVisible, toggleVisibleMapgakcos] = useToggle(true);
 
   const [center, setCenter] = useState({
     lat: initialCenter.lat,
@@ -83,20 +87,10 @@ const MapgakcoMap = ({
     x: null,
   });
 
-  const [visibleUsers, setVisibleUsers] = useState<boolean>(false);
-  const [visibleMapgakcos, setVisibleMapgakcos] = useState<boolean>(true);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState<boolean>(false);
   const [isDetailPanelOpen, setDetailPanelOpen] = useState<boolean>(false);
   const [isMarkerSelected, setIsMarkerSelected] = useState<boolean>(false);
   const [selectedMapgakco, setSelectedMapgakco] = useState(null);
-
-  const handleVisibleUsers = useCallback(() => {
-    setVisibleUsers((prev) => !prev);
-  }, []);
-
-  const handleVisibleMapgakcos = useCallback(() => {
-    setVisibleMapgakcos((prev) => !prev);
-  }, []);
 
   const handleKeywordSubmit = useCallback(
     (place) => {
@@ -207,20 +201,20 @@ const MapgakcoMap = ({
 
   return (
     <Container>
-      <MapFloatContainer
-        style={{ display: visibleMapFloatContainer ? "flex" : "none" }}
+      <MapFloatControlWrapper
+        style={{ display: isMapFloatControlVisible ? "flex" : "none" }}
       >
-        <SearchBar
-          visibleUsers={visibleUsers}
-          visibleMapgakcos={visibleMapgakcos}
-          isMarkerSelected={isMarkerSelected}
-          onVisibleUsersButtonClick={handleVisibleUsers}
-          onVisibleMapgakcosButtonClick={handleVisibleMapgakcos}
-          onRegisterButtonClick={handleRegisterClick}
-          onKeywordSubmit={handleKeywordSubmit}
+        <MapFloatControl
+          isRegisterEnabled={isMarkerSelected}
+          isUsersVisible={isUsersVisible}
+          isMapgakcosVisible={isMapgakcosVisible}
+          toggleVisibleUsers={toggleVisibleUsers}
+          toggleVisibleMapgakcos={toggleVisibleMapgakcos}
           onMyPositionClick={handleMyPositionClick}
+          onKeywordSearchSubmit={handleKeywordSubmit}
+          onRegisterClick={handleRegisterClick}
         />
-      </MapFloatContainer>
+      </MapFloatControlWrapper>
       <Modal visible={isRegisterModalOpen} width="60%">
         <MapgakcoRegister
           markerPosition={getMarkerPosition(
@@ -275,7 +269,7 @@ const MapgakcoMap = ({
           />
         ) : null}
 
-        {visibleUsers &&
+        {isUsersVisible &&
           userMarkerOverlays.map(
             ({ position, imageUrl, options: { color, text } }, index) => (
               <UserMarker
@@ -289,7 +283,7 @@ const MapgakcoMap = ({
             )
           )}
 
-        {visibleMapgakcos &&
+        {isMapgakcosVisible &&
           mapgakcoMarkerOverlays.map(
             ({ position, options: { text }, mapgakco }, index) => (
               <MapgakcoMarker

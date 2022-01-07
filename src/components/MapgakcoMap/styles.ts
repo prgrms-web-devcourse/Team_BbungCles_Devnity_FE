@@ -11,7 +11,7 @@ export const Container = styled.div`
   gap: 4px;
 `;
 
-export const MapFloatContainer = styled.div`
+export const MapFloatControlWrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
