@@ -13,7 +13,7 @@ const UserImageAndDropdown = ({ imageUrl, onLinkClick }: Props) => {
 
   return (
     <Container ref={ref}>
-      <ImageWrapper>
+      <ImageWrapper isHovered={isHovered}>
         <UserProfileImage imageUrl={imageUrl} />
       </ImageWrapper>
       <DropdownWrapper>
