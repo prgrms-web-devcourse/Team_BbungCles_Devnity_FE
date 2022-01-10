@@ -1,6 +1,6 @@
 import { BsArrowRightCircle } from "react-icons/bs";
 import theme from "../../../assets/theme";
-import Button from "../../base/Button";
+import Button from "../../base/OldButton";
 import FilterButton from "../FilterButton";
 import PlaceSearchForm from "../PlaceSearchForm/PlaceSearchForm";
 import Text from "../../base/Text";

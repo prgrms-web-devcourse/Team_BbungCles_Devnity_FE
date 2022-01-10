@@ -1,5 +1,5 @@
 import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
-import Button from "../base/Button";
+import Button from "../base/OldButton";
 
 interface Props {
   isLiked: boolean;

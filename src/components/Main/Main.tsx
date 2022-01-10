@@ -2,7 +2,7 @@ import { useState } from "react";
 import theme from "../../assets/theme";
 import { Gather } from "../../types/gather";
 import { UserInfo } from "../../types/userInfo";
-import Button from "../base/Button";
+import Button from "../base/OldButton";
 import Text from "../base/Text";
 import GatherList from "../GatherList/GatherList";
 import UserCardList from "../UserCardList/UserCardList";

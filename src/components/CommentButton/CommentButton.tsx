@@ -1,5 +1,5 @@
 import { BiComment } from "react-icons/bi";
-import Button from "../base/Button";
+import Button from "../base/OldButton";
 
 interface Props {
   onClick: (event: React.MouseEvent) => void;

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, ReactChild, CSSProperties } from "react";
 import ReactDOM from "react-dom";
-import Button from "../Button";
+import Button from "../OldButton";
 import {
   BackgroundDim,
   ButtonWrapper,

@@ -1,7 +1,7 @@
 import { ReactChild } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import theme from "../../assets/theme";
-import Button from "../base/Button";
+import Button from "../base/OldButton";
 
 interface Props {
   visible: boolean;

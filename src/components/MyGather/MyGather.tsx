@@ -11,7 +11,7 @@ import {
 } from "./styles";
 import { Gather } from "../../types/gather";
 import GatherList from "../GatherList/GatherList";
-import Button from "../base/Button";
+import Button from "../base/OldButton";
 import theme from "../../assets/theme";
 
 interface Props {

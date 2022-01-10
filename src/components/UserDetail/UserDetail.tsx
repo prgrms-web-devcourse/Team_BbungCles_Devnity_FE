@@ -13,7 +13,7 @@ import Text from "../base/Text";
 import LikeButtonAndText from "../LikeButtonAndText/LikeButtonAndText";
 import {
   BorderContainer,
-  Button,
+  CommentButton,
   CommentContainer,
   ContactContainer,
   Container,
@@ -233,11 +233,11 @@ const UserDetail = ({ userInfo, isLoading }: UserDetailProps) => {
               maxLength={common.validation.COMMENT_MAX_LENGTH}
             />
 
-            <Button type="submit">
+            <CommentButton type="submit">
               <Text size={12} color="white" strong ellipsisLineClamp={1}>
                 <HiOutlinePencilAlt size={20} />
               </Text>
-            </Button>
+            </CommentButton>
           </FormContainer>
 
           {userInfo.comments?.length === 0 && (
