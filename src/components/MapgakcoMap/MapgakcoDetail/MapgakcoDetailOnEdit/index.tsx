@@ -4,7 +4,7 @@ import theme from "../../../../assets/theme";
 import useMapgakcoFormik from "../../../../hooks/useMapgakcoFormik";
 import useMutationMapgakcoPatch from "../../../../hooks/useMutationMapgakcoPatch";
 import useToastUi from "../../../../hooks/useToastUi";
-import Button from "../../../base/Button";
+import Button from "../../../base/OldButton";
 import MarkdownEditor from "../../../base/MarkdownEditor";
 import {
   HiddenLabel,

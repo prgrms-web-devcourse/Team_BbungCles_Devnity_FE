@@ -1,7 +1,7 @@
 import { Editor } from "@toast-ui/react-editor";
 import theme from "../../assets/theme";
 import { categoryValue } from "../../constants";
-import Button from "../base/Button";
+import Button from "../base/OldButton";
 import Input from "../base/Input";
 import {
   Container,

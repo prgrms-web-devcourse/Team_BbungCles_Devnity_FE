@@ -3,33 +3,28 @@ import { StyledButton } from "./styles";
 
 interface Props {
   name?: string;
-  type?: "button" | "submit" | "reset";
-  width?: number | string;
   children?: ReactChild | ReactChild[];
   text?: string;
-  disabled?: boolean;
-  className?: string;
   onClick?: (event: React.MouseEvent) => void;
+  style?: React.CSSProperties;
+  disabled?: boolean;
 }
 
 const Button = ({
   name = "",
-  type = "button",
-  width = "auto",
   children,
   text = "",
-  disabled,
-  className,
   onClick,
+  style,
+  disabled,
 }: Props) => {
   return (
     <StyledButton
-      type={type}
-      className={className}
-      width={typeof width === "number" ? `${width}px` : width}
+      type="button"
       aria-label={name}
-      disabled={disabled}
       onClick={onClick}
+      style={style}
+      disabled={disabled}
     >
       {children ?? text}
     </StyledButton>

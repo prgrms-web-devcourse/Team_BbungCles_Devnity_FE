@@ -1,4 +1,4 @@
-import Button from "../base/Button";
+import Button from "../base/OldButton";
 import Image from "../base/Image";
 
 interface Props {

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Map } from "react-kakao-maps-sdk";
 import { ColorType } from "../../assets/theme";
 import { common } from "../../constants";
+import Button from "../base/Button";
 
 interface UserTagProps {
   course?: string;
@@ -145,8 +146,8 @@ export const FormContainer = styled.form`
   gap: 8px;
 `;
 
-export const Button = styled.button`
-  min-width: 64px;
+export const CommentButton = styled(Button)`
+  /* min-width: 64px; */
   margin-top: auto;
   padding: 16px 16px;
   border: none;

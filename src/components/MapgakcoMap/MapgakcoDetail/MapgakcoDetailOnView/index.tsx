@@ -9,7 +9,7 @@ import useMutationMapgakcoApplyPost from "../../../../hooks/useMutationMapgakcoA
 import useToastUi from "../../../../hooks/useToastUi";
 import { ResponseGetMapgakcoDetail } from "../../../../types/mapgakco";
 import { koreanDate } from "../../../../utils/date";
-import Button from "../../../base/Button";
+import Button from "../../../base/OldButton";
 import MarkdownEditor from "../../../base/MarkdownEditor";
 import { Card, MarkdownEditorWrapper, Footer } from "./styles";
 import ParticipantList from "./ParticipantList/ParticipantList";
