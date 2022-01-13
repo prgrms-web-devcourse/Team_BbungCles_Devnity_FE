@@ -1,6 +1,5 @@
 import { BsArrowRightCircle } from "react-icons/bs";
 import theme from "../../../assets/theme";
-import Button from "../../base/OldButton";
 import FilterButton from "../FilterButton";
 import PlaceSearchForm from "../PlaceSearchForm/PlaceSearchForm";
 import Text from "../../base/Text";
@@ -9,6 +8,8 @@ import {
   PlaceSearchFormWrapper,
   ButtonContainer,
   Guide,
+  MyPositionButton,
+  RegisterButton,
 } from "./styles";
 
 interface Props {
@@ -21,16 +22,6 @@ interface Props {
   onKeywordSearchSubmit: (place) => void;
   onMyPositionClick: () => void;
 }
-
-const buttonStyle = {
-  padding: "8px",
-  minWidth: "80px",
-  display: "flex",
-  justifyContent: "center",
-  borderRadius: "8px",
-  boxShadow: theme.boxShadows.primary,
-  whiteSpace: "nowrap",
-} as React.CSSProperties;
 
 const guideTextStyle = {
   background: theme.colors.white,
@@ -50,14 +41,6 @@ const MapFloatControl = ({
   onKeywordSearchSubmit,
   onRegisterClick,
 }: Props) => {
-  const registerButtonStyle = {
-    ...buttonStyle,
-    color: isRegisterEnabled && theme.colors.white,
-    backgroundColor: isRegisterEnabled
-      ? theme.colors.markerBlue
-      : theme.colors.white,
-  };
-
   return (
     <>
       <SearchContainer>
@@ -65,9 +48,9 @@ const MapFloatControl = ({
           <PlaceSearchForm onSubmit={onKeywordSearchSubmit} />
         </PlaceSearchFormWrapper>
         <ButtonContainer>
-          <Button style={buttonStyle} onClick={onMyPositionClick}>
+          <MyPositionButton onClick={onMyPositionClick}>
             <BsArrowRightCircle style={{ marginRight: 4 }} /> 나의 위치
-          </Button>
+          </MyPositionButton>
           <FilterButton visible={isUsersVisible} onClick={toggleVisibleUsers}>
             데둥이
           </FilterButton>
@@ -77,13 +60,13 @@ const MapFloatControl = ({
           >
             맵각코
           </FilterButton>
-          <Button
-            style={registerButtonStyle}
+          <RegisterButton
+            isRegisterEnabled={isRegisterEnabled}
             onClick={onRegisterClick}
             disabled={!isRegisterEnabled}
           >
             등록
-          </Button>
+          </RegisterButton>
         </ButtonContainer>
       </SearchContainer>
       <Guide>

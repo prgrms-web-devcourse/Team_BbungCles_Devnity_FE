@@ -1,7 +1,6 @@
 import { ReactChild } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import theme from "../../assets/theme";
-import Button from "../base/OldButton";
+import { StyledButton } from "./styles";
 
 interface Props {
   visible: boolean;
@@ -10,24 +9,15 @@ interface Props {
 }
 
 const FilterButton = ({ visible, children, onClick }: Props) => {
-  const buttonStyle = {
-    padding: "8px",
-    minWidth: "80px",
-    display: "flex",
-    justifyContent: "center",
-    borderRadius: "8px",
-    boxShadow: theme.boxShadows.primary,
-  };
-
   return (
-    <Button style={buttonStyle} onClick={onClick}>
+    <StyledButton onClick={onClick}>
       {visible ? (
         <BsEye style={{ marginRight: 4 }} />
       ) : (
         <BsEyeSlash style={{ marginRight: 4 }} />
       )}
       {children}
-    </Button>
+    </StyledButton>
   );
 };
 
