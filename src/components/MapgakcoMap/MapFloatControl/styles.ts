@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
+import { StyledButton } from "../styles";
 
 export const Guide = styled.div`
   position: relative;
@@ -35,13 +37,23 @@ export const PlaceSearchFormWrapper = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
+`;
 
-  & button {
-    transition: 0.4s;
-    background-color: ${({ theme }) => theme.colors.white};
+export const MyPositionButton = styled(StyledButton)``;
 
-    &:hover {
-      background-color: ${({ theme }) => theme.colors.gray200};
-    }
-  }
+export const RegisterButton = styled(StyledButton)<{
+  isRegisterEnabled: boolean;
+}>`
+  ${({ isRegisterEnabled, theme }) =>
+    isRegisterEnabled
+      ? css`
+          color: ${theme.colors.white};
+          background-color: ${theme.colors.markerBlue};
+          &:hover {
+            background-color: ${theme.colors.skyblue};
+          }
+        `
+      : css`
+          background-color: ${theme.colors.white};
+        `};
 `;

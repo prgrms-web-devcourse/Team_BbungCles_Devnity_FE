@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Button from "../base/Button";
 
 export const Container = styled.div`
   position: relative;
@@ -95,5 +96,23 @@ export const SearchResultListContainer = styled.div`
         }
       }
     }
+  }
+`;
+
+export const StyledButton = styled(Button)`
+  padding: 8px;
+  min-width: 80px;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
+  white-space: nowrap;
+  border: none;
+
+  transition: 0.4s;
+  background-color: ${({ theme }) => theme.colors.white};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray200};
   }
 `;
