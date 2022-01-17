@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Button from "../base/Button";
 
 export const Container = styled.div`
   display: flex;
@@ -69,16 +70,16 @@ export const ButtonContainer = styled.div`
   justify-content: flex-end;
   padding: 10px 0;
   gap: 16px;
+`;
 
-  button {
-    font-size: 16px;
-    border: none;
-    background-color: ${({ theme }) => theme.colors.skyblue};
-    border-radius: 4px;
-    padding: 5px 3px;
-    width: 100px;
-    height: 40px;
-  }
+export const StyledButton = styled(Button)`
+  font-size: 16px;
+  border: none;
+  background-color: ${({ theme }) => theme.colors.skyblue};
+  border-radius: 4px;
+  padding: 5px 3px;
+  width: 100px;
+  height: 40px;
 `;
 
 export const EditDeadlineContainer = styled.div`
@@ -170,7 +171,7 @@ export const EmptyTextWrapper = styled.div`
   margin-bottom: auto;
 `;
 
-export const Button = styled.button`
+export const CommentButton = styled.button`
   min-width: 64px;
   margin-top: auto;
   padding: 16px 16px;

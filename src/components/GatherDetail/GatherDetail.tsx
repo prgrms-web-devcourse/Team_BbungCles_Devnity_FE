@@ -28,7 +28,8 @@ import {
   CommentContainer,
   TextWrapper,
   EmptyTextWrapper,
-  Button,
+  StyledButton,
+  CommentButton,
 } from "./styles";
 import theme from "../../assets/theme";
 import {
@@ -303,46 +304,52 @@ const GatherDetail = ({
           </TextContainer>
           <ButtonContainer>
             {!isAuthor && !isApplied && status === gatherStatus.GATHERING ? (
-              <button type="button" onClick={() => handleGatherApply(gatherId)}>
+              <StyledButton
+                type="button"
+                onClick={() => handleGatherApply(gatherId)}
+              >
                 신청
-              </button>
+              </StyledButton>
             ) : undefined}
             {!isAuthor && isApplied && status !== gatherStatus.DELETED ? (
-              <button
+              <StyledButton
                 type="button"
                 onClick={() => handleGatherCancel(gatherId)}
               >
                 신청 취소
-              </button>
+              </StyledButton>
             ) : undefined}
             {isAuthor &&
             (status === gatherStatus.GATHERING ||
               status === gatherStatus.FULL) ? (
-              <button type="button" onClick={() => handleGatherClose(gatherId)}>
+              <StyledButton
+                type="button"
+                onClick={() => handleGatherClose(gatherId)}
+              >
                 마감
-              </button>
+              </StyledButton>
             ) : undefined}
             {isAuthor && status !== gatherStatus.DELETED ? (
-              <button
+              <StyledButton
                 type="button"
                 onClick={() => handleGatherDelete(gatherId)}
               >
                 삭제
-              </button>
+              </StyledButton>
             ) : undefined}
             {isAuthor &&
             !isModifyClick &&
             (status === gatherStatus.GATHERING ||
               status === gatherStatus.FULL) ? (
-              <button type="button" onClick={() => toggleModify()}>
+              <StyledButton type="button" onClick={() => toggleModify()}>
                 수정
-              </button>
+              </StyledButton>
             ) : null}
             {isAuthor &&
             isModifyClick &&
             (status === gatherStatus.GATHERING ||
               status === gatherStatus.FULL) ? (
-              <button
+              <StyledButton
                 type="button"
                 onClick={() => {
                   toggleModify();
@@ -350,7 +357,7 @@ const GatherDetail = ({
                 }}
               >
                 수정완료
-              </button>
+              </StyledButton>
             ) : null}
           </ButtonContainer>
         </DetailContainer>
@@ -375,11 +382,12 @@ const GatherDetail = ({
               maxLength={common.validation.COMMENT_MAX_LENGTH}
             />
 
-            <Button type="submit">
+            {/* TODO: 데둥이 소개 상세페이지에 있는 댓글 버튼을 재사용 할 수 있게 리팩토링 */}
+            <CommentButton type="submit">
               <Text size={12} color="white" strong ellipsisLineClamp={1}>
                 <HiOutlinePencilAlt size={20} />
               </Text>
-            </Button>
+            </CommentButton>
           </FormContainer>
 
           {commentCount === 0 && (

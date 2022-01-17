@@ -1,4 +1,4 @@
-import Button from "../base/OldButton";
+import IconButton from "../base/IconButton";
 import Image from "../base/Image";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 
 const Logo = ({ width, height, imageUrl, borderRadius, onClick }: Props) => {
   return (
-    <Button onClick={onClick}>
+    <IconButton onClick={onClick}>
       <Image
         width={width}
         height={height}
@@ -20,7 +20,7 @@ const Logo = ({ width, height, imageUrl, borderRadius, onClick }: Props) => {
         mode="cover"
         alt="로고"
       />
-    </Button>
+    </IconButton>
   );
 };
 

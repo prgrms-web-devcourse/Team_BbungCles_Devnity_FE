@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { breakpoints } from "../../assets/media";
+import Button from "../base/Button";
 import { FILTER_GATHERLIST, FILTER_MAPGAKCO } from "./Main";
 
 export const Container = styled.div`
@@ -189,4 +190,10 @@ export const FilteredContent = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+`;
+
+export const FilterButton = styled(Button)`
+  border: none;
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: 0;
 `;

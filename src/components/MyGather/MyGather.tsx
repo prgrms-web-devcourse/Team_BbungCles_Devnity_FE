@@ -8,10 +8,10 @@ import {
   GatherListContainer,
   GatherContainer,
   BothTitleContainer,
+  FilterButton,
 } from "./styles";
 import { Gather } from "../../types/gather";
 import GatherList from "../GatherList/GatherList";
-import Button from "../base/OldButton";
 import theme from "../../assets/theme";
 
 interface Props {
@@ -32,19 +32,8 @@ const MyGather = ({ applyData, makeData }: Props) => {
       <GatherContainer>
         <AllContainer>
           <BothTitleContainer>
-            <Button onClick={() => setFilter(FILTER_APPLY)}>
+            <FilterButton onClick={() => setFilter(FILTER_APPLY)}>
               <>
-                <span
-                  style={{
-                    fontSize: "20px",
-                    color:
-                      filter === FILTER_APPLY
-                        ? theme.colors.black
-                        : theme.colors.disabled,
-                  }}
-                >
-                  🎈
-                </span>
                 <Text
                   size={20}
                   strong
@@ -54,7 +43,7 @@ const MyGather = ({ applyData, makeData }: Props) => {
                       : theme.colors.disabled
                   }
                 >
-                  신청
+                  🎈 신청
                 </Text>
                 <Text
                   size={15}
@@ -67,20 +56,9 @@ const MyGather = ({ applyData, makeData }: Props) => {
                   한 모임
                 </Text>
               </>
-            </Button>
-            <Button onClick={() => setFilter(FILTER_MAKE)}>
+            </FilterButton>
+            <FilterButton onClick={() => setFilter(FILTER_MAKE)}>
               <>
-                <span
-                  style={{
-                    fontSize: "20px",
-                    color:
-                      filter === FILTER_MAKE
-                        ? theme.colors.black
-                        : theme.colors.disabled,
-                  }}
-                >
-                  🚩
-                </span>
                 <Text
                   size={20}
                   color={
@@ -90,7 +68,7 @@ const MyGather = ({ applyData, makeData }: Props) => {
                   }
                   strong
                 >
-                  등록
+                  🚩 등록
                 </Text>
                 <Text
                   size={15}
@@ -103,7 +81,7 @@ const MyGather = ({ applyData, makeData }: Props) => {
                   한 모임
                 </Text>
               </>
-            </Button>
+            </FilterButton>
           </BothTitleContainer>
           <GatherListContainer>
             <GatherList

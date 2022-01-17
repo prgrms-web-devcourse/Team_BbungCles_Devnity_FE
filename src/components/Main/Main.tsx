@@ -2,7 +2,6 @@ import { useState } from "react";
 import theme from "../../assets/theme";
 import { Gather } from "../../types/gather";
 import { UserInfo } from "../../types/userInfo";
-import Button from "../base/OldButton";
 import Text from "../base/Text";
 import GatherList from "../GatherList/GatherList";
 import UserCardList from "../UserCardList/UserCardList";
@@ -18,6 +17,7 @@ import {
   TextOuterContainer,
   SubContents,
   GatherListWrapper,
+  FilterButton,
 } from "./styles";
 
 export const FILTER_MAPGAKCO = "show_mapgakco";
@@ -51,7 +51,7 @@ const Main = ({ userSuggestions, gatherSuggestions }: Props) => {
               </Text>
             </TextInnerContainerLarge>
             <TextInnerContainerMedium>
-              <Button onClick={() => setFilter(FILTER_MAPGAKCO)}>
+              <FilterButton onClick={() => setFilter(FILTER_MAPGAKCO)}>
                 <Text
                   color={
                     filter === FILTER_MAPGAKCO
@@ -63,8 +63,8 @@ const Main = ({ userSuggestions, gatherSuggestions }: Props) => {
                 >
                   맵각코 요약
                 </Text>
-              </Button>
-              <Button onClick={() => setFilter(FILTER_GATHERLIST)}>
+              </FilterButton>
+              <FilterButton onClick={() => setFilter(FILTER_GATHERLIST)}>
                 <Text
                   color={
                     filter === FILTER_GATHERLIST
@@ -76,7 +76,7 @@ const Main = ({ userSuggestions, gatherSuggestions }: Props) => {
                 >
                   모집 게시판
                 </Text>
-              </Button>
+              </FilterButton>
             </TextInnerContainerMedium>
           </TextOuterContainer>
           <SubContents>

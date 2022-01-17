@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { breakpoints } from "../../assets/media";
+import Button from "../base/Button";
 
 export const Container = styled.div`
   display: flex;
@@ -76,4 +77,9 @@ export const BothTitleContainer = styled.div`
   button {
     align-items: baseline;
   }
+`;
+
+export const FilterButton = styled(Button)`
+  background-color: ${({ theme }) => theme.colors.white};
+  border: none;
 `;
