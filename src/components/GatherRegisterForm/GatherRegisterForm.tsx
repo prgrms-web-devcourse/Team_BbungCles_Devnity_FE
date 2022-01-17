@@ -1,19 +1,18 @@
 import { Editor } from "@toast-ui/react-editor";
-import theme from "../../assets/theme";
 import { categoryValue } from "../../constants";
-import Button from "../base/OldButton";
 import Input from "../base/Input";
 import {
   Container,
   ItemContainer,
   CategoryWrapper,
   LabelContainer,
-  ClickedStyle,
-  NormalStyle,
   ButtonContainer,
   ErrorMessage,
   MarkdownEditorWrapper,
   StyledDatePicker,
+  CancelButton,
+  RegisterButton,
+  CategoryButton,
 } from "./styles";
 import MarkdownEditor from "../base/MarkdownEditor";
 
@@ -58,36 +57,24 @@ const GatherRegisterForm = ({
           ) : null}
         </LabelContainer>
         <CategoryWrapper>
-          <Button
+          <CategoryButton
+            isActive={values.category === categoryValue.STUDY}
             onClick={() => onCategoryChange(categoryValue.STUDY)}
-            style={
-              values.category === categoryValue.STUDY
-                ? ClickedStyle
-                : NormalStyle
-            }
           >
             스터디
-          </Button>
-          <Button
+          </CategoryButton>
+          <CategoryButton
+            isActive={values.category === categoryValue.PROJECT}
             onClick={() => onCategoryChange(categoryValue.PROJECT)}
-            style={
-              values.category === categoryValue.PROJECT
-                ? ClickedStyle
-                : NormalStyle
-            }
           >
             프로젝트
-          </Button>
-          <Button
+          </CategoryButton>
+          <CategoryButton
+            isActive={values.category === categoryValue.CLUB}
             onClick={() => onCategoryChange(categoryValue.CLUB)}
-            style={
-              values.category === categoryValue.CLUB
-                ? ClickedStyle
-                : NormalStyle
-            }
           >
             동아리
-          </Button>
+          </CategoryButton>
         </CategoryWrapper>
       </ItemContainer>
       <ItemContainer>
@@ -151,33 +138,12 @@ const GatherRegisterForm = ({
         </MarkdownEditorWrapper>
       </ItemContainer>
       <ButtonContainer>
-        <Button
-          onClick={onModalClose}
-          style={{
-            color: theme.colors.fontColor,
-            width: 100,
-            border: `1px solid ${theme.colors.gray400}`,
-            padding: 10,
-            borderRadius: "6px",
-            fontWeight: 600,
-            justifyContent: "center",
-          }}
-        >
+        <CancelButton width="100px" onClick={onModalClose}>
           취소
-        </Button>
-        <Button
-          onClick={onSubmit}
-          style={{
-            backgroundColor: theme.colors.newPrimary,
-            width: 100,
-            padding: 10,
-            borderRadius: "6px",
-            color: theme.colors.white,
-            justifyContent: "center",
-          }}
-        >
+        </CancelButton>
+        <RegisterButton width="100px" onClick={onSubmit}>
           등록
-        </Button>
+        </RegisterButton>
       </ButtonContainer>
     </Container>
   );

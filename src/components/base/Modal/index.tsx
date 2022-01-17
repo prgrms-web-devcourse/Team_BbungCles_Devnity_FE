@@ -1,11 +1,11 @@
 import { useEffect, useMemo, ReactChild, CSSProperties } from "react";
 import ReactDOM from "react-dom";
-import Button from "../OldButton";
 import {
   BackgroundDim,
   ButtonWrapper,
   ContentContainer,
   ModalContainer,
+  ModalCloseButton,
 } from "./styles";
 
 export interface Props {
@@ -51,9 +51,7 @@ const Modal = ({
         <ContentContainer style={{ ...contentContainerStyles }}>
           <ButtonWrapper>
             {onClose && (
-              <Button onClick={onClose} style={{ display: "none" }}>
-                ❌
-              </Button>
+              <ModalCloseButton onClick={onClose}>❌</ModalCloseButton>
             )}
           </ButtonWrapper>
           {children}

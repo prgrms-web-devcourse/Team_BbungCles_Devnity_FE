@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Button from "../base/Button";
 
 export const Container = styled.div`
   display: flex;
@@ -15,8 +16,7 @@ export const SearchAndWriteContainer = styled.div`
   height: 48px;
 `;
 
-export const WriteButton = styled.button`
-  width: 15%;
+export const WriteButton = styled(Button)`
   height: 100%;
   margin-left: 4px;
   background-color: ${({ theme }) => theme.colors.skyblue};

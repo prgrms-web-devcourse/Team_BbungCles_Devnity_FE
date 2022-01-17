@@ -1,24 +1,9 @@
 import styled from "@emotion/styled";
-import { CSSProperties } from "react";
+import { css } from "@emotion/react";
 import DatePicker from "react-datepicker";
 import theme from "../../assets/theme";
 import "react-datepicker/dist/react-datepicker.css";
-
-export const ClickedStyle: CSSProperties = {
-  color: theme.colors.white,
-  backgroundColor: theme.colors.newPrimary,
-  padding: "12px",
-  borderRadius: "6px",
-  fontWeight: 600,
-};
-
-export const NormalStyle: CSSProperties = {
-  color: theme.colors.fontColor,
-  border: `1px solid ${theme.colors.gray400}`,
-  padding: "12px",
-  borderRadius: "6px",
-  fontWeight: 600,
-};
+import Button from "../base/Button";
 
 export const Container = styled.div`
   display: flex;
@@ -75,4 +60,46 @@ export const StyledDatePicker = styled(DatePicker)`
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 2px 5px 1px ${theme.colors?.gray800}25;
   outline: none;
+`;
+
+export const CancelButton = styled(Button)`
+  background-color: ${theme.colors.white};
+  color: ${theme.colors.fontColor};
+  border: 1px solid ${theme.colors.gray400};
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  justify-content: center;
+`;
+
+export const RegisterButton = styled(Button)`
+  background-color: ${theme.colors.newPrimary};
+  color: ${theme.colors.white};
+  border: 1px solid ${theme.colors.gray400};
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  justify-content: center;
+  border: none;
+`;
+
+export const CategoryButton = styled(Button)<{ isActive: boolean }>`
+  ${({ isActive }) =>
+    isActive
+      ? css`
+          color: ${theme.colors.white};
+          border: none;
+          background-color: ${theme.colors.newPrimary};
+          padding: 12px;
+          border-radius: 6px;
+          font-weight: 600;
+        `
+      : css`
+          color: ${theme.colors.fontColor};
+          border: 1px solid ${theme.colors.gray400};
+          background-color: ${theme.colors.white};
+          padding: 12px;
+          border-radius: 6px;
+          font-weight: 600;
+        `}
 `;

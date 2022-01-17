@@ -43,7 +43,11 @@ const GatherMain = ({
           selectedCategory={selectedCategory}
           setFilters={setFilters}
         />
-        <WriteButton type="submit" onClick={() => handleVisibleModal(true)}>
+        <WriteButton
+          type="submit"
+          width="15%"
+          onClick={() => handleVisibleModal(true)}
+        >
           글쓰기
         </WriteButton>
       </SearchAndWriteContainer>

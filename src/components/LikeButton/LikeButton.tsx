@@ -1,5 +1,5 @@
 import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
-import Button from "../base/OldButton";
+import IconButton from "../base/IconButton";
 
 interface Props {
   isLiked: boolean;
@@ -15,9 +15,9 @@ const LikeButton = ({ isLiked, onClick, size = 14 }: Props) => {
   );
 
   return (
-    <Button name="like" onClick={onClick}>
+    <IconButton name="like" onClick={onClick}>
       {icon}
-    </Button>
+    </IconButton>
   );
 };
 

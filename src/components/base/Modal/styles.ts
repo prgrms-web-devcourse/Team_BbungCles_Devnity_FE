@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Props } from ".";
+import Button from "../Button";
 
 export const BackgroundDim = styled.div<Props>`
   position: fixed;
@@ -32,4 +33,8 @@ export const ContentContainer = styled.div`
 export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row-reverse;
+`;
+
+export const ModalCloseButton = styled(Button)`
+  display: none;
 `;
