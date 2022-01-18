@@ -1,10 +1,8 @@
 import { BsCalendarDate, BsPeople, BsPinMap } from "react-icons/bs";
 import { toast } from "react-toastify";
-import theme from "../../../../assets/theme";
 import useMapgakcoFormik from "../../../../hooks/useMapgakcoFormik";
 import useMutationMapgakcoPatch from "../../../../hooks/useMutationMapgakcoPatch";
 import useToastUi from "../../../../hooks/useToastUi";
-import Button from "../../../base/OldButton";
 import MarkdownEditor from "../../../base/MarkdownEditor";
 import {
   HiddenLabel,
@@ -14,6 +12,8 @@ import {
   MarkdownEditorWrapper,
   Footer,
   FormContainer,
+  RegisterButton,
+  CancelButton,
 } from "./styles";
 
 interface Props {
@@ -86,30 +86,6 @@ const MapgakcoDetailOnEdit = ({ mapgakcoDetail, onCancel }: Props) => {
     background: "transparent",
   };
 
-  const defaultButtonStyle = {
-    padding: "8px",
-    minWidth: "80px",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    borderRadius: "8px",
-    outline: 0,
-    border: 0,
-    boxShadow: theme.boxShadows.primary,
-  };
-
-  const activeButtonStyle = {
-    ...defaultButtonStyle,
-    color: theme.colors.white,
-    backgroundColor: theme.colors.markerBlue,
-  };
-
-  const cancelButtonStyle = {
-    ...defaultButtonStyle,
-    color: theme.colors.black,
-    backgroundColor: theme.colors.gray200,
-  };
-
   return (
     <FormContainer onSubmit={formik.handleSubmit} autoComplete="off">
       <Card>
@@ -180,12 +156,8 @@ const MapgakcoDetailOnEdit = ({ mapgakcoDetail, onCancel }: Props) => {
         />
       </MarkdownEditorWrapper>
       <Footer>
-        <button type="submit" style={activeButtonStyle}>
-          등록
-        </button>
-        <Button style={cancelButtonStyle} onClick={onCancel}>
-          취소
-        </Button>
+        <RegisterButton type="submit">등록</RegisterButton>
+        <CancelButton onClick={onCancel}>취소</CancelButton>
       </Footer>
     </FormContainer>
   );
