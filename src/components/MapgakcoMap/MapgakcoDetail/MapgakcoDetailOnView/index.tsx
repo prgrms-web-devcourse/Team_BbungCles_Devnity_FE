@@ -9,9 +9,15 @@ import useMutationMapgakcoApplyPost from "../../../../hooks/useMutationMapgakcoA
 import useToastUi from "../../../../hooks/useToastUi";
 import { ResponseGetMapgakcoDetail } from "../../../../types/mapgakco";
 import { koreanDate } from "../../../../utils/date";
-import Button from "../../../base/OldButton";
 import MarkdownEditor from "../../../base/MarkdownEditor";
-import { Card, MarkdownEditorWrapper, Footer } from "./styles";
+import {
+  Card,
+  MarkdownEditorWrapper,
+  Footer,
+  RegisterButton,
+  EditButton,
+  CancelButton,
+} from "./styles";
 import ParticipantList from "./ParticipantList/ParticipantList";
 
 interface Props {
@@ -67,36 +73,6 @@ const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
       bgColorByStatus[mapgakcoDetail?.mapgakco?.status || status.GATHERING],
   };
 
-  const defaultButtonStyle = {
-    padding: "8px",
-    minWidth: "80px",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    borderRadius: "8px",
-    outline: 0,
-    border: 0,
-    boxShadow: theme.boxShadows.primary,
-  };
-
-  const activeButtonStyle = {
-    ...defaultButtonStyle,
-    color: theme.colors.white,
-    backgroundColor: theme.colors.markerBlue,
-  };
-
-  const inactiveButtonStyle = {
-    ...defaultButtonStyle,
-    color: theme.colors.white,
-    backgroundColor: theme.colors.disabled,
-  };
-
-  const cancelButtonStyle = {
-    ...defaultButtonStyle,
-    color: theme.colors.white,
-    backgroundColor: theme.colors.scarlet,
-  };
-
   return (
     <>
       <Card style={cardStyle}>
@@ -141,23 +117,17 @@ const MapgakcoDetailOnView = ({ mapgakcoDetail, myProfile, onEdit }: Props) => {
       </MarkdownEditorWrapper>
       <Footer>
         {isAuthor(myProfile, mapgakcoDetail) ? (
-          <Button style={activeButtonStyle} onClick={onEdit}>
-            수정
-          </Button>
+          <EditButton onClick={onEdit}>수정</EditButton>
         ) : hasApplied(myProfile, mapgakcoDetail) ? (
-          <Button style={cancelButtonStyle} onClick={handleCancelClick}>
-            신청 취소
-          </Button>
+          <CancelButton onClick={handleCancelClick}>신청 취소</CancelButton>
         ) : (
-          <Button
-            style={
-              isFull(mapgakcoDetail) ? inactiveButtonStyle : activeButtonStyle
-            }
+          <RegisterButton
+            isActive={!isFull(mapgakcoDetail)}
             disabled={isFull(mapgakcoDetail)}
             onClick={handleApplyClick}
           >
             신청
-          </Button>
+          </RegisterButton>
         )}
       </Footer>
     </>

@@ -1,4 +1,6 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import Button from "../../../base/Button";
 
 export const Container = styled.div`
   flex-grow: 1;
@@ -104,4 +106,40 @@ export const Footer = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;
+`;
+
+const StyledButton = styled(Button)`
+  padding: 8px;
+  min-width: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  outline: 0;
+  border: 0;
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
+`;
+
+export const EditButton = styled(StyledButton)`
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.markerBlue};
+`;
+
+export const CancelButton = styled(StyledButton)`
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.scarlet};
+`;
+
+export const RegisterButton = styled(StyledButton)<{ isActive: boolean }>`
+  color: ${({ theme }) => theme.colors.white};
+
+  ${({ isActive, theme }) =>
+    isActive
+      ? css`
+          color: ${theme.colors.white};
+          background-color: ${theme.colors.markerBlue};
+        `
+      : css`
+          background-color: ${theme.colors.disabled};
+        `};
 `;

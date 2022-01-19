@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import DatePicker from "react-datepicker";
+import Button from "../../../base/Button";
 
 export const FormContainer = styled.form`
   display: flex;
@@ -83,4 +84,26 @@ export const StyledDatePicker = styled(DatePicker)`
   border-bottom: 1px solid #757575;
   background-color: transparent;
   font-size: 16px;
+`;
+
+const StyledButton = styled(Button)`
+  padding: 8px;
+  min-width: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  outline: 0;
+  border: 0;
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
+`;
+
+export const RegisterButton = styled(StyledButton)`
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.markerBlue}; ;
+`;
+
+export const CancelButton = styled(StyledButton)`
+  color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.gray200};
 `;
