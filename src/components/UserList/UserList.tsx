@@ -6,6 +6,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { common } from "../../constants";
 import Text from "../base/Text";
 import ProfileCard from "../ProfileCard/ProfileCard";
+import { Input } from "../base/Input";
 import {
   Container,
   UserContainer,
@@ -14,7 +15,6 @@ import {
   NotFoundResult,
   SearchBarFormContainer,
   IconWrapper,
-  Input,
   VerticalDivider,
 } from "./styles";
 import { IProps } from "./types";
@@ -69,6 +69,11 @@ const UserList = ({
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.name}
+          customStyle={{
+            height: "64px",
+            fontSize: "16px",
+            boxShadow: "none",
+          }}
         />
 
         <VerticalDivider />

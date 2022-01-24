@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import Input from "../base/Input";
+import { Input } from "../base/Input";
 import {
   HiddenLabel,
   SearchButton,

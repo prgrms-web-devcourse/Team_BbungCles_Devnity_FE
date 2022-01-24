@@ -72,6 +72,7 @@ const theme = {
   boxShadows: {
     primary: "0 2px 5px 1px #363a3c25",
     secondary: "0px 8px 20px rgb(0 0 0 / 10%)",
+    none: "none",
   },
 };
 

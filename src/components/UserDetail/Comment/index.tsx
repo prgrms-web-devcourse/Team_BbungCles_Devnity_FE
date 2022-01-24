@@ -22,7 +22,7 @@ import theme from "../../../assets/theme";
 import { globalMyProfile } from "../../../atoms";
 import useToggle from "../../../hooks/useToggle";
 import useMutationUserDeleteComment from "../../../hooks/useMutationUserDeleteComment";
-import Input from "../../base/Input";
+import { Input } from "../../base/Input";
 import useMutationUserDetailComment from "../../../hooks/useMutationUserDetailComment";
 import useMutationUserModifyComment from "../../../hooks/useMutationUserModifyComment";
 import useDayjs from "../../../hooks/useDayjs";

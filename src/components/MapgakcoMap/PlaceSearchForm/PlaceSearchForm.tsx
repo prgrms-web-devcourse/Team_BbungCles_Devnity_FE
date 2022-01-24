@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import useSearchResults from "../../../hooks/useSearchResults";
-import Input from "../../base/Input";
+import { Input } from "../../base/Input";
 import {
   PlaceSearchFromContainer,
   SearchResultForm,

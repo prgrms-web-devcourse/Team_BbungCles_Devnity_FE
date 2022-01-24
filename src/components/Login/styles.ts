@@ -56,25 +56,6 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.colors?.gray800};
 `;
 
-export const Input = styled.input`
-  width: 100%;
-  color: ${({ theme }) => theme.colors?.gray800};
-  padding: 16px;
-  border: none;
-  background: ${({ theme }) => theme.colors?.white};
-  border-radius: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
-
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors?.gray600};
-  }
-`;
-
 export const Button = styled.button`
   width: 100%;
   margin-top: auto;

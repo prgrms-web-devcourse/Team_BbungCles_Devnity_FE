@@ -18,7 +18,6 @@ export const searchInputStyle: CustomStyles = {
   padding: "12px",
   borderRadius: "6px 0 0 6px",
   border: `1px solid ${theme.colors.orange400}`,
-  placeholderColor: "orange100",
 };
 
 export const SearchButton = styled.button`

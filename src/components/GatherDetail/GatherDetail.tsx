@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { Props } from "./types";
 import Text from "../base/Text";
 import ProfileBox from "../ProfileBox/ProfileBox";
-import Input from "../base/Input";
+import { Input } from "../base/Input";
 import { globalMyProfile } from "../../atoms";
 import {
   Container,

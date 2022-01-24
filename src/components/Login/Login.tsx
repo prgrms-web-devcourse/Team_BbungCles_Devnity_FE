@@ -7,10 +7,10 @@ import {
   ErrorMessage,
   LoginFormContainer,
   FormContainer,
-  Input,
   Button,
   HiddenLabel,
 } from "./styles";
+import { Input } from "../base/Input";
 import { FormValues } from "./types";
 
 interface IProps {
