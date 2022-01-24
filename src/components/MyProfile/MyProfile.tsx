@@ -2,7 +2,7 @@ import { HiPlusCircle } from "react-icons/hi";
 import { useCallback, useRef } from "react";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { common, myProfile } from "../../constants";
-import Input from "../base/Input";
+import { Input } from "../base/Input";
 import {
   Container,
   HiddenInput,
@@ -98,7 +98,7 @@ const MyProfile = ({
           onChange={handleImageChange}
         />
 
-        <input
+        <HiddenInput
           type="hidden"
           name="profileImgUrl"
           value={formik.values.profileImgUrl || ""}
@@ -203,7 +203,7 @@ const MyProfile = ({
         />
 
         <label htmlFor="description">{common.text.DESCRIPTION}</label>
-        <input
+        <HiddenInput
           type="hidden"
           name="description"
           onChange={formik.handleChange}

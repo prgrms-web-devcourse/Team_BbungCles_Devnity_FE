@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
 import { routes, signup, common } from "../../constants";
 import { FormValues } from "./types";
+import { Input } from "../base/Input";
 import {
   ErrorMessage,
   HiddenParagraph,
@@ -13,7 +14,6 @@ import {
   FormContainer,
   Title,
   Container,
-  Input,
   Select,
   Button,
   RowContainer,

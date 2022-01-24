@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import React, { useCallback } from "react";
 import theme from "../../assets/theme";
 import { common } from "../../constants";
-import Input from "../base/Input";
+import { Input } from "../base/Input";
 import Text from "../base/Text";
 import LikeButtonAndText from "../LikeButtonAndText/LikeButtonAndText";
 import {

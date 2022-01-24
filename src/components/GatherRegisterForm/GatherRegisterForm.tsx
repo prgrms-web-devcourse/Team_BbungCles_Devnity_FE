@@ -1,6 +1,6 @@
 import { Editor } from "@toast-ui/react-editor";
 import { categoryValue } from "../../constants";
-import Input from "../base/Input";
+import { Input } from "../base/Input";
 import {
   Container,
   ItemContainer,

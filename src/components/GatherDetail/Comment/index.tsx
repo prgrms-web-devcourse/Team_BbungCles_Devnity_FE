@@ -21,7 +21,7 @@ import { common } from "../../../constants";
 import theme from "../../../assets/theme";
 import { globalMyProfile } from "../../../atoms";
 import useToggle from "../../../hooks/useToggle";
-import Input from "../../base/Input";
+import { Input } from "../../base/Input";
 import useDeleteComment from "../../../hooks/useDeleteComment";
 import useCreateGatherComment from "../../../hooks/useCreateGatherComment";
 import useEditComment from "../../../hooks/useEditComment";

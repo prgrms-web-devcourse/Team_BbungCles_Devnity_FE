@@ -16,7 +16,7 @@ export const StyledInput = styled.input<IProps>`
   }
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors?.gray600};
+    color: ${({ theme }) => theme.colors?.gray500};
   }
 
   &:disabled {
@@ -47,11 +47,6 @@ export const CustomStyledInput = styled(StyledInput)<IProps>`
 
   &:focus {
     outline: ${({ customStyle }) => customStyle.focusOutline};
-  }
-
-  &::placeholder {
-    color: ${({ customStyle, theme }) =>
-      theme.colors[customStyle.placeholderColor]};
   }
 
   &:disabled {

@@ -13,7 +13,6 @@ export interface CustomStyles {
   borderTop?: string | number;
   boxShadow?: ShadowType;
   focusOutline?: string;
-  placeholderColor?: ColorType;
   disabledBackgroundColor?: ColorType;
 }
 

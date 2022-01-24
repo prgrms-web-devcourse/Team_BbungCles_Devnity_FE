@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { memo, useCallback } from "react";
 import * as Yup from "yup";
 import useCustomToast from "../../hooks/useCustomToast";
-import Input from "../base/Input";
+import { HiddenInput, Input } from "../base/Input";
 import {
   Button,
   ButtonContainer,
@@ -195,7 +195,7 @@ const MapgakcoRegister = ({ markerPosition, onClose }: IProps) => {
           <label htmlFor="content">
             <Text strong>내용</Text>
           </label>
-          <input
+          <HiddenInput
             type="hidden"
             name="content"
             value={values.content}

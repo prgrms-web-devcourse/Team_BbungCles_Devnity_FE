@@ -67,24 +67,6 @@ export const ErrorMessage = styled.p`
   font-size: 14px;
 `;
 
-export const Input = styled.input`
-  color: ${({ theme }) => theme.colors?.gray800};
-  padding: 16px;
-  border: none;
-  background: ${({ theme }) => theme.colors?.white};
-  border-radius: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
-
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors?.gray600};
-  }
-`;
-
 export const Label = styled.label`
   width: 100%;
 `;
