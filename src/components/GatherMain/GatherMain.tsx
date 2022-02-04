@@ -63,7 +63,6 @@ const GatherMain = ({
       <div ref={ref}>
         <GatherList
           gatherRef={ref}
-          selectedCategory={selectedCategory}
           gatherData={pages?.data?.data?.data?.values}
           pages={pages}
         />

@@ -21,35 +21,26 @@ import { categoryDisplayName, routes } from "../../constants";
 import CommentText from "../CommentText";
 
 interface Props {
-  selectedCategory?: string;
   gatherData: Array<Gather>;
   pagee?: string;
   pages?: any;
   gatherRef?: any;
 }
 
-const GatherList = ({
-  selectedCategory,
-  gatherData,
-  pagee,
-  pages,
-  gatherRef,
-}: Props) => {
-  const gather = selectedCategory
-    ? gatherData?.filter(
-        (item) =>
-          categoryDisplayName[item.category] ===
-            categoryDisplayName[selectedCategory] && item.status === "GATHERING"
-      )
-    : gatherData?.filter((item) => item.status === "GATHERING");
+interface GathersProps {
+  gatherData: Gather[];
+  isGathering: boolean;
+}
 
-  const finishGather = selectedCategory
-    ? gatherData?.filter(
-        (item) =>
-          categoryDisplayName[item.category] ===
-            categoryDisplayName[selectedCategory] && item.status !== "GATHERING"
-      )
+const getGathers = ({ gatherData, isGathering = true }: GathersProps) => {
+  return isGathering
+    ? gatherData?.filter((item) => item.status === "GATHERING")
     : gatherData?.filter((item) => item.status !== "GATHERING");
+};
+
+const GatherList = ({ gatherData, pagee, pages, gatherRef }: Props) => {
+  const gather = getGathers({ gatherData, isGathering: true });
+  const finishGather = getGathers({ gatherData, isGathering: false });
 
   if (!pages && gatherData && gatherData.length === 0) {
     return (
