@@ -4,6 +4,7 @@ import { common, COORDS, CourseKeyType } from "../../constants";
 import useUsersLocationsFormik from "../../hooks/useUsersLocationsFormik";
 import useUsersLocationsQuery from "../../hooks/useUsersLocationsQuery";
 import { Position } from "../../types/commonTypes";
+import { UserLocationModel } from "../../types/userLocation";
 import { getUserMarkerOverlays } from "../../utils/map/overlay";
 import { Container, MapFloatControlWrapper } from "../MapgakcoMap/styles";
 import UserMarker from "../MapgakcoMap/UserMarker";
@@ -13,13 +14,15 @@ import {
   SearchBarFormContainer,
   Select,
 } from "../UserList/styles";
+import SearchedUsers from "./SearchedUsers/SearchedUsers";
 
 interface Props {
   center: Position;
   currentUser: UserData;
+  onSearchedUserClick: (userLocation: UserLocationModel) => void;
 }
 
-const UsersMap = ({ center, currentUser }: Props) => {
+const UsersMap = ({ center, currentUser, onSearchedUserClick }: Props) => {
   const queryClient = useQueryClient();
 
   const formik = useUsersLocationsFormik({
@@ -136,6 +139,10 @@ const UsersMap = ({ center, currentUser }: Props) => {
             </Button>
           </ButtonWrapper> */}
         </SearchBarFormContainer>
+        <SearchedUsers
+          usersLocations={usersLocations}
+          onUserClick={onSearchedUserClick}
+        />
       </MapFloatControlWrapper>
       <Map
         center={{

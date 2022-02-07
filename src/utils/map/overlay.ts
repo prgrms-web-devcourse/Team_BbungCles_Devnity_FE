@@ -1,7 +1,7 @@
 import { UserData } from "../../components/MyProfile/types";
 import { common } from "../../constants";
 import { Mapgakco, Position } from "../../types/mapTypes";
-import { ResponseUserLocation } from "../../types/userLocation";
+import { UserLocationModel } from "../../types/userLocation";
 import { koreanDate } from "../date";
 
 interface CustomOverlayProps {
@@ -168,7 +168,7 @@ export const addMapgakcoOverlay = ({ map, mapgakco }: MapgakcoOverlayProps) => {
 
 // TODO: 리팩터링. getUserMarkerOverlays와 getMapgakcoMarkerOverlays를 하나의 함수로 처리한다.
 export const getUserMarkerOverlays = (
-  usersLocations: ResponseUserLocation[],
+  usersLocations: UserLocationModel[],
   currentUser: UserData
 ) => {
   return (usersLocations || []).map((userLocation) => {

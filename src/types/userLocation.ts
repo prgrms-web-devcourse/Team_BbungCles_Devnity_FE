@@ -9,7 +9,7 @@ export interface RequestGetUsersLocations {
   currentSWY: number;
 }
 
-export interface ResponseUserLocation {
+export interface UserLocationModel {
   userId: number;
   name: string;
   course: CourseKeyType;
