@@ -92,29 +92,6 @@ export const SearchBarFormContainer = styled.form`
   box-shadow: ${({ theme }) => theme.boxShadows.secondary};
 `;
 
-export const IconWrapper = styled.div`
-  margin: 0 16px;
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  height: 64px;
-  font-size: 16px;
-  border: none;
-  outline: none;
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.gray500};
-  }
-`;
-
-export const VerticalDivider = styled.div`
-  width: 1px;
-  height: 60%;
-  border: 1px solid ${({ theme }) => theme.colors.gray200};
-  margin: 0 16px;
-`;
-
 export const Select = styled.select`
   border: none;
   outline: none;
