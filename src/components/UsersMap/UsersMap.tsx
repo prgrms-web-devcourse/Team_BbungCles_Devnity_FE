@@ -154,29 +154,22 @@ const UsersMap = ({ center, currentUser, onSearchedUserClick }: Props) => {
           height: "100%",
         }}
         level={4}
+        isPanto
       >
-        {true &&
-          userMarkerOverlays.map(
-            ({ position, imageUrl, options: { color, text } }, index) => (
-              <UserMarker
-                // eslint-disable-next-line react/no-array-index-key
-                key={index}
-                position={position}
-                imageUrl={imageUrl}
-                text={text}
-                color={color}
-              />
-            )
-          )}
+        {userMarkerOverlays.map(
+          ({ position, imageUrl, options: { color, text } }, index) => (
+            <UserMarker
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              position={position}
+              imageUrl={imageUrl}
+              text={text}
+              color={color}
+            />
+          )
+        )}
       </Map>
     </Container>
-
-    // <Mapbox
-    //   center={{ lat: center.lat, lng: center.lng }}
-    //   hasCenterMarker
-    //   userImageUrl={userImageUrl || common.placeHolderImageSrc}
-    //   imageMarkerOverlays={imageMarkerOverlays}
-    // />
   );
 };
 

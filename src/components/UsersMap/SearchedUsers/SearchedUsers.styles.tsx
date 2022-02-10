@@ -9,6 +9,7 @@ export const Container = styled.ul`
   width: 230px;
   max-height: 70vh;
   overflow-y: auto;
+  border-radius: 6px;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -24,6 +25,9 @@ export const Container = styled.ul`
 `;
 
 export const SearchedUserItem = styled.li`
+  cursor: pointer;
+  padding: 2px 4px;
+
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray100};
   }
