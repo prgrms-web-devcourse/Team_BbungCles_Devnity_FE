@@ -1,15 +1,11 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.ul`
-  position: absolute;
-  top: 24px;
-
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
   width: 230px;
   max-height: 70vh;
   overflow-y: auto;
-  border-radius: 6px;
 
   &::-webkit-scrollbar {
     width: 8px;

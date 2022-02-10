@@ -1,4 +1,4 @@
-import { Map } from "react-kakao-maps-sdk";
+import { Map, MapTypeControl, ZoomControl } from "react-kakao-maps-sdk";
 import { useQueryClient } from "react-query";
 import { common, COORDS, CourseKeyType } from "../../constants";
 import useUsersLocationsFormik from "../../hooks/useUsersLocationsFormik";
@@ -6,15 +6,17 @@ import useUsersLocationsQuery from "../../hooks/useUsersLocationsQuery";
 import { Position } from "../../types/commonTypes";
 import { UserLocationModel } from "../../types/userLocation";
 import { getUserMarkerOverlays } from "../../utils/map/overlay";
-import { Container, MapFloatControlWrapper } from "../MapgakcoMap/styles";
 import UserMarker from "../MapgakcoMap/UserMarker";
 import { UserData } from "../MyProfile/types";
-import {
-  InputWrapper,
-  SearchBarFormContainer,
-  Select,
-} from "../UserList/styles";
 import SearchedUsers from "./SearchedUsers/SearchedUsers";
+import {
+  Container,
+  MapFloatControlContainer,
+  SearchFormContainer,
+  SelectContainer,
+  Select,
+  VerticalDivider,
+} from "./UsersMap.styles";
 
 interface Props {
   center: Position;
@@ -54,28 +56,15 @@ const UsersMap = ({ center, currentUser, onSearchedUserClick }: Props) => {
 
   return (
     <Container>
-      <MapFloatControlWrapper>
-        <SearchBarFormContainer
-          onSubmit={formik.handleSubmit}
-          style={{
-            justifyContent: "center",
-            boxShadow: "none",
-            minWidth: "none",
-          }}
-        >
-          <InputWrapper style={{ justifyContent: "center" }}>
+      <MapFloatControlContainer>
+        <SearchFormContainer onSubmit={formik.handleSubmit}>
+          <SelectContainer>
             <Select
               id="generation"
               name="generation"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.generation}
-              style={{
-                padding: "10px 0",
-                textAlign: "center",
-                borderRadius: "6px",
-                width: "100px",
-              }}
             >
               <option value="">{common.text.GENERATION}</option>
               {common.generations.map(({ value, label }) => (
@@ -84,18 +73,15 @@ const UsersMap = ({ center, currentUser, onSearchedUserClick }: Props) => {
                 </option>
               ))}
             </Select>
+
+            <VerticalDivider />
+
             <Select
               id="course"
               name="course"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.course}
-              style={{
-                padding: "10px 0",
-                textAlign: "center",
-                borderRadius: "6px",
-                width: "100px",
-              }}
             >
               <option value="">{common.text.COURSE}</option>
               {common.courses.map(({ value, label }) => (
@@ -104,46 +90,13 @@ const UsersMap = ({ center, currentUser, onSearchedUserClick }: Props) => {
                 </option>
               ))}
             </Select>
-            {/* TODO: 명세가 확정되고 필요하면 역할별 검색 기능을 추가한다. */}
-            {/* <Select
-              id="role"
-              name="role"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.role}
-            >
-              <option value="">{common.text.ROLE}</option>
-              {roles.map(({ value, label }) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </Select> */}
-            {/* TODO: 명세가 확정되고 필요하면 이름 검색 기능을 추가한다. */}
-            {/* <Input
-              type="text"
-              name="name"
-              placeholder={common.message.ENTER_SEARCH_TERM}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
-            /> */}
-          </InputWrapper>
-
-          {/* TODO: 명세가 확정되고 필요하면 이름 검색 기능을 추가한다. */}
-          {/* <ButtonWrapper>
-            <Button type="submit">
-              <Text size={12} color="white" strong ellipsisLineClamp={1}>
-                {common.text.SEARCH}
-              </Text>
-            </Button>
-          </ButtonWrapper> */}
-        </SearchBarFormContainer>
+          </SelectContainer>
+        </SearchFormContainer>
         <SearchedUsers
           usersLocations={usersLocations}
           onUserClick={onSearchedUserClick}
         />
-      </MapFloatControlWrapper>
+      </MapFloatControlContainer>
       <Map
         center={{
           lat: center.lat,
@@ -156,6 +109,8 @@ const UsersMap = ({ center, currentUser, onSearchedUserClick }: Props) => {
         level={4}
         isPanto
       >
+        <ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} />
+        <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
         {userMarkerOverlays.map(
           ({ position, imageUrl, options: { color, text } }, index) => (
             <UserMarker
