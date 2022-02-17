@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Input } from "../base/Input";
 
 export const Container = styled.div`
   position: relative;
@@ -40,4 +41,9 @@ export const VerticalDivider = styled.div`
   height: 60%;
   border: 1px solid ${({ theme }) => theme.colors.gray200};
   margin: 0 4px;
+`;
+
+export const SearchInput = styled(Input)`
+  border-radius: 0;
+  padding: 6px;
 `;

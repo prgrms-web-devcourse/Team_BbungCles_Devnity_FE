@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { globalMyProfile } from "../../atoms/user";
 import { common } from "../../constants";
@@ -32,4 +32,4 @@ const UsersMapContainer = () => {
   );
 };
 
-export default UsersMapContainer;
+export default React.memo(UsersMapContainer);

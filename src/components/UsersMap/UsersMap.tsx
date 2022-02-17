@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Map, MapTypeControl, ZoomControl } from "react-kakao-maps-sdk";
 import { useQueryClient } from "react-query";
 import { common, COORDS, CourseKeyType } from "../../constants";
@@ -9,6 +10,7 @@ import { getUserMarkerOverlays } from "../../utils/map/overlay";
 import UserMarker from "../MapgakcoMap/UserMarker";
 import { UserData } from "../MyProfile/types";
 import SearchedUsers from "./SearchedUsers/SearchedUsers";
+import Text from "../base/Text";
 import {
   Container,
   MapFloatControlContainer,
@@ -16,7 +18,9 @@ import {
   SelectContainer,
   Select,
   VerticalDivider,
+  SearchInput,
 } from "./UsersMap.styles";
+import theme from "../../assets/theme";
 
 interface Props {
   center: Position;
@@ -39,7 +43,7 @@ const UsersMap = ({ center, currentUser, onSearchedUserClick }: Props) => {
     },
   });
 
-  const { data: usersLocations } = useUsersLocationsQuery({
+  const { data: usersLocations, isLoading } = useUsersLocationsQuery({
     // TODO: 빠른 개발을 위해 대한민국 전체 좌표 범위를 사용한다. 사용자가 지도의 범위를 수정하면 해당하는 좌표 범위만 보여주도록 하는 기능을 추후 도입한다.
     course:
       formik.values.course ||
@@ -52,7 +56,25 @@ const UsersMap = ({ center, currentUser, onSearchedUserClick }: Props) => {
     currentSWX: COORDS.KOREA_SWX,
   });
 
+  const [filteredUserLocations, setFilteredUserLocations] =
+    useState<UserLocationModel[]>(usersLocations);
+  const [userSearchText, setUserSearchText] = useState("");
+
+  const handleUserSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserSearchText(e.target.value);
+
+    setFilteredUserLocations(() =>
+      usersLocations?.filter((userLocation: UserLocationModel) =>
+        userLocation?.name.toLowerCase().includes(e.target.value)
+      )
+    );
+  };
+
   const userMarkerOverlays = getUserMarkerOverlays(usersLocations, currentUser);
+
+  useEffect(() => {
+    setFilteredUserLocations(usersLocations);
+  }, [usersLocations]);
 
   return (
     <Container>
@@ -92,8 +114,26 @@ const UsersMap = ({ center, currentUser, onSearchedUserClick }: Props) => {
             </Select>
           </SelectContainer>
         </SearchFormContainer>
+        <SearchInput
+          type="text"
+          name="user-search"
+          placeholder="이름을 검색하세요."
+          value={userSearchText}
+          onChange={handleUserSearchChange}
+          autoComplete="off"
+          customStyle={{
+            borderRadius: 0,
+            padding: "6px",
+            display: usersLocations?.length > 0 ? "block" : "none",
+          }}
+        />
+        {isLoading ? (
+          <Text style={{ backgroundColor: theme.colors.white, padding: "4px" }}>
+            데이터를 불러오는 중입니다...
+          </Text>
+        ) : null}
         <SearchedUsers
-          usersLocations={usersLocations}
+          usersLocations={filteredUserLocations}
           onUserClick={onSearchedUserClick}
         />
       </MapFloatControlContainer>

@@ -14,6 +14,7 @@ export interface CustomStyles {
   boxShadow?: ShadowType;
   focusOutline?: string;
   disabledBackgroundColor?: ColorType;
+  display?: "block" | "inline-block" | "flex" | "inline" | "none";
 }
 
 export interface IProps {

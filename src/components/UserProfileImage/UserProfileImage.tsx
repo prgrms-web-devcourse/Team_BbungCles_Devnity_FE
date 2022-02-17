@@ -1,4 +1,5 @@
 import { common } from "../../constants";
+import { isValidImageSrc } from "../../utils/validator";
 import Image from "../base/Image";
 
 interface Style {
@@ -20,7 +21,7 @@ const UserProfileImage = ({ imageUrl, title, size, style }: Props) => {
 
   return (
     <Image
-      src={imageUrl || common.placeHolderImageSrc}
+      src={isValidImageSrc(imageUrl) ? imageUrl : common.placeHolderImageSrc}
       width={size || 32}
       height={size || 32}
       title={title}

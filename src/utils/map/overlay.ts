@@ -180,7 +180,8 @@ export const getUserMarkerOverlays = (
     const imageUrl = userLocation?.profileImgUrl || common.placeHolderImageSrc;
 
     const options = {
-      color: userLocation?.userId === currentUser.user.userId ? "red" : "blue",
+      color:
+        userLocation?.userId === currentUser?.user?.userId ? "red" : "blue",
       text: userLocation?.name,
     };
 
