@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import useMapClick from "../../hooks/useMapClick";
 import useToggle from "../../hooks/useToggle";
 import { CartesianPosition, Position } from "../../types/commonTypes";
-import { ResponseUserLocation } from "../../types/userLocation";
+import { UserLocationModel } from "../../types/userLocation";
 import { Mapgakco } from "../../types/mapTypes";
 import { UserData } from "../MyProfile/types";
 import Modal from "../base/Modal";
@@ -29,7 +29,7 @@ import {
 interface Props {
   initialCenter: Position;
   mapgakcos: Mapgakco[];
-  usersLocations: ResponseUserLocation[];
+  usersLocations: UserLocationModel[];
   currentUser: UserData;
   isMapFloatControlVisible?: boolean;
 }
