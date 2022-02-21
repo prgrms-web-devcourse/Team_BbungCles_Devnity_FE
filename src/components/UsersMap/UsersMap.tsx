@@ -89,7 +89,10 @@ const UsersMap = ({ center, currentUser, onSearchedUserClick }: Props) => {
               value={formik.values.generation}
             >
               <option value="">{common.text.GENERATION}</option>
-              {common.generations.map(({ value, label }) => (
+              {[
+                { value: "1", label: "1기" },
+                { value: "2", label: "2기" },
+              ].map(({ value, label }) => (
                 <option key={value} value={value}>
                   {label}
                 </option>
