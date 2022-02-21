@@ -20,19 +20,20 @@ interface Props {
   values: {
     category: string;
     title: string;
-    applicantCount: string;
-    deadline: string;
+    applicantCount: number;
+    deadline: Date;
     content: string;
   };
   onTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onApplicantChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCategoryChange: (selectedCategory: string) => void;
-  onDeadline: (value: string) => void;
-  onContent: (value: string) => void;
+  onDeadlineChange: (value: Date) => void;
+  onContentChange: (value: string) => void;
   onModalClose: () => void;
   onSubmit: () => void;
   error: Array<string>;
   editorRef: React.MutableRefObject<Editor>;
+  isEdit?: boolean;
 }
 
 const GatherRegisterForm = ({
@@ -40,12 +41,13 @@ const GatherRegisterForm = ({
   onCategoryChange,
   onTitleChange,
   onApplicantChange,
-  onDeadline,
-  onContent,
+  onDeadlineChange,
+  onContentChange,
   onModalClose,
   onSubmit,
   error,
   editorRef,
+  isEdit,
 }: Props) => {
   return (
     <Container>
@@ -99,10 +101,11 @@ const GatherRegisterForm = ({
           ) : null}
         </LabelContainer>
         <Input
-          type="text"
+          type="number"
           name="applicantCount"
           onChange={onApplicantChange}
           value={values.applicantCount}
+          disabled={isEdit}
         />
       </ItemContainer>
       <ItemContainer>
@@ -118,7 +121,7 @@ const GatherRegisterForm = ({
           selected={values.deadline || null}
           minDate={new Date()}
           maxDate={new Date("9999-12-31")}
-          onChange={(value: string) => onDeadline(value)}
+          onChange={(value: Date) => onDeadlineChange(value)}
           value={values.deadline}
         />
       </ItemContainer>
@@ -132,7 +135,7 @@ const GatherRegisterForm = ({
         <MarkdownEditorWrapper>
           <MarkdownEditor
             editorRef={editorRef}
-            setEditorText={(value: string) => onContent(value)}
+            setEditorText={(value: string) => onContentChange(value)}
             value={values.content || ""}
           />
         </MarkdownEditorWrapper>
