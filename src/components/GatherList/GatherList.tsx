@@ -94,15 +94,15 @@ const GatherList = ({ gatherData, pagee, pages, gatherRef }: Props) => {
                         />
                       ) : (
                         <PeriodText
-                          createdDate={item.createdAt.substring(0, 10)}
+                          createdDate={item?.createdAt.substring(0, 10)}
                           deadLine={item?.deadline.substring(0, 10)}
                           iconColor={theme.colors.gray500}
                           fontColor={theme.colors.gray600}
                         />
                       )}
                       <ApplicantCountText
-                        applicantCount={item.applicantCount}
-                        applicantLimit={item.applicantLimit}
+                        applicantCount={item?.applicantCount}
+                        applicantLimit={item?.applicantLimit}
                         iconColor={theme.colors.gray500}
                         fontColor={theme.colors.gray600}
                       />
@@ -112,17 +112,17 @@ const GatherList = ({ gatherData, pagee, pages, gatherRef }: Props) => {
                         fontColor={theme.colors.gray600}
                       />
                       <CommentText
-                        commentCount={item.commentCount || 0}
+                        commentCount={item?.commentCount || 0}
                         iconColor={theme.colors.gray500}
                         fontColor={theme.colors.gray600}
                       />
                     </InfoWrapper>
                   </ItemDetail>
                   <ProfileBox
-                    src={item.author?.profileImgUrl}
-                    name={item.author.name}
-                    course={item.author.course}
-                    generation={item.author.generation}
+                    src={item?.author?.profileImgUrl}
+                    name={item?.author.name}
+                    course={item?.author.course}
+                    generation={item?.author.generation}
                     fontSize={14}
                   />
                 </ItemContainer>
@@ -145,14 +145,14 @@ const GatherList = ({ gatherData, pagee, pages, gatherRef }: Props) => {
                 key={item?.gatherId ? item?.gatherId : item?.mapgakcoId}
               >
                 <ItemContainer
-                  style={item.status !== "GATHERING" ? FinishItem : null}
+                  style={item?.status !== "GATHERING" ? FinishItem : null}
                 >
                   {item.status !== "GATHERING" ? (
                     <Finish page={pagee}>모집 마감</Finish>
                   ) : null}
                   <Category
                     style={{
-                      backgroundColor: theme.colors[item.category],
+                      backgroundColor: theme.colors[item?.category],
                       color: "black",
                     }}
                   >
@@ -163,7 +163,7 @@ const GatherList = ({ gatherData, pagee, pages, gatherRef }: Props) => {
                   <ItemDetail>
                     <TextContainer page={pagee}>
                       <Text ellipsisLineClamp={1} size={14}>
-                        {item.title}
+                        {item?.title}
                       </Text>
                     </TextContainer>
                     <InfoWrapper page={pagee}>
@@ -175,15 +175,15 @@ const GatherList = ({ gatherData, pagee, pages, gatherRef }: Props) => {
                         />
                       ) : (
                         <PeriodText
-                          createdDate={item.createdAt.substring(0, 10)}
+                          createdDate={item?.createdAt.substring(0, 10)}
                           deadLine={item?.deadline.substring(0, 10)}
                           iconColor={theme.colors.gray500}
                           fontColor={theme.colors.gray600}
                         />
                       )}
                       <ApplicantCountText
-                        applicantCount={item.applicantCount}
-                        applicantLimit={item.applicantLimit}
+                        applicantCount={item?.applicantCount}
+                        applicantLimit={item?.applicantLimit}
                         iconColor={theme.colors.gray500}
                         fontColor={theme.colors.gray600}
                       />
@@ -193,17 +193,17 @@ const GatherList = ({ gatherData, pagee, pages, gatherRef }: Props) => {
                         fontColor={theme.colors.gray600}
                       />
                       <CommentText
-                        commentCount={item.commentCount || 0}
+                        commentCount={item?.commentCount || 0}
                         iconColor={theme.colors.gray500}
                         fontColor={theme.colors.gray600}
                       />
                     </InfoWrapper>
                   </ItemDetail>
                   <ProfileBox
-                    src={item.author?.profileImgUrl}
-                    name={item.author.name}
-                    course={item.author.course}
-                    generation={item.author.generation}
+                    src={item?.author?.profileImgUrl}
+                    name={item?.author.name}
+                    course={item?.author.course}
+                    generation={item?.author.generation}
                     fontSize={14}
                   />
                 </ItemContainer>
@@ -254,7 +254,7 @@ const GatherList = ({ gatherData, pagee, pages, gatherRef }: Props) => {
                         />
                       ) : (
                         <PeriodText
-                          createdDate={item.createdAt.substring(0, 10)}
+                          createdDate={item?.createdAt.substring(0, 10)}
                           deadLine={item?.deadline.substring(0, 10)}
                           iconColor={theme.colors.gray500}
                           fontColor={theme.colors.gray600}
