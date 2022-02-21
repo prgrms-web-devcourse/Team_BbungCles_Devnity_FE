@@ -23,7 +23,7 @@ export interface Props {
   gatherData: Gather;
   handleGatherDelete: (arg: number) => void;
   handleGatherClose: (arg: number) => void;
-  handleGatherCancel: (arg1: number) => void;
-  handleGatherApply: (arg1: number) => void;
-  handleGatherDetailEdit: (arg: EditGatherProps) => void;
+  handleGatherCancel: (arg: number) => void;
+  handleGatherApply: (arg: number) => void;
+  handleVisibleModal: () => void;
 }

@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import useApplyGather from "../../hooks/useApplyGather";
 import useCancelAppliedGather from "../../hooks/useCancelApplyGather";
 import useGetGatherDetail from "../../hooks/useGetGatherDetail";
@@ -7,6 +8,8 @@ import GatherDetail from "./GatherDetail";
 import useDeleteGather from "../../hooks/useDeleteGather";
 import useEditGatherDetail from "../../hooks/useEditGatherDetail";
 import useClosGather from "../../hooks/useCloseGather";
+import Modal from "../base/Modal";
+import GatherRegisterFormContainer from "../GatherRegisterForm/GatherRegistorFormContainer";
 
 const GatherDetailContainer = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +21,12 @@ const GatherDetailContainer = () => {
   const { deleteGather } = useDeleteGather();
   const { editGather } = useEditGatherDetail();
   const { closeGather } = useClosGather();
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleVisibleModal = () => {
+    setModalVisible(!modalVisible);
+  };
 
   const handleGatherDelete = (gatherId) => {
     // eslint-disable-next-line
@@ -41,21 +50,31 @@ const GatherDetailContainer = () => {
     cancelAppliedGather(gatherId);
   };
 
-  const handleGatherDetailEdit = (editValue) => {
-    editGather(editValue);
-  };
-
   return (
     <div>
       {data ? (
-        <GatherDetail
-          gatherData={data?.data}
-          handleGatherApply={handleGatherApply}
-          handleGatherCancel={handleGatherCancel}
-          handleGatherClose={handleGatherClose}
-          handleGatherDelete={handleGatherDelete}
-          handleGatherDetailEdit={handleGatherDetailEdit}
-        />
+        modalVisible ? (
+          <Modal
+            width="60%"
+            visible={modalVisible}
+            onClose={() => handleVisibleModal()}
+          >
+            <GatherRegisterFormContainer
+              onModalClose={() => handleVisibleModal()}
+              editData={data?.data}
+              submitForm={editGather}
+            />
+          </Modal>
+        ) : (
+          <GatherDetail
+            gatherData={data?.data}
+            handleGatherApply={handleGatherApply}
+            handleGatherCancel={handleGatherCancel}
+            handleGatherClose={handleGatherClose}
+            handleGatherDelete={handleGatherDelete}
+            handleVisibleModal={handleVisibleModal}
+          />
+        )
       ) : null}
     </div>
   );
