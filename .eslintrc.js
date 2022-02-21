@@ -74,7 +74,10 @@ module.exports = {
       },
     ],
     "no-nested-ternary": "off",
-    "no-unused-expressions": ["error", { allowShortCircuit: true }],
+    "no-unused-expressions": [
+      "error",
+      { allowShortCircuit: true, allowTernary: true },
+    ],
     "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [
       2,
