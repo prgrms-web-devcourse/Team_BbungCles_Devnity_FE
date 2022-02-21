@@ -2,6 +2,12 @@ import { routes } from "../../constants";
 
 export default [
   {
+    name: "프로필",
+    path: routes.MYPROFILE,
+    shouldAuth: false,
+    isChild: false,
+  },
+  {
     name: "데둥이 소개",
     path: routes.USERLIST,
     shouldAuth: false,
