@@ -4,40 +4,50 @@ import Button from "../base/Button";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 20px 20px 20px;
+  width: 100%;
   margin: 0 auto;
   overflow-y: auto;
-  height: 100%;
   gap: 8px;
-  align-items: center;
-  width: 80%;
 `;
 
-export const TestContainer = styled.div`
+export const DetailContainer = styled.div`
   display: flex;
-  align-items: flex-start;
   flex-direction: column;
-  gap: 16px;
-  width: 100%;
+  width: 60%;
+  height: 100%;
+  padding: 0 20px 20px 20px;
+  margin: 0 auto;
+  gap: 8px;
 `;
 
-export const CategoryWrapper = styled.div<{ row?: boolean }>`
+export const CommentListContainer = styled.div`
   display: flex;
-  flex-direction: ${({ row }) => (row ? "row" : "column")};
+  justify-content: center;
+  background-color: #f8f9fa;
+  padding: 60px 20px;
+`;
+
+export const InnerContainer = styled.div`
+  width: 60%;
+`;
+
+export const TagWrapper = styled.div`
+  display: flex;
   gap: 4px;
 `;
 
-export const Category = styled.div`
+export const Tag = styled.div<{ category?: string }>`
   width: 70px;
   height: 35px;
-  background-color: ${({ theme }) => theme.colors.gray800};
+  background-color: ${({ category, theme }) =>
+    category ? theme.colors[category] : theme.colors.gray800};
   border-radius: 7px;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-export const UserContainer = styled.div`
+export const InfoContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 25px;
@@ -47,39 +57,48 @@ export const UserContainer = styled.div`
   flex-grow: 0;
 `;
 
-export const DetailContainer = styled.div`
-  padding: 15px 0;
-  border-top: 3px solid #f1f3f5;
-  width: 100%;
-`;
-
-export const TextContainer = styled.div`
+export const InfoDetailContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 16px 0;
+  gap: 28px;
+  padding: 28px;
+`;
+
+export const RowContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 0 12px;
 `;
 
 export const TextWrapper = styled.div`
-  padding-left: 3px;
-`;
-
-export const ButtonContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  padding: 10px 0;
-  gap: 16px;
+  align-items: center;
+  gap: 5px;
 `;
 
-export const StyledButton = styled(Button)`
+export const AuthorButtonContainer = styled.div`
+  display: flex;
+  gap: 16px;
+  margin-left: auto;
+`;
+
+export const ApplyButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const StyledButton = styled(Button)<{ isApplied?: boolean }>`
   font-size: 16px;
   border: none;
-  background-color: ${({ theme }) => theme.colors.skyblue};
-  border-radius: 4px;
-  padding: 5px 3px;
-  width: 100px;
-  height: 40px;
+  background-color: ${({ isApplied, theme }) =>
+    isApplied ? theme.colors.scarlet : theme.colors.markerBlue};
+  color: white;
+  padding: 12px 16px;
+  width: 100%;
+  border-radius: 0 0 20px 20px;
+  font-weight: bold;
 `;
 
 export const EditDeadlineContainer = styled.div`
@@ -88,50 +107,19 @@ export const EditDeadlineContainer = styled.div`
   gap: 8px;
 `;
 
-export const Select = styled.select`
-  width: 100%;
-  color: ${({ theme }) => theme.colors?.gray800};
-  padding: 16px;
-  border: none;
-  background: ${({ theme }) => theme.colors?.white};
-  border-radius: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: ${({ theme }) => theme.boxShadows.primary};
-  -o-appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
-  input {
-    width: 80%;
-  }
-
-  &:disabled {
-    background: ${({ theme }) => theme.colors?.gray300};
-  }
-`;
-
-export const EditContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-`;
-
 export const ApplicantContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  padding-top: 8px;
+  padding-top: 12px;
   padding-left: 4px;
 `;
 
 export const MarkdownEditorWrapper = styled.div`
   width: 100%;
-  height: auto;
+  height: 100%;
   padding: 12px;
-  border-radius: 10px;
-  box-shadow: ${({ theme }) => theme.boxShadows.primary};
+  margin-top: 20px;
 `;
 
 export const BorderContainer = styled.div`
@@ -139,11 +127,26 @@ export const BorderContainer = styled.div`
   flex-direction: column;
   box-shadow: ${({ theme }) => theme.boxShadows.primary};
   border-radius: 20px;
+  width: 100%;
+  min-width: 560px;
+  gap: 16px;
+  height: auto;
+  background-color: white;
+  margin-top: 32px;
+`;
+
+export const CommentBorderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-shadow: ${({ theme }) => theme.boxShadows.primary};
+  border-radius: 20px;
   padding: 32px;
   width: 100%;
   min-width: 560px;
-  gap: 28px;
-  height: auto;
+  gap: 32px;
+  overflow-y: auto;
+  min-height: 560px;
+  background-color: white;
 `;
 
 export const CommentContainer = styled.div`
@@ -187,4 +190,13 @@ export const CommentButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.orange600};
   }
+`;
+
+export const EditButton = styled.button`
+  border: none;
+  background-color: transparent;
+  padding: 5px 3px;
+  color: ${({ theme }) => theme.colors.fontColor};
+  font-size: 14px;
+  text-decoration: underline;
 `;
