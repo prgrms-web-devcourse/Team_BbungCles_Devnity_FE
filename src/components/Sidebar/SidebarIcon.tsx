@@ -6,6 +6,8 @@ import {
   BsStar,
   BsLaptop,
   BsMap,
+  BsPerson,
+  BsExclamationCircle,
 } from "react-icons/bs";
 import { GrUserAdmin } from "react-icons/gr";
 
@@ -15,6 +17,7 @@ interface Props {
 
 const SidebarIcon = ({ name }: Props) => {
   const Map = {
+    프로필: <BsPerson />,
     "데둥이 소개": <BsPeople />,
     데둥여지도: <BsPinMap />,
     "모집 게시판": <BsClipboardCheck />,
@@ -25,7 +28,7 @@ const SidebarIcon = ({ name }: Props) => {
     관리자: <GrUserAdmin />,
   };
 
-  return Map[name];
+  return Map[name] || <BsExclamationCircle />;
 };
 
 export default SidebarIcon;
