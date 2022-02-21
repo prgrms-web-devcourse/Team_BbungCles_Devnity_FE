@@ -6,6 +6,7 @@ import Modal from "../base/Modal";
 import GatherRegisterFormContainer from "../GatherRegisterForm/GatherRegistorFormContainer";
 import SearchForm from "../SearchForm";
 import { Container, SearchAndWriteContainer, WriteButton } from "./styles";
+import useAddGather from "../../hooks/useAddGather";
 
 interface Props {
   selectedCategory?: string;
@@ -28,6 +29,8 @@ const GatherMain = ({
   fetchNextPage,
   setFilters,
 }: Props) => {
+  const { addGather } = useAddGather();
+
   const [ref, inView] = useInView({ threshold: 0.8 });
 
   useEffect(() => {
@@ -58,6 +61,7 @@ const GatherMain = ({
       >
         <GatherRegisterFormContainer
           onModalClose={() => handleVisibleModal(false)}
+          submitForm={addGather}
         />
       </Modal>
       <div ref={ref}>
