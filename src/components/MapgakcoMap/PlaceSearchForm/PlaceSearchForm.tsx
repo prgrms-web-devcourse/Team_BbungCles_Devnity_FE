@@ -39,7 +39,7 @@ const PlaceSearchForm = ({ isUserClicked, onSubmit }: Props) => {
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      onSubmit(searchResults[0]);
+      onSubmit(searchResults?.[0]);
 
       setContent("");
     },
