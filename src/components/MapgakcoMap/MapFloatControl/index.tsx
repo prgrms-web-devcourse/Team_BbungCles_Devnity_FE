@@ -16,6 +16,7 @@ interface Props {
   isUsersVisible: boolean;
   isMapgakcosVisible: boolean;
   isRegisterEnabled: boolean;
+  isUserClicked: boolean;
   toggleVisibleUsers: () => void;
   toggleVisibleMapgakcos: () => void;
   onRegisterClick: () => void;
@@ -35,6 +36,7 @@ const MapFloatControl = ({
   isUsersVisible,
   isMapgakcosVisible,
   isRegisterEnabled,
+  isUserClicked,
   toggleVisibleUsers,
   toggleVisibleMapgakcos,
   onMyPositionClick,
@@ -45,7 +47,10 @@ const MapFloatControl = ({
     <>
       <SearchContainer>
         <PlaceSearchFormWrapper>
-          <PlaceSearchForm onSubmit={onKeywordSearchSubmit} />
+          <PlaceSearchForm
+            isUserClicked={isUserClicked}
+            onSubmit={onKeywordSearchSubmit}
+          />
         </PlaceSearchFormWrapper>
         <ButtonContainer>
           <MyPositionButton onClick={onMyPositionClick}>

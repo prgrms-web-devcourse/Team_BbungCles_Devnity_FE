@@ -213,6 +213,9 @@ const MapgakcoMap = ({
           onMyPositionClick={handleMyPositionClick}
           onKeywordSearchSubmit={handleKeywordSubmit}
           onRegisterClick={handleRegisterClick}
+          isUserClicked={
+            userClickPosition.lat !== null && userClickPosition.lng !== null
+          }
         />
       </MapFloatControlWrapper>
       <Modal visible={isRegisterModalOpen} width="60%">
