@@ -1,11 +1,14 @@
-import { useSetRecoilState } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import { sidebarVisibleState } from "../../atoms/sidebarVisible";
 import UserDetailContainer from "../../components/UserDetail/UserDetailContainer";
 
 const UserDetailPage = () => {
-  const setShowSidebar = useSetRecoilState(sidebarVisibleState);
+  const [isShowSidebar, setShowSidebar] = useRecoilState(sidebarVisibleState);
 
-  setShowSidebar(true);
+  useEffect(() => {
+    setShowSidebar(true);
+  }, [isShowSidebar, setShowSidebar]);
 
   return <UserDetailContainer />;
 };
