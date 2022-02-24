@@ -1,11 +1,19 @@
 import { useCallback, useState } from "react";
 import dayjs from "dayjs";
+import { MutateOptions } from "react-query";
 import GatherRegisterForm from "./GatherRegisterForm";
-import useAddGather from "../../hooks/useAddGather";
+
 import useToastUi from "../../hooks/useToastUi";
+import { Gather } from "../../types/gather";
+import { MutationData, MutationError } from "../../types/commonTypes";
 
 interface Props {
   onModalClose: () => void;
+  submitForm: (
+    variables: unknown,
+    options?: MutateOptions<MutationData, MutationError, unknown, unknown>
+  ) => void;
+  editData?: Gather;
 }
 
 const validate = (newGather) => {
@@ -18,41 +26,51 @@ const validate = (newGather) => {
   return errors;
 };
 
-const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
+const GatherRegistorFormContainer = ({
+  onModalClose,
+  submitForm,
+  editData,
+}: Props) => {
   const [editorRef, resetMarkDown] = useToastUi();
 
-  const [title, setTitle] = useState("");
-  const [applicantCount, setApplicantCount] = useState("");
-  const [category, setCategory] = useState("");
-  const [deadline, setDeadline] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState(editData ? editData?.title : "");
+  const [applicantCount, setApplicantCount] = useState(
+    editData ? editData?.applicantLimit : null
+  );
+  const [category, setCategory] = useState(editData ? editData?.category : "");
+  const [deadline, setDeadline] = useState<Date>(
+    editData ? new Date(editData?.deadline.substring(0, 10)) : null
+  );
+  const [content, setContent] = useState(editData ? editData?.content : "");
+
   const [error, setError] = useState([]);
 
-  const { addGather } = useAddGather();
-
-  const handleCategory = useCallback((selectedCategory: string) => {
+  const handleCategoryChange = useCallback((selectedCategory: string) => {
     setCategory(selectedCategory);
   }, []);
 
-  const handleTitle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setTitle(value);
-  }, []);
-
-  const handleApplicant = useCallback(
+  const handleTitleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;
-      const onlyNumber = value.replace(/[^0-9]/g, "");
-      setApplicantCount(onlyNumber);
+      setTitle(value);
     },
     []
   );
 
-  const handleDeadline = useCallback((value: string) => {
+  const handleApplicantChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+
+      setApplicantCount(parseInt(value, 10));
+    },
+    []
+  );
+
+  const handleDeadlineChange = useCallback((value: Date) => {
     setDeadline(value);
   }, []);
 
-  const handleContent = useCallback((value: string) => {
+  const handleContentChange = useCallback((value: string) => {
     setContent(value);
   }, []);
 
@@ -60,8 +78,8 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
     onModalClose();
     setCategory("");
     setTitle("");
-    setApplicantCount("");
-    setDeadline("");
+    setApplicantCount(null);
+    setDeadline(null);
     setContent("");
     setError([]);
   };
@@ -69,7 +87,7 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
   const handleSubmit = () => {
     const value = {
       title,
-      applicantLimit: applicantCount ? parseInt(applicantCount, 10) : "",
+      applicantLimit: applicantCount,
       deadline: dayjs(deadline).format("YYYY-MM-DD"),
       content,
       category,
@@ -78,7 +96,9 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
     const isError = validate(value);
 
     if (isError.length === 0) {
-      addGather(value);
+      editData
+        ? submitForm({ ...value, gatherId: editData.gatherId })
+        : submitForm(value);
       closeAndValueInitialize();
       resetMarkDown();
     } else {
@@ -94,15 +114,16 @@ const GatherRegistorFormContainer = ({ onModalClose }: Props) => {
   return (
     <GatherRegisterForm
       values={{ category, title, applicantCount, deadline, content }}
-      onTitleChange={handleTitle}
-      onApplicantChange={handleApplicant}
-      onCategoryChange={handleCategory}
-      onDeadline={handleDeadline}
-      onContent={handleContent}
+      onTitleChange={handleTitleChange}
+      onApplicantChange={handleApplicantChange}
+      onCategoryChange={handleCategoryChange}
+      onDeadlineChange={handleDeadlineChange}
+      onContentChange={handleContentChange}
       onModalClose={handleModalClose}
       onSubmit={handleSubmit}
       error={error}
       editorRef={editorRef}
+      isEdit={!!editData}
     />
   );
 };
