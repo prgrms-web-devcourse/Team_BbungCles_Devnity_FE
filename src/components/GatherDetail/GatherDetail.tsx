@@ -3,7 +3,7 @@ import React from "react";
 import { useFormik } from "formik";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import * as Yup from "yup";
-import { BsCalendarDate, BsPerson, BsPeople } from "react-icons/bs";
+import { BsCalendarDate, BsPeople } from "react-icons/bs";
 import { Props } from "./types";
 import Text from "../base/Text";
 import ProfileBox from "../ProfileBox/ProfileBox";
@@ -189,18 +189,6 @@ const GatherDetail = ({
                   10
                 )} 까지`}
               </Text>
-            </RowContainer>
-
-            <RowContainer>
-              <TextWrapper>
-                <BsPerson size={18} />
-                <Text size={18} strong>
-                  모집 인원
-                </Text>
-              </TextWrapper>
-              <Text
-                color={theme.colors.fontColor}
-              >{`${applicantLimit}명`}</Text>
             </RowContainer>
 
             <RowContainer>
