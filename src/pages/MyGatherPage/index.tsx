@@ -1,14 +1,17 @@
-import { useResetRecoilState, useSetRecoilState } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import { sidebarVisibleState } from "../../atoms/sidebarVisible";
 import { topbarBgColorState } from "../../atoms/topbarBgColor";
 import MyGatherContainer from "../../components/MyGather/MyGatherContainer";
 
 const MyGatherPage = () => {
-  const setShowSidebar = useSetRecoilState(sidebarVisibleState);
+  const [isShowSidebar, setShowSidebar] = useRecoilState(sidebarVisibleState);
   const resetTopbarBgColor = useResetRecoilState(topbarBgColorState);
 
-  setShowSidebar(true);
-  resetTopbarBgColor();
+  useEffect(() => {
+    setShowSidebar(true);
+    resetTopbarBgColor();
+  }, [isShowSidebar, resetTopbarBgColor, setShowSidebar]);
 
   return <MyGatherContainer />;
 };

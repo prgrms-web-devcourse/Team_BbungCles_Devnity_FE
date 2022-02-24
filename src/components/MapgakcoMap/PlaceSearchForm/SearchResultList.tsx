@@ -1,8 +1,8 @@
-import { ResponsePlace } from "../../../types/place";
+import { PlaceModel } from "../../../types/place";
 
 interface Props {
-  results: ResponsePlace[];
-  onClick: (place: ResponsePlace) => () => void;
+  results: PlaceModel[];
+  onClick: (place: PlaceModel) => () => void;
 }
 
 const SearchResultList = ({ results, onClick }: Props) => {

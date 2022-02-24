@@ -1,4 +1,4 @@
-export interface ResponsePlace {
+export interface PlaceModel {
   id: string;
   place_name: string;
   category_name: string;

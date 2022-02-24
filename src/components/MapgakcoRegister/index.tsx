@@ -23,6 +23,7 @@ import useDayjs from "../../hooks/useDayjs";
 
 interface IProps {
   markerPosition: Position;
+  placename: string;
   onClose: () => void;
 }
 
@@ -34,7 +35,7 @@ interface FormValues {
   content: string;
 }
 
-const MapgakcoRegister = ({ markerPosition, onClose }: IProps) => {
+const MapgakcoRegister = ({ markerPosition, placename, onClose }: IProps) => {
   const [editorRef, resetMarkDown] = useToastUi();
 
   const [toast] = useCustomToast();
@@ -173,6 +174,13 @@ const MapgakcoRegister = ({ markerPosition, onClose }: IProps) => {
           {touched.title && !!errors.title && (
             <ErrorMessage>{errors.title}</ErrorMessage>
           )}
+        </InputContainer>
+
+        <InputContainer>
+          <label htmlFor="location">
+            <Text strong>장소</Text>
+          </label>
+          <Input type="text" name="location" value={placename} disabled />
         </InputContainer>
 
         <InputContainer>

@@ -25,6 +25,10 @@ import {
   Slider,
   SliderContainer,
 } from "./styles";
+import { PlaceModel } from "../../types/place";
+import useCoord2Address from "../../hooks/useCoord2Address";
+import { toCoordFromPosition } from "../../utils/map/coord";
+import { Coord2AddressModel } from "../../types/coord2Address";
 
 interface Props {
   initialCenter: Position;
@@ -73,6 +77,8 @@ const MapgakcoMap = ({
   const memoCenter = useRef(initialCenter);
 
   const [userClickPosition, click, initializeClick] = useMapClick();
+  const { data: coord2Addresses }: { data: Coord2AddressModel[] } =
+    useCoord2Address(toCoordFromPosition(userClickPosition));
 
   const [isUsersVisible, toggleVisibleUsers] = useToggle(false);
   const [isMapgakcosVisible, toggleVisibleMapgakcos] = useToggle(true);
@@ -91,18 +97,22 @@ const MapgakcoMap = ({
   const [isDetailPanelOpen, setDetailPanelOpen] = useState<boolean>(false);
   const [isMarkerSelected, setIsMarkerSelected] = useState<boolean>(false);
   const [selectedMapgakco, setSelectedMapgakco] = useState(null);
+  const [selectedPlace, setSelectedPlace] = useState<PlaceModel | null>(null);
+  const [placename, setPlacename] = useState<string>("");
 
   const handleKeywordSubmit = useCallback(
-    (place) => {
+    (place: PlaceModel) => {
       setTargetPlace((prev) => ({
         ...prev,
         ...place,
       }));
 
       setCenter({
-        lat: place.y,
-        lng: place.x,
+        lat: +place.y,
+        lng: +place.x,
       });
+
+      setSelectedPlace(place);
 
       initializeClick();
     },
@@ -199,6 +209,28 @@ const MapgakcoMap = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const coord2Address = coord2Addresses?.[0];
+
+    const addressName = coord2Address?.road_address
+      ? coord2Address?.road_address?.address_name
+      : coord2Address?.address
+      ? coord2Address?.address?.address_name
+      : "검색되지 않는 지번 주소입니다.";
+
+    const newPlacename =
+      userClickPosition.lat === null && userClickPosition.lng === null
+        ? selectedPlace?.road_address_name
+        : addressName;
+
+    setPlacename(newPlacename || "");
+  }, [
+    coord2Addresses,
+    userClickPosition.lat,
+    userClickPosition.lng,
+    selectedPlace,
+  ]);
+
   return (
     <Container>
       <MapFloatControlWrapper
@@ -213,6 +245,9 @@ const MapgakcoMap = ({
           onMyPositionClick={handleMyPositionClick}
           onKeywordSearchSubmit={handleKeywordSubmit}
           onRegisterClick={handleRegisterClick}
+          isUserClicked={
+            userClickPosition.lat !== null && userClickPosition.lng !== null
+          }
         />
       </MapFloatControlWrapper>
       <Modal visible={isRegisterModalOpen} width="60%">
@@ -222,6 +257,7 @@ const MapgakcoMap = ({
             targetPlace,
             initialCenter
           )}
+          placename={placename}
           onClose={handleRegisterModalClose}
         />
       </Modal>
