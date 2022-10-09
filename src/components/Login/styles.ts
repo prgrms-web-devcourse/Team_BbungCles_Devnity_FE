@@ -17,7 +17,6 @@ export const Container = styled.div`
 export const LoginFormContainer = styled.div`
   display: flex;
   width: 400px;
-  height: 50vh;
   box-shadow: 0 8px 32px 0 ${({ theme }) => `${theme.colors?.gray600}`};
   border-radius: 10px;
   overflow-y: auto;
@@ -67,6 +66,10 @@ export const Button = styled.button`
   color: ${({ theme }) => theme.colors?.gray800};
   // TODO : box-shadow 부분을 theme으로 빼도 좋을 것 같음
   box-shadow: 0 2px 5px 1px ${({ theme }) => `${theme.colors?.gray800}25`};
+`;
+
+export const GuestButton = styled(Button)`
+  background-color: ${({ theme }) => theme.colors.gray400};
 `;
 
 export const HiddenLabel = styled.label`

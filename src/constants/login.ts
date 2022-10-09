@@ -10,6 +10,7 @@ export default {
     EMAIL: "이메일",
     PASSWORD: "비밀번호",
     LOGIN: "로그인",
+    GUEST: "게스트로 입장",
   },
 
   localStorageKey: {

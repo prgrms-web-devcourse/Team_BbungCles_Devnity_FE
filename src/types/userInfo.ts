@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { CourseKeyType, MbtiKeyType, RoleKeyType } from "../constants";
 
 interface User {
@@ -30,4 +31,50 @@ interface Introduction {
 export interface UserInfo {
   user: User;
   introduction: Introduction;
+}
+
+export class GuestUser implements User {
+  userId = "GUEST";
+
+  email = "GUEST";
+
+  name = "GUEST";
+
+  course = "FE" as CourseKeyType;
+
+  role = "MANAGER" as RoleKeyType;
+
+  generation = 0;
+
+  createdAt = new Date();
+
+  updatedAt = new Date();
+}
+
+export class GuestIntroduction implements Introduction {
+  introductionId = "GUEST";
+
+  profileImgUrl = "";
+
+  mbti = "ISTJ" as MbtiKeyType;
+
+  blogUrl = "";
+
+  githubUrl = "";
+
+  summary = "";
+
+  latitude = 0;
+
+  longitude = 0;
+
+  createdAt = new Date();
+
+  updatedAt = new Date();
+
+  likeCount = 0;
+
+  isLike = false;
+
+  commentCount = 0;
 }

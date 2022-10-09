@@ -1,6 +1,7 @@
 import { ChangeEvent, useCallback, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { FormikProps, useFormik } from "formik";
+import { useRecoilValue } from "recoil";
 import { requestGetMyProfile } from "../../utils/apis";
 import MyProfile from "./MyProfile";
 import { FormValues, QueryData, QueryError } from "./types";
@@ -13,6 +14,7 @@ import {
 import { initialValues } from "./formik";
 import useToastUi from "../../hooks/useToastUi";
 import useCustomToast from "../../hooks/useCustomToast";
+import { authState } from "../../atoms/auth";
 
 const MyProfileContainer = () => {
   const [toast] = useCustomToast();
@@ -20,6 +22,8 @@ const MyProfileContainer = () => {
   const [editorRef] = useToastUi();
 
   const queryClient = useQueryClient();
+
+  const auth = useRecoilValue(authState);
 
   const [mapCenterPosition, setMapCenterPosition] = useState<Position | null>(
     null
@@ -44,36 +48,36 @@ const MyProfileContainer = () => {
     },
   });
 
-  useQuery<unknown, QueryError, QueryData, string>(
-    "myProfile",
-    () => requestGetMyProfile(),
-    {
-      onSuccess: ({ data }) => {
-        if (data?.statusCode === errorCode.OK) {
-          formik.setValues({ ...data.data.user, ...data.data.introduction });
-          setUserClickPosition({
-            lat: data.data.introduction.latitude,
-            lng: data.data.introduction.longitude,
-          });
-
-          editorRef.current
-            ?.getInstance()
-            .setMarkdown(data.data.introduction.description);
-
-          if (
-            data.data.introduction.latitude &&
-            data.data.introduction.longitude
-          ) {
-            setMapCenterPosition({
+  if (auth !== "GUEST") {
+    useQuery<unknown, QueryError, QueryData, string>(
+      "myProfile",
+      () => requestGetMyProfile(),
+      {
+        onSuccess: ({ data }) => {
+          if (data?.statusCode === errorCode.OK) {
+            formik.setValues({ ...data.data.user, ...data.data.introduction });
+            setUserClickPosition({
               lat: data.data.introduction.latitude,
               lng: data.data.introduction.longitude,
             });
+            editorRef.current
+              ?.getInstance()
+              .setMarkdown(data.data.introduction.description);
+            if (
+              data.data.introduction.latitude &&
+              data.data.introduction.longitude
+            ) {
+              setMapCenterPosition({
+                lat: data.data.introduction.latitude,
+                lng: data.data.introduction.longitude,
+              });
+            }
           }
-        }
-      },
-      retry: false,
-    }
-  );
+        },
+        retry: false,
+      }
+    );
+  }
 
   // 프로필 이미지 수정 API
   const profileImageMutation = useMutation<

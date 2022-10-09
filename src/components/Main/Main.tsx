@@ -80,12 +80,12 @@ const Main = ({ userSuggestions, gatherSuggestions }: Props) => {
             </TextInnerContainerMedium>
           </TextOuterContainer>
           <SubContents>
-            <MapgakcoWrapper filter={filter}>
+            {/* <MapgakcoWrapper filter={filter}>
               <MapgakcoSummaryContainer />
             </MapgakcoWrapper>
             <GatherListWrapper filter={filter}>
               <GatherList gatherData={gatherSuggestions} />
-            </GatherListWrapper>
+            </GatherListWrapper> */}
           </SubContents>
         </MapgakcoAndGatherListContainer>
       </Contents>

@@ -25,7 +25,11 @@ const PrivateRoute = ({
     <Route
       {...rest}
       render={(props) =>
-        auth ? <Component {...props} /> : <Redirect to={fallbackPath} />
+        auth || auth === "GUEST" ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={fallbackPath} />
+        )
       }
     />
   );

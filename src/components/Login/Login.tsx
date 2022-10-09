@@ -9,15 +9,17 @@ import {
   FormContainer,
   Button,
   HiddenLabel,
+  GuestButton,
 } from "./styles";
 import { Input } from "../base/Input";
 import { FormValues } from "./types";
 
 interface IProps {
   formik: FormikProps<FormValues>;
+  onGuestLogin: () => void;
 }
 
-const Login = ({ formik }: IProps) => {
+const Login = ({ formik, onGuestLogin }: IProps) => {
   const errorCondition = useMemo(
     () => ({
       email: formik.touched.email && !!formik.errors.email,
@@ -69,6 +71,8 @@ const Login = ({ formik }: IProps) => {
 
             <Button type="submit">{login.text.LOGIN}</Button>
           </LoginForm>
+
+          <GuestButton onClick={onGuestLogin}>{login.text.GUEST}</GuestButton>
         </FormContainer>
       </LoginFormContainer>
     </Container>

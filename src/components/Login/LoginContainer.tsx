@@ -18,8 +18,14 @@ const LoginContainer = () => {
   const [toast] = useCustomToast();
 
   const setAuthState = useSetRecoilState(authState);
-
   const [, setToken] = useLocalStorage(login.localStorageKey.TOKEN, "");
+
+  const handleGuestLogin = () => {
+    setToken("GUEST");
+    setAuthState(() => "GUEST");
+    toast({ message: `게스트 사용자님 환영합니다 😁` });
+    history.push("/");
+  };
 
   const { mutate } = useMutation<MutationData, MutationError, unknown, unknown>(
     (values: FormValues) => requestLogin(values),
@@ -42,7 +48,7 @@ const LoginContainer = () => {
     },
   });
 
-  return <Login formik={formik} />;
+  return <Login formik={formik} onGuestLogin={handleGuestLogin} />;
 };
 
 export default LoginContainer;
